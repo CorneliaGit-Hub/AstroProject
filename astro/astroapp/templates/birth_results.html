@@ -1,0 +1,300 @@
+{% load custom_filters %}
+<!DOCTYPE html>
+<html lang="fr">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Résultats astrologiques</title>
+    <style>
+/* BODY */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .container {
+            max-width: 60%;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .container:hover {
+            transform: translateY(-10px);
+        }
+
+/* TABLE */
+.table-container {
+    margin-bottom: 20px; /* Espacement entre chaque table */
+}
+
+.table-wrapper-planetes {
+    width: 35%; /* Largeur de la table des planètes */
+    margin: 0 auto; /* Centre la div et la table */
+}
+
+.table-wrapper-maisons {
+    width: 35%; /* Largeur de la table des maisons */
+    margin: 0 auto; /* Centre la div et la table */
+}
+
+.table-wrapper-aspects {
+    width: 25%; /* Largeur de la table des aspects */
+    margin: 0 auto; /* Centre la div et la table */
+}
+
+table {
+    width: 100%; /* La table occupe toute la largeur de la div */
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
+}
+
+td {
+    text-align: left;
+}
+
+th {
+    background-color: #6A3D90;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* BOUTON */
+.div-bouton {
+	width:60%;
+	margin: 0 auto;
+}
+
+button {
+    background-color: #6A3D90;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    display: block;
+    width: 100%;
+    margin-top: 20px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+    background-color: #A9CE02;
+    transform: scale(1.05);
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+.long {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 400px;
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #6A3D90;
+    background-color: #f3f1fc;
+    border-radius: 5px;
+}
+
+.long div {
+    font-weight: bold;
+    color: #333;
+    font-size: 1.1em;
+}
+
+.long div strong {
+    color: #6A3D90;
+}
+    </style>
+</head>
+<body>
+
+<div class="container">
+    {% include 'wheeldisplay.html' %}
+</div>
+
+<br>
+
+    <div class="container">
+        <h2>Résultats astrologiques pour {{ name }}</h2>
+
+<p><strong>L'année :</strong> {{ local_year_str }}</p>
+
+<p><strong>Heure locale :</strong> {{ local_time_str }}</p>
+<p><strong>Heure UTC :</strong> {{ utc_time_str }}</p>
+
+<br>
+
+    <h3>Coordonnées géographiques :</h3>
+    
+<div class="long">
+    <div>
+    <strong>Latitude :</strong><br>
+    {{ location.latitude|floatformat:6 }}°
+    </div>
+    
+    <div>
+    <strong>Longitude :</strong><br>
+    {{ location.longitude|floatformat:6 }}°
+    </div>
+</div>
+
+<!-- Deuxième présentation : Avec N/S et E/O -->
+<p><strong>Coordonnées géographiques avec directions :</strong></p>
+<div class="long">
+    <div>
+    <strong>Latitude :</strong><br>
+    {{ latitude_dms }}
+    </div>
+    <div>
+    <strong>Longitude :</strong><br>
+    {{ longitude_dms }}
+    </div>
+</div>
+
+</div>
+
+<br><br>
+
+<!-- PLANETES -->
+<div class="table-container planets">
+<div class="table-wrapper-planetes">
+<h3>Positions des planètes :</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Planète</th>
+                    <th>Degré du signe</th>
+                    <th>Signe</th>
+                    <th>Degré total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if results %}
+                    {% for planet, info in results.items %}
+                    <tr>
+                        <td>{{ planet }}</td>
+                        <td>{{ info.sign_degree|floatformat:2 }}°</td>
+                        <td>{{ info.sign }}</td>
+                        <td>{{ info.degree|floatformat:2 }}°</td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="4">Aucune donnée disponible.</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+</div>
+</div>
+<!-- / PLANETES -->
+<br><br>
+
+<!-- MAISONS -->
+<div class="table-container houses">
+<div class="table-wrapper-maisons">
+        <h3>Maisons astrologiques :</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Maison</th>
+                    <th>Degré du signe</th>
+                    <th>Signe</th>
+                    <th>Degré total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if houses %}
+                    {% for house, info in houses.items %}
+                    <tr>
+                        <td>{{ house }}</td>
+                        <td>{{ info.sign_degree|degrees_minutes }}</td>
+                        <td>{{ info.sign }}</td>
+                        <td>{{ info.degree_dms }}</td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="4">Aucune donnée disponible.</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+</div>
+</div>
+<!-- / MAISONS -->
+<br><br>
+
+
+<!-- ASPECTS -->
+<div class="table-container aspects">
+<div class="table-wrapper-aspects">
+        <h3>Aspects planétaires :</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Aspect</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if aspects %}
+                    {% for aspect in aspects %}
+                    <tr>
+                        <td>{{ aspect }}</td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td>Aucun aspect disponible.</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+</div>
+</div>
+<!-- / ASPECTS -->
+<br><br>
+
+
+<!-- BOUTON -->
+<div class="div-bouton">
+        <form method="get" action="{% url 'birth_data' %}">
+            <input type="hidden" name="reset" value="true">
+            <button type="submit">Revenir au formulaire</button>
+        </form>
+</div>
+<!-- / BOUTON -->
+
+    </div>
+
+</body>
+</html>
+
+

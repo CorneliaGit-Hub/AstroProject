@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Positions Planétaires</title>
+</head>
+<body>
+    <h2>Positions Planétaires le {{ selected_date }}</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Planète</th>
+                <th>Degré du Signe</th>
+                <th>Signe</th>
+                <th>Degré Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if results %}
+                {% for planet, info in results.items %}
+                <tr>
+                    <td>{{ planet }}</td>
+                    <td>{{ info.sign_degree|floatformat:2 }}°</td>
+                    <td>{{ info.sign }}</td>
+                    <td>{{ info.degree|floatformat:2 }}°</td>
+                </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="4">Aucune donnée disponible.</td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+
+    <a href="{% url 'birth_data' %}">Revenir au formulaire</a>
+</body>
+</html>

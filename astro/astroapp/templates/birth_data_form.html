@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire de données de naissance</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+
+<style>
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f9f9f9;
+}
+
+h2 {
+    text-align: center;
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+form {
+    max-width: 500px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #333;
+}
+
+input[type="text"],
+input[type="date"],
+input[type="time"],
+input[type="datetime-local"],
+input[type="text"]::placeholder {
+    color: #aaa; /* Placeholder text color */
+    font-style: italic;
+}
+
+input[type="text"],
+input[type="date"],
+input[type="time"],
+input[type="datetime-local"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+    background-color: #f9f9f9; /* Uniform grey background */
+    appearance: none; /* Removes native styling */
+}
+
+input:focus {
+    border-color: #6A3D90;
+    outline: none;
+    box-shadow: 0 0 8px rgba(106, 61, 144, 0.3);
+}
+
+button {
+    background-color: #6A3D90;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #A9CE02;
+}
+
+</style>
+
+</head>
+<body>
+
+<h2>Formulaire de données de naissance</h2>
+
+<form method="post" action="{% url 'birth_data' %}">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="name">Nom:</label>
+        <input type="text" id="name" placeholder="Nom" name="name" required>
+    </div>
+    <div class="form-group">
+        <label for="date_of_birth">Date de naissance:</label>
+        <input type="date" id="date_of_birth" name="date_of_birth" required>
+    </div>
+    <div class="form-group">
+        <label for="time_of_birth">Heure de naissance:</label>
+        <input type="time" id="time_of_birth" name="time_of_birth" required>
+    </div>
+    <div class="form-group">
+        <label for="country_of_birth">Pays de naissance:</label>
+        <input type="text" id="country_of_birth" placeholder="Pays de naissance" name="country_of_birth" required>
+    </div>
+    <div class="form-group">
+        <label for="city_of_birth">Ville de naissance:</label>
+        <input type="text" id="city_of_birth" placeholder="Ville de naissance" name="city_of_birth" required>
+    </div>
+    <button type="submit">Envoyer</button>
+</form>
+
+<script>
+    // Flatpickr pour le champ de date
+    flatpickr("#date_of_birth", {
+        dateFormat: "Y-m-d",  // Garder le format actuel qui s'adapte à l'utilisateur
+        allowInput: true,     // Permettre la saisie manuelle
+        enableTime: false,    // Désactiver le choix de l'heure
+        defaultDate: "today",  // Date par défaut à aujourd'hui
+        altInput: true,       // Garde l'affichage avec le format natif
+        altFormat: "d/m/Y",   // Afficher le format de manière conviviale (optionnel)
+        yearSelector: true,   // Activer la sélection de l'année dans le calendrier
+        monthSelectorType: 'static',  // Activer la sélection du mois dans le calendrier
+        minDate: "1900-01-01",  // Option : Placer une date minimale (facultatif)
+        maxDate: "2100-12-31"   // Option : Placer une date maximale (facultatif)
+    });
+</script>
+
+</body>
+</html>

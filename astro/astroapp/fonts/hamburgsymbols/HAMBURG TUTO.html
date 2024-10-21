@@ -1,0 +1,387 @@
+<meta charset="utf-8" />
+
+<style>
+/* CENTRER le contenu vertical */
+body {
+    display: flex;
+    flex-direction: column; /* Alignement vertical */
+    justify-content: flex-start;
+    align-items: center;
+    margin: 0;
+    background-color: #f9f9f9;
+    font-family: Verdana, Geneva, sans-serif;
+}
+
+/* TITRES */
+h1 {
+    font-size: 4vw; /* Utilisation des unités vw pour la réactivité */
+    color: #6a3d90;
+    margin-bottom: 3vw;
+    text-align: center;
+}
+
+h2 {
+    font-size: 3vw; /* Réduction relative de la taille */
+}
+
+/* CONTAINER */
+.table-container {
+    max-width: 90%;
+    margin: 0 auto;
+    padding: 2vw;
+    background-color: #fff;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+/* TABLE EN FLEX */
+.table-grid {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(30px, 1fr)); /* 12 colonnes fixes mais ajustables */
+
+    gap: 1vw;
+    text-align: center;
+    margin: 1.5vw auto;
+}
+
+.table-grid-planetes {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    gap: 1vw;
+    text-align: center;
+    margin: 1.5vw auto;
+}
+
+.table-grid-aspects {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    gap: 1vw;
+    text-align: center;
+    margin: 1.5vw auto;
+}
+
+.table-grid-others {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 1vw;
+    text-align: center;
+    margin: 1.5vw auto;
+}
+
+/* ANIMATIONS */
+.noms {
+    font-weight: bold;
+    background-color: transparent;
+    padding: 0.5vw;
+    font-size: 0.9vw;
+    color: #6a3d90;
+    border-bottom: 0.2vw solid #6a3d90;
+    border-radius: 8px;
+    transition: transform 0.3s, box-shadow 0.3s, border-radius 0.3s;
+}
+
+.noms:hover {
+    transform: translateY(-0.5vw);
+    box-shadow: 0px 4px 8px rgba(106, 61, 144, 0.2);
+    border-radius: 15px;
+}
+
+.symbol {
+    font-family: 'HamburgSymbols';
+    font-size: 4.0vw;
+    transition: transform 0.3s, box-shadow 0.3s, border-radius 0.3s;
+}
+
+.symbol:hover {
+    transform: scale(1.1);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 15px;
+}
+
+/* ANIMATION TABLES */
+.cell {
+    padding: 1.2vw;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    transition: background-color 0.3s, transform 0.3s, border-radius 0.3s;
+}
+
+.cell:hover {
+    background-color: #e0e0e0;
+    transform: scale(1.05);
+    border-radius: 15px;
+}
+
+/* COULEURS des ELEMENTS */
+.fire {
+    color: #f9074c;
+}
+
+.earth {
+    color: #c59626;
+}
+
+.air {
+    color: #1a8fe9;
+}
+
+.eau {
+    color: #62ce02;
+}
+
+/* COULEURS des PLANETES */ 
+.sun {
+	color:#ffa801;
+}
+.moon {
+	color:#ffa801;
+}
+.mercury {
+	color:#a9ce02;
+}
+.venus {
+	color:#bb55a1;
+}
+.mars {
+	color:#f9074c;
+}
+.jupiter {
+	color:#07b3f2;
+}
+.saturn {
+	color:#6a3d90;
+}
+.uranus {
+	color:#9B207B;
+}
+.neptune {
+	color:#07b3f2;
+}
+.pluto {
+	color:#3b2b7b;
+} 
+
+/* COULEURS des ASPECTS */ 
+.conjonction {
+	color:#000;
+} 
+.semi-sextile {
+	color:#80FD0F;
+} 
+.semi-square {
+	color:#FFA801;
+} 
+.sextile {
+	color:#62ce02;
+} 
+.square {
+	color:#F9074C;
+} 
+.trine {
+	color:#62ce02;
+} 
+.sesqui-square {
+	color:#FA6A0A;
+} 
+.quincunx {
+	color:#BB55A1;
+} 
+.opposition {
+	color:#F9074C;
+} 
+
+/* COULEURS des autRes */ 
+.noeuds {
+	color:#FA6A0A;
+} 
+</style>
+
+
+<div class="t-center">
+    <h1>Police de caractères HamburgSymbols</h1>
+    
+
+<!-- SIGNES -->
+<div class="table-container" style="margin-bottom: 40px;">
+    <h2>Signes</h2>
+    <div class="table-grid">
+        <!-- Noms des signes -->
+        <div class="noms">Bélier</div>
+        <div class="noms">Taureau</div>
+        <div class="noms">Gémeaux</div>
+        <div class="noms">Cancer</div>
+        <div class="noms">Lion</div>
+        <div class="noms">Vierge</div>
+        <div class="noms">Balance</div>
+        <div class="noms">Scorpion</div>
+        <div class="noms">Sagittaire</div>
+        <div class="noms">Capricorne</div>
+        <div class="noms">Verseau</div>
+        <div class="noms">Poissons</div>
+
+        <!-- Symboles des signes avec couleurs -->
+        <div class="symbol fire">a</div>
+        <div class="symbol earth">s</div>
+        <div class="symbol air">d</div>
+        <div class="symbol eau">f</div>
+        <div class="symbol fire">g</div>
+        <div class="symbol earth">h</div>
+        <div class="symbol air">j</div>
+        <div class="symbol eau">k</div>
+        <div class="symbol fire">l</div>
+        <div class="symbol earth">v</div>
+        <div class="symbol air">x</div>
+        <div class="symbol eau">c</div>
+
+        <!-- Caractères de la police HamburgSymbols -->
+        <div class="cell">a</div>
+        <div class="cell">s</div>
+        <div class="cell">d</div>
+        <div class="cell">f</div>
+        <div class="cell">g</div>
+        <div class="cell">h</div>
+        <div class="cell">j</div>
+        <div class="cell">k</div>
+        <div class="cell">l</div>
+        <div class="cell">v</div>
+        <div class="cell">x</div>
+        <div class="cell">c</div>
+    </div>
+</div>
+<!-- / SIGNES -->
+
+
+
+
+
+<!-- PLANÈTES -->
+<div class="table-container" style="margin-bottom: 40px;">
+    <h2>Planètes</h2>
+    <div class="table-grid-planetes">
+        <!-- Noms des planètes -->
+        <div class="noms">Soleil</div>
+        <div class="noms">Lune</div>
+        <div class="noms">Mercure</div>
+        <div class="noms">Vénus</div>
+        <div class="noms">Mars</div>
+        <div class="noms">Jupiter</div>
+        <div class="noms">Saturne</div>
+        <div class="noms">Uranus</div>
+        <div class="noms">Neptune</div>
+        <div class="noms">Pluton</div>
+
+        <!-- Symboles des planètes avec couleurs -->
+        <div class="symbol sun">Q</div>
+        <div class="symbol moon">W</div>
+        <div class="symbol mercury">E</div>
+        <div class="symbol venus">R</div>
+        <div class="symbol mars">T</div>
+        <div class="symbol jupiter">Y</div>
+        <div class="symbol saturn">U</div>
+        <div class="symbol uranus">I</div>
+        <div class="symbol neptune">O</div>
+        <div class="symbol pluto">P</div>
+
+        <!-- Caractères de la police HamburgSymbols -->
+        <div class="cell">Q</div>
+        <div class="cell">W</div>
+        <div class="cell">E</div>
+        <div class="cell">R</div>
+        <div class="cell">T</div>
+        <div class="cell">Y</div>
+        <div class="cell">U</div>
+        <div class="cell">I</div>
+        <div class="cell">O</div>
+        <div class="cell">P</div>
+    </div>
+</div>
+<!-- / PLANÈTES -->
+
+
+
+
+
+<!-- ASPECTS -->
+<div class="table-container" style="margin-bottom: 40px;">
+    <h2>Aspects</h2>
+    <div class="table-grid-aspects">
+        <!-- Noms des aspects -->
+        <div class="noms">Conjonction</div>
+        <div class="noms">Conjonction</div> 
+        <div class="noms">Semi-sextile</div>
+        <div class="noms">Semi-carré</div>
+        <div class="noms">Sextile</div>
+        <div class="noms">Carré</div>        
+        <div class="noms">Trigone</div>    
+        <div class="noms">Sesqui-carré </div>
+        <div class="noms">Quinconce</div>
+        <div class="noms">Opposition</div>
+
+        <!-- Symboles des aspects -->
+        <div class="symbol conjonction">q</div>
+        <div class="symbol conjonction">p</div> 
+        <div class="symbol semi-sextile">i</div>
+        <div class="symbol semi-square">y</div>
+        <div class="symbol sextile">t</div>
+        <div class="symbol square">r</div> 
+        <div class="symbol trine">e</div>          
+        <div class="symbol sesqui-square">u</div>
+        <div class="symbol quincunx">o</div>
+        <div class="symbol opposition">w</div>
+
+        <!-- Caractères de la police HamburgSymbols -->
+        <div class="cell">q</div>
+        <div class="cell">p</div> 
+        <div class="cell">i</div>
+        <div class="cell">y</div> 
+        <div class="cell">t</div>
+        <div class="cell">r</div> 
+        <div class="cell">e</div>  
+        <div class="cell">u</div>
+        <div class="cell">o</div>
+        <div class="cell">w</div>
+
+    </div>
+</div>
+<!-- / ASPECTS -->
+
+
+
+
+<!-- AUTRES POINTS PARTICULIERS -->
+<div class="table-container" style="margin-bottom: 40px;">
+    <h2>Autres points particuliers</h2>
+    <div class="table-grid-others">
+        <!-- Noms des autres points particuliers -->
+        <div class="noms">Nœud Nord</div>
+        <div class="noms">Nœud Sud</div>
+        <div class="noms"> </div>
+        <div class="noms"> </div>
+        <div class="noms">Lune noire</div>
+        <div class="noms">Lune noire</div>
+        <div class="noms">Part de Fortune</div>
+
+
+        <!-- Symboles des autres points particuliers -->
+        <div class="symbol noeuds">‹</div>
+        <div class="symbol noeuds">Œ</div>
+        <div class="symbol">{</div>
+        <div class="symbol">}</div>
+        <div class="symbol">`</div>
+        <div class="symbol">~</div>
+        <div class="symbol">‰</div>
+
+        <!-- Caractères de la police HamburgSymbols -->
+        <div class="cell">‹</div>
+        <div class="cell">Œ</div>
+        <div class="cell">{</div>
+        <div class="cell">}</div>
+        <div class="cell">`</div>
+        <div class="cell">~</div>
+        <div class="cell">‰</div>
+    </div>
+</div>
+<!-- / AUTRES POINTS PARTICULIERS -->
+
+    
+</div>
