@@ -5,6 +5,14 @@ from datetime import datetime
 from django.shortcuts import render
 import swisseph as swe
 from zoneinfo import ZoneInfo
+from django.http import HttpResponse
+from django.conf import settings
+import os
+
+def zodiac_wheel(request):
+    image_path = os.path.join(settings.BASE_DIR, 'static', 'images', 'zodiac_wheel.png')
+    with open(image_path, 'rb') as f:
+        return HttpResponse(f.read(), content_type="image/png")
 
 # 1- Fonction pour obtenir le signe astrologique à partir d'un degré
 def get_zodiac_sign(degree):
