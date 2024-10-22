@@ -230,22 +230,6 @@ def planetary_position(request):
         'houses': house_results,
     })
 
-# 8- Vue pour afficher la roue astrologique
-def wheel_view(request):
-    # Calcul de la date actuelle en Julian Day
-    jd = swe.julday(datetime.now().year, datetime.now().month, datetime.now().day)
-
-    # Obtenir les positions des planètes
-    _, planet_positions = calculate_planet_positions(jd)
-
-    # Générer l'image de la roue avec les positions planétaires
-    from .zodiacwheel import generate_wheel_image
-    roue_zodiaque_url = generate_wheel_image(planet_positions)  # Passer l'argument ici
-
-    return render(request, 'zodiac_wheel.html', {
-        'roue_zodiaque_url': roue_zodiaque_url
-    })
-
 
 # 9- Fonction pour convertir les coordonnées en DMS
 def decimal_to_dms(coordinate, is_latitude=True):
