@@ -4,7 +4,7 @@
         text-align: center;
         margin: 0 auto;
         padding: 20px;
-        width: 65%; /* Réduit la largeur pour agrandir la colonne de gauche */
+        width: 65%; /* Largeur initiale pour les écrans plus larges */
     }
 
     img {
@@ -25,7 +25,7 @@
 
     /* Colonne de gauche (agrandie) */
     .left-column {
-        width: 30%; /* Augmentation de la largeur */
+        width: 30%;
         padding: 20px;
         border: 2px solid #6A3D90;
         border-radius: 8px;
@@ -83,7 +83,46 @@
     .left-column button.save-btn:hover {
         background-color: #5a2e7c;
     }
+
+    /* MEDIA QUERIES */
+
+    /* Sur les écrans plus petits (moins de 768px), on passe les colonnes en flex-column pour qu'elles soient empilées */
+    @media (max-width: 768px) {
+        .main-container {
+            flex-direction: column;
+            align-items: center; /* Centre les éléments */
+        }
+
+        .left-column {
+            width: 80%; /* Plus grande largeur pour la colonne à gauche sur petits écrans */
+            margin-bottom: 20px; /* Ajoute un espacement entre les deux sections */
+        }
+
+        .wheel-container {
+            width: 80%; /* Réduit également la largeur de la roue */
+        }
+    }
+
+    /* Sur les très petits écrans (moins de 480px), on adapte encore plus les tailles */
+    @media (max-width: 480px) {
+        .left-column h3 {
+            font-size: 16px;
+        }
+
+        .left-column input {
+            font-size: 12px;
+        }
+
+        .left-column button {
+            font-size: 14px;
+        }
+
+        .wheel-container {
+            width: 100%; /* La roue occupe toute la largeur */
+        }
+    }
 </style>
+
 
 <!-- Conteneur principal avec la colonne à gauche et la roue astrologique -->
 <div class="main-container">
