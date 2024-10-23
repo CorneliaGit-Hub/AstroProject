@@ -1,3 +1,4 @@
+{% load static %}  
 <style>
     /* Styles pour la roue */
     .wheel-container {
@@ -154,6 +155,6 @@
     <!-- Section pour la roue astrologique -->
     <div class="wheel-container">
         <h2>Roue astrologique</h2>
-        l'image de la roue ici
+        <img src="{% static 'images/zodiac_wheel.png' %}" alt="Roue astrologique">
     </div>
 </div>
