@@ -1,15 +1,25 @@
 import matplotlib.pyplot as plt
-import os
+import numpy as np
 
-def create_circle_image():
-    image_path = '/mnt/e/CALENDAR/astro/astroapp/static/images/zodiac_wheel.png'
-    fig, ax = plt.subplots()
-    circle = plt.Circle((0.5, 0.5), 0.4, color='blue', fill=True)
-    ax.add_artist(circle)
-    ax.set_aspect('equal', adjustable='datalim')
-    plt.axis('off')
-    plt.savefig(image_path, format='png', dpi=300)
-    plt.close()
+# Création de la figure et des axes
+fig, ax = plt.subplots()
 
-if __name__ == "__main__":
-    create_circle_image()
+# Crée un cercle centré
+circle = plt.Circle((0.5, 0.5), 0.4, color='black', fill=False)
+
+# Ajoute le cercle aux axes
+ax.add_artist(circle)
+
+# Définit les limites des axes
+ax.set_xlim(0, 1)
+ax.set_ylim(0, 1)
+
+# Enlève les graduations des axes
+ax.set_xticks([])
+ax.set_yticks([])
+
+# Enregistre l'image en tant que fichier PNG dans le dossier "static/images"
+plt.savefig("static/images/zodiac_wheel.png")
+
+# Affiche le dessin
+plt.show()
