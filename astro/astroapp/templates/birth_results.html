@@ -1,6 +1,7 @@
 {% load custom_filters %}
 <!DOCTYPE html>
 <html lang="fr">
+{% load static %}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -133,6 +134,10 @@ button:active {
     </style>
 </head>
 <body>
+
+<div class="container">
+    {% include 'wheeldisplay.html' %}
+</div>
 
 
 
