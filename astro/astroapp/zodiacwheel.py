@@ -82,9 +82,8 @@ def draw_base_wheel(year, month, day, hour):
 
     # Calculer et ajouter les positions des planètes
     planet_positions = calculate_planet_positions(year, month, day, hour)
-    add_planet_positions(ax, planet_positions, prop)  # Passe 'prop' ici
+    add_planet_positions(ax, planet_positions, prop)
 
-# FIN
     # Enregistrer l'image
     plt.savefig(image_path)
     plt.close(fig)
@@ -95,6 +94,7 @@ def draw_base_wheel(year, month, day, hour):
     else:
         print("Erreur : L'image n'a pas été générée.")
 
+
 # Appeler la fonction pour tester avec une date
 if __name__ == "__main__":
-    draw_base_wheel(1966, 10, 28, 04.05)
+    draw_base_wheel(1966, 10, 28, 4.05)

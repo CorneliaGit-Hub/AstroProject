@@ -8,7 +8,15 @@ from zoneinfo import ZoneInfo
 from django.http import HttpResponse
 from django.conf import settings
 import os
+import time
+import matplotlib
+matplotlib.use('Agg')  # Utiliser le backend sans interface graphique pour Matplotlib
+import matplotlib.pyplot as plt  # Import une seule fois
+import numpy as np
+from matplotlib import font_manager
 
+
+# Fonction pour retourner l'image de la roue zodiacale
 def zodiac_wheel(request):
     image_path = os.path.join(settings.BASE_DIR, 'static', 'images', 'zodiac_wheel.png')
     with open(image_path, 'rb') as f:
@@ -85,8 +93,7 @@ def calculate_houses(jd, latitude, longitude):
     asc = ascmc[0]
     mc = ascmc[1]
 
-    print(f"ASC: {asc}, MC: {mc}")
-    print(house_results)  # Ajoute cette ligne pour afficher le contenu de house_results
+
 
     return house_results
 
@@ -136,6 +143,7 @@ def calculate_aspects(planet_positions):
 # 6- Vue principale pour traiter les données de naissance
 def birth_data(request):
     if request.method == 'POST':
+        print("Débogage : La vue 'birth_data' a été appelée.")  # Vérifier si la vue est exécutée
         # Récupération des données du formulaire
         name = request.POST['name']
         date_of_birth = request.POST['date_of_birth']
@@ -149,7 +157,7 @@ def birth_data(request):
 
         # Géolocalisation du lieu de naissance
         geolocator = Nominatim(user_agent="astroapp")
-        location = geolocator.geocode(f"{city_of_birth}, {country_of_birth}")
+        location = geolocator.geocode(f"{city_of_birth}, {country_of_birth}", timeout=10)
 
         if not location:
             return render(request, 'birth_data_form.html', {'error': 'Lieu de naissance introuvable.'})
@@ -174,6 +182,8 @@ def birth_data(request):
             birth_datetime_local, birth_datetime_utc = convert_to_timezone(birth_datetime, timezone_str)
         except Exception as e:
             return render(request, 'birth_data_form.html', {'error': f'Erreur de conversion : {e}'})
+            
+            
 
         # Calcul du jour julien (JD)
         jd = swe.julday(
@@ -186,6 +196,12 @@ def birth_data(request):
         # Calcul des positions des planètes et des maisons astrologiques
         results, planet_positions = calculate_planet_positions(jd)
         house_results = calculate_houses(jd, latitude, longitude)
+
+        print("Débogage : Calcul des positions des planètes terminé.")  # Vérifier si les calculs sont faits
+
+        # Appel de la fonction pour générer la roue astrologique
+        print("Débogage : Appel de la fonction 'generate_astrological_wheel'.")
+        generate_astrological_wheel(planet_positions, house_results)
 
         # Calcul des aspects planétaires
         aspects = calculate_aspects(planet_positions)
@@ -203,6 +219,7 @@ def birth_data(request):
             'latitude_dms': latitude_dms,
             'longitude_dms': longitude_dms,
         })
+
 
     # Si la méthode n'est pas POST, afficher le formulaire de saisie
     return render(request, 'birth_data_form.html')
@@ -250,4 +267,71 @@ def decimal_to_dms(coordinate, is_latitude=True):
     minutes = int((abs_coord - degrees) * 60)
     seconds = (abs_coord - degrees - minutes / 60) * 3600
     return f"{degrees}° {minutes}' {seconds:.2f}\" {direction}"
+    
+    
+# Définir le chemin pour l'image
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+image_path = os.path.join(BASE_DIR, 'astroapp/static/images/zodiac_wheel.png') 
+    
 
+# Génération de la roue astrologique avec les données calculées
+def generate_astrological_wheel(planet_positions, house_results):
+    # Chemin pour l'image
+    image_path = os.path.join(BASE_DIR, 'astroapp/static/images/zodiac_wheel.png') 
+
+    # Supprimer l'image précédente si elle existe
+    if os.path.exists(image_path):
+        os.remove(image_path)
+        print(f"Ancienne image supprimée : {image_path}")
+    else:
+        print(f"Aucune ancienne image à supprimer : {image_path}")
+
+    # Créer la figure et les axes pour la roue astrologique
+    fig, ax = plt.subplots(figsize=(8, 8))
+    ax.set_xlim(-1.5, 1.5)
+    ax.set_ylim(-1.5, 1.5)
+    ax.axis('off')
+
+    # Dessiner le cercle principal
+    circle = plt.Circle((0, 0), 1.2, edgecolor='black', facecolor='none', linewidth=2)
+    ax.add_patch(circle)
+
+    # Charger la police HamburgSymbols
+    font_path = os.path.join(settings.BASE_DIR, 'astroapp', 'fonts', 'hamburgsymbols', 'HamburgSymbols.ttf')
+    prop = font_manager.FontProperties(fname=font_path)
+
+    # Ajouter les symboles des signes du zodiaque
+    zodiac_symbols = ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'v', 'x', 'c']
+    for i, symbol in enumerate(zodiac_symbols):
+        angle = np.radians(30 * i + 15)
+        x = 1.1 * np.cos(angle)
+        y = 1.1 * np.sin(angle)
+        ax.text(x, y, symbol, fontproperties=prop, fontsize=24, ha='center', va='center')
+
+    # Ajouter les positions des planètes (en fonction de `planet_positions`)
+    planet_symbols = {
+        'Soleil': 'Q', 'Lune': 'W', 'Mercure': 'E', 'Vénus': 'R', 
+        'Mars': 'T', 'Jupiter': 'Y', 'Saturne': 'U', 'Uranus': 'I', 
+        'Neptune': 'O', 'Pluton': 'P'
+    }
+    
+    planet_colors = {
+        'Soleil': '#FFA801', 'Lune': '#FFA801', 'Mercure': '#A9CE02', 'Vénus': '#BB55A1',
+        'Mars': '#F9074C', 'Jupiter': '#07B3F2', 'Saturne': '#6A3D90', 
+        'Uranus': '#9B207B', 'Neptune': '#07B3F2', 'Pluton': '#3B2B7B'
+    }
+
+    for planet, degree in planet_positions:
+        angle = np.radians(degree)
+        x = 1.3 * np.cos(angle)
+        y = 1.3 * np.sin(angle)
+        symbol = planet_symbols.get(planet, "?")
+        ax.text(x, y, symbol, fontproperties=prop, fontsize=24, color=planet_colors[planet], ha='center', va='center')
+
+    # Sauvegarder l'image
+    try:
+        plt.savefig(image_path)
+        plt.close(fig)
+        print(f"L'image a été sauvegardée avec succès à : {image_path}")
+    except Exception as e:
+        print(f"Erreur lors de la génération de l'image : {e}")
