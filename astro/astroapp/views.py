@@ -453,6 +453,15 @@ def generate_astrological_wheel(planet_positions, house_results):
 
 
 
+        # Calcul des coordonnées pour tracer une ligne du centre à chaque planète
+        x_planet = 0.0  # Centre du cercle
+        y_planet = 0.0  # Centre du cercle
+        x_pos = 1.5 * np.cos(angle)  # Coordonnée x de la planète sur le bord extérieur
+        y_pos = 1.5 * np.sin(angle)  # Coordonnée y de la planète sur le bord extérieur
+
+        # Tracer une ligne du centre à la position de la planète
+        ax.plot([x_planet, x_pos], [y_planet, y_pos], color='black', lw=0.5, zorder=1)
+
     
 
     # Sauvegarder l'image
