@@ -14,8 +14,10 @@ matplotlib.use('Agg')  # Utiliser le backend sans interface graphique pour Matpl
 import matplotlib.pyplot as plt  # Import une seule fois
 import numpy as np
 from matplotlib import font_manager
+from matplotlib import patches  # Ajout du module patches pour dessiner les segments
 
 
+# ZODIAQUE
 # Fonction pour retourner l'image de la roue zodiacale
 def zodiac_wheel(request):
     image_path = os.path.join(settings.BASE_DIR, 'static', 'images', 'zodiac_wheel.png')
@@ -32,6 +34,7 @@ def get_zodiac_sign(degree):
     sign_degree = degree % 30
     return signs[sign_index], sign_degree
 
+# PLANETES DEF
 # 2- Fonction pour calculer les positions des planètes
 def calculate_planet_positions(jd):
     planets = {
@@ -62,16 +65,15 @@ def calculate_planet_positions(jd):
 
     return results, planet_positions
 
-# 3- Fonction pour calculer les maisons astrologiques
-# Fonction pour convertir les degrés en degrés, minutes et secondes
+# 2-Fonction pour convertir les degrés en degrés, minutes et secondes
 def convert_to_dms(degree):
     degrees = int(degree)
     minutes = int((degree - degrees) * 60)
     seconds = round(((degree - degrees) * 60 - minutes) * 60, 2)
     return degrees, minutes, seconds
 
+# MAISONS
 # 3- Fonction pour calculer les maisons astrologiques avec les degrés totaux et DMS
-# Remplacer le calcul des maisons dans views.py avec celui de zodiacwheel.py
 def calculate_houses(jd, latitude, longitude):
     # Utiliser les mêmes fonctions de calcul que dans zodiacwheel.py
     house_cuspids, ascmc = swe.houses(jd, latitude, longitude, b'P')
@@ -99,7 +101,7 @@ def calculate_houses(jd, latitude, longitude):
 
 
 
-
+# TIMEZONE
 # 4- Fonction pour convertir la date vers le fuseau horaire approprié
 def convert_to_timezone(birth_datetime, timezone_str):
     tz = ZoneInfo(timezone_str)
@@ -107,6 +109,8 @@ def convert_to_timezone(birth_datetime, timezone_str):
     utc_datetime = local_datetime.astimezone(ZoneInfo("UTC"))
     return local_datetime, utc_datetime
 
+
+# ASPECTS
 # 5- Fonction pour afficher les aspects planétaires
 def calculate_aspects(planet_positions):
     aspects = []
@@ -139,7 +143,7 @@ def calculate_aspects(planet_positions):
 
     return aspects
     
-
+# BIRTH DATA
 # 6- Vue principale pour traiter les données de naissance
 def birth_data(request):
     if request.method == 'POST':
@@ -226,7 +230,7 @@ def birth_data(request):
 
 
 
-
+# PLANETES
 # 7- Vue pour afficher les positions planétaires
 def planetary_position(request):
     selected_date = request.GET.get('date', '2024-01-01')
@@ -256,7 +260,8 @@ def planetary_position(request):
     })
 
 
-# 9- Fonction pour convertir les coordonnées en DMS
+# TIME CONVERTION
+# 8-Fonction pour convertir les coordonnées en DMS
 def decimal_to_dms(coordinate, is_latitude=True):
     if is_latitude:
         direction = 'N' if coordinate >= 0 else 'S'
@@ -269,14 +274,13 @@ def decimal_to_dms(coordinate, is_latitude=True):
     return f"{degrees}° {minutes}' {seconds:.2f}\" {direction}"
     
     
-# Définir le chemin pour l'image
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-image_path = os.path.join(BASE_DIR, 'astroapp/static/images/zodiac_wheel.png') 
-    
 
-# Génération de la roue astrologique avec les données calculées
+    
+# ROUE
+# 9-Génération de la roue astrologique avec les données calculées
 def generate_astrological_wheel(planet_positions, house_results):
     # Chemin pour l'image
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     image_path = os.path.join(BASE_DIR, 'astroapp/static/images/zodiac_wheel.png') 
 
     # Supprimer l'image précédente si elle existe
@@ -293,21 +297,47 @@ def generate_astrological_wheel(planet_positions, house_results):
     ax.axis('off')
 
     # Dessiner le cercle principal
-    circle = plt.Circle((0, 0), 1.2, edgecolor='black', facecolor='none', linewidth=2)
+    circle = plt.Circle((0, 0), 1.2, edgecolor='black', facecolor='none', linewidth=1)
     ax.add_patch(circle)
 
     # Charger la police HamburgSymbols
     font_path = os.path.join(settings.BASE_DIR, 'astroapp', 'fonts', 'hamburgsymbols', 'HamburgSymbols.ttf')
     prop = font_manager.FontProperties(fname=font_path)
 
-    # Ajouter les symboles des signes du zodiaque
+        
+    # Les éléments associés aux signes du zodiaque
+    elements = ['fire', 'earth', 'air', 'water', 
+                'fire', 'earth', 'air', 'water', 
+                'fire', 'earth', 'air', 'water']
+
+    # Couleurs par élément
+    sign_colors = {
+        'fire': "#f9074c",   # Bélier, Lion, Sagittaire
+        'earth': "#c59626",  # Taureau, Vierge, Capricorne
+        'air': "#1a8fe9",    # Gémeaux, Balance, Verseau
+        'water': "#62ce02"   # Cancer, Scorpion, Poissons
+    }
+
+    # Ajouter les signes astrologiques avec la couleur selon l'élément
     zodiac_symbols = ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'v', 'x', 'c']
     for i, symbol in enumerate(zodiac_symbols):
         angle = np.radians(30 * i + 15)
-        x = 1.1 * np.cos(angle)
-        y = 1.1 * np.sin(angle)
-        ax.text(x, y, symbol, fontproperties=prop, fontsize=24, ha='center', va='center')
+        x_text = 0.96 * np.cos(angle)
+        y_text = 0.96 * np.sin(angle)
 
+        # Déterminer la couleur du signe en fonction de l'élément
+        element = elements[i]
+        symbol_color = sign_colors[element]
+
+        # Définir la taille du symbole en fonction des dimensions de la figure
+        symbol_size = min(fig.bbox_inches.width, fig.bbox_inches.height) * 4.2
+
+        # Ajouter le symbole avec la couleur et la taille correspondantes
+        ax.text(x_text, y_text, symbol, fontsize=symbol_size, 
+                ha='center', va='center', fontproperties=prop, color=symbol_color)
+
+
+# PLANETES
     # Ajouter les positions des planètes (en fonction de `planet_positions`)
     planet_symbols = {
         'Soleil': 'Q', 'Lune': 'W', 'Mercure': 'E', 'Vénus': 'R', 
@@ -323,10 +353,107 @@ def generate_astrological_wheel(planet_positions, house_results):
 
     for planet, degree in planet_positions:
         angle = np.radians(degree)
-        x = 1.3 * np.cos(angle)
-        y = 1.3 * np.sin(angle)
+        x = 1.7 * np.cos(angle)
+        y = 1.7 * np.sin(angle)
         symbol = planet_symbols.get(planet, "?")
-        ax.text(x, y, symbol, fontproperties=prop, fontsize=24, color=planet_colors[planet], ha='center', va='center')
+        ax.text(x, y, symbol, fontproperties=prop, fontsize=36, color=planet_colors[planet], ha='center', va='center')
+
+
+
+
+# SEGMENTS
+    # Couleurs des segments internes et externes pour chaque signe
+    colors_outer = ["#ffbfbf", "#ffdcc0", "#ffeac1", "#fff3bf", "#ffffbf", "#e7fbbe", 
+                    "#c0f2bf", "#bfe6e5", "#c4cfeb", "#ccc4eb", "#ccc4eb", "#f1bfda"]
+    colors_inner = ["#ffcccb", "#ffe3cb", "#ffe3cd", "#fff6cd", "#ffffcd", "#edfcd5", 
+                    "#ccf5cd", "#cceaec", "#d0d8ed", "#d7d0ef", "#d7d0ef", "#f6cce4"]
+
+    # Dessiner les segments colorés pour chaque signe
+    for i, (color_outer, color_inner) in enumerate(zip(colors_outer, colors_inner)):
+        angle = 2 * np.pi / 12 * i
+        theta1 = np.degrees(angle)
+        theta2 = np.degrees(angle + 2 * np.pi / 12)
+
+        # Arc extérieur
+        arc_outer = patches.Wedge(center=(0, 0), r=1.2, theta1=theta1, theta2=theta2, facecolor=color_outer, zorder=2)
+        ax.add_patch(arc_outer)
+
+        # Arc intérieur
+        arc_inner = patches.Wedge(center=(0, 0), r=1.09, theta1=theta1, theta2=theta2, facecolor=color_inner, zorder=2)
+        ax.add_patch(arc_inner)
+
+    # Ajouter des divisions principales (30°) et subdivisions (5°)
+    for angle in np.linspace(0, 2 * np.pi, 12, endpoint=False):
+        x_outer = 1.2 * np.cos(angle)
+        y_outer = 1.2 * np.sin(angle)
+        x_inner = 0.8 * np.cos(angle)
+        y_inner = 0.8 * np.sin(angle)
+        ax.plot([x_outer, x_inner], [y_outer, y_inner], 'k', lw=1)  # Lignes des divisions principales (30°)
+
+        # Ajouter des subdivisions (5°)
+        for sub_angle in np.linspace(angle, angle + np.pi / 6, 6, endpoint=False):
+            x_sub = 1.2 * np.cos(sub_angle)
+            y_sub = 1.2 * np.sin(sub_angle)
+            x_sub_inner = 1.1 * np.cos(sub_angle)
+            y_sub_inner = 1.1 * np.sin(sub_angle)
+            ax.plot([x_sub, x_sub_inner], [y_sub, y_sub_inner], 'k', lw=0.5)  # Lignes des subdivisions (5°)
+
+    # Ajouter un cercle blanc au centre après les autres éléments
+    circle_inner_white = plt.Circle((0, 0), 0.80, color='white', ec='black', linewidth=0.5, zorder=10) # Largeur du diamètre, le nombre après les parenthèses
+    ax.add_patch(circle_inner_white)
+
+    # Ajouter un cercle extérieur noir pour la bordure
+    circle_outer_border = plt.Circle((0, 0), 1.2, color='none', ec='black', linewidth=0.5, zorder=5)
+    ax.add_patch(circle_outer_border)
+
+    # Ajuster les Marges de l'image
+    plt.subplots_adjust(left=0.1, right=0.9, top=0.87, bottom=0.14)  # Ajuste ces valeurs selon tes besoins
+
+    # Limiter l'affichage 
+    ax.set_xlim(-1.5, 1.5)  # Ajustement selon la taille des éléments
+    ax.set_ylim(-1.5, 1.5)
+    ax.set_aspect('equal')
+    ax.axis('off')
+    
+    
+    # --- Placer la fonction de conversion ici ---
+    def convert_to_sign_degrees(degree):
+        sign_number = int(degree // 30)  # Chaque signe a 30 degrés
+        degree_in_sign = degree % 30  # Reste après division
+        return sign_number, degree_in_sign
+
+    # Affichage des degrés pour chaque planète
+    for planet, degree in planet_positions:
+        angle = np.radians(degree)
+        
+        # Conversion des degrés totaux en degrés du signe
+        sign_number, degree_in_sign = convert_to_sign_degrees(degree)
+        sign_name = zodiac_symbols[sign_number]  # Nom du signe
+
+        # Calcul de la position pour l'affichage des degrés
+        x_degree = 1.85 * np.cos(angle)  # Ajuste pour placer les degrés derrière la planète
+        y_degree = 1.85 * np.sin(angle)  # Ajuste pour placer les degrés derrière la planète
+        
+        x_minutes = 2.05 * np.cos(angle)  # Ajuste pour placer les minutes derrière les degrés
+        y_minutes = 2.05 * np.sin(angle)  # Ajuste pour placer les minutes derrière les degrés
+        
+        # Calcul des minutes (sans secondes)
+        minutes = int((degree_in_sign - int(degree_in_sign)) * 60)
+
+        # Récupérer la couleur de la planète
+        degree_color = planet_colors.get(planet, '#6A3D90')  # Utiliser la couleur de la planète
+
+        # Afficher les degrés avec la couleur de la planète
+        ax.text(x_degree, y_degree, f"{int(degree_in_sign)}°", 
+                fontsize=12, ha='center', va='center', color=degree_color, weight='bold')
+
+        # Afficher les minutes avec la couleur de la planète, alignées derrière les degrés
+        ax.text(x_minutes, y_minutes, f"{minutes}'", 
+                fontsize=12, ha='center', va='center', color=degree_color, weight='bold')
+
+
+
+    
 
     # Sauvegarder l'image
     try:
@@ -335,3 +462,4 @@ def generate_astrological_wheel(planet_positions, house_results):
         print(f"L'image a été sauvegardée avec succès à : {image_path}")
     except Exception as e:
         print(f"Erreur lors de la génération de l'image : {e}")
+
