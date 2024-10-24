@@ -415,7 +415,7 @@ def generate_astrological_wheel(planet_positions, house_results):
     ax.set_aspect('equal')
     ax.axis('off')
     
-    
+# DEGRES    
     # --- Placer la fonction de conversion ici ---
     def convert_to_sign_degrees(degree):
         sign_number = int(degree // 30)  # Chaque signe a 30 degrés
@@ -431,8 +431,8 @@ def generate_astrological_wheel(planet_positions, house_results):
         sign_name = zodiac_symbols[sign_number]  # Nom du signe
 
         # Calcul de la position pour l'affichage des degrés
-        x_degree = 1.85 * np.cos(angle)  # Ajuste pour placer les degrés derrière la planète
-        y_degree = 1.85 * np.sin(angle)  # Ajuste pour placer les degrés derrière la planète
+        x_degree = 1.89 * np.cos(angle)  # Ajuste pour placer les degrés derrière la planète
+        y_degree = 1.89 * np.sin(angle)  # Ajuste pour placer les degrés derrière la planète
         
         x_minutes = 2.05 * np.cos(angle)  # Ajuste pour placer les minutes derrière les degrés
         y_minutes = 2.05 * np.sin(angle)  # Ajuste pour placer les minutes derrière les degrés
@@ -449,7 +449,7 @@ def generate_astrological_wheel(planet_positions, house_results):
 
         # Afficher les minutes avec la couleur de la planète, alignées derrière les degrés
         ax.text(x_minutes, y_minutes, f"{minutes}'", 
-                fontsize=12, ha='center', va='center', color=degree_color, weight='bold')
+                fontsize=10, ha='center', va='center', color=degree_color, weight='bold')
 
 
 
@@ -463,7 +463,78 @@ def generate_astrological_wheel(planet_positions, house_results):
         ax.plot([x_planet, x_pos], [y_planet, y_pos], color='black', lw=0.5, zorder=1)
 
     
+        
+    # Ajouter les cuspides des maisons
+    for i, (house, house_data) in enumerate(house_results.items()):
+        degree = house_data['degree']
+        angle = np.radians(degree)
+        # Tracer une ligne pour chaque cuspide de maison
+        x_pos = 1.27 * np.cos(angle)  # Coordonnée x de la cuspide de la maison
+        y_pos = 1.27 * np.sin(angle)  # Coordonnée y de la cuspide de la maison
+        ax.plot([0, x_pos], [0, y_pos], color='black', lw=0.7, zorder=1)
 
+
+
+
+
+    # Positionner les numéros des maisons au milieu de chaque maison
+    for i in range(len(house_results)):
+        # Calculer les angles de départ et de fin pour chaque maison
+        degree_start = house_results[f'Maison {i + 1}']['degree']
+        degree_end = house_results[f'Maison {(i + 2) if (i + 2) <= 12 else 1}']['degree']
+        
+        # S'assurer que les maisons ne sont pas inversées ou mal positionnées
+        if degree_end < degree_start:
+            degree_end += 360  # Ajouter 360 degrés si la cuspide traverse 0°
+
+        # Calculer l'angle médian entre deux cuspides
+        degree_mid = (degree_start + degree_end) / 2
+        angle_mid = np.radians(degree_mid)
+
+        # Calculer les coordonnées pour placer le texte au milieu de chaque maison
+        x_text = 1.30 * np.cos(angle_mid)
+        y_text = 1.30 * np.sin(angle_mid)
+        
+        # Afficher les numéros des maisons correctement alignés
+        ax.text(x_text, y_text, f'{i + 1}', fontsize=12, ha='center', va='center', color='black')
+
+
+    
+    
+    
+    
+    
+    # Afficher les degrés et minutes des cuspides des maisons, convertis en degrés dans le signe
+    for i, (house, house_data) in enumerate(house_results.items()):
+        degree = house_data['degree']
+        
+        # Conversion des degrés totaux en degré dans le signe
+        _, degree_in_sign = get_zodiac_sign(degree)
+        degrees, minutes, _ = convert_to_dms(degree_in_sign)  # Conversion en DMS pour le degré dans le signe
+        
+        angle = np.radians(degree)
+        
+        # Position pour les degrés (plus proche du cercle)
+        x_degree = 1.38 * np.cos(angle)
+        y_degree = 1.38 * np.sin(angle)
+        
+        # Position pour les minutes (plus loin du cercle)
+        x_minutes = 1.46 * np.cos(angle)
+        y_minutes = 1.46 * np.sin(angle)
+        
+        # Afficher les degrés sans le nom du signe
+        ax.text(x_degree, y_degree, f"{degrees}°", fontsize=9, ha='center', va='center', color='black')
+        
+        # Afficher les minutes alignés, plus loin
+        ax.text(x_minutes, y_minutes, f"{minutes}'", fontsize=8, ha='center', va='center', color='black')
+
+
+
+
+
+    
+    
+# FIN
     # Sauvegarder l'image
     try:
         plt.savefig(image_path)
