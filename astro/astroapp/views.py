@@ -15,6 +15,7 @@ import matplotlib.pyplot as plt  # Import une seule fois
 import numpy as np
 from matplotlib import font_manager
 from matplotlib import patches  # Ajout du module patches pour dessiner les segments
+import matplotlib.patches as patches
 
 
 # ZODIAQUE
@@ -291,7 +292,7 @@ def generate_astrological_wheel(planet_positions, house_results):
         print(f"Aucune ancienne image à supprimer : {image_path}")
 
     # Créer la figure et les axes pour la roue astrologique
-    fig, ax = plt.subplots(figsize=(8, 8))
+    fig, ax = plt.subplots(figsize=(14, 14))
     ax.set_xlim(-1.5, 1.5)
     ax.set_ylim(-1.5, 1.5)
     ax.axis('off')
@@ -329,8 +330,8 @@ def generate_astrological_wheel(planet_positions, house_results):
         element = elements[i]
         symbol_color = sign_colors[element]
 
-        # Définir la taille du symbole en fonction des dimensions de la figure
-        symbol_size = min(fig.bbox_inches.width, fig.bbox_inches.height) * 4.2
+        # Définir la taille du SIGNES en fonction des dimensions de la figure
+        symbol_size = min(fig.bbox_inches.width, fig.bbox_inches.height) * 2.5  # Taille des signes
 
         # Ajouter le symbole avec la couleur et la taille correspondantes
         ax.text(x_text, y_text, symbol, fontsize=symbol_size, 
@@ -356,7 +357,7 @@ def generate_astrological_wheel(planet_positions, house_results):
         x = 1.7 * np.cos(angle)
         y = 1.7 * np.sin(angle)
         symbol = planet_symbols.get(planet, "?")
-        ax.text(x, y, symbol, fontproperties=prop, fontsize=36, color=planet_colors[planet], ha='center', va='center')
+        ax.text(x, y, symbol, fontproperties=prop, fontsize=40, color=planet_colors[planet], ha='center', va='center') # Taille des Planètes
 
 
 
@@ -415,7 +416,7 @@ def generate_astrological_wheel(planet_positions, house_results):
     ax.set_aspect('equal')
     ax.axis('off')
     
-# DEGRES    
+# PLANETES    
     # --- Placer la fonction de conversion ici ---
     def convert_to_sign_degrees(degree):
         sign_number = int(degree // 30)  # Chaque signe a 30 degrés
@@ -431,11 +432,11 @@ def generate_astrological_wheel(planet_positions, house_results):
         sign_name = zodiac_symbols[sign_number]  # Nom du signe
 
         # Calcul de la position pour l'affichage des degrés
-        x_degree = 1.89 * np.cos(angle)  # Ajuste pour placer les degrés derrière la planète
-        y_degree = 1.89 * np.sin(angle)  # Ajuste pour placer les degrés derrière la planète
+        x_degree = 1.94 * np.cos(angle)  # Déplacement du Degrés des Planètes
+        y_degree = 1.94 * np.sin(angle)  # Déplacement du Degrés des Planètes
         
-        x_minutes = 2.05 * np.cos(angle)  # Ajuste pour placer les minutes derrière les degrés
-        y_minutes = 2.05 * np.sin(angle)  # Ajuste pour placer les minutes derrière les degrés
+        x_minutes = 2.10 * np.cos(angle)  # Déplacement des minutes
+        y_minutes = 2.10 * np.sin(angle)  # Déplacement des minutes
         
         # Calcul des minutes (sans secondes)
         minutes = int((degree_in_sign - int(degree_in_sign)) * 60)
@@ -445,12 +446,11 @@ def generate_astrological_wheel(planet_positions, house_results):
 
         # Afficher les degrés avec la couleur de la planète
         ax.text(x_degree, y_degree, f"{int(degree_in_sign)}°", 
-                fontsize=12, ha='center', va='center', color=degree_color, weight='bold')
+                fontsize=13, ha='center', va='center', color=degree_color, weight='bold') # Taille des Degrés des Planètes
 
         # Afficher les minutes avec la couleur de la planète, alignées derrière les degrés
         ax.text(x_minutes, y_minutes, f"{minutes}'", 
-                fontsize=10, ha='center', va='center', color=degree_color, weight='bold')
-
+                fontsize=11, ha='center', va='center', color=degree_color, weight='bold') # Taille des Degrés des Planètes
 
 
         # Calcul des coordonnées pour tracer une ligne du centre à chaque planète
@@ -463,7 +463,7 @@ def generate_astrological_wheel(planet_positions, house_results):
         ax.plot([x_planet, x_pos], [y_planet, y_pos], color='black', lw=0.5, zorder=1)
 
     
-        
+# MAISONS      
     # Ajouter les cuspides des maisons
     for i, (house, house_data) in enumerate(house_results.items()):
         degree = house_data['degree']
@@ -472,12 +472,18 @@ def generate_astrological_wheel(planet_positions, house_results):
         x_pos = 1.27 * np.cos(angle)  # Coordonnée x de la cuspide de la maison
         y_pos = 1.27 * np.sin(angle)  # Coordonnée y de la cuspide de la maison
         ax.plot([0, x_pos], [0, y_pos], color='black', lw=0.7, zorder=1)
+        
+        
+        
 
+    # Dictionnaire pour convertir les numéros en chiffres romains
+    roman_numerals = {
+        1: "I", 2: "II", 3: "III", 4: "IV",
+        5: "V", 6: "VI", 7: "VII", 8: "VIII",
+        9: "IX", 10: "X", 11: "XI", 12: "XII"
+    }
 
-
-
-
-    # Positionner les numéros des maisons au milieu de chaque maison
+    # Positionner les numéros des maisons au milieu de chaque maison en chiffres romains
     for i in range(len(house_results)):
         # Calculer les angles de départ et de fin pour chaque maison
         degree_start = house_results[f'Maison {i + 1}']['degree']
@@ -491,18 +497,19 @@ def generate_astrological_wheel(planet_positions, house_results):
         degree_mid = (degree_start + degree_end) / 2
         angle_mid = np.radians(degree_mid)
 
-        # Calculer les coordonnées pour placer le texte au milieu de chaque maison
-        x_text = 1.30 * np.cos(angle_mid)
-        y_text = 1.30 * np.sin(angle_mid)
+        # Calculer les coordonnées pour placerles Numéros au milieu de chaque maison
+        x_text = 1.28 * np.cos(angle_mid)
+        y_text = 1.28 * np.sin(angle_mid)
         
-        # Afficher les numéros des maisons correctement alignés
-        ax.text(x_text, y_text, f'{i + 1}', fontsize=12, ha='center', va='center', color='black')
+        # Utiliser le dictionnaire pour afficher les chiffres romains
+        roman_house_num = roman_numerals[i + 1]  # Récupérer le chiffre romain
+        ax.text(x_text, y_text, roman_house_num, fontsize=8, ha='center', va='center', color='black')  # Taille du numéro des Maisons
 
-
-    
-    
-    
-    
+        
+        
+        
+        
+        
     
     # Afficher les degrés et minutes des cuspides des maisons, convertis en degrés dans le signe
     for i, (house, house_data) in enumerate(house_results.items()):
@@ -515,23 +522,23 @@ def generate_astrological_wheel(planet_positions, house_results):
         angle = np.radians(degree)
         
         # Position pour les degrés (plus proche du cercle)
-        x_degree = 1.38 * np.cos(angle)
-        y_degree = 1.38 * np.sin(angle)
+        x_degree = 1.38 * np.cos(angle) # Déplacement du Degrés des Maisons
+        y_degree = 1.38 * np.sin(angle) # Déplacement du Degrés des Maisons
         
         # Position pour les minutes (plus loin du cercle)
-        x_minutes = 1.46 * np.cos(angle)
-        y_minutes = 1.46 * np.sin(angle)
+        x_minutes = 1.5 * np.cos(angle) # Déplacement du Minutes des Maisons
+        y_minutes = 1.5 * np.sin(angle) # Déplacement du Minutes des Maisons
         
         # Afficher les degrés sans le nom du signe
-        ax.text(x_degree, y_degree, f"{degrees}°", fontsize=9, ha='center', va='center', color='black')
+        ax.text(x_degree, y_degree, f"{degrees}°", fontsize=11, ha='center', va='center', color='black') # Taille des Degrés des Maisons
         
         # Afficher les minutes alignés, plus loin
-        ax.text(x_minutes, y_minutes, f"{minutes}'", fontsize=8, ha='center', va='center', color='black')
+        ax.text(x_minutes, y_minutes, f"{minutes}'", fontsize=8, ha='center', va='center', color='black') # Taille des Minutes des Maisons
 
 
 
 
-    # Ajouter des triangles pour marquer les cuspides des maisons
+    # Ajouter des Triangles pour marquer les cuspides des maisons
     for i, (house, house_data) in enumerate(house_results.items()):
         degree = house_data['degree']
         angle = np.radians(degree)
@@ -540,9 +547,12 @@ def generate_astrological_wheel(planet_positions, house_results):
         x_triangle = 1.26 * np.cos(angle)
         y_triangle = 1.26 * np.sin(angle)
         
-        # Créer un triangle blanc avec un contour noir
-        triangle = patches.RegularPolygon((x_triangle, y_triangle), numVertices=3, radius=0.05, orientation=angle + np.pi / 2, 
-                                          edgecolor='black', facecolor='white', zorder=3)
+        # Créer un triangle blanc avec un contour noir (ajout de linewidth)
+        triangle = patches.RegularPolygon((x_triangle, y_triangle), numVertices=3, radius=0.05, 
+                                          orientation=angle + np.pi / 2, 
+                                          edgecolor='black', facecolor='white', 
+                                          linewidth=1.5,  # Ajouter l'épaisseur ici
+                                          zorder=3)
         ax.add_patch(triangle)
 
         # Déterminer si la cuspide est l'une des quatre maisons principales (ASC, DSC, MC, FC)
@@ -551,16 +561,82 @@ def generate_astrological_wheel(planet_positions, house_results):
         else:
             facecolor = 'white'
 
-        # Créer un triangle avec la couleur appropriée
-        triangle = patches.RegularPolygon((x_triangle, y_triangle), numVertices=3, radius=0.05, orientation=angle + np.pi / 2, 
-                                          edgecolor='black', facecolor=facecolor, zorder=3)
+        # Créer un triangle avec la couleur appropriée et l'épaisseur du contour
+        triangle = patches.RegularPolygon((x_triangle, y_triangle), numVertices=3, radius=0.05, 
+                                          orientation=angle + np.pi / 2, 
+                                          edgecolor='black', facecolor=facecolor, 
+                                          linewidth=0.1,  # Ajouter l'épaisseur ici
+                                          zorder=3)
         ax.add_patch(triangle)
 
-    
+
+        
+        
+        
+
+    # Ajouter les lignes pour l'ASC et le MC avec flèche (triangle) et cercle
+    for i, house in enumerate(['ASC', 'MC']):
+        if house == 'ASC':  # ASC correspond à la maison 1
+            degree = house_results['Maison 1']['degree']
+        elif house == 'MC':  # MC correspond à la maison 10
+            degree = house_results['Maison 10']['degree']
+        
+        # Calculer l'angle de la ligne
+        angle = np.radians(degree)
+        
+        # Calculer les coordonnées de fin pour la ligne (même que pour les planètes)
+        x_pos = 2.3 * np.cos(angle)
+        y_pos = 2.3 * np.sin(angle)
+        
+        # Tracer la ligne depuis le centre jusqu'à la position calculée
+        ax.plot([0, x_pos], [0, y_pos], color='black', lw=0.5, zorder=1)
+        
+        
+        
+        
+        # Ajouter un triangle (flèche) pour l'ASC et un cercle pour le MC
+        if house == 'ASC':
+            # Pivoter à un angle spécifique en radians (ajouter ou soustraire selon le besoin)
+            triangle = patches.RegularPolygon((x_pos, y_pos), numVertices=3, radius=0.20,  # Rayon
+                                              orientation=angle + np.radians(32),  # Pivoter
+                                              edgecolor='black', facecolor='white', lw=0.5, zorder=3)
+            ax.add_patch(triangle)
+
+            # Ajouter le label "ASC" plus vers l'extérieur
+            ax.text(x_pos + 0.4 * np.cos(angle), y_pos + 0.4 * np.sin(angle), 'ASC', fontsize=12, 
+                    ha='center', va='center', color='black', weight='bold')
+
+        elif house == 'MC':
+            # Ajouter un cercle blanc avec un contour noir
+            circle = plt.Circle((x_pos, y_pos), 0.20, facecolor='white', edgecolor='black', lw=0.5, zorder=2)
+            ax.add_patch(circle)
+
+
+            # Ajouter le label "MC" plus vers l'extérieur
+            ax.text(x_pos + 0.35 * np.cos(angle), y_pos + 0.35 * np.sin(angle), 'MC', fontsize=12, 
+                    ha='center', va='center', color='black', weight='bold')
+
+
+
+
+
+
+
+
+        # Ajuster les limites de l'axe
+        ax.set_xlim(-2.5, 2.5)
+        ax.set_ylim(-2.5, 2.5)
+
+
+
+
+
+
+            
 # FIN
     # Sauvegarder l'image
     try:
-        plt.savefig(image_path)
+        plt.savefig(image_path, dpi=300)
         plt.close(fig)
         print(f"L'image a été sauvegardée avec succès à : {image_path}")
     except Exception as e:
