@@ -623,9 +623,17 @@ def generate_astrological_wheel(planet_positions, house_results):
 
 
 
-        # Ajuster les limites de l'axe
-        ax.set_xlim(-2.5, 2.5)
-        ax.set_ylim(-2.5, 2.5)
+
+        # Ajuster les limites de l'axe sans couper les angles
+        ax.set_xlim(-2.9, 2.9)
+        ax.set_ylim(-2.9, 2.9)
+
+        # Supprimer les marges automatiques autour de la figure
+        plt.subplots_adjust(left=0, right=1, top=1, bottom=0)
+
+        # Régler les proportions de la figure pour qu'elle soit carrée et occupe tout l'espace
+        fig.set_size_inches(12, 12)
+        ax.set_aspect('equal')
 
 
 
