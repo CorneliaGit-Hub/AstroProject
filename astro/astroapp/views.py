@@ -531,8 +531,31 @@ def generate_astrological_wheel(planet_positions, house_results):
 
 
 
+    # Ajouter des triangles pour marquer les cuspides des maisons
+    for i, (house, house_data) in enumerate(house_results.items()):
+        degree = house_data['degree']
+        angle = np.radians(degree)
+        
+        # Calculer la position des triangles sur la roue
+        x_triangle = 1.26 * np.cos(angle)
+        y_triangle = 1.26 * np.sin(angle)
+        
+        # Créer un triangle blanc avec un contour noir
+        triangle = patches.RegularPolygon((x_triangle, y_triangle), numVertices=3, radius=0.05, orientation=angle + np.pi / 2, 
+                                          edgecolor='black', facecolor='white', zorder=3)
+        ax.add_patch(triangle)
 
-    
+        # Déterminer si la cuspide est l'une des quatre maisons principales (ASC, DSC, MC, FC)
+        if i + 1 in [1, 4, 7, 10]:  # Maisons 1 (ASC), 4 (FC), 7 (DSC), 10 (MC)
+            facecolor = 'black'
+        else:
+            facecolor = 'white'
+
+        # Créer un triangle avec la couleur appropriée
+        triangle = patches.RegularPolygon((x_triangle, y_triangle), numVertices=3, radius=0.05, orientation=angle + np.pi / 2, 
+                                          edgecolor='black', facecolor=facecolor, zorder=3)
+        ax.add_patch(triangle)
+
     
 # FIN
     # Sauvegarder l'image
