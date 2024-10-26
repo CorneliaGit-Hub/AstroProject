@@ -186,8 +186,31 @@ def birth_data(request):
         # Conversion en heures locales et UTC
         try:
             birth_datetime_local, birth_datetime_utc = convert_to_timezone(birth_datetime, timezone_str)
+
+            # Afficher les données d'entrée avant conversion
+            print(f"Débogage : Heure de naissance d'origine (locale, avant conversion): {birth_datetime}")
+            print(f"Débogage : Fuseau horaire détecté : {timezone_str}")
+
+            # Corriger le fuseau horaire si nécessaire
+            if timezone_str == "America/Cayenne":
+                # Appliquer directement le fuseau horaire UTC-3 en utilisant pytz
+                timezone = pytz.timezone("Etc/GMT+3")
+                birth_datetime_local = timezone.localize(birth_datetime)
+            else:
+                birth_datetime_local = birth_datetime.replace(tzinfo=ZoneInfo(timezone_str))
+
+            # Convertir l'heure locale en UTC
+            birth_datetime_utc = birth_datetime_local.astimezone(ZoneInfo("UTC"))
+
+
+            # Afficher les heures obtenues après conversion
+            print(f"Débogage : Heure locale après conversion : {birth_datetime_local}")
+            print(f"Débogage : Heure UTC après conversion : {birth_datetime_utc}")
+
         except Exception as e:
             return render(request, 'birth_data_form.html', {'error': f'Erreur de conversion : {e}'})
+
+
             
             
 
@@ -272,8 +295,9 @@ def planetary_position(request):
 
     # Fixer manuellement le fuseau horaire si le lieu est Cayenne
     if city_of_birth.lower() == "cayenne" and country_of_birth.lower() in ["guyane française", "french guiana"]:
-        timezone_at = "America/Cayenne"
-        print("Debug - Fuseau horaire fixé à America/Cayenne pour Cayenne, Guyane Française.")
+        timezone_at = "Etc/GMT+3"  # Utiliser UTC-3 comme fuseau horaire manuel pour éviter les erreurs
+        print("Débogage : Fuseau horaire pour Cayenne forcé à UTC-3")
+
     else:
         # Utiliser TimezoneFinder pour obtenir le fuseau horaire
         tf = TimezoneFinder()
