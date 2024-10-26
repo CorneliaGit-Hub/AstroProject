@@ -1,5 +1,5 @@
-from timezonefinder import TimezoneFinder
 import pytz
+from timezonefinder import TimezoneFinder
 from geopy.geocoders import Nominatim
 from datetime import datetime
 from django.shortcuts import render
@@ -16,6 +16,7 @@ import numpy as np
 from matplotlib import font_manager
 from matplotlib import patches  # Ajout du module patches pour dessiner les segments
 import matplotlib.patches as patches
+
 
 
 # ZODIAQUE
@@ -232,33 +233,100 @@ def birth_data(request):
 
 
 # PLANETES
-# 7- Vue pour afficher les positions planétaires
+# 7- Position des Planètes
 def planetary_position(request):
-    selected_date = request.GET.get('date', '2024-01-01')
-    city_of_birth = request.GET.get('city_of_birth', 'Paris')
-    country_of_birth = request.GET.get('country_of_birth', 'France')
+    selected_date = request.GET.get('date')
+    city_of_birth = request.GET.get('city_of_birth')
+    country_of_birth = request.GET.get('country_of_birth')
 
+    # Vérifier si les champs requis sont fournis
+    if not selected_date or not city_of_birth or not country_of_birth:
+        return HttpResponse("Tous les champs (date, ville de naissance, pays de naissance) doivent être renseignés.")
+
+    # Convertir la date en objet datetime
     date_obj = datetime.strptime(selected_date, "%Y-%m-%d")
 
+    # Extraire le jour, le mois et l'année pour affichage
+    local_day_str = date_obj.day
+    local_month_str = date_obj.strftime("%B")  # Mois sous forme de texte (ex: Janvier)
+    local_year_str = date_obj.year
+
+    # Utiliser le geolocator pour obtenir la latitude et la longitude
+    print("Debug - Tentative de géolocalisation avec geolocator")
     geolocator = Nominatim(user_agent="astroapp")
     location = geolocator.geocode(f"{city_of_birth}, {country_of_birth}", timeout=10)
+    print(f"Debug - Résultat de la géolocalisation: {location}")
 
-    latitude = location.latitude if location else 48.8566
-    longitude = location.longitude if location else 2.3522
+    # Vérifier si le lieu a été trouvé
+    if not location:
+        return HttpResponse("Lieu de naissance introuvable. Veuillez vérifier l'orthographe ou entrer un autre lieu.")
 
-    delta_t = swe.deltat(date_obj.year + date_obj.month / 12.0)
-    jd = swe.julday(date_obj.year, date_obj.month, date_obj.day, delta_t / 3600.0)
+    latitude = location.latitude
+    longitude = location.longitude
 
+    # Debugging: Afficher les valeurs de latitude et longitude
+    print(f"Debug - Latitude: {latitude}, Longitude: {longitude}")
+
+    # Debug: Vérifier les valeurs de ville et pays
+    print(f"Debug - Ville de naissance: {city_of_birth}, Pays de naissance: {country_of_birth}")
+
+    # Fixer manuellement le fuseau horaire si le lieu est Cayenne
+    if city_of_birth.lower() == "cayenne" and country_of_birth.lower() in ["guyane française", "french guiana"]:
+        timezone_at = "America/Cayenne"
+        print("Debug - Fuseau horaire fixé à America/Cayenne pour Cayenne, Guyane Française.")
+    else:
+        # Utiliser TimezoneFinder pour obtenir le fuseau horaire
+        tf = TimezoneFinder()
+        print("Debug - Création de l'objet TimezoneFinder")
+        timezone_at = tf.timezone_at(lng=longitude, lat=latitude)
+        print(f"Debug - Fuseau horaire détecté par TimezoneFinder : {timezone_at}")
+
+    # Vérifier si le fuseau horaire a été trouvé
+    if not timezone_at:
+        return HttpResponse("Impossible de déterminer le fuseau horaire pour ce lieu.")
+
+    # Ajuster l'heure à l'heure locale avec pytz et convertir en UTC
+    try:
+        local_tz = pytz.timezone(timezone_at)
+        print(f"Debug - Tentative d'application du fuseau horaire détecté : {timezone_at}")
+        date_obj = date_obj.replace(hour=12, minute=0)  # Utiliser l'heure d'entrée ou une valeur par défaut
+        date_obj = local_tz.localize(date_obj)
+        date_utc = date_obj.astimezone(pytz.utc)
+        print(f"Debug - Date locale : {date_obj}, Date UTC : {date_utc}")
+    except Exception as e:
+        return HttpResponse(f"Erreur de conversion du fuseau horaire : {e}")
+
+    # Calculer le jour julien (JD)
+    jd = swe.julday(date_utc.year, date_utc.month, date_utc.day, date_utc.hour + date_utc.minute / 60.0)
+
+    # Calculer les positions planétaires et les maisons
     results, planet_positions = calculate_planet_positions(jd)
     house_results = calculate_houses(jd, latitude, longitude)
 
+    # Debugging: Afficher les résultats calculés
+    print(f"Debug - Résultats des positions planétaires: {results}")
+
+    # Retourner le rendu HTML avec les résultats
     return render(request, 'planetary_position.html', {
         'selected_date': selected_date,
         'city_of_birth': city_of_birth,
         'country_of_birth': country_of_birth,
+        'local_day_str': local_day_str,
+        'local_month_str': local_month_str,
+        'local_year_str': local_year_str,
         'results': results,
         'houses': house_results,
     })
+
+
+
+
+
+
+
+
+
+
 
 
 # TIME CONVERTION
