@@ -280,6 +280,10 @@ def decimal_to_dms(coordinate, is_latitude=True):
 # ROUE
 # 9-Génération de la roue astrologique avec les données calculées
 def generate_astrological_wheel(planet_positions, house_results):
+    # Calcul de l'offset de rotation pour positionner l'ASC toujours à gauche
+    asc_angle = house_results['Maison 1']['degree']
+    rotation_offset = np.radians(-asc_angle + 180)
+
     # Chemin pour l'image
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     image_path = os.path.join(BASE_DIR, 'astroapp/static/images/zodiac_wheel.png') 
@@ -323,8 +327,9 @@ def generate_astrological_wheel(planet_positions, house_results):
     zodiac_symbols = ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'v', 'x', 'c']
     for i, symbol in enumerate(zodiac_symbols):
         angle = np.radians(30 * i + 15)
-        x_text = 0.96 * np.cos(angle)
-        y_text = 0.96 * np.sin(angle)
+        angle_corrected = angle + rotation_offset
+        x_text = 0.96 * np.cos(angle_corrected)
+        y_text = 0.96 * np.sin(angle_corrected)
 
         # Déterminer la couleur du signe en fonction de l'élément
         element = elements[i]
@@ -354,8 +359,9 @@ def generate_astrological_wheel(planet_positions, house_results):
 
     for planet, degree in planet_positions:
         angle = np.radians(degree)
-        x = 1.7 * np.cos(angle)
-        y = 1.7 * np.sin(angle)
+        angle_corrected = angle + rotation_offset
+        x = 1.7 * np.cos(angle_corrected)
+        y = 1.7 * np.sin(angle_corrected)
         symbol = planet_symbols.get(planet, "?")
         ax.text(x, y, symbol, fontproperties=prop, fontsize=40, color=planet_colors[planet], ha='center', va='center') # Taille des Planètes
 
@@ -372,8 +378,10 @@ def generate_astrological_wheel(planet_positions, house_results):
     # Dessiner les segments colorés pour chaque signe
     for i, (color_outer, color_inner) in enumerate(zip(colors_outer, colors_inner)):
         angle = 2 * np.pi / 12 * i
-        theta1 = np.degrees(angle)
-        theta2 = np.degrees(angle + 2 * np.pi / 12)
+        angle_corrected = angle + rotation_offset  # Appliquer le décalage pour chaque segment
+
+        theta1 = np.degrees(angle_corrected)
+        theta2 = np.degrees(angle_corrected + 2 * np.pi / 12)
 
         # Arc extérieur
         arc_outer = patches.Wedge(center=(0, 0), r=1.2, theta1=theta1, theta2=theta2, facecolor=color_outer, zorder=2)
@@ -383,22 +391,30 @@ def generate_astrological_wheel(planet_positions, house_results):
         arc_inner = patches.Wedge(center=(0, 0), r=1.09, theta1=theta1, theta2=theta2, facecolor=color_inner, zorder=2)
         ax.add_patch(arc_inner)
 
-    # Ajouter des divisions principales (30°) et subdivisions (5°)
+
+    # Ajouter des divisions principales (30°) 
     for angle in np.linspace(0, 2 * np.pi, 12, endpoint=False):
-        x_outer = 1.2 * np.cos(angle)
-        y_outer = 1.2 * np.sin(angle)
-        x_inner = 0.8 * np.cos(angle)
-        y_inner = 0.8 * np.sin(angle)
+        angle_corrected = angle + rotation_offset
+        x_outer = 1.2 * np.cos(angle_corrected)
+        y_outer = 1.2 * np.sin(angle_corrected)
+        x_inner = 0.8 * np.cos(angle_corrected)
+        y_inner = 0.8 * np.sin(angle_corrected)
         ax.plot([x_outer, x_inner], [y_outer, y_inner], 'k', lw=1)  # Lignes des divisions principales (30°)
 
         # Ajouter des subdivisions (5°)
+        # Ici on doit ajuster la logique pour qu'elle corrige toutes les subdivisions, pas seulement la première boucle
         for sub_angle in np.linspace(angle, angle + np.pi / 6, 6, endpoint=False):
-            x_sub = 1.2 * np.cos(sub_angle)
-            y_sub = 1.2 * np.sin(sub_angle)
-            x_sub_inner = 1.1 * np.cos(sub_angle)
-            y_sub_inner = 1.1 * np.sin(sub_angle)
+            sub_angle_corrected = sub_angle + rotation_offset
+            x_sub = 1.2 * np.cos(sub_angle_corrected)
+            y_sub = 1.2 * np.sin(sub_angle_corrected)
+            x_sub_inner = 1.1 * np.cos(sub_angle_corrected)
+            y_sub_inner = 1.1 * np.sin(sub_angle_corrected)
             ax.plot([x_sub, x_sub_inner], [y_sub, y_sub_inner], 'k', lw=0.5)  # Lignes des subdivisions (5°)
 
+        
+        
+        
+# CERCLE BLANC
     # Ajouter un cercle blanc au centre après les autres éléments
     circle_inner_white = plt.Circle((0, 0), 0.80, color='white', ec='black', linewidth=0.5, zorder=10) # Largeur du diamètre, le nombre après les parenthèses
     ax.add_patch(circle_inner_white)
@@ -426,17 +442,19 @@ def generate_astrological_wheel(planet_positions, house_results):
     # Affichage des degrés pour chaque planète
     for planet, degree in planet_positions:
         angle = np.radians(degree)
+        angle_corrected = angle + rotation_offset
         
         # Conversion des degrés totaux en degrés du signe
         sign_number, degree_in_sign = convert_to_sign_degrees(degree)
         sign_name = zodiac_symbols[sign_number]  # Nom du signe
 
         # Calcul de la position pour l'affichage des degrés
-        x_degree = 1.94 * np.cos(angle)  # Déplacement du Degrés des Planètes
-        y_degree = 1.94 * np.sin(angle)  # Déplacement du Degrés des Planètes
+        x_degree = 1.94 * np.cos(angle_corrected)  # Déplacement du Degrés des Planètes
+        y_degree = 1.94 * np.sin(angle_corrected)  # Déplacement du Degrés des Planètes
         
-        x_minutes = 2.10 * np.cos(angle)  # Déplacement des minutes
-        y_minutes = 2.10 * np.sin(angle)  # Déplacement des minutes
+        x_minutes = 2.10 * np.cos(angle_corrected)  # Déplacement des minutes
+        y_minutes = 2.10 * np.sin(angle_corrected)  # Déplacement des minutes
+
         
         # Calcul des minutes (sans secondes)
         minutes = int((degree_in_sign - int(degree_in_sign)) * 60)
@@ -456,8 +474,9 @@ def generate_astrological_wheel(planet_positions, house_results):
         # Calcul des coordonnées pour tracer une ligne du centre à chaque planète
         x_planet = 0.0  # Centre du cercle
         y_planet = 0.0  # Centre du cercle
-        x_pos = 1.5 * np.cos(angle)  # Coordonnée x de la planète sur le bord extérieur
-        y_pos = 1.5 * np.sin(angle)  # Coordonnée y de la planète sur le bord extérieur
+        angle_corrected = angle + rotation_offset
+        x_pos = 1.5 * np.cos(angle_corrected)  # Coordonnée x de la planète sur le bord extérieur
+        y_pos = 1.5 * np.sin(angle_corrected)  # Coordonnée y de la planète sur le bord extérieur
 
         # Tracer une ligne du centre à la position de la planète
         ax.plot([x_planet, x_pos], [y_planet, y_pos], color='black', lw=0.5, zorder=1)
@@ -468,11 +487,12 @@ def generate_astrological_wheel(planet_positions, house_results):
     for i, (house, house_data) in enumerate(house_results.items()):
         degree = house_data['degree']
         angle = np.radians(degree)
+        angle_corrected = angle + rotation_offset
         # Tracer une ligne pour chaque cuspide de maison
-        x_pos = 1.27 * np.cos(angle)  # Coordonnée x de la cuspide de la maison
-        y_pos = 1.27 * np.sin(angle)  # Coordonnée y de la cuspide de la maison
+        x_pos = 1.27 * np.cos(angle_corrected)  # Coordonnée x de la cuspide de la maison
+        y_pos = 1.27 * np.sin(angle_corrected)  # Coordonnée y de la cuspide de la maison
         ax.plot([0, x_pos], [0, y_pos], color='black', lw=0.7, zorder=1)
-        
+
         
         
 
@@ -497,13 +517,15 @@ def generate_astrological_wheel(planet_positions, house_results):
         degree_mid = (degree_start + degree_end) / 2
         angle_mid = np.radians(degree_mid)
 
-        # Calculer les coordonnées pour placerles Numéros au milieu de chaque maison
-        x_text = 1.28 * np.cos(angle_mid)
-        y_text = 1.28 * np.sin(angle_mid)
+        # Calculer les coordonnées pour placer les Numéros au milieu de chaque maison
+        angle_mid_corrected = angle_mid + rotation_offset
+        x_text = 1.28 * np.cos(angle_mid_corrected)
+        y_text = 1.28 * np.sin(angle_mid_corrected)
+
         
         # Utiliser le dictionnaire pour afficher les chiffres romains
         roman_house_num = roman_numerals[i + 1]  # Récupérer le chiffre romain
-        ax.text(x_text, y_text, roman_house_num, fontsize=8, ha='center', va='center', color='black')  # Taille du numéro des Maisons
+        ax.text(x_text, y_text, roman_house_num, fontsize=12, ha='center', va='center', color='black', weight='bold')  # Taille des numéros des Maisons
 
         
         
@@ -520,14 +542,15 @@ def generate_astrological_wheel(planet_positions, house_results):
         degrees, minutes, _ = convert_to_dms(degree_in_sign)  # Conversion en DMS pour le degré dans le signe
         
         angle = np.radians(degree)
+        angle_corrected = angle + rotation_offset
         
         # Position pour les degrés (plus proche du cercle)
-        x_degree = 1.38 * np.cos(angle) # Déplacement du Degrés des Maisons
-        y_degree = 1.38 * np.sin(angle) # Déplacement du Degrés des Maisons
+        x_degree = 1.38 * np.cos(angle_corrected)  # Déplacement du Degrés des Maisons
+        y_degree = 1.38 * np.sin(angle_corrected)  # Déplacement du Degrés des Maisons
         
         # Position pour les minutes (plus loin du cercle)
-        x_minutes = 1.5 * np.cos(angle) # Déplacement du Minutes des Maisons
-        y_minutes = 1.5 * np.sin(angle) # Déplacement du Minutes des Maisons
+        x_minutes = 1.5 * np.cos(angle_corrected)  # Déplacement du Minutes des Maisons
+        y_minutes = 1.5 * np.sin(angle_corrected)  # Déplacement du Minutes des Maisons
         
         # Afficher les degrés sans le nom du signe
         ax.text(x_degree, y_degree, f"{degrees}°", fontsize=11, ha='center', va='center', color='black') # Taille des Degrés des Maisons
@@ -541,33 +564,22 @@ def generate_astrological_wheel(planet_positions, house_results):
     # Ajouter des Triangles pour marquer les cuspides des maisons
     for i, (house, house_data) in enumerate(house_results.items()):
         degree = house_data['degree']
-        angle = np.radians(degree)
+        angle_corrected = np.radians(degree) + rotation_offset
         
         # Calculer la position des triangles sur la roue
-        x_triangle = 1.26 * np.cos(angle)
-        y_triangle = 1.26 * np.sin(angle)
+        x_triangle = 1.26 * np.cos(angle_corrected)
+        y_triangle = 1.26 * np.sin(angle_corrected)
         
-        # Créer un triangle blanc avec un contour noir (ajout de linewidth)
-        triangle = patches.RegularPolygon((x_triangle, y_triangle), numVertices=3, radius=0.05, 
-                                          orientation=angle + np.pi / 2, 
-                                          edgecolor='black', facecolor='white', 
-                                          linewidth=1.5,  # Ajouter l'épaisseur ici
-                                          zorder=3)
+        # Déterminer la couleur en fonction de la maison (noir pour les maisons 1, 4, 7, 10)
+        facecolor = 'black' if i + 1 in [1, 4, 7, 10] else 'white'
+        
+        # Créer un seul triangle avec la couleur appropriée
+        triangle = patches.RegularPolygon((x_triangle, y_triangle), numVertices=3, radius=0.05,
+                                          orientation=angle_corrected + np.pi / 2,  # Ajustement de l'orientation
+                                          edgecolor='black', facecolor=facecolor,
+                                          linewidth=1.0, zorder=3)
         ax.add_patch(triangle)
 
-        # Déterminer si la cuspide est l'une des quatre maisons principales (ASC, DSC, MC, FC)
-        if i + 1 in [1, 4, 7, 10]:  # Maisons 1 (ASC), 4 (FC), 7 (DSC), 10 (MC)
-            facecolor = 'black'
-        else:
-            facecolor = 'white'
-
-        # Créer un triangle avec la couleur appropriée et l'épaisseur du contour
-        triangle = patches.RegularPolygon((x_triangle, y_triangle), numVertices=3, radius=0.05, 
-                                          orientation=angle + np.pi / 2, 
-                                          edgecolor='black', facecolor=facecolor, 
-                                          linewidth=0.1,  # Ajouter l'épaisseur ici
-                                          zorder=3)
-        ax.add_patch(triangle)
 
 
         
@@ -583,10 +595,12 @@ def generate_astrological_wheel(planet_positions, house_results):
         
         # Calculer l'angle de la ligne
         angle = np.radians(degree)
+        angle_corrected = angle + rotation_offset
         
         # Calculer les coordonnées de fin pour la ligne (même que pour les planètes)
-        x_pos = 2.3 * np.cos(angle)
-        y_pos = 2.3 * np.sin(angle)
+        x_pos = 2.3 * np.cos(angle_corrected)
+        y_pos = 2.3 * np.sin(angle_corrected)
+
         
         # Tracer la ligne depuis le centre jusqu'à la position calculée
         ax.plot([0, x_pos], [0, y_pos], color='black', lw=0.5, zorder=1)
@@ -596,15 +610,19 @@ def generate_astrological_wheel(planet_positions, house_results):
         
         # Ajouter un triangle (flèche) pour l'ASC et un cercle pour le MC
         if house == 'ASC':
-            # Pivoter à un angle spécifique en radians (ajouter ou soustraire selon le besoin)
-            triangle = patches.RegularPolygon((x_pos, y_pos), numVertices=3, radius=0.20,  # Rayon
-                                              orientation=angle + np.radians(32),  # Pivoter
+            # Appliquer une orientation qui contrebalance le rotation_offset pour que la flèche pointe toujours vers la gauche
+            triangle = patches.RegularPolygon((x_pos, y_pos), numVertices=3, radius=0.20,
+                                              orientation=angle + rotation_offset + np.radians(270),  # Décalé pour pointer à gauche
                                               edgecolor='black', facecolor='white', lw=0.5, zorder=3)
             ax.add_patch(triangle)
 
-            # Ajouter le label "ASC" plus vers l'extérieur
-            ax.text(x_pos + 0.4 * np.cos(angle), y_pos + 0.4 * np.sin(angle), 'ASC', fontsize=12, 
+            # Ajouter le label "ASC" plus vers l'extérieur avec rotation_offset
+            angle_corrected = angle + rotation_offset
+            ax.text(x_pos + 0.4 * np.cos(angle_corrected), y_pos + 0.4 * np.sin(angle_corrected), 'ASC', fontsize=12, 
                     ha='center', va='center', color='black', weight='bold')
+
+
+
 
         elif house == 'MC':
             # Ajouter un cercle blanc avec un contour noir
@@ -613,8 +631,10 @@ def generate_astrological_wheel(planet_positions, house_results):
 
 
             # Ajouter le label "MC" plus vers l'extérieur
-            ax.text(x_pos + 0.35 * np.cos(angle), y_pos + 0.35 * np.sin(angle), 'MC', fontsize=12, 
+            angle_corrected = angle + rotation_offset
+            ax.text(x_pos + 0.35 * np.cos(angle_corrected), y_pos + 0.35 * np.sin(angle_corrected), 'MC', fontsize=12, 
                     ha='center', va='center', color='black', weight='bold')
+
 
 
 
@@ -649,4 +669,5 @@ def generate_astrological_wheel(planet_positions, house_results):
         print(f"L'image a été sauvegardée avec succès à : {image_path}")
     except Exception as e:
         print(f"Erreur lors de la génération de l'image : {e}")
+
 
