@@ -104,16 +104,79 @@ def calculate_houses(jd, latitude, longitude):
 
 
 # TIMEZONE
-# 4- Fonction pour convertir la date vers le fuseau horaire approprié
-def convert_to_timezone(birth_datetime, timezone_str):
-    tz = ZoneInfo(timezone_str)
-    local_datetime = birth_datetime.replace(tzinfo=tz)
-    utc_datetime = local_datetime.astimezone(ZoneInfo("UTC"))
-    return local_datetime, utc_datetime
+# Fonction pour obtenir la géolocalisation d'un lieu
+def get_location(city, country):
+    geolocator = Nominatim(user_agent="astroapp")
+    location = geolocator.geocode(f"{city}, {country}", timeout=10)
+    
+    if not location:
+        return None, "Lieu de naissance introuvable."
+    
+    return location, None  # Retourne la localisation et None pour indiquer qu'il n'y a pas d'erreur
+
+# Fonction pour obtenir le fuseau horaire d'une localisation
+def get_timezone(latitude, longitude):
+    tf = TimezoneFinder()
+    timezone_str = tf.timezone_at(lng=longitude, lat=latitude)
+    
+    if not timezone_str:
+        return None, "Fuseau horaire non trouvé."
+    
+    return timezone_str, None  # Retourne le fuseau horaire et None pour indiquer qu'il n'y a pas d'erreur
+
+# Fonction pour convertir une date de naissance en heures locales et UTC
+def convert_birth_datetime(birth_datetime, timezone_str):
+    try:
+        # Conversion en heures locales
+        if timezone_str == "America/Cayenne":
+            timezone = pytz.timezone("Etc/GMT+3")
+            birth_datetime_local = timezone.localize(birth_datetime)
+        else:
+            birth_datetime_local = birth_datetime.replace(tzinfo=ZoneInfo(timezone_str))
+        
+        # Conversion en UTC
+        birth_datetime_utc = birth_datetime_local.astimezone(ZoneInfo("UTC"))
+
+        # Retourne les dates locales et UTC sans erreur
+        return birth_datetime_local, birth_datetime_utc, None
+
+    except Exception as e:
+        # En cas d'erreur, retourne None et le message d'erreur
+        return None, None, f'Erreur de conversion : {e}'
+
+# Fonction pour calculer le jour julien et les positions des planètes
+def calculate_julian_day_and_planet_positions(birth_datetime_utc, latitude, longitude):
+    # Calcul du jour julien (JD)
+    jd = swe.julday(
+        birth_datetime_utc.year,
+        birth_datetime_utc.month,
+        birth_datetime_utc.day,
+        birth_datetime_utc.hour + birth_datetime_utc.minute / 60.0
+    )
+    
+    # Calcul des positions des planètes
+    results, planet_positions = calculate_planet_positions(jd)
+
+    return jd, results, planet_positions
+
+
+# Fonction pour calculer les maisons astrologiques
+def calculate_astrological_houses(jd, latitude, longitude):
+    # Utiliser les mêmes fonctions de calcul que dans zodiacwheel.py
+    house_results = calculate_houses(jd, latitude, longitude)
+    
+    return house_results
+
 
 
 # ASPECTS
-# 5- Fonction pour afficher les aspects planétaires
+# Fonction pour calculer les aspects planétaires
+def calculate_astrological_aspects(planet_positions):
+    aspects = calculate_aspects(planet_positions)
+    return aspects
+
+
+# Fonction pour afficher les aspects planétaires
 def calculate_aspects(planet_positions):
     aspects = []
     aspect_definitions = {
@@ -145,6 +208,8 @@ def calculate_aspects(planet_positions):
 
     return aspects
     
+    
+    
 # BIRTH DATA
 # 6- Vue principale pour traiter les données de naissance
 def birth_data(request):
@@ -162,30 +227,37 @@ def birth_data(request):
         birth_datetime = datetime.strptime(birth_datetime_str, "%Y-%m-%d %H:%M")
 
         # Géolocalisation du lieu de naissance
-        geolocator = Nominatim(user_agent="astroapp")
-        location = geolocator.geocode(f"{city_of_birth}, {country_of_birth}", timeout=10)
+        location, error = get_location(city_of_birth, country_of_birth)
+        if error:
+            return render(request, 'birth_data_form.html', {'error': error})
 
-        if not location:
-            return render(request, 'birth_data_form.html', {'error': 'Lieu de naissance introuvable.'})
-
-        # Récupérer les coordonnées de latitude et longitude
+        # Extraction des coordonnées de latitude et longitude
         latitude = location.latitude
         longitude = location.longitude
+        
+        # Recherche du fuseau horaire
+        timezone_str, error = get_timezone(latitude, longitude)
+        if error:
+            return render(request, 'birth_data_form.html', {'error': error})
+
+
 
         # Conversion des coordonnées en DMS (Degrés, Minutes, Secondes)
         latitude_dms = decimal_to_dms(latitude, is_latitude=True)
         longitude_dms = decimal_to_dms(longitude, is_latitude=False)
 
         # Recherche du fuseau horaire
-        tf = TimezoneFinder()
-        timezone_str = tf.timezone_at(lng=longitude, lat=latitude)
+        timezone_str, error = get_timezone(latitude, longitude)
+        if error:
+            return render(request, 'birth_data_form.html', {'error': error})
 
-        if not timezone_str:
-            return render(request, 'birth_data_form.html', {'error': 'Fuseau horaire non trouvé.'})
 
         # Conversion en heures locales et UTC
         try:
-            birth_datetime_local, birth_datetime_utc = convert_to_timezone(birth_datetime, timezone_str)
+            birth_datetime_local, birth_datetime_utc, error = convert_birth_datetime(birth_datetime, timezone_str)
+            if error:
+                return render(request, 'birth_data_form.html', {'error': error})
+
 
             # Afficher les données d'entrée avant conversion
             print(f"Débogage : Heure de naissance d'origine (locale, avant conversion): {birth_datetime}")
@@ -222,9 +294,12 @@ def birth_data(request):
             birth_datetime_utc.hour + birth_datetime_utc.minute / 60.0
         )
 
-        # Calcul des positions des planètes et des maisons astrologiques
+        # Calcul des positions des planètes
         results, planet_positions = calculate_planet_positions(jd)
-        house_results = calculate_houses(jd, latitude, longitude)
+
+        # Calcul des maisons astrologiques
+        house_results = calculate_astrological_houses(jd, latitude, longitude)
+
 
         print("Débogage : Calcul des positions des planètes terminé.")  # Vérifier si les calculs sont faits
 
@@ -233,7 +308,8 @@ def birth_data(request):
         generate_astrological_wheel(planet_positions, house_results)
 
         # Calcul des aspects planétaires
-        aspects = calculate_aspects(planet_positions)
+        aspects = calculate_astrological_aspects(planet_positions)
+
 
         # Transmission des données à la template HTML
         return render(request, 'birth_results.html', {
@@ -746,8 +822,6 @@ def generate_astrological_wheel(planet_positions, house_results):
         # Régler les proportions de la figure pour qu'elle soit carrée et occupe tout l'espace
         fig.set_size_inches(12, 12)
         ax.set_aspect('equal')
-
-
 
 
 
