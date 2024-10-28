@@ -208,7 +208,9 @@ def calculate_aspects(planet_positions):
             for aspect_name, aspect_angle in aspect_definitions.items():
                 orbe = aspect_orbs[aspect_name]
                 if abs(diff - aspect_angle) <= orbe:
-                    aspects.append(f"{planet1} - {planet2}: {aspect_name}")
+                    # Ajouter l'aspect sous forme de tuple (type_aspect, pos1, pos2)
+                    aspects.append((aspect_name, pos1, pos2))
+
 
     return aspects
     
@@ -296,19 +298,18 @@ def birth_data(request):
 
         # Calcul des positions des planètes
         results, planet_positions = calculate_planet_positions(jd)
+        print("Débogage : Calcul des positions des planètes terminé.")  # Vérifier si les calculs sont faits
 
         # Calcul des maisons astrologiques
         house_results = calculate_astrological_houses(jd, latitude, longitude)
-
-
-        print("Débogage : Calcul des positions des planètes terminé.")  # Vérifier si les calculs sont faits
+        
+        # Calcul des aspects planétaires
+        aspects = calculate_astrological_aspects(planet_positions)
 
         # Appel de la fonction pour générer la roue astrologique
         print("Débogage : Appel de la fonction 'generate_astrological_wheel'.")
-        generate_astrological_wheel(planet_positions, house_results)
+        generate_astrological_wheel(planet_positions, house_results, aspects)
 
-        # Calcul des aspects planétaires
-        aspects = calculate_astrological_aspects(planet_positions)
 
 
         # Transmission des données à la template HTML
@@ -437,7 +438,8 @@ def decimal_to_dms(coordinate, is_latitude=True):
 
     
 # ROUE
-def generate_astrological_wheel(planet_positions, house_results):
+# Fonction générale pour appeler les sous foncitons.
+def generate_astrological_wheel(planet_positions, house_results, aspects):
     # Définir le chemin d'image
     image_path = os.path.join(settings.BASE_DIR, 'astroapp/static/images/zodiac_wheel.png')
 
@@ -474,6 +476,10 @@ def generate_astrological_wheel(planet_positions, house_results):
 
     # Ajouter les numéros des maisons
     draw_house_numbers(ax, house_results, rotation_offset)
+    
+    # Appeler draw_aspects pour dessiner les aspects
+    draw_aspects(ax, aspects, rotation_offset)
+
 
     # Ajuster les limites de l'axe pour ne pas couper les angles
     ax.set_xlim(-2.9, 2.9)
@@ -621,7 +627,7 @@ def draw_planet_positions(ax, planet_positions, rotation_offset):
     font_path = os.path.join(settings.BASE_DIR, 'astroapp', 'fonts', 'hamburgsymbols', 'HamburgSymbols.ttf')
     prop = font_manager.FontProperties(fname=font_path)
 
-    # Placer chaque planète à sa position respective
+    # Placer chaque planète à sa position respective et ajouter les lignes de liaison
     for planet, degree in planet_positions:
         # Calcul de l'angle de la planète en radians
         angle = np.radians(degree)
@@ -636,7 +642,10 @@ def draw_planet_positions(ax, planet_positions, rotation_offset):
         # Ajouter le symbole de la planète avec sa couleur et sa position
         ax.text(x, y, symbol, fontproperties=prop, fontsize=40, color=color, 
                 ha='center', va='center')
-                
+        
+        # Tracer une ligne de liaison entre le centre et la position de la planète
+        ax.plot([0, 0.9 * x], [0, 0.9 * y], color='black', lw=0.5, zorder=1)
+
                 
 
 def draw_houses_and_cusps(ax, house_results, rotation_offset):
@@ -804,6 +813,46 @@ def draw_house_numbers(ax, house_results, rotation_offset):
         # Afficher le numéro de maison au centre de chaque segment
         roman_house_num = roman_numerals[i + 1]
         ax.text(x_text, y_text, roman_house_num, fontsize=12, ha='center', va='center', color='black', weight='bold')
+
+
+
+def draw_aspects(ax, aspects, rotation_offset):
+    """
+    Dessine les aspects astrologiques entre les planètes sur la roue astrologique.
+
+    Paramètres :
+    - ax : objet Axe de Matplotlib sur lequel la roue astrologique est dessinée.
+    - aspects : liste de tuples contenant les informations sur chaque aspect. 
+                Chaque tuple est de la forme (type_aspect, pos1, pos2),
+                où type_aspect est le type d'aspect ('opposition', 'trigone', etc.)
+                et pos1, pos2 sont les positions angulaires des deux planètes en degrés.
+    - rotation_offset : décalage angulaire pour aligner les aspects sur la roue.
+    """
+    # Paramètres de style pour chaque type d'aspect
+    aspect_styles = {
+        'Opposition': {'color': 'red', 'linestyle': (0, (10, 5)), 'linewidth': 1.0},  # Tirets longs
+        'Trigone': {'color': 'blue', 'linestyle': '-', 'linewidth': 0.8},
+        'Carré': {'color': 'red', 'linestyle': (0, (10, 5)), 'linewidth': 1.0},  # Tirets longs
+        'Sextile': {'color': 'blue', 'linestyle': '-', 'linewidth': 0.8},
+    }
+
+    for aspect in aspects:
+        type_aspect, pos1, pos2 = aspect
+        # Obtenir le style pour le type d'aspect
+        style = aspect_styles.get(type_aspect)
+        if not style:
+            continue  # Si le type d'aspect n'est pas défini, on ignore
+
+        # Appliquer le décalage de rotation
+        angle1 = np.radians(pos1) + rotation_offset
+        angle2 = np.radians(pos2) + rotation_offset
+
+        # Calculer les positions des extrémités des lignes d'aspect
+        x1, y1 = 0.8 * np.cos(angle1), 0.8 * np.sin(angle1)  # Ajuster avec length_factor
+        x2, y2 = 0.8 * np.cos(angle2), 0.8 * np.sin(angle2)
+
+        # Dessiner la ligne d'aspect
+        ax.plot([x1, x2], [y1, y2], color=style['color'], linestyle=style['linestyle'], linewidth=style['linewidth'], zorder=10)
 
 
 
