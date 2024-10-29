@@ -214,7 +214,32 @@ def calculate_aspects(planet_positions):
 
     return aspects
     
+
+# Fonction pour formater les aspects en texte lisible avec les positions et l'écart en degrés
+def format_aspects_text(aspects, planet_positions):
+    # Dictionnaire pour retrouver le nom de la planète à partir de la position
+    planet_dict = {position: name for name, position in planet_positions}
     
+    formatted_aspects = []
+    for aspect_name, pos1, pos2 in aspects:
+        planet1 = planet_dict.get(pos1, "Inconnu")
+        planet2 = planet_dict.get(pos2, "Inconnu")
+        ecart = abs(pos1 - pos2)
+        ecart = min(ecart, 360 - ecart)  # Toujours l'écart le plus court entre les deux points
+        
+        # Formater le texte pour inclure les positions et l'écart
+        formatted_aspects.append(
+            f"« {aspect_name} »  {planet1} ({pos1:.2f}°) et {planet2} ({pos2:.2f}°), avec un écart de « {ecart:.2f}° »."
+        )
+
+    
+    return formatted_aspects
+
+
+
+
+
+
     
 # BIRTH DATA
 # 6- Vue principale pour traiter les données de naissance
@@ -305,6 +330,27 @@ def birth_data(request):
         
         # Calcul des aspects planétaires
         aspects = calculate_astrological_aspects(planet_positions)
+
+        # Ajout de la ligne pour formater le texte des aspects, sans impacter la roue
+        aspects_text = format_aspects_text(aspects, planet_positions)
+
+        # Appel de la fonction pour générer la roue astrologique avec les aspects d'origine
+        generate_astrological_wheel(planet_positions, house_results, aspects)
+
+        # Transmission des données au modèle, avec aspects_text pour l'affichage
+        return render(request, 'birth_results.html', {
+            'name': name,
+            'results': results,
+            'houses': house_results,
+            'aspects': aspects_text,  # Ici, on utilise aspects_text pour l'affichage en texte
+            'local_year_str': birth_datetime_local.strftime("%Y"),
+            'local_time_str': birth_datetime_local.strftime("%H:%M:%S %Z%z"),
+            'utc_time_str': birth_datetime_utc.strftime("%H:%M:%S %Z%z"),
+            'location': location,
+            'latitude_dms': latitude_dms,
+            'longitude_dms': longitude_dms,
+        })
+
 
         # Appel de la fonction pour générer la roue astrologique
         print("Débogage : Appel de la fonction 'generate_astrological_wheel'.")
@@ -876,3 +922,4 @@ def save_astrological_image(fig, image_path):
         print(f"Erreur lors de la génération de l'image : {e}")
     finally:
         plt.close(fig)  # Fermer la figure pour libérer la mémoire
+
