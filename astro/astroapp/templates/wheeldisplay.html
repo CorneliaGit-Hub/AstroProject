@@ -1,127 +1,145 @@
 {% load static %}
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Affichage de la roue astrologique</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <style>
-        /* Conteneur principal */
-        body {
-            background-color: #f9f9f9;
-            font-family: 'Arial', sans-serif;
-        }
+<style>
+/* Conteneur principal */
+body {
+	background-color: #f9f9f9;
+}
 
-        .main-container {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            padding: 20px;
-        }
+/* Conteneur principal */
+.main-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
 
-        /* Conteneur pour les champs de saisie */
-        .form-container {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            width: 100%;
-            max-width: 800px;
-            padding: 20px;
-            border: 1px solid #6A3D90;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            background-color: #fff;
-        }
+/* Conteneur pour les champs de saisie */
+.form-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 colonnes de largeur égale */
+    gap: 10px; /* Espace réduit entre les cellules */
+    width: 100%;
+    max-width: 800px;
+    padding: 10px; /* Réduction de l'espace autour du formulaire */
+    border: 1px solid #6A3D90;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px; /* Réduit l'espace sous le formulaire */
+}
 
-        /* Champs de saisie et boutons */
-        .form-container div {
-            width: 100%;
-        }
+/* Champs de saisie */
+.form-container div {
+    width: 100%;
+}
 
-        input[type="text"],
-        input[type="date"],
-        input[type="time"] {
-            width: 100%;
-            padding: 6px;
-            border-radius: 5px;
-            border: 1px solid #6A3D90;
-            font-size: 14px;
-            box-sizing: border-box;
-            background-color: #f9f9f9;
-        }
+.form-container input {
+    width: 100%;
+    padding: 6px; /* Réduction de l'espace interne des champs */
+    border-radius: 5px;
+    border: 1px solid #6A3D90;
+    font-size: 14px;
+    box-sizing: border-box;
+}
 
-        button {
-            grid-column: span 2;
-            padding: 8px;
-            margin-top: 5px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            background-color: #6A3D90;
-            color: white;
-        }
+/* Boutons */
+.form-container button {
+    grid-column: span 2; /* Les boutons occupent 2 colonnes */
+    padding: 8px; /* Réduction de la hauteur des boutons */
+    margin-top: 5px; /* Réduction de l'espace au-dessus des boutons */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
 
-        button:hover {
-            background-color: #5a2e7c;
-        }
+.calculate-btn {
+    background-color: #FFA801;
+    color: white;
+}
 
-        /* Conteneur pour la roue astrologique */
-        .wheel-container {
-            width: 100%;
-            padding: 20px 0;
-            text-align: center;
-        }
+.calculate-btn:hover {
+    background-color: #e69500;
+}
 
-        .wheel-container img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
+.save-btn {
+    background-color: #6A3D90;
+    color: white;
+}
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            .form-container {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
-</head>
-<body>
+.save-btn:hover {
+    background-color: #5a2e7c;
+}
+
+/* Conteneur pour la roue astrologique */
+.wheel-container {
+    width: 100%;
+    padding: 0;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.wheel-container img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Ajustements pour les petits écrans */
+@media (max-width: 768px) {
+    .form-container {
+        grid-template-columns: repeat(2, 1fr); /* 2 colonnes même sur petit écran pour maintenir l'équilibre */
+    }
+
+    .form-container div {
+        min-width: 45%; /* Chaque champ garde une largeur minimale pour rester lisible */
+    }
+}
+
+@media (max-width: 480px) {
+    .form-container {
+        grid-template-columns: 1fr; /* 1 colonne sur très petit écran */
+    }
+
+    .form-container div {
+        min-width: 100%; /* Prend toute la largeur de l'écran */
+    }
+}
+
+
+
+</style>
+
 
 <div class="main-container">
-    <h2>Calculer un nouveau thème</h2>
-    <!-- Formulaire pour les données de naissance -->
-    <form method="post" action="{% url 'birth_data' %}" class="form-container">
-        {% csrf_token %}
+    <!-- Conteneur pour les champs de saisie -->
+    <div class="form-container">
         <div>
-            <label for="name">Nom:</label>
-            <input type="text" id="name" name="name" placeholder="Nom" required>
+            <input type="text" id="name" placeholder="Entrez le nom">
         </div>
         <div>
-            <label for="date_of_birth">Date de naissance:</label>
-            <input type="date" id="date_of_birth" name="date_of_birth" required>
+            <input type="text" id="birthdate" placeholder="Jour/Mois/Année">
         </div>
         <div>
-            <label for="time_of_birth">Heure de naissance:</label>
-            <input type="time" id="time_of_birth" name="time_of_birth" required>
+            <input type="text" id="birthtime" placeholder="Heure:Minute">
         </div>
         <div>
-            <label for="country_of_birth">Pays de naissance:</label>
-            <input type="text" id="country_of_birth" name="country_of_birth" placeholder="Pays de naissance" required>
+            <input type="text" id="country" placeholder="Entrez le pays">
         </div>
         <div>
-            <label for="city_of_birth">Ville de naissance:</label>
-            <input type="text" id="city_of_birth" name="city_of_birth" placeholder="Ville de naissance" required>
+            <input type="text" id="city" placeholder="Entrez la ville ou le village">
         </div>
-        <button type="submit">Calculer</button>
-    </form>
+
+        <!-- Boutons (étalés sur 2 colonnes) -->
+        <button type="button" class="calculate-btn">Calculer</button>
+        <button type="button" class="save-btn">Enregistrer</button>
+    </div>
+
+
 </div>
+
+<br><br>
 
 <div class="main-container">
     <!-- Conteneur pour la roue astrologique -->
@@ -130,15 +148,3 @@
     </div>
 </div>
 
-<script>
-    // Initialiser Flatpickr pour le champ de date
-    flatpickr("#date_of_birth", {
-        dateFormat: "Y-m-d",
-        allowInput: true,
-        altInput: true,
-        altFormat: "d/m/Y"
-    });
-</script>
-
-</body>
-</html>

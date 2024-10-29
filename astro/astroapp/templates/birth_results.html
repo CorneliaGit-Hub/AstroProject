@@ -8,51 +8,74 @@
     <title>Résultats astrologiques</title>
     <style>
 /* BODY */
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #f9f9f9;
-        }
+body {
+	font-family: 'Arial', sans-serif;
+	margin: 0;
+	padding: 20px;
+	background-color: #f9f9f9;
+}
 
-        h2 {
-            text-align: center;
-            color: #333;
-            font-size: 28px;
-            margin-bottom: 20px;
-        }
+h2 {
+	text-align: center;
+	color: #333;
+	font-size: 28px;
+	margin-bottom: 20px;
+}
 
-        .container {
-            max-width: 60%;
-            margin: 0 auto;
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease-in-out;
-        }
+.container {
+	max-width: 85%;
+	margin: 0 auto;
+	background-color: #fff;
+	padding: 30px;
+	border-radius: 10px;
+	box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+	transition: transform 0.3s ease-in-out;
+}
 
-        .container:hover {
-            transform: translateY(-10px);
-        }
+.container:hover {
+	transform: translateY(-10px);
+}
+
+.container img {
+    width: 100%; /* Taille par défaut pour les petits et moyens écrans */
+}
+
+@media (min-width: 1024px) {
+    .container img {
+        width: 75%; /* Réduction de l'image uniquement sur les grands écrans */
+        max-width: 600px; /* Limite la taille maximale de l'image */
+    }
+}
 
 /* TABLE */
 .table-container {
     margin-bottom: 20px; /* Espacement entre chaque table */
 }
 
-.table-wrapper-planetes {
-    width: 35%; /* Largeur de la table des planètes */
-    margin: 0 auto; /* Centre la div et la table */
+.table-wrapper-planetes,
+.table-wrapper-maisons {
+    width: 100%;
+
+    margin: 0 auto;
 }
 
-.table-wrapper-maisons {
-    width: 35%; /* Largeur de la table des maisons */
-    margin: 0 auto; /* Centre la div et la table */
+@media (min-width: 768px) {
+    .table-wrapper-planetes,
+    .table-wrapper-maisons {
+        width: 45%; /* Largeur moyenne pour les écrans de taille intermédiaire */
+    }
 }
+
+@media (min-width: 1024px) {
+    .table-wrapper-planetes,
+    .table-wrapper-maisons {
+        width: 35%;
+    }
+}
+
 
 .table-wrapper-aspects {
-    width: 25%; /* Largeur de la table des aspects */
+    width: 30%; /* Largeur de la table des aspects */
     margin: 0 auto; /* Centre la div et la table */
 }
 
@@ -185,6 +208,7 @@ button:active {
 <br><br>
 
 <!-- PLANETES -->
+<div class="container">
 <div class="table-container planets">
 <div class="table-wrapper-planetes">
 <h3>Positions des planètes :</h3>
@@ -216,10 +240,12 @@ button:active {
         </table>
 </div>
 </div>
+</div>
 <!-- / PLANETES -->
 <br><br>
 
 <!-- MAISONS -->
+<div class="container">
 <div class="table-container houses">
 <div class="table-wrapper-maisons">
         <h3>Maisons astrologiques :</h3>
@@ -251,11 +277,13 @@ button:active {
         </table>
 </div>
 </div>
+</div>
 <!-- / MAISONS -->
 <br><br>
 
 
 <!-- ASPECTS -->
+<div class="container">
 <div class="table-container aspects">
 <div class="table-wrapper-aspects">
         <h3>Aspects planétaires :</h3>
@@ -279,6 +307,7 @@ button:active {
                 {% endif %}
             </tbody>
         </table>
+</div>
 </div>
 </div>
 <!-- / ASPECTS -->
