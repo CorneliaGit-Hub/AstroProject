@@ -104,12 +104,12 @@
             <input type="text" id="name" name="name" placeholder="Nom" required>
         </div>
         <div>
-            <label for="date_of_birth">Date de naissance:</label>
-            <input type="date" id="date_of_birth" name="date_of_birth" required>
+            <label for="birthdate">Date de naissance:</label>
+            <input type="date" id="birthdate" name="birthdate" required>
         </div>
         <div>
-            <label for="time_of_birth">Heure de naissance:</label>
-            <input type="time" id="time_of_birth" name="time_of_birth" required>
+            <label for="birthtime">Heure de naissance:</label>
+            <input type="time" id="birthtime" name="birthtime" required>
         </div>
         <div>
             <label for="country_of_birth">Pays de naissance:</label>
@@ -132,7 +132,7 @@
 
 <script>
     // Initialiser Flatpickr pour le champ de date
-    flatpickr("#date_of_birth", {
+    flatpickr("#birthdate", {
         dateFormat: "Y-m-d",
         allowInput: true,
         altInput: true,
