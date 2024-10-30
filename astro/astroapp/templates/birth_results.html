@@ -60,24 +60,70 @@ h2 {
 }
 
 @media (min-width: 768px) {
-    .table-wrapper-planetes,
-    .table-wrapper-maisons {
+    .table-wrapper-planetes {
         width: 45%; /* Largeur moyenne pour les écrans de taille intermédiaire */
     }
 }
 
 @media (min-width: 1024px) {
-    .table-wrapper-planetes,
-    .table-wrapper-maisons {
+    .table-wrapper-planetes {
         width: 35%;
     }
 }
 
 
-.table-wrapper-aspects {
-    width: 30%; /* Largeur de la table des aspects */
-    margin: 0 auto; /* Centre la div et la table */
+
+/* MAISONS */
+    .table-wrapper-maisons {
+        width: 100%; /* Largeur pour les petits écrans */
+    }
+	
+@media (min-width: 768px) {
+    .table-wrapper-maisons {
+        width: 80%; /* Largeur moyenne pour les écrans de taille intermédiaire */
+    }
 }
+
+
+@media (min-width: 900px) {
+    .table-wrapper-maisons {
+        width: 70%; /* Largeur moyenne pour les écrans de taille intermédiaire */
+    }
+}
+
+@media (min-width: 1024px) {
+    .table-wrapper-maisons {
+        width: 55%;
+    }
+}
+
+
+
+/* ASPECTS */
+.table-wrapper-aspects {
+    width: 100%; /* Largeur pour les petits écrans */
+    margin: 0 auto;
+}
+
+@media (min-width: 576px) {
+    .table-wrapper-aspects {
+        width: 95%; /* Taille pour les écrans petits-moyens */
+    }
+}
+
+
+@media (min-width: 950px) {
+    .table-wrapper-aspects {
+        width: 90%; /* Taille pour les écrans moyens */
+    }
+}
+
+@media (min-width: 1024px) {
+    .table-wrapper-aspects {
+        width: 53%; /* Taille pour les grands écrans */
+    }
+}
+
 
 table {
     width: 100%; /* La table occupe toute la largeur de la div */
