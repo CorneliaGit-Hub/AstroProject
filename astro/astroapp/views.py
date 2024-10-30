@@ -246,16 +246,19 @@ def format_aspects_text(aspects, planet_positions):
 def birth_data(request):
     if request.method == 'POST':
         print("Débogage : La vue 'birth_data' a été appelée.")  # Vérifier si la vue est exécutée
+        print("Débogage : Données POST reçues ->", request.POST)  # Affiche toutes les données reçues
+
         # Récupération des données du formulaire
         name = request.POST['name']
-        date_of_birth = request.POST['date_of_birth']
-        time_of_birth = request.POST['time_of_birth']
+        birthdate = request.POST['birthdate']
+        birthtime = request.POST['birthtime']
         country_of_birth = request.POST['country_of_birth']
         city_of_birth = request.POST['city_of_birth']
 
         # Conversion de la chaîne de texte en datetime
-        birth_datetime_str = f"{date_of_birth} {time_of_birth}"
+        birth_datetime_str = f"{birthdate} {birthtime}"
         birth_datetime = datetime.strptime(birth_datetime_str, "%Y-%m-%d %H:%M")
+
 
         # Géolocalisation du lieu de naissance
         location, error = get_location(city_of_birth, country_of_birth)
@@ -334,8 +337,24 @@ def birth_data(request):
         # Ajout de la ligne pour formater le texte des aspects, sans impacter la roue
         aspects_text = format_aspects_text(aspects, planet_positions)
 
-        # Appel de la fonction pour générer la roue astrologique avec les aspects d'origine
+        # Appel de la fonction pour générer la roue astrologique
+        print("Débogage : Appel de la fonction 'generate_astrological_wheel'.")
         generate_astrological_wheel(planet_positions, house_results, aspects)
+
+        # Transmission des données à la template HTML
+        return render(request, 'birth_results.html', {
+            'name': name,
+            'results': results,
+            'houses': house_results,
+            'aspects': aspects,
+            'local_year_str': birth_datetime_local.strftime("%Y"),
+            'local_time_str': birth_datetime_local.strftime("%H:%M:%S %Z%z"),
+            'utc_time_str': birth_datetime_utc.strftime("%H:%M:%S %Z%z"),
+            'location': location,
+            'latitude_dms': latitude_dms,
+            'longitude_dms': longitude_dms,
+        })
+
 
         # Transmission des données au modèle, avec aspects_text pour l'affichage
         return render(request, 'birth_results.html', {

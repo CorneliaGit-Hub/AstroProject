@@ -103,14 +103,16 @@
             <label for="name">Nom:</label>
             <input type="text" id="name" name="name" placeholder="Nom" required>
         </div>
-        <div>
-            <label for="birthdate">Date de naissance:</label>
-            <input type="date" id="birthdate" name="birthdate" required>
-        </div>
-        <div>
-            <label for="birthtime">Heure de naissance:</label>
-            <input type="time" id="birthtime" name="birthtime" required>
-        </div>
+<div>
+    <label for="birthdate">Date de naissance:</label>
+    <input type="date" id="birthdate" name="birthdate" required>
+</div>
+
+<div>
+    <label for="birthdate">Heure de naissance:</label>
+    <input type="time" id="birthtime" name="birthtime" required>
+</div>
+
         <div>
             <label for="country_of_birth">Pays de naissance:</label>
             <input type="text" id="country_of_birth" name="country_of_birth" placeholder="Pays de naissance" required>
@@ -129,6 +131,7 @@
         <img src="{% static 'images/zodiac_wheel.png' %}?{{ timestamp }}" alt="Roue astrologique">
     </div>
 </div>
+
 
 <script>
     // Initialiser Flatpickr pour le champ de date
