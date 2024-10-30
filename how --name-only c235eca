@@ -1,0 +1,30 @@
+[33mc235eca[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m Restauration du fichier birth_results.html
+[33m26d2ba6[m Réparation
+[33m9ffc8a6[m Amélioration de l'affichage des aspects astrologiques : ajout du formatage pour les aspects dans la vue textuelle avec positions et écarts affichés de manière lisible. Optimisation de l'indentation et ajustements finaux pour la lisibilité de l'interface utilisateur.
+[33m818a388[m Alignement des sections et réduction de l'image sur grands écrans pour améliorer l'affichage adaptatif
+[33mdb887e0[m Adaptation du formulaire dans wheeldisplay pour calculer un nouveau thème avec la structure de birth_data_form, intégration de la validation et des scripts nécessaires
+[33m0f83ebc[m Ajout du tracé des aspects astrologiques dans la roue : styles spécifiques appliqués pour chaque aspect avec tirets longs pour l'Opposition et le Carré. Optimisation des styles de tracé dans draw_aspects pour un rendu visuel conforme aux standards d'astrologie. Prêt à être poussé en production.
+[33m5b2deba[m Restructuration complète de la roue astrologique : amélioration des fonctions de dessin, ajustement des couleurs, ajout des degrés, et positionnement des éléments. Finalisation pour un rendu optimisé.
+[33mde7ba51[m Modularisation de la fonction birth_data : extraction des calculs en fonctions distinctes pour améliorer la lisibilité, la réutilisabilité, et la maintenabilité du code. Ajout des fonctions calculate_astrological_houses et calculate_astrological_aspects.
+[33m80b5f77[m Correction du fuseau horaire pour la Guyane française (UTC-3)
+[33m335ce53[m Session 17: Corrected timezone handling for Cayenne, synchronized changes, and updated report
+[33mabdc89d[m Positionner l'ASC à gauche + corrections visuelles des segments, triangles, subdivisions
+[33mb7a1f5c[m Ajustements des dimensions de la roue astrologique et suppression des marges blanches
+[33m3bd0fc4[m Ajout du formulaire final et de la roue astrologique
+[33ma2c98b4[m Ajout des labels ASC et MC et ajustement visuel de la roue astrologique
+[33m0c0fb8b[m Coloration des cuspides ASC, DSC, MC et FC en noir, ajustement des triangles
+[33mf4323f7[m Ajout des degrés et minutes des cuspides des maisons, alignement et correction de l'affichage des numéros des maisons
+[33m652ce32[m Ajout des lignes reliant les planètes au centre de la roue astrologique
+[33m5f8f8bd[m Ajout final des segments colorés, des positions planétaires et des degrés alignés.
+[33m22796e6[m Première version avec la roue astrologique fonctionnelle
+[33m3e53c53[m Ajout de la génération de la roue astrologique et des positions planétaires
+[33m47d3b9a[m Intégration de l'image de la roue astrologique et corrections de wheeldisplay.html
+[33mba8ea8f[m Amélioration de la responsivité de wheeldisplay.html
+[33m9ee3a41[m Intégration de la vue wheeldisplay dans birth_results
+[33mf09f350[m Ajout de la génération d'une image de la roue zodiacale
+[33mef65a3a[m Ajout de la génération et de l'affichage de l'image zodiac_wheel
+[33m3003e99[m first commit
+[33m9309fa8[m Initial project structure for CALENDAR project
+[33m93b4229[m Affichage des résultats astrologiques terminé avec succès
+[33mbca439a[m Ajout des dossiers calendar et env
+[33m5f9603c[m Initial commit
