@@ -339,9 +339,10 @@ button:active {
                     <th>Aspect</th>
                 </tr>
             </thead>
+			
             <tbody>
-                {% if aspects %}
-                    {% for aspect in aspects %}
+                {% if aspects_text %}
+                    {% for aspect in aspects_text %}
                     <tr>
                         <td>{{ aspect }}</td>
                     </tr>
@@ -352,6 +353,7 @@ button:active {
                     </tr>
                 {% endif %}
             </tbody>
+
         </table>
 </div>
 </div>

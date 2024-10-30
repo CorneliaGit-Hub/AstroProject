@@ -336,17 +336,20 @@ def birth_data(request):
 
         # Ajout de la ligne pour formater le texte des aspects, sans impacter la roue
         aspects_text = format_aspects_text(aspects, planet_positions)
+        print("Débogage - aspects_text:", aspects_text)  # Cette ligne affiche le contenu après formatage
+
 
         # Appel de la fonction pour générer la roue astrologique
         print("Débogage : Appel de la fonction 'generate_astrological_wheel'.")
         generate_astrological_wheel(planet_positions, house_results, aspects)
 
-        # Transmission des données à la template HTML
-        return render(request, 'birth_results.html', {
+        # Transmission des données au modèle, avec aspects pour la roue
+        render(request, 'birth_results.html', {
             'name': name,
             'results': results,
             'houses': house_results,
-            'aspects': aspects,
+            'aspects': aspects,      # Pour l'affichage des aspects dans la roue
+            'aspects_text': aspects_text,  # Pour l'affichage en texte
             'local_year_str': birth_datetime_local.strftime("%Y"),
             'local_time_str': birth_datetime_local.strftime("%H:%M:%S %Z%z"),
             'utc_time_str': birth_datetime_utc.strftime("%H:%M:%S %Z%z"),
@@ -355,20 +358,6 @@ def birth_data(request):
             'longitude_dms': longitude_dms,
         })
 
-
-        # Transmission des données au modèle, avec aspects_text pour l'affichage
-        return render(request, 'birth_results.html', {
-            'name': name,
-            'results': results,
-            'houses': house_results,
-            'aspects': aspects_text,  # Ici, on utilise aspects_text pour l'affichage en texte
-            'local_year_str': birth_datetime_local.strftime("%Y"),
-            'local_time_str': birth_datetime_local.strftime("%H:%M:%S %Z%z"),
-            'utc_time_str': birth_datetime_utc.strftime("%H:%M:%S %Z%z"),
-            'location': location,
-            'latitude_dms': latitude_dms,
-            'longitude_dms': longitude_dms,
-        })
 
 
         # Appel de la fonction pour générer la roue astrologique
@@ -377,12 +366,23 @@ def birth_data(request):
 
 
 
-        # Transmission des données à la template HTML
+        # Calcul des aspects planétaires
+        aspects = calculate_astrological_aspects(planet_positions)
+
+        # Ajout de la ligne pour formater le texte des aspects
+        aspects_text = format_aspects_text(aspects, planet_positions)
+
+        # Débogage : vérifier les aspects avant de rendre
+        print("Aspects (graphique) :", aspects)
+        print("Aspects (texte) :", aspects_text)
+
+        # Transmission des données au modèle
         return render(request, 'birth_results.html', {
             'name': name,
             'results': results,
             'houses': house_results,
-            'aspects': aspects,
+            'aspects': aspects,  # Pour l'affichage graphique
+            'aspects_text': aspects_text,  # Pour l'affichage textuel
             'local_year_str': birth_datetime_local.strftime("%Y"),
             'local_time_str': birth_datetime_local.strftime("%H:%M:%S %Z%z"),
             'utc_time_str': birth_datetime_utc.strftime("%H:%M:%S %Z%z"),
@@ -390,6 +390,7 @@ def birth_data(request):
             'latitude_dms': latitude_dms,
             'longitude_dms': longitude_dms,
         })
+
 
 
     # Si la méthode n'est pas POST, afficher le formulaire de saisie

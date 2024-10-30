@@ -102,13 +102,13 @@ button:hover {
         <input type="text" id="name" placeholder="Nom" name="name" required>
     </div>
     <div class="form-group">
-        <label for="date_of_birth">Date de naissance:</label>
-        <input type="date" id="date_of_birth" name="date_of_birth" required>
+		<label for="birthdate">Date de naissance:</label>
+		<input type="date" id="birthdate" name="birthdate" required>
     </div>
-    <div class="form-group">
-        <label for="time_of_birth">Heure de naissance:</label>
-        <input type="time" id="time_of_birth" name="time_of_birth" required>
-    </div>
+	<div class="form-group">
+		<label for="birthtime">Heure de naissance:</label>
+		<input type="time" id="birthtime" name="birthtime" required>
+	</div>
     <div class="form-group">
         <label for="country_of_birth">Pays de naissance:</label>
         <input type="text" id="country_of_birth" placeholder="Pays de naissance" name="country_of_birth" required>
@@ -122,7 +122,7 @@ button:hover {
 
 <script>
     // Flatpickr pour le champ de date
-    flatpickr("#date_of_birth", {
+    flatpickr("#birthdate", {
         dateFormat: "Y-m-d",  // Garder le format actuel qui s'adapte à l'utilisateur
         allowInput: true,     // Permettre la saisie manuelle
         enableTime: false,    // Désactiver le choix de l'heure
@@ -135,6 +135,7 @@ button:hover {
         maxDate: "2100-12-31"   // Option : Placer une date maximale (facultatif)
     });
 </script>
+
 
 </body>
 </html>
