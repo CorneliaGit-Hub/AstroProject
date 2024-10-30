@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Liste des Thèmes Astrologiques</title>
+</head>
+<body>
+    <h1>Vos Thèmes Astrologiques</h1>
+    <ul>
+        {% for theme in themes %}
+            <li>
+                <strong>{{ theme.nom_du_theme }}</strong> - Créé le : {{ theme.date_de_creation|date:"d/m/Y H:i" }}
+            </li>
+        {% empty %}
+            <li>Aucun thème enregistré pour le moment.</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'enregistrer_theme' %}">Créer un nouveau thème</a>
+</body>
+</html>
