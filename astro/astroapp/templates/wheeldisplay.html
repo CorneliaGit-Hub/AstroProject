@@ -64,11 +64,33 @@
             font-size: 16px;
             background-color: #6A3D90;
             color: white;
+			transition: background-color 0.3s ease;
         }
 
         button:hover {
             background-color: #5a2e7c;
+			transform: scale(1.01); /* Agrandit le bouton de 5% */
+
         }
+		
+		    /* Style pour le bouton "Enregistrer" */
+		.btn-enregistrer {
+			padding: 8px;
+			margin-top: 5px;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			font-size: 16px;
+			background-color: #FFA801; /* Couleur bleue par exemple */
+			color: white;
+			transition: background-color 0.3s ease;
+		}
+	
+		.btn-enregistrer:hover {
+			background-color: #EE9F00; /* Couleur plus foncée au survol */
+			transform: scale(1.01); /* Agrandit le bouton de 5% */
+		}
+		
 
         /* Conteneur pour la roue astrologique */
         .wheel-container {
@@ -121,7 +143,8 @@
             <label for="city_of_birth">Ville de naissance:</label>
             <input type="text" id="city_of_birth" name="city_of_birth" placeholder="Ville de naissance" required>
         </div>
-        <button type="submit">Calculer</button>
+            <button type="submit">Calculer</button>
+            <button class="btn-enregistrer" type="submit" formaction="{% url 'enregistrer_theme' %}">Enregistrer</button>
     </form>
 </div>
 

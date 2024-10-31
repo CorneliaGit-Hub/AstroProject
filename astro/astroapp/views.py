@@ -2,7 +2,6 @@ import pytz
 from timezonefinder import TimezoneFinder
 from geopy.geocoders import Nominatim
 from datetime import datetime
-from django.shortcuts import render
 import swisseph as swe
 from zoneinfo import ZoneInfo
 from django.http import HttpResponse
@@ -18,6 +17,54 @@ from matplotlib import patches  # Ajout du module patches pour dessiner les segm
 import matplotlib.patches as patches
 from django.utils.timezone import now
 timestamp = int(now().timestamp())
+from django.shortcuts import render, redirect
+from .models import ThemeAstrologique
+from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.decorators import login_required
+
+
+@login_required
+def enregistrer_theme(request):
+    if request.method == 'POST':
+        nom_du_theme = request.POST.get('name')
+        ThemeAstrologique.objects.create(
+            utilisateur=request.user,
+            nom_du_theme=nom_du_theme
+        )
+        # Redirige vers le formulaire après l'enregistrement du thème
+        return redirect('birth_data')
+    return redirect('birth_data')  # Affiche uniquement le formulaire si pas de soumission
+
+
+def inscription(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('birth_data')  # Redirige vers le formulaire de données de naissance
+    else:
+        form = UserCreationForm()
+    return render(request, 'registration/signup.html', {'form': form})
+
+
+def connexion(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            return redirect('birth_data')  # Redirige vers le formulaire de données de naissance
+    else:
+        form = AuthenticationForm()
+    return render(request, 'registration/login.html', {'form': form})
+
+def deconnexion(request):
+    logout(request)
+    return redirect('birth_data')  # Redirige vers birth_data après la déconnexion
+
+
 
 
 
