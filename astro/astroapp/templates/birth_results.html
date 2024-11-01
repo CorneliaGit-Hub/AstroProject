@@ -393,14 +393,25 @@ button:active {
 <br><br>
 
 
-<!-- BOUTON -->
+<!-- BOUTON RETOUR AU FORMUALIRE -->
 <div class="div-bouton">
         <form method="get" action="{% url 'birth_data' %}">
             <input type="hidden" name="reset" value="true">
             <button type="submit">Revenir au formulaire</button>
         </form>
 </div>
-<!-- / BOUTON -->
+<!-- / BOUTON RETOUR AU FORMUALIRE -->
+
+
+<!-- BOUTON ENREGISTER -->
+<div class="div-bouton">
+    <form method="post" action="{% url 'enregistrer_theme' %}">
+        {% csrf_token %}
+        <input type="hidden" name="data_json" value="{{ theme_data_json }}">
+        <button type="submit">Enregistrer le thème</button>
+    </form>
+</div>
+<!-- / BOUTON ENREGISTER -->
 
     </div>
 

@@ -22,19 +22,63 @@ from .models import ThemeAstrologique
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.decorators import login_required
-
+from django.contrib import messages
+from django.urls import reverse
+from urllib.parse import urlencode
+import json
+from django.utils.http import urlencode
 
 @login_required
 def enregistrer_theme(request):
-    if request.method == 'POST':
-        nom_du_theme = request.POST.get('name')
-        ThemeAstrologique.objects.create(
-            utilisateur=request.user,
-            nom_du_theme=nom_du_theme
-        )
-        # Redirige vers le formulaire après l'enregistrement du thème
-        return redirect('birth_data')
-    return redirect('birth_data')  # Affiche uniquement le formulaire si pas de soumission
+    if request.method == "POST":
+        try:
+            # Récupère les données JSON envoyées par le formulaire
+            data_json = request.POST.get('data_json')
+            if not data_json:
+                messages.error(request, "Données JSON non fournies.")
+                return redirect('birth_results')
+
+            theme_data = json.loads(data_json)
+            house_results = theme_data.get('houses', {})
+            aspects = theme_data.get('aspects', [])
+            planet_positions = theme_data.get('planet_positions', [])
+
+            # Sérialisation des données en chaînes JSON
+            house_results_str = json.dumps(house_results)
+            aspects_str = json.dumps(aspects)
+            planet_positions_str = json.dumps(planet_positions)
+
+            # Créer et enregistrer le thème astrologique en base de données
+            theme = ThemeAstrologique(
+                utilisateur=request.user,
+                nom_du_theme="Thème par défaut"  # ou un nom dynamique si disponible dans les données
+            )
+            theme.save()
+
+            # Ligne de débogage pour confirmer l'enregistrement
+            print("Thème astrologique enregistré :", theme)
+
+            # Construire l'URL avec les paramètres sérialisés pour l'affichage
+            url = reverse('birth_results') + '?' + urlencode({
+                'house_results': house_results_str,
+                'aspects': aspects_str,
+                'planet_positions': planet_positions_str
+            })
+
+            # Ligne de débogage pour afficher l'URL construite
+            print("URL construite :", url)
+
+            messages.success(request, "Le thème a été enregistré avec succès.")
+            return redirect(url)
+
+        except Exception as e:
+            messages.error(request, f"Erreur lors de l'enregistrement : {e}")
+            return redirect('birth_results')
+
+
+
+
+
 
 
 def inscription(request):
@@ -374,6 +418,10 @@ def birth_data(request):
         # Calcul des positions des planètes
         results, planet_positions = calculate_planet_positions(jd)
         print("Débogage : Calcul des positions des planètes terminé.")  # Vérifier si les calculs sont faits
+        
+        if not planet_positions:  # Si planet_positions est vide, utilise une valeur de test
+            planet_positions = [('Soleil', 15.0), ('Lune', 30.0)]  # Exemple de positions
+
 
         # Calcul des maisons astrologiques
         house_results = calculate_astrological_houses(jd, latitude, longitude)
@@ -385,13 +433,21 @@ def birth_data(request):
         aspects_text = format_aspects_text(aspects, planet_positions)
         print("Débogage - aspects_text:", aspects_text)  # Cette ligne affiche le contenu après formatage
 
+        # Ajout de theme_data_json pour passer les données au template
+        theme_data_json = json.dumps({
+            'houses': house_results,
+            'aspects': aspects,
+            'planet_positions': planet_positions  # Ajoute planet_positions ici
+        })
 
+        
+        
         # Appel de la fonction pour générer la roue astrologique
         print("Débogage : Appel de la fonction 'generate_astrological_wheel'.")
         generate_astrological_wheel(planet_positions, house_results, aspects)
 
         # Transmission des données au modèle, avec aspects pour la roue
-        render(request, 'birth_results.html', {
+        return render(request, 'birth_results.html', {
             'name': name,
             'results': results,
             'houses': house_results,
@@ -403,7 +459,9 @@ def birth_data(request):
             'location': location,
             'latitude_dms': latitude_dms,
             'longitude_dms': longitude_dms,
+            'theme_data_json': theme_data_json,  # Ajoute le JSON des données du thème
         })
+
 
 
 
@@ -551,6 +609,35 @@ def decimal_to_dms(coordinate, is_latitude=True):
 
     
 # ROUE
+# Autres imports nécessaires
+def display_astrological_wheel(request):
+    # Charger les données depuis les paramètres GET
+    house_results = json.loads(request.GET.get('house_results', '{}'))
+    aspects = json.loads(request.GET.get('aspects', '[]'))
+    planet_positions = json.loads(request.GET.get('planet_positions', '[]'))
+
+    # Ajout de débogages pour vérifier les données reçues
+    print("House Results:", house_results)
+    print("Aspects:", aspects)
+    print("Planet Positions:", planet_positions)
+
+    # Formater les aspects en texte lisible
+    aspects_text = format_aspects_text(aspects, planet_positions)
+    print("Débogage - aspects_text après formatage :", aspects_text)  # Vérifier le contenu formaté
+
+    # Passer les données formatées au template
+    return render(request, 'birth_results.html', {
+        'results': planet_positions,
+        'houses': house_results,
+        'aspects_text': aspects_text  # Utilise le formatage textuel
+    })
+
+
+
+
+
+
+
 # Fonction générale pour appeler les sous foncitons.
 def generate_astrological_wheel(planet_positions, house_results, aspects):
     # Définir le chemin d'image
@@ -605,6 +692,7 @@ def generate_astrological_wheel(planet_positions, house_results, aspects):
     
     # Sauvegarder l'image finale
     save_astrological_image(fig, image_path)
+
 
 
 
@@ -966,6 +1054,7 @@ def draw_aspects(ax, aspects, rotation_offset):
 
         # Dessiner la ligne d'aspect
         ax.plot([x1, x2], [y1, y2], color=style['color'], linestyle=style['linestyle'], linewidth=style['linewidth'], zorder=10)
+
 
 
 
