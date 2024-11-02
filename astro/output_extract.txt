@@ -1,0 +1,5966 @@
+
+Fichier : /mnt/e/CALENDAR/astro/extract_variables.py
+  Classes:
+    - CodeLister
+  Fonctions:
+    - __init__
+    - visit_FunctionDef
+    - visit_ClassDef
+    - list_project_code_elements
+
+Fichier : /mnt/e/CALENDAR/astro/manage.py
+  Fonctions:
+    - main
+
+Fichier : /mnt/e/CALENDAR/astro/astroapp/models.py
+  Classes:
+    - ThemeAstrologique
+  Fonctions:
+    - __str__
+
+Fichier : /mnt/e/CALENDAR/astro/astroapp/views.py
+  Fonctions:
+    - enregistrer_theme
+    - inscription
+    - connexion
+    - deconnexion
+    - zodiac_wheel
+    - get_zodiac_sign
+    - calculate_planet_positions
+    - convert_to_dms
+    - calculate_houses
+    - get_location
+    - get_timezone
+    - convert_birth_datetime
+    - calculate_julian_day_and_planet_positions
+    - calculate_astrological_houses
+    - calculate_astrological_aspects
+    - calculate_aspects
+    - format_aspects_text
+    - birth_data
+    - planetary_position
+    - decimal_to_dms
+    - display_astrological_wheel
+    - generate_astrological_wheel
+    - create_astrological_figure
+    - draw_circle
+    - draw_segments
+    - draw_divisions
+    - draw_zodiac_symbols
+    - draw_planet_positions
+    - draw_houses_and_cusps
+    - display_degrees
+    - draw_asc_mc_lines
+    - draw_house_numbers
+    - draw_aspects
+    - save_astrological_image
+
+Fichier : /mnt/e/CALENDAR/astro/astroapp/migrations/0001_initial.py
+  Classes:
+    - Migration
+
+Fichier : /mnt/e/CALENDAR/astro/astroapp/templatetags/custom_filters.py
+  Fonctions:
+    - degrees_minutes
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/__init__.py
+  Fonctions:
+    - main
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/build_env.py
+  Classes:
+    - _Prefix
+    - BuildEnvironment
+    - NoOpBuildEnvironment
+  Fonctions:
+    - __init__
+    - _create_standalone_pip
+    - __init__
+    - __enter__
+    - __exit__
+    - check_requirements
+    - install_requirements
+    - _install_requirements
+    - __init__
+    - __enter__
+    - __exit__
+    - cleanup
+    - install_requirements
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/cache.py
+  Classes:
+    - Cache
+    - SimpleWheelCache
+    - EphemWheelCache
+    - CacheEntry
+    - WheelCache
+  Fonctions:
+    - _hash_dict
+    - __init__
+    - _get_cache_path_parts
+    - _get_candidates
+    - get_path_for_link
+    - get
+    - __init__
+    - get_path_for_link
+    - get
+    - __init__
+    - __init__
+    - __init__
+    - get_path_for_link
+    - get_ephem_path_for_link
+    - get
+    - get_cache_entry
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/configuration.py
+  Classes:
+    - Configuration
+  Fonctions:
+    - _normalize_name
+    - _disassemble_key
+    - get_configuration_files
+    - __init__
+    - load
+    - get_file_to_edit
+    - items
+    - get_value
+    - set_value
+    - unset_value
+    - save
+    - _ensure_have_load_only
+    - _dictionary
+    - _load_config_files
+    - _load_file
+    - _construct_parser
+    - _load_environment_vars
+    - _normalized_keys
+    - get_environ_vars
+    - iter_config_files
+    - get_values_in_config
+    - _get_parser_to_modify
+    - _mark_as_modified
+    - __repr__
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/exceptions.py
+  Classes:
+    - PipError
+    - DiagnosticPipError
+    - ConfigurationError
+    - InstallationError
+    - UninstallationError
+    - MissingPyProjectBuildRequires
+    - InvalidPyProjectBuildRequires
+    - NoneMetadataError
+    - UserInstallationInvalid
+    - InvalidSchemeCombination
+    - DistributionNotFound
+    - RequirementsFileParseError
+    - BestVersionAlreadyInstalled
+    - BadCommand
+    - CommandError
+    - PreviousBuildDirError
+    - NetworkConnectionError
+    - InvalidWheelFilename
+    - UnsupportedWheel
+    - InvalidWheel
+    - MetadataInconsistent
+    - LegacyInstallFailure
+    - InstallationSubprocessError
+    - MetadataGenerationFailed
+    - HashErrors
+    - HashError
+    - VcsHashUnsupported
+    - DirectoryUrlHashUnsupported
+    - HashMissing
+    - HashUnpinned
+    - HashMismatch
+    - UnsupportedPythonVersion
+    - ConfigurationFileCouldNotBeLoaded
+  Fonctions:
+    - _is_kebab_case
+    - _prefix_with_indent
+    - __init__
+    - __repr__
+    - __rich_console__
+    - __init__
+    - __init__
+    - __init__
+    - __str__
+    - __str__
+    - __str__
+    - __init__
+    - __str__
+    - __init__
+    - __str__
+    - __init__
+    - __str__
+    - __init__
+    - __init__
+    - __str__
+    - __init__
+    - __str__
+    - __init__
+    - append
+    - __str__
+    - __bool__
+    - body
+    - __str__
+    - _requirement_name
+    - __init__
+    - body
+    - __init__
+    - body
+    - _hash_comparison
+    - hash_then_or
+    - __init__
+    - __str__
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/main.py
+  Fonctions:
+    - main
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/pyproject.py
+  Fonctions:
+    - _is_list_of_str
+    - make_pyproject_path
+    - load_pyproject_toml
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/self_outdated_check.py
+  Classes:
+    - SelfCheckState
+  Fonctions:
+    - _get_statefile_name
+    - __init__
+    - key
+    - save
+    - was_installed_by_pip
+    - pip_self_version_check
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/wheel_builder.py
+  Fonctions:
+    - _contains_egg_info
+    - _should_build
+    - should_build_for_wheel_command
+    - should_build_for_install_command
+    - _should_cache
+    - _get_cache_dir
+    - _always_true
+    - _verify_one
+    - _build_one
+    - _build_one_inside_env
+    - _clean_one_legacy
+    - build
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/__init__.py
+  Fonctions:
+    - main
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/cli/autocompletion.py
+  Fonctions:
+    - autocomplete
+    - get_path_completion_type
+    - auto_complete_paths
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/cli/base_command.py
+  Classes:
+    - Command
+  Fonctions:
+    - __init__
+    - add_options
+    - handle_pip_version_check
+    - run
+    - parse_args
+    - main
+    - _main
+    - intercepts_unhandled_exc
+    - exc_logging_wrapper
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/cli/cmdoptions.py
+  Classes:
+    - PipOption
+  Fonctions:
+    - raise_option_error
+    - make_option_group
+    - check_install_build_global
+    - getname
+    - check_dist_restriction
+    - _path_option_check
+    - _package_name_option_check
+    - exists_action
+    - extra_index_url
+    - find_links
+    - trusted_host
+    - constraints
+    - requirements
+    - editable
+    - _handle_src
+    - _get_format_control
+    - _handle_no_binary
+    - _handle_only_binary
+    - no_binary
+    - only_binary
+    - _convert_python_version
+    - _handle_python_version
+    - add_target_python_options
+    - make_target_python
+    - prefer_binary
+    - _handle_no_cache_dir
+    - _handle_no_use_pep517
+    - _handle_merge_hash
+    - check_list_path_option
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/cli/command_context.py
+  Classes:
+    - CommandContextMixIn
+  Fonctions:
+    - __init__
+    - main_context
+    - enter_context
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/cli/main.py
+  Fonctions:
+    - main
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/cli/main_parser.py
+  Fonctions:
+    - create_main_parser
+    - parse_command
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/cli/parser.py
+  Classes:
+    - PrettyHelpFormatter
+    - UpdatingDefaultsHelpFormatter
+    - CustomOptionParser
+    - ConfigOptionParser
+  Fonctions:
+    - __init__
+    - format_option_strings
+    - _format_option_strings
+    - format_heading
+    - format_usage
+    - format_description
+    - format_epilog
+    - indent_lines
+    - expand_default
+    - insert_option_group
+    - option_list_all
+    - __init__
+    - check_default
+    - _get_ordered_configuration_items
+    - _update_defaults
+    - get_default_values
+    - error
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/cli/progress_bars.py
+  Classes:
+    - InterruptibleMixin
+    - SilentBar
+    - BlueEmojiBar
+    - DownloadProgressMixin
+    - WindowsMixin
+    - BaseDownloadProgressBar
+    - DefaultDownloadProgressBar
+    - DownloadSilentBar
+    - DownloadBar
+    - DownloadFillingCirclesBar
+    - DownloadBlueEmojiProgressBar
+    - DownloadProgressSpinner
+  Fonctions:
+    - _select_progress_class
+    - __init__
+    - finish
+    - handle_sigint
+    - update
+    - __init__
+    - downloaded
+    - download_speed
+    - pretty_eta
+    - iter
+    - __init__
+    - next_phase
+    - update
+    - _legacy_progress_bar
+    - _rich_progress_bar
+    - get_download_progress_renderer
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/cli/req_command.py
+  Classes:
+    - SessionCommandMixin
+    - IndexGroupCommand
+    - RequirementCommand
+  Fonctions:
+    - __init__
+    - _get_index_urls
+    - get_default_session
+    - _build_session
+    - handle_pip_version_check
+    - warn_if_run_as_root
+    - with_cleanup
+    - configure_tempdir_registry
+    - wrapper
+    - __init__
+    - determine_resolver_variant
+    - determine_build_failure_suppression
+    - make_requirement_preparer
+    - make_resolver
+    - get_requirements
+    - trace_basic_info
+    - _build_package_finder
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/cli/spinners.py
+  Classes:
+    - SpinnerInterface
+    - InteractiveSpinner
+    - NonInteractiveSpinner
+    - RateLimiter
+  Fonctions:
+    - spin
+    - finish
+    - __init__
+    - _write
+    - spin
+    - finish
+    - __init__
+    - _update
+    - spin
+    - finish
+    - __init__
+    - ready
+    - reset
+    - open_spinner
+    - hidden_cursor
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/commands/cache.py
+  Classes:
+    - CacheCommand
+  Fonctions:
+    - add_options
+    - run
+    - get_cache_dir
+    - get_cache_info
+    - list_cache_items
+    - format_for_human
+    - format_for_abspath
+    - remove_cache_items
+    - purge_cache
+    - _cache_dir
+    - _find_http_files
+    - _find_wheels
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/commands/check.py
+  Classes:
+    - CheckCommand
+  Fonctions:
+    - run
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/commands/completion.py
+  Classes:
+    - CompletionCommand
+  Fonctions:
+    - add_options
+    - run
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/commands/configuration.py
+  Classes:
+    - ConfigurationCommand
+  Fonctions:
+    - add_options
+    - run
+    - _determine_file
+    - list_values
+    - get_name
+    - set_name_value
+    - unset_name
+    - list_config_values
+    - print_config_file_values
+    - print_env_var_values
+    - open_in_editor
+    - _get_n_args
+    - _save_configuration
+    - _determine_editor
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/commands/debug.py
+  Classes:
+    - DebugCommand
+  Fonctions:
+    - show_value
+    - show_sys_implementation
+    - create_vendor_txt_map
+    - get_module_from_module_name
+    - get_vendor_version_from_module
+    - show_actual_vendor_versions
+    - show_vendor_versions
+    - show_tags
+    - ca_bundle_info
+    - add_options
+    - run
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/commands/download.py
+  Classes:
+    - DownloadCommand
+  Fonctions:
+    - add_options
+    - run
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/commands/freeze.py
+  Classes:
+    - FreezeCommand
+  Fonctions:
+    - add_options
+    - run
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/commands/hash.py
+  Classes:
+    - HashCommand
+  Fonctions:
+    - add_options
+    - run
+    - _hash_of_file
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/commands/help.py
+  Classes:
+    - HelpCommand
+  Fonctions:
+    - run
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/commands/index.py
+  Classes:
+    - IndexCommand
+  Fonctions:
+    - add_options
+    - run
+    - _build_package_finder
+    - get_available_package_versions
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/commands/install.py
+  Classes:
+    - InstallCommand
+  Fonctions:
+    - get_check_binary_allowed
+    - check_binary_allowed
+    - add_options
+    - run
+    - _handle_target_dir
+    - _determine_conflicts
+    - _warn_about_conflicts
+    - get_lib_location_guesses
+    - site_packages_writable
+    - decide_user_install
+    - reject_location_related_install_options
+    - format_options
+    - create_os_error_message
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/commands/list.py
+  Classes:
+    - _DistWithLatestInfo
+    - ListCommand
+  Fonctions:
+    - add_options
+    - _build_package_finder
+    - run
+    - get_outdated
+    - get_uptodate
+    - get_not_required
+    - iter_packages_latest_infos
+    - latest_info
+    - output_package_listing
+    - output_package_listing_columns
+    - format_for_columns
+    - format_for_json
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/commands/search.py
+  Classes:
+    - TransformedHit
+    - SearchCommand
+  Fonctions:
+    - add_options
+    - run
+    - search
+    - transform_hits
+    - print_dist_installation_info
+    - print_results
+    - highest_version
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/commands/show.py
+  Classes:
+    - ShowCommand
+    - _PackageInfo
+  Fonctions:
+    - add_options
+    - run
+    - search_packages_info
+    - _get_requiring_packages
+    - print_results
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/commands/uninstall.py
+  Classes:
+    - UninstallCommand
+  Fonctions:
+    - add_options
+    - run
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/commands/wheel.py
+  Classes:
+    - WheelCommand
+  Fonctions:
+    - add_options
+    - run
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/commands/__init__.py
+  Fonctions:
+    - create_command
+    - get_similar_commands
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/distributions/base.py
+  Classes:
+    - AbstractDistribution
+  Fonctions:
+    - __init__
+    - get_metadata_distribution
+    - prepare_distribution_metadata
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/distributions/installed.py
+  Classes:
+    - InstalledDistribution
+  Fonctions:
+    - get_metadata_distribution
+    - prepare_distribution_metadata
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/distributions/sdist.py
+  Classes:
+    - SourceDistribution
+  Fonctions:
+    - get_metadata_distribution
+    - prepare_distribution_metadata
+    - _prepare_build_backend
+    - _get_build_requires_wheel
+    - _get_build_requires_editable
+    - _install_build_reqs
+    - _raise_conflicts
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/distributions/wheel.py
+  Classes:
+    - WheelDistribution
+  Fonctions:
+    - get_metadata_distribution
+    - prepare_distribution_metadata
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/distributions/__init__.py
+  Fonctions:
+    - make_distribution_for_install_requirement
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/index/collector.py
+  Classes:
+    - _NotHTML
+    - _NotHTTP
+    - CacheablePageContent
+    - ParseLinks
+    - HTMLPage
+    - HTMLLinkParser
+    - CollectedSources
+    - LinkCollector
+  Fonctions:
+    - _match_vcs_scheme
+    - __init__
+    - _ensure_html_header
+    - _ensure_html_response
+    - _get_html_response
+    - _get_encoding_from_headers
+    - _determine_base_url
+    - _clean_url_path_part
+    - _clean_file_url_path
+    - _clean_url_path
+    - _clean_link
+    - _create_link_from_element
+    - __init__
+    - __eq__
+    - __hash__
+    - __call__
+    - with_cached_html_pages
+    - wrapper
+    - wrapper_wrapper
+    - _parse_links_html5lib
+    - parse_links
+    - __init__
+    - __str__
+    - __init__
+    - handle_decl
+    - handle_starttag
+    - get_href
+    - _raise_error
+    - _handle_get_page_fail
+    - _make_html_page
+    - _get_html_page
+    - __init__
+    - create
+    - find_links
+    - fetch_page
+    - collect_sources
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/index/package_finder.py
+  Classes:
+    - LinkEvaluator
+    - CandidatePreferences
+    - BestCandidateResult
+    - CandidateEvaluator
+    - PackageFinder
+  Fonctions:
+    - _check_link_requires_python
+    - __init__
+    - evaluate_link
+    - filter_unallowed_hashes
+    - __init__
+    - __init__
+    - iter_all
+    - iter_applicable
+    - create
+    - __init__
+    - get_applicable_candidates
+    - _sort_key
+    - sort_best_candidate
+    - compute_best_candidate
+    - __init__
+    - create
+    - target_python
+    - search_scope
+    - search_scope
+    - find_links
+    - index_urls
+    - trusted_hosts
+    - allow_all_prereleases
+    - set_allow_all_prereleases
+    - prefer_binary
+    - set_prefer_binary
+    - make_link_evaluator
+    - _sort_links
+    - _log_skipped_link
+    - get_install_candidate
+    - evaluate_links
+    - process_project_url
+    - find_all_candidates
+    - make_candidate_evaluator
+    - find_best_candidate
+    - find_requirement
+    - _format_versions
+    - _find_name_version_sep
+    - _extract_version_from_fragment
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/index/sources.py
+  Classes:
+    - LinkSource
+    - _FlatDirectorySource
+    - _LocalFileSource
+    - _RemoteFileSource
+    - _IndexDirectorySource
+  Fonctions:
+    - link
+    - page_candidates
+    - file_links
+    - _is_html_file
+    - __init__
+    - link
+    - page_candidates
+    - file_links
+    - __init__
+    - link
+    - page_candidates
+    - file_links
+    - __init__
+    - link
+    - page_candidates
+    - file_links
+    - __init__
+    - link
+    - page_candidates
+    - file_links
+    - build_source
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/locations/base.py
+  Fonctions:
+    - get_major_minor_version
+    - get_src_prefix
+    - is_osx_framework
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/locations/_distutils.py
+  Fonctions:
+    - distutils_scheme
+    - get_scheme
+    - get_bin_prefix
+    - get_purelib
+    - get_platlib
+    - get_prefixed_libs
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/locations/_sysconfig.py
+  Fonctions:
+    - _should_use_osx_framework_prefix
+    - _infer_prefix
+    - _infer_user
+    - _infer_home
+    - get_scheme
+    - get_bin_prefix
+    - get_purelib
+    - get_platlib
+    - get_prefixed_libs
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/locations/__init__.py
+  Fonctions:
+    - _should_use_sysconfig
+    - _looks_like_bpo_44860
+    - _looks_like_red_hat_patched_platlib_purelib
+    - _looks_like_red_hat_lib
+    - _looks_like_debian_scheme
+    - _looks_like_red_hat_scheme
+    - _looks_like_slackware_scheme
+    - _looks_like_msys2_mingw_scheme
+    - _fix_abiflags
+    - _warn_mismatched
+    - _warn_if_mismatch
+    - _log_context
+    - get_scheme
+    - get_bin_prefix
+    - get_bin_user
+    - _looks_like_deb_system_dist_packages
+    - get_purelib
+    - get_platlib
+    - _deduplicated
+    - _looks_like_apple_library
+    - get_prefixed_libs
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/metadata/base.py
+  Classes:
+    - BaseEntryPoint
+    - BaseDistribution
+    - BaseEnvironment
+    - Wheel
+    - FilesystemWheel
+    - MemoryWheel
+  Fonctions:
+    - name
+    - value
+    - group
+    - _convert_installed_files_path
+    - __repr__
+    - __str__
+    - location
+    - editable_project_location
+    - installed_location
+    - info_location
+    - installed_by_distutils
+    - installed_as_egg
+    - installed_with_setuptools_egg_info
+    - installed_with_dist_info
+    - canonical_name
+    - version
+    - setuptools_filename
+    - direct_url
+    - installer
+    - editable
+    - local
+    - in_usersite
+    - in_site_packages
+    - is_file
+    - iterdir
+    - read_text
+    - iter_entry_points
+    - metadata
+    - metadata_version
+    - raw_name
+    - requires_python
+    - iter_dependencies
+    - iter_provided_extras
+    - _iter_declared_entries_from_record
+    - _iter_declared_entries_from_legacy
+    - iter_declared_entries
+    - default
+    - from_paths
+    - get_distribution
+    - _iter_distributions
+    - iter_distributions
+    - iter_installed_distributions
+    - as_zipfile
+    - __init__
+    - as_zipfile
+    - __init__
+    - as_zipfile
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/metadata/pkg_resources.py
+  Classes:
+    - EntryPoint
+    - WheelMetadata
+    - Distribution
+    - Environment
+  Fonctions:
+    - __init__
+    - has_metadata
+    - get_metadata
+    - get_metadata_lines
+    - metadata_isdir
+    - metadata_listdir
+    - run_script
+    - __init__
+    - from_directory
+    - from_wheel
+    - location
+    - info_location
+    - installed_by_distutils
+    - canonical_name
+    - version
+    - is_file
+    - iterdir
+    - read_text
+    - iter_entry_points
+    - metadata
+    - iter_dependencies
+    - iter_provided_extras
+    - __init__
+    - default
+    - from_paths
+    - _search_distribution
+    - get_distribution
+    - _iter_distributions
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/metadata/__init__.py
+  Fonctions:
+    - get_default_environment
+    - get_environment
+    - get_directory_distribution
+    - get_wheel_distribution
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/models/candidate.py
+  Classes:
+    - InstallationCandidate
+  Fonctions:
+    - __init__
+    - __repr__
+    - __str__
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/models/direct_url.py
+  Classes:
+    - DirectUrlValidationError
+    - VcsInfo
+    - ArchiveInfo
+    - DirInfo
+    - DirectUrl
+  Fonctions:
+    - _get
+    - _get_required
+    - _exactly_one_of
+    - _filter_none
+    - __init__
+    - _from_dict
+    - _to_dict
+    - __init__
+    - _from_dict
+    - _to_dict
+    - __init__
+    - _from_dict
+    - _to_dict
+    - __init__
+    - _remove_auth_from_netloc
+    - redacted_url
+    - validate
+    - from_dict
+    - to_dict
+    - from_json
+    - to_json
+    - is_local_editable
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/models/format_control.py
+  Classes:
+    - FormatControl
+  Fonctions:
+    - __init__
+    - __eq__
+    - __repr__
+    - handle_mutual_excludes
+    - get_allowed_formats
+    - disallow_binaries
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/models/index.py
+  Classes:
+    - PackageIndex
+  Fonctions:
+    - __init__
+    - _url_for_path
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/models/link.py
+  Classes:
+    - Link
+    - _CleanResult
+  Fonctions:
+    - __init__
+    - __str__
+    - __repr__
+    - url
+    - filename
+    - file_path
+    - scheme
+    - netloc
+    - path
+    - splitext
+    - ext
+    - url_without_fragment
+    - egg_fragment
+    - subdirectory_fragment
+    - hash
+    - hash_name
+    - show_url
+    - is_file
+    - is_existing_dir
+    - is_wheel
+    - is_vcs
+    - is_yanked
+    - has_hash
+    - is_hash_allowed
+    - _clean_link
+    - links_equivalent
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/models/scheme.py
+  Classes:
+    - Scheme
+  Fonctions:
+    - __init__
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/models/search_scope.py
+  Classes:
+    - SearchScope
+  Fonctions:
+    - create
+    - __init__
+    - get_formatted_locations
+    - get_index_urls_locations
+    - mkurl_pypi_url
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/models/selection_prefs.py
+  Classes:
+    - SelectionPreferences
+  Fonctions:
+    - __init__
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/models/target_python.py
+  Classes:
+    - TargetPython
+  Fonctions:
+    - __init__
+    - format_given
+    - get_tags
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/models/wheel.py
+  Classes:
+    - Wheel
+  Fonctions:
+    - __init__
+    - get_formatted_file_tags
+    - support_index_min
+    - find_most_preferred_tag
+    - supported
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/network/auth.py
+  Classes:
+    - MultiDomainBasicAuth
+  Fonctions:
+    - get_keyring_auth
+    - __init__
+    - _get_index_url
+    - _get_new_credentials
+    - _get_url_and_credentials
+    - __call__
+    - _prompt_for_password
+    - _should_save_password_to_keyring
+    - handle_401
+    - warn_on_401
+    - save_credentials
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/network/cache.py
+  Classes:
+    - SafeFileCache
+  Fonctions:
+    - is_from_cache
+    - suppressed_cache_errors
+    - __init__
+    - _get_cache_path
+    - get
+    - set
+    - delete
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/network/download.py
+  Classes:
+    - Downloader
+    - BatchDownloader
+  Fonctions:
+    - _get_http_response_size
+    - _prepare_download
+    - sanitize_content_filename
+    - parse_content_disposition
+    - _get_http_response_filename
+    - _http_get_download
+    - __init__
+    - __call__
+    - __init__
+    - __call__
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/network/lazy_wheel.py
+  Classes:
+    - HTTPRangeRequestUnsupported
+    - LazyZipOverHTTP
+  Fonctions:
+    - dist_from_wheel_url
+    - __init__
+    - mode
+    - name
+    - seekable
+    - close
+    - closed
+    - read
+    - readable
+    - seek
+    - tell
+    - truncate
+    - writable
+    - __enter__
+    - __exit__
+    - _stay
+    - _check_zip
+    - _stream_response
+    - _merge
+    - _download
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/network/session.py
+  Classes:
+    - LocalFSAdapter
+    - InsecureHTTPAdapter
+    - InsecureCacheControlAdapter
+    - PipSession
+  Fonctions:
+    - looks_like_ci
+    - user_agent
+    - send
+    - close
+    - cert_verify
+    - cert_verify
+    - __init__
+    - update_index_urls
+    - add_trusted_host
+    - iter_secure_origins
+    - is_secure_origin
+    - request
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/network/utils.py
+  Fonctions:
+    - raise_for_status
+    - response_chunks
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/network/xmlrpc.py
+  Classes:
+    - PipXmlrpcTransport
+  Fonctions:
+    - __init__
+    - request
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/operations/check.py
+  Classes:
+    - PackageDetails
+  Fonctions:
+    - create_package_set_from_installed
+    - check_package_set
+    - check_install_conflicts
+    - _simulate_installation_of
+    - _create_whitelist
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/operations/freeze.py
+  Classes:
+    - _EditableInfo
+    - FrozenRequirement
+  Fonctions:
+    - freeze
+    - _format_as_name_version
+    - _get_editable_info
+    - __init__
+    - from_dist
+    - __str__
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/operations/prepare.py
+  Classes:
+    - File
+    - RequirementPreparer
+  Fonctions:
+    - _get_prepared_distribution
+    - unpack_vcs_link
+    - __init__
+    - get_http_url
+    - _copy2_ignoring_special_files
+    - _copy_source_tree
+    - ignore
+    - get_file_url
+    - unpack_url
+    - _check_download_dir
+    - __init__
+    - _log_preparing_link
+    - _ensure_link_req_src_dir
+    - _get_linked_req_hashes
+    - _fetch_metadata_using_lazy_wheel
+    - _complete_partial_requirements
+    - prepare_linked_requirement
+    - prepare_linked_requirements_more
+    - _prepare_linked_requirement
+    - save_linked_requirement
+    - prepare_editable_requirement
+    - prepare_installed_requirement
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/operations/build/metadata.py
+  Fonctions:
+    - generate_metadata
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/operations/build/metadata_editable.py
+  Fonctions:
+    - generate_editable_metadata
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/operations/build/metadata_legacy.py
+  Fonctions:
+    - _find_egg_info
+    - generate_metadata
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/operations/build/wheel.py
+  Fonctions:
+    - build_wheel_pep517
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/operations/build/wheel_editable.py
+  Fonctions:
+    - build_wheel_editable
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/operations/build/wheel_legacy.py
+  Fonctions:
+    - format_command_result
+    - get_legacy_build_wheel_path
+    - build_wheel_legacy
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/operations/install/editable_legacy.py
+  Fonctions:
+    - install_editable
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/operations/install/legacy.py
+  Fonctions:
+    - write_installed_files_from_setuptools_record
+    - prepend_root
+    - install
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/operations/install/wheel.py
+  Classes:
+    - File
+    - ZipBackedFile
+    - ScriptFile
+    - MissingCallableSuffix
+    - PipScriptMaker
+  Fonctions:
+    - save
+    - rehash
+    - csv_io_kwargs
+    - fix_script
+    - wheel_root_is_purelib
+    - get_entrypoints
+    - message_about_scripts_not_on_PATH
+    - _normalized_outrows
+    - _record_to_fs_path
+    - _fs_to_record_path
+    - get_csv_rows_for_installed
+    - get_console_script_specs
+    - __init__
+    - _getinfo
+    - save
+    - __init__
+    - save
+    - __init__
+    - _raise_for_invalid_entrypoint
+    - make
+    - _install_wheel
+    - record_installed
+    - is_dir_path
+    - assert_no_path_traversal
+    - root_scheme_file_maker
+    - make_root_scheme_file
+    - data_scheme_file_maker
+    - make_data_scheme_file
+    - is_data_scheme_path
+    - is_script_scheme_path
+    - is_entrypoint_wrapper
+    - pyc_source_file_paths
+    - pyc_output_path
+    - _generate_file
+    - req_error_context
+    - install_wheel
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/req/constructors.py
+  Classes:
+    - RequirementParts
+  Fonctions:
+    - _strip_extras
+    - convert_extras
+    - parse_editable
+    - check_first_requirement_in_file
+    - deduce_helpful_msg
+    - __init__
+    - parse_req_from_editable
+    - install_req_from_editable
+    - _looks_like_path
+    - _get_url_from_path
+    - parse_req_from_line
+    - with_source
+    - _parse_req_string
+    - install_req_from_line
+    - install_req_from_req_string
+    - install_req_from_parsed_requirement
+    - install_req_from_link_and_ireq
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/req/req_file.py
+  Classes:
+    - ParsedRequirement
+    - ParsedLine
+    - RequirementsFileParser
+    - OptionParsingError
+  Fonctions:
+    - __init__
+    - __init__
+    - parse_requirements
+    - preprocess
+    - handle_requirement_line
+    - handle_option_line
+    - handle_line
+    - __init__
+    - parse
+    - _parse_and_recurse
+    - _parse_file
+    - get_line_parser
+    - parse_line
+    - break_args_options
+    - __init__
+    - build_parser
+    - parser_exit
+    - join_lines
+    - ignore_comments
+    - expand_env_variables
+    - get_file_content
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/req/req_install.py
+  Classes:
+    - InstallRequirement
+  Fonctions:
+    - __init__
+    - __str__
+    - __repr__
+    - format_debug
+    - name
+    - supports_pyproject_editable
+    - specifier
+    - is_pinned
+    - match_markers
+    - has_hash_options
+    - hashes
+    - from_path
+    - ensure_build_location
+    - _set_requirement
+    - warn_on_mismatching_name
+    - check_if_exists
+    - is_wheel
+    - unpacked_source_directory
+    - setup_py_path
+    - setup_cfg_path
+    - pyproject_toml_path
+    - load_pyproject_toml
+    - isolated_editable_sanity_check
+    - prepare_metadata
+    - metadata
+    - get_dist
+    - assert_source_matches_version
+    - ensure_has_source_dir
+    - update_editable
+    - uninstall
+    - _get_archive_name
+    - _clean_zip_name
+    - archive
+    - install
+    - check_invalid_constraint_type
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/req/req_set.py
+  Classes:
+    - RequirementSet
+  Fonctions:
+    - __init__
+    - __str__
+    - __repr__
+    - add_unnamed_requirement
+    - add_named_requirement
+    - add_requirement
+    - has_requirement
+    - get_requirement
+    - all_requirements
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/req/req_tracker.py
+  Classes:
+    - RequirementTracker
+  Fonctions:
+    - update_env_context_manager
+    - get_requirement_tracker
+    - __init__
+    - __enter__
+    - __exit__
+    - _entry_path
+    - add
+    - remove
+    - cleanup
+    - track
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/req/req_uninstall.py
+  Classes:
+    - StashedUninstallPathSet
+    - UninstallPathSet
+    - UninstallPthEntries
+  Fonctions:
+    - _script_names
+    - _unique
+    - unique
+    - uninstallation_paths
+    - compact
+    - compress_for_rename
+    - norm_join
+    - compress_for_output_listing
+    - __init__
+    - _get_directory_stash
+    - _get_file_stash
+    - stash
+    - commit
+    - rollback
+    - can_rollback
+    - __init__
+    - _permitted
+    - add
+    - add_pth
+    - remove
+    - _allowed_to_proceed
+    - _display
+    - rollback
+    - commit
+    - from_dist
+    - iter_scripts_to_remove
+    - __init__
+    - add
+    - remove
+    - rollback
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/req/__init__.py
+  Classes:
+    - InstallationResult
+  Fonctions:
+    - __init__
+    - __repr__
+    - _validate_requirements
+    - install_given_reqs
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/resolution/base.py
+  Classes:
+    - BaseResolver
+  Fonctions:
+    - resolve
+    - get_installation_order
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/resolution/legacy/resolver.py
+  Classes:
+    - Resolver
+  Fonctions:
+    - _check_dist_requires_python
+    - __init__
+    - resolve
+    - _is_upgrade_allowed
+    - _set_req_to_reinstall
+    - _check_skip_installed
+    - _find_requirement_link
+    - _populate_link
+    - _get_dist_for
+    - _resolve_one
+    - add_req
+    - get_installation_order
+    - schedule
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/resolution/resolvelib/base.py
+  Classes:
+    - Constraint
+    - Requirement
+    - Candidate
+  Fonctions:
+    - format_name
+    - __init__
+    - empty
+    - from_ireq
+    - __bool__
+    - __and__
+    - is_satisfied_by
+    - project_name
+    - name
+    - is_satisfied_by
+    - get_candidate_lookup
+    - format_for_error
+    - _match_link
+    - project_name
+    - name
+    - version
+    - is_installed
+    - is_editable
+    - source_link
+    - iter_dependencies
+    - get_install_requirement
+    - format_for_error
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/resolution/resolvelib/candidates.py
+  Classes:
+    - _InstallRequirementBackedCandidate
+    - LinkCandidate
+    - EditableCandidate
+    - AlreadyInstalledCandidate
+    - ExtrasCandidate
+    - RequiresPythonCandidate
+  Fonctions:
+    - as_base_candidate
+    - make_install_req_from_link
+    - make_install_req_from_editable
+    - _make_install_req_from_dist
+    - __init__
+    - __str__
+    - __repr__
+    - __hash__
+    - __eq__
+    - source_link
+    - project_name
+    - name
+    - version
+    - format_for_error
+    - _prepare_distribution
+    - _check_metadata_consistency
+    - _prepare
+    - iter_dependencies
+    - get_install_requirement
+    - __init__
+    - _prepare_distribution
+    - __init__
+    - _prepare_distribution
+    - __init__
+    - __str__
+    - __repr__
+    - __hash__
+    - __eq__
+    - project_name
+    - name
+    - version
+    - is_editable
+    - format_for_error
+    - iter_dependencies
+    - get_install_requirement
+    - __init__
+    - __str__
+    - __repr__
+    - __hash__
+    - __eq__
+    - project_name
+    - name
+    - version
+    - format_for_error
+    - is_installed
+    - is_editable
+    - source_link
+    - iter_dependencies
+    - get_install_requirement
+    - __init__
+    - __str__
+    - project_name
+    - name
+    - version
+    - format_for_error
+    - iter_dependencies
+    - get_install_requirement
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/resolution/resolvelib/factory.py
+  Classes:
+    - ConflictCause
+    - CollectedRootRequirements
+    - Factory
+  Fonctions:
+    - __init__
+    - force_reinstall
+    - _fail_if_link_is_unsupported_wheel
+    - _make_extras_candidate
+    - _make_candidate_from_dist
+    - _make_candidate_from_link
+    - _iter_found_candidates
+    - _get_installed_candidate
+    - iter_index_candidate_infos
+    - is_pinned
+    - _iter_explicit_candidates_from_base
+    - _iter_candidates_from_constraints
+    - find_candidates
+    - _make_requirement_from_install_req
+    - collect_root_requirements
+    - make_requirement_from_candidate
+    - make_requirement_from_spec
+    - make_requires_python_requirement
+    - get_wheel_cache_entry
+    - get_dist_to_uninstall
+    - _report_requires_python_error
+    - _report_single_requirement_conflict
+    - get_installation_error
+    - text_join
+    - describe_trigger
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/resolution/resolvelib/found_candidates.py
+  Classes:
+    - FoundCandidates
+  Fonctions:
+    - _iter_built
+    - _iter_built_with_prepended
+    - _iter_built_with_inserted
+    - __init__
+    - __getitem__
+    - __iter__
+    - __len__
+    - __bool__
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/resolution/resolvelib/provider.py
+  Classes:
+    - PipProvider
+  Fonctions:
+    - _get_with_identifier
+    - __init__
+    - identify
+    - get_preference
+    - find_matches
+    - _eligible_for_upgrade
+    - is_satisfied_by
+    - get_dependencies
+    - is_backtrack_cause
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/resolution/resolvelib/reporter.py
+  Classes:
+    - PipReporter
+    - PipDebuggingReporter
+  Fonctions:
+    - __init__
+    - backtracking
+    - starting
+    - starting_round
+    - ending_round
+    - ending
+    - adding_requirement
+    - backtracking
+    - pinning
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/resolution/resolvelib/requirements.py
+  Classes:
+    - ExplicitRequirement
+    - SpecifierRequirement
+    - RequiresPythonRequirement
+    - UnsatisfiableRequirement
+  Fonctions:
+    - __init__
+    - __str__
+    - __repr__
+    - project_name
+    - name
+    - format_for_error
+    - get_candidate_lookup
+    - is_satisfied_by
+    - __init__
+    - __str__
+    - __repr__
+    - project_name
+    - name
+    - format_for_error
+    - get_candidate_lookup
+    - is_satisfied_by
+    - __init__
+    - __str__
+    - __repr__
+    - project_name
+    - name
+    - format_for_error
+    - get_candidate_lookup
+    - is_satisfied_by
+    - __init__
+    - __str__
+    - __repr__
+    - project_name
+    - name
+    - format_for_error
+    - get_candidate_lookup
+    - is_satisfied_by
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/resolution/resolvelib/resolver.py
+  Classes:
+    - Resolver
+  Fonctions:
+    - __init__
+    - resolve
+    - get_installation_order
+    - get_topological_weights
+    - visit
+    - _req_set_item_sorter
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/utils/appdirs.py
+  Fonctions:
+    - user_cache_dir
+    - _macos_user_config_dir
+    - user_config_dir
+    - site_config_dirs
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/utils/compat.py
+  Fonctions:
+    - has_tls
+    - get_path_uid
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/utils/compatibility_tags.py
+  Fonctions:
+    - version_info_to_nodot
+    - _mac_platforms
+    - _custom_manylinux_platforms
+    - _get_custom_platforms
+    - _expand_allowed_platforms
+    - _get_python_version
+    - _get_custom_interpreter
+    - get_supported
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/utils/datetime.py
+  Fonctions:
+    - today_is_later_than
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/utils/deprecation.py
+  Classes:
+    - PipDeprecationWarning
+  Fonctions:
+    - _showwarning
+    - install_warning_logger
+    - deprecated
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/utils/direct_url_helpers.py
+  Fonctions:
+    - direct_url_as_pep440_direct_reference
+    - direct_url_for_editable
+    - direct_url_from_link
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/utils/distutils_args.py
+  Fonctions:
+    - parse_distutils_args
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/utils/egg_link.py
+  Fonctions:
+    - _egg_link_name
+    - egg_link_path_from_sys_path
+    - egg_link_path_from_location
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/utils/encoding.py
+  Fonctions:
+    - auto_decode
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/utils/entrypoints.py
+  Fonctions:
+    - _wrapper
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/utils/filesystem.py
+  Fonctions:
+    - check_path_owner
+    - copy2_fixed
+    - is_socket
+    - adjacent_tmp_file
+    - test_writable_dir
+    - _test_writable_dir_win
+    - find_files
+    - file_size
+    - format_file_size
+    - directory_size
+    - format_directory_size
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/utils/filetypes.py
+  Fonctions:
+    - is_archive_file
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/utils/glibc.py
+  Fonctions:
+    - glibc_version_string
+    - glibc_version_string_confstr
+    - glibc_version_string_ctypes
+    - libc_ver
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/utils/hashes.py
+  Classes:
+    - Hashes
+    - MissingHashes
+  Fonctions:
+    - __init__
+    - __and__
+    - digest_count
+    - is_hash_allowed
+    - check_against_chunks
+    - _raise
+    - check_against_file
+    - check_against_path
+    - __bool__
+    - __eq__
+    - __hash__
+    - __init__
+    - _raise
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/utils/inject_securetransport.py
+  Fonctions:
+    - inject_securetransport
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/utils/logging.py
+  Classes:
+    - BrokenStdoutLoggingError
+    - IndentingFormatter
+    - IndentedRenderable
+    - RichPipStreamHandler
+    - BetterRotatingFileHandler
+    - MaxLevelFilter
+    - ExcludeLoggerFilter
+  Fonctions:
+    - _is_broken_pipe_error
+    - indent_log
+    - get_indentation
+    - __init__
+    - get_message_start
+    - format
+    - __rich_console__
+    - __init__
+    - emit
+    - handleError
+    - _open
+    - __init__
+    - filter
+    - filter
+    - setup_logging
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/utils/misc.py
+  Classes:
+    - StreamWrapper
+    - HiddenText
+  Fonctions:
+    - get_pip_version
+    - normalize_version_info
+    - ensure_dir
+    - get_prog
+    - rmtree
+    - rmtree_errorhandler
+    - display_path
+    - backup_dir
+    - ask_path_exists
+    - _check_no_input
+    - ask
+    - ask_input
+    - ask_password
+    - strtobool
+    - format_size
+    - tabulate
+    - is_installable_dir
+    - read_chunks
+    - normalize_path
+    - splitext
+    - renames
+    - is_local
+    - write_output
+    - from_stream
+    - encoding
+    - captured_output
+    - captured_stdout
+    - captured_stderr
+    - enum
+    - build_netloc
+    - build_url_from_netloc
+    - parse_netloc
+    - split_auth_from_netloc
+    - redact_netloc
+    - _transform_url
+    - _get_netloc
+    - _redact_netloc
+    - split_auth_netloc_from_url
+    - remove_auth_from_url
+    - redact_auth_from_url
+    - __init__
+    - __repr__
+    - __str__
+    - __eq__
+    - hide_value
+    - hide_url
+    - protect_pip_from_modification_on_windows
+    - is_console_interactive
+    - hash_file
+    - is_wheel_installed
+    - pairwise
+    - partition
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/utils/models.py
+  Classes:
+    - KeyBasedCompareMixin
+  Fonctions:
+    - __init__
+    - __hash__
+    - __lt__
+    - __le__
+    - __gt__
+    - __ge__
+    - __eq__
+    - _compare
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/utils/packaging.py
+  Fonctions:
+    - check_requires_python
+    - get_requirement
+    - safe_extra
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/utils/setuptools_build.py
+  Fonctions:
+    - make_setuptools_shim_args
+    - make_setuptools_bdist_wheel_args
+    - make_setuptools_clean_args
+    - make_setuptools_develop_args
+    - make_setuptools_egg_info_args
+    - make_setuptools_install_args
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/utils/subprocess.py
+  Fonctions:
+    - make_command
+    - format_command_args
+    - reveal_command_args
+    - call_subprocess
+    - runner_with_spinner_message
+    - runner
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/utils/temp_dir.py
+  Classes:
+    - TempDirectoryTypeRegistry
+    - _Default
+    - TempDirectory
+    - AdjacentTempDirectory
+  Fonctions:
+    - global_tempdir_manager
+    - __init__
+    - set_delete
+    - get_delete
+    - tempdir_registry
+    - __init__
+    - path
+    - __repr__
+    - __enter__
+    - __exit__
+    - _create
+    - cleanup
+    - __init__
+    - _generate_names
+    - _create
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/utils/unpacking.py
+  Fonctions:
+    - current_umask
+    - split_leading_dir
+    - has_leading_dir
+    - is_within_directory
+    - set_extracted_file_to_default_mode_plus_executable
+    - zip_item_is_executable
+    - unzip_file
+    - untar_file
+    - unpack_file
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/utils/urls.py
+  Fonctions:
+    - get_url_scheme
+    - path_to_url
+    - url_to_path
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/utils/virtualenv.py
+  Fonctions:
+    - _running_under_venv
+    - _running_under_regular_virtualenv
+    - running_under_virtualenv
+    - _get_pyvenv_cfg_lines
+    - _no_global_under_venv
+    - _no_global_under_regular_virtualenv
+    - virtualenv_no_global
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/utils/wheel.py
+  Fonctions:
+    - parse_wheel
+    - wheel_dist_info_dir
+    - read_wheel_metadata_file
+    - wheel_metadata
+    - wheel_version
+    - check_compatibility
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/utils/_log.py
+  Classes:
+    - VerboseLogger
+  Fonctions:
+    - verbose
+    - getLogger
+    - init_logging
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/vcs/bazaar.py
+  Classes:
+    - Bazaar
+  Fonctions:
+    - get_base_rev_args
+    - fetch_new
+    - switch
+    - update
+    - get_url_rev_and_auth
+    - get_remote_url
+    - get_revision
+    - is_commit_id_equal
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/vcs/git.py
+  Classes:
+    - Git
+  Fonctions:
+    - looks_like_hash
+    - get_base_rev_args
+    - is_immutable_rev_checkout
+    - get_git_version
+    - get_current_branch
+    - get_revision_sha
+    - _should_fetch
+    - resolve_revision
+    - is_commit_id_equal
+    - fetch_new
+    - switch
+    - update
+    - get_remote_url
+    - _git_remote_to_pip_url
+    - has_commit
+    - get_revision
+    - get_subdirectory
+    - get_url_rev_and_auth
+    - update_submodules
+    - get_repository_root
+    - should_add_vcs_url_prefix
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/vcs/mercurial.py
+  Classes:
+    - Mercurial
+  Fonctions:
+    - get_base_rev_args
+    - fetch_new
+    - switch
+    - update
+    - get_remote_url
+    - get_revision
+    - get_requirement_revision
+    - is_commit_id_equal
+    - get_subdirectory
+    - get_repository_root
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/vcs/subversion.py
+  Classes:
+    - Subversion
+  Fonctions:
+    - should_add_vcs_url_prefix
+    - get_base_rev_args
+    - get_revision
+    - get_netloc_and_auth
+    - get_url_rev_and_auth
+    - make_rev_args
+    - get_remote_url
+    - _get_svn_url_rev
+    - is_commit_id_equal
+    - __init__
+    - call_vcs_version
+    - get_vcs_version
+    - get_remote_call_options
+    - fetch_new
+    - switch
+    - update
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_internal/vcs/versioncontrol.py
+  Classes:
+    - RemoteNotFoundError
+    - RemoteNotValidError
+    - RevOptions
+    - VcsSupport
+    - VersionControl
+  Fonctions:
+    - is_url
+    - make_vcs_requirement_url
+    - find_path_to_project_root_from_repo_root
+    - __init__
+    - __init__
+    - __repr__
+    - arg_rev
+    - to_args
+    - to_display
+    - make_new
+    - __init__
+    - __iter__
+    - backends
+    - dirnames
+    - all_schemes
+    - register
+    - unregister
+    - get_backend_for_dir
+    - get_backend_for_scheme
+    - get_backend
+    - should_add_vcs_url_prefix
+    - get_subdirectory
+    - get_requirement_revision
+    - get_src_requirement
+    - get_base_rev_args
+    - is_immutable_rev_checkout
+    - make_rev_options
+    - _is_local_repository
+    - get_netloc_and_auth
+    - get_url_rev_and_auth
+    - make_rev_args
+    - get_url_rev_options
+    - normalize_url
+    - compare_urls
+    - fetch_new
+    - switch
+    - update
+    - is_commit_id_equal
+    - obtain
+    - unpack
+    - get_remote_url
+    - get_revision
+    - run_command
+    - is_repository_directory
+    - get_repository_root
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_vendor/__init__.py
+  Fonctions:
+    - vendored
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_vendor/cachecontrol/adapter.py
+  Classes:
+    - CacheControlAdapter
+  Fonctions:
+    - __init__
+    - send
+    - build_response
+    - _update_chunk_length
+    - close
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_vendor/cachecontrol/cache.py
+  Classes:
+    - BaseCache
+    - DictCache
+  Fonctions:
+    - get
+    - set
+    - delete
+    - close
+    - __init__
+    - get
+    - set
+    - delete
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_vendor/cachecontrol/controller.py
+  Classes:
+    - CacheController
+  Fonctions:
+    - parse_uri
+    - __init__
+    - _urlnorm
+    - cache_url
+    - parse_cache_control
+    - cached_request
+    - conditional_headers
+    - cache_response
+    - update_cached_response
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_vendor/cachecontrol/filewrapper.py
+  Classes:
+    - CallbackFileWrapper
+  Fonctions:
+    - __init__
+    - __getattr__
+    - __is_fp_closed
+    - _close
+    - read
+    - _safe_read
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_vendor/cachecontrol/heuristics.py
+  Classes:
+    - BaseHeuristic
+    - OneDayCache
+    - ExpiresAfter
+    - LastModified
+  Fonctions:
+    - expire_after
+    - datetime_to_header
+    - warning
+    - update_headers
+    - apply
+    - update_headers
+    - __init__
+    - update_headers
+    - warning
+    - update_headers
+    - warning
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_vendor/cachecontrol/_cmd.py
+  Fonctions:
+    - setup_logging
+    - get_session
+    - get_args
+    - main
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_vendor/cachecontrol/caches/file_cache.py
+  Classes:
+    - FileCache
+  Fonctions:
+    - _secure_open_write
+    - __init__
+    - encode
+    - _fn
+    - get
+    - set
+    - delete
+    - url_to_file_path
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pip/_vendor/cachecontrol/caches/redis_cache.py
+  Classes:
+    - RedisCache
+  Fonctions:
+    - __init__
+    - get
+    - set
+    - delete
+    - clear
+    - close
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pkg_resources/__init__.py
+  Classes:
+    - PEP440Warning
+    - ResolutionError
+    - VersionConflict
+    - ContextualVersionConflict
+    - DistributionNotFound
+    - UnknownExtra
+    - IMetadataProvider
+    - IResourceProvider
+    - WorkingSet
+    - _ReqExtras
+    - Environment
+    - ExtractionError
+    - ResourceManager
+    - NullProvider
+    - EggProvider
+    - DefaultProvider
+    - EmptyProvider
+    - ZipManifests
+    - MemoizedZipManifests
+    - ZipProvider
+    - FileMetadata
+    - PathMetadata
+    - EggMetadata
+    - NoDists
+    - EntryPoint
+    - Distribution
+    - EggInfoDistribution
+    - DistInfoDistribution
+    - RequirementParseError
+    - Requirement
+    - PkgResourcesDeprecationWarning
+  Fonctions:
+    - parse_version
+    - _declare_state
+    - __getstate__
+    - __setstate__
+    - _sget_dict
+    - _sset_dict
+    - _sget_object
+    - _sset_object
+    - get_supported_platform
+    - __repr__
+    - dist
+    - req
+    - report
+    - with_context
+    - required_by
+    - req
+    - requirers
+    - requirers_str
+    - report
+    - __str__
+    - register_loader_type
+    - get_provider
+    - _macos_vers
+    - _macos_arch
+    - get_build_platform
+    - compatible_platforms
+    - run_script
+    - get_distribution
+    - load_entry_point
+    - get_entry_map
+    - get_entry_info
+    - has_metadata
+    - get_metadata
+    - get_metadata_lines
+    - metadata_isdir
+    - metadata_listdir
+    - run_script
+    - get_resource_filename
+    - get_resource_stream
+    - get_resource_string
+    - has_resource
+    - resource_isdir
+    - resource_listdir
+    - __init__
+    - _build_master
+    - _build_from_requirements
+    - add_entry
+    - __contains__
+    - find
+    - iter_entry_points
+    - run_script
+    - __iter__
+    - add
+    - resolve
+    - find_plugins
+    - require
+    - subscribe
+    - _added_new
+    - __getstate__
+    - __setstate__
+    - markers_pass
+    - __init__
+    - can_add
+    - remove
+    - scan
+    - __getitem__
+    - add
+    - best_match
+    - obtain
+    - __iter__
+    - __iadd__
+    - __add__
+    - __init__
+    - resource_exists
+    - resource_isdir
+    - resource_filename
+    - resource_stream
+    - resource_string
+    - resource_listdir
+    - extraction_error
+    - get_cache_path
+    - _warn_unsafe_extraction_path
+    - postprocess
+    - set_extraction_path
+    - cleanup_resources
+    - get_default_cache
+    - safe_name
+    - safe_version
+    - safe_extra
+    - to_filename
+    - invalid_marker
+    - evaluate_marker
+    - __init__
+    - get_resource_filename
+    - get_resource_stream
+    - get_resource_string
+    - has_resource
+    - _get_metadata_path
+    - has_metadata
+    - get_metadata
+    - get_metadata_lines
+    - resource_isdir
+    - metadata_isdir
+    - resource_listdir
+    - metadata_listdir
+    - run_script
+    - _has
+    - _isdir
+    - _listdir
+    - _fn
+    - _validate_resource_path
+    - _get
+    - _parents
+    - __init__
+    - _setup_prefix
+    - _set_egg
+    - _has
+    - _isdir
+    - _listdir
+    - get_resource_stream
+    - _get
+    - _register
+    - _get
+    - _listdir
+    - __init__
+    - build
+    - load
+    - __init__
+    - _zipinfo_name
+    - _parts
+    - zipinfo
+    - get_resource_filename
+    - _get_date_and_size
+    - _extract_resource
+    - _is_current
+    - _get_eager_resources
+    - _index
+    - _has
+    - _isdir
+    - _listdir
+    - _eager_to_zip
+    - _resource_to_zip
+    - __init__
+    - _get_metadata_path
+    - has_metadata
+    - get_metadata
+    - _warn_on_replacement
+    - get_metadata_lines
+    - __init__
+    - __init__
+    - register_finder
+    - find_distributions
+    - find_eggs_in_zip
+    - find_nothing
+    - _by_version_descending
+    - try_parse
+    - _by_version
+    - find_on_path
+    - dist_factory
+    - __bool__
+    - __call__
+    - safe_listdir
+    - distributions_from_metadata
+    - non_empty_lines
+    - resolve_egg_link
+    - register_namespace_handler
+    - _handle_ns
+    - _rebuild_mod_path
+    - safe_sys_path_index
+    - position_in_sys_path
+    - declare_namespace
+    - fixup_namespace_packages
+    - file_ns_handler
+    - null_ns_handler
+    - normalize_path
+    - _cygwin_patch
+    - _normalize_cached
+    - _is_egg_path
+    - _is_zip_egg
+    - _is_unpacked_egg
+    - _set_parent_ns
+    - _nonblank
+    - yield_lines
+    - _
+    - __init__
+    - __str__
+    - __repr__
+    - load
+    - resolve
+    - require
+    - parse
+    - _parse_extras
+    - parse_group
+    - parse_map
+    - _version_from_file
+    - is_version_line
+    - __init__
+    - from_location
+    - _reload_version
+    - hashcmp
+    - __hash__
+    - __lt__
+    - __le__
+    - __gt__
+    - __ge__
+    - __eq__
+    - __ne__
+    - key
+    - parsed_version
+    - _warn_legacy_version
+    - version
+    - _dep_map
+    - _filter_extras
+    - _build_dep_map
+    - requires
+    - _get_metadata_path_for_display
+    - _get_metadata
+    - _get_version
+    - activate
+    - egg_name
+    - __repr__
+    - __str__
+    - __getattr__
+    - __dir__
+    - from_filename
+    - as_requirement
+    - load_entry_point
+    - get_entry_map
+    - get_entry_info
+    - insert_on
+    - check_version_conflict
+    - has_version
+    - clone
+    - extras
+    - _reload_version
+    - _parsed_pkg_info
+    - _dep_map
+    - _compute_dependencies
+    - reqs_for_extra
+    - issue_warning
+    - parse_requirements
+    - __init__
+    - __eq__
+    - __ne__
+    - __contains__
+    - __hash__
+    - __repr__
+    - parse
+    - _always_object
+    - _find_adapter
+    - ensure_directory
+    - _bypass_ensure_directory
+    - split_sections
+    - _mkstemp
+    - _call_aside
+    - _initialize
+    - _initialize_master_working_set
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pkg_resources/extern/__init__.py
+  Classes:
+    - VendorImporter
+  Fonctions:
+    - __init__
+    - search_path
+    - _module_matches_namespace
+    - load_module
+    - create_module
+    - exec_module
+    - find_spec
+    - install
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pkg_resources/_vendor/appdirs.py
+  Classes:
+    - AppDirs
+  Fonctions:
+    - user_data_dir
+    - site_data_dir
+    - user_config_dir
+    - site_config_dir
+    - user_cache_dir
+    - user_state_dir
+    - user_log_dir
+    - __init__
+    - user_data_dir
+    - site_data_dir
+    - user_config_dir
+    - site_config_dir
+    - user_cache_dir
+    - user_state_dir
+    - user_log_dir
+    - _get_win_folder_from_registry
+    - _get_win_folder_with_pywin32
+    - _get_win_folder_with_ctypes
+    - _get_win_folder_with_jna
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pkg_resources/_vendor/pyparsing.py
+  Classes:
+    - _Constants
+    - ParseBaseException
+    - ParseException
+    - ParseFatalException
+    - ParseSyntaxException
+    - RecursiveGrammarException
+    - _ParseResultsWithOffset
+    - ParseResults
+    - ParserElement
+    - _UnboundedCache
+    - _FifoCache
+    - _FifoCache
+    - Token
+    - Empty
+    - NoMatch
+    - Literal
+    - Keyword
+    - CaselessLiteral
+    - CaselessKeyword
+    - CloseMatch
+    - Word
+    - Regex
+    - QuotedString
+    - CharsNotIn
+    - White
+    - _PositionToken
+    - GoToColumn
+    - LineStart
+    - LineEnd
+    - StringStart
+    - StringEnd
+    - WordStart
+    - WordEnd
+    - ParseExpression
+    - And
+    - _ErrorStop
+    - Or
+    - MatchFirst
+    - Each
+    - ParseElementEnhance
+    - FollowedBy
+    - NotAny
+    - _MultipleMatch
+    - OneOrMore
+    - ZeroOrMore
+    - _NullToken
+    - Optional
+    - SkipTo
+    - Forward
+    - _ForwardNoRecurse
+    - TokenConverter
+    - Combine
+    - Group
+    - Dict
+    - Suppress
+    - OnlyOnce
+    - pyparsing_common
+  Fonctions:
+    - _ustr
+    - _xml_escape
+    - __init__
+    - _from_exception
+    - __getattr__
+    - __str__
+    - __repr__
+    - markInputline
+    - __dir__
+    - __init__
+    - __str__
+    - __init__
+    - __getitem__
+    - __repr__
+    - setOffset
+    - __new__
+    - __init__
+    - __getitem__
+    - __setitem__
+    - __delitem__
+    - __contains__
+    - __len__
+    - __bool__
+    - __iter__
+    - __reversed__
+    - _iterkeys
+    - _itervalues
+    - _iteritems
+    - keys
+    - values
+    - items
+    - haskeys
+    - pop
+    - get
+    - insert
+    - append
+    - extend
+    - clear
+    - __getattr__
+    - __add__
+    - __iadd__
+    - __radd__
+    - __repr__
+    - __str__
+    - _asStringList
+    - asList
+    - asDict
+    - toItem
+    - copy
+    - asXML
+    - __lookup
+    - getName
+    - dump
+    - pprint
+    - __getstate__
+    - __setstate__
+    - __getnewargs__
+    - __dir__
+    - col
+    - lineno
+    - line
+    - _defaultStartDebugAction
+    - _defaultSuccessDebugAction
+    - _defaultExceptionDebugAction
+    - nullDebugAction
+    - _trim_arity
+    - extract_stack
+    - extract_tb
+    - wrapper
+    - setDefaultWhitespaceChars
+    - inlineLiteralsUsing
+    - __init__
+    - copy
+    - setName
+    - setResultsName
+    - setBreak
+    - breaker
+    - setParseAction
+    - addParseAction
+    - addCondition
+    - pa
+    - setFailAction
+    - _skipIgnorables
+    - preParse
+    - parseImpl
+    - postParse
+    - _parseNoCache
+    - tryParse
+    - canParseNext
+    - __init__
+    - get
+    - set
+    - clear
+    - cache_len
+    - __init__
+    - get
+    - set
+    - clear
+    - cache_len
+    - __init__
+    - get
+    - set
+    - clear
+    - cache_len
+    - _parseCache
+    - resetCache
+    - enablePackrat
+    - parseString
+    - scanString
+    - transformString
+    - searchString
+    - split
+    - __add__
+    - __radd__
+    - __sub__
+    - __rsub__
+    - __mul__
+    - makeOptionalList
+    - __rmul__
+    - __or__
+    - __ror__
+    - __xor__
+    - __rxor__
+    - __and__
+    - __rand__
+    - __invert__
+    - __call__
+    - suppress
+    - leaveWhitespace
+    - setWhitespaceChars
+    - parseWithTabs
+    - ignore
+    - setDebugActions
+    - setDebug
+    - __str__
+    - __repr__
+    - streamline
+    - checkRecursion
+    - validate
+    - parseFile
+    - __eq__
+    - __ne__
+    - __hash__
+    - __req__
+    - __rne__
+    - matches
+    - runTests
+    - __init__
+    - __init__
+    - __init__
+    - parseImpl
+    - __init__
+    - parseImpl
+    - __init__
+    - parseImpl
+    - copy
+    - setDefaultKeywordChars
+    - __init__
+    - parseImpl
+    - __init__
+    - parseImpl
+    - __init__
+    - parseImpl
+    - __init__
+    - parseImpl
+    - __str__
+    - charsAsStr
+    - __init__
+    - parseImpl
+    - __str__
+    - __init__
+    - parseImpl
+    - __str__
+    - __init__
+    - parseImpl
+    - __str__
+    - __init__
+    - parseImpl
+    - __init__
+    - __init__
+    - preParse
+    - parseImpl
+    - __init__
+    - parseImpl
+    - __init__
+    - parseImpl
+    - __init__
+    - parseImpl
+    - __init__
+    - parseImpl
+    - __init__
+    - parseImpl
+    - __init__
+    - parseImpl
+    - __init__
+    - __getitem__
+    - append
+    - leaveWhitespace
+    - ignore
+    - __str__
+    - streamline
+    - setResultsName
+    - validate
+    - copy
+    - __init__
+    - __init__
+    - parseImpl
+    - __iadd__
+    - checkRecursion
+    - __str__
+    - __init__
+    - parseImpl
+    - __ixor__
+    - __str__
+    - checkRecursion
+    - __init__
+    - parseImpl
+    - __ior__
+    - __str__
+    - checkRecursion
+    - __init__
+    - parseImpl
+    - __str__
+    - checkRecursion
+    - __init__
+    - parseImpl
+    - leaveWhitespace
+    - ignore
+    - streamline
+    - checkRecursion
+    - validate
+    - __str__
+    - __init__
+    - parseImpl
+    - __init__
+    - parseImpl
+    - __str__
+    - __init__
+    - parseImpl
+    - __str__
+    - __init__
+    - parseImpl
+    - __str__
+    - __bool__
+    - __str__
+    - __init__
+    - parseImpl
+    - __str__
+    - __init__
+    - parseImpl
+    - __init__
+    - __lshift__
+    - __ilshift__
+    - leaveWhitespace
+    - streamline
+    - validate
+    - __str__
+    - copy
+    - __str__
+    - __init__
+    - __init__
+    - ignore
+    - postParse
+    - __init__
+    - postParse
+    - __init__
+    - postParse
+    - postParse
+    - suppress
+    - __init__
+    - __call__
+    - reset
+    - traceParseAction
+    - z
+    - delimitedList
+    - countedArray
+    - countFieldParseAction
+    - _flatten
+    - matchPreviousLiteral
+    - copyTokenToRepeater
+    - matchPreviousExpr
+    - copyTokenToRepeater
+    - mustMatchTheseTokens
+    - _escapeRegexRangeChars
+    - oneOf
+    - dictOf
+    - originalTextFor
+    - extractText
+    - ungroup
+    - locatedExpr
+    - srange
+    - matchOnlyAtCol
+    - verifyCol
+    - replaceWith
+    - removeQuotes
+    - tokenMap
+    - pa
+    - _makeTags
+    - makeHTMLTags
+    - makeXMLTags
+    - withAttribute
+    - pa
+    - withClass
+    - infixNotation
+    - nestedExpr
+    - indentedBlock
+    - checkPeerIndent
+    - checkSubIndent
+    - checkUnindent
+    - replaceHTMLEntity
+    - convertToDate
+    - cvt_fn
+    - convertToDatetime
+    - cvt_fn
+    - stripHTMLTags
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pkg_resources/_vendor/packaging/markers.py
+  Classes:
+    - InvalidMarker
+    - UndefinedComparison
+    - UndefinedEnvironmentName
+    - Node
+    - Variable
+    - Value
+    - Op
+    - Undefined
+    - Marker
+  Fonctions:
+    - __init__
+    - __str__
+    - __repr__
+    - serialize
+    - serialize
+    - serialize
+    - serialize
+    - _coerce_parse_result
+    - _format_marker
+    - _eval_op
+    - _get_env
+    - _evaluate_markers
+    - format_full_version
+    - default_environment
+    - __init__
+    - __str__
+    - __repr__
+    - evaluate
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pkg_resources/_vendor/packaging/requirements.py
+  Classes:
+    - InvalidRequirement
+    - Requirement
+  Fonctions:
+    - __init__
+    - __str__
+    - __repr__
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pkg_resources/_vendor/packaging/specifiers.py
+  Classes:
+    - InvalidSpecifier
+    - BaseSpecifier
+    - _IndividualSpecifier
+    - LegacySpecifier
+    - Specifier
+    - SpecifierSet
+  Fonctions:
+    - __str__
+    - __hash__
+    - __eq__
+    - __ne__
+    - prereleases
+    - prereleases
+    - contains
+    - filter
+    - __init__
+    - __repr__
+    - __str__
+    - _canonical_spec
+    - __hash__
+    - __eq__
+    - __ne__
+    - _get_operator
+    - _coerce_version
+    - operator
+    - version
+    - prereleases
+    - prereleases
+    - __contains__
+    - contains
+    - filter
+    - __init__
+    - _coerce_version
+    - _compare_equal
+    - _compare_not_equal
+    - _compare_less_than_equal
+    - _compare_greater_than_equal
+    - _compare_less_than
+    - _compare_greater_than
+    - _require_version_compare
+    - wrapped
+    - _compare_compatible
+    - _compare_equal
+    - _compare_not_equal
+    - _compare_less_than_equal
+    - _compare_greater_than_equal
+    - _compare_less_than
+    - _compare_greater_than
+    - _compare_arbitrary
+    - prereleases
+    - prereleases
+    - _version_split
+    - _is_not_suffix
+    - _pad_version
+    - __init__
+    - __repr__
+    - __str__
+    - __hash__
+    - __and__
+    - __eq__
+    - __ne__
+    - __len__
+    - __iter__
+    - prereleases
+    - prereleases
+    - __contains__
+    - contains
+    - filter
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pkg_resources/_vendor/packaging/tags.py
+  Classes:
+    - Tag
+  Fonctions:
+    - __init__
+    - interpreter
+    - abi
+    - platform
+    - __eq__
+    - __hash__
+    - __str__
+    - __repr__
+    - parse_tag
+    - _get_config_var
+    - _normalize_string
+    - _abi3_applies
+    - _cpython_abis
+    - cpython_tags
+    - _generic_abi
+    - generic_tags
+    - _py_interpreter_range
+    - compatible_tags
+    - _mac_arch
+    - _mac_binary_formats
+    - mac_platforms
+    - _linux_platforms
+    - _generic_platforms
+    - platform_tags
+    - interpreter_name
+    - interpreter_version
+    - _version_nodot
+    - sys_tags
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pkg_resources/_vendor/packaging/utils.py
+  Classes:
+    - InvalidWheelFilename
+    - InvalidSdistFilename
+  Fonctions:
+    - canonicalize_name
+    - canonicalize_version
+    - parse_wheel_filename
+    - parse_sdist_filename
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pkg_resources/_vendor/packaging/version.py
+  Classes:
+    - InvalidVersion
+    - _BaseVersion
+    - LegacyVersion
+    - Version
+  Fonctions:
+    - parse
+    - __hash__
+    - __lt__
+    - __le__
+    - __eq__
+    - __ge__
+    - __gt__
+    - __ne__
+    - __init__
+    - __str__
+    - __repr__
+    - public
+    - base_version
+    - epoch
+    - release
+    - pre
+    - post
+    - dev
+    - local
+    - is_prerelease
+    - is_postrelease
+    - is_devrelease
+    - _parse_version_parts
+    - _legacy_cmpkey
+    - __init__
+    - __repr__
+    - __str__
+    - epoch
+    - release
+    - pre
+    - post
+    - dev
+    - local
+    - public
+    - base_version
+    - is_prerelease
+    - is_postrelease
+    - is_devrelease
+    - major
+    - minor
+    - micro
+    - _parse_letter_version
+    - _parse_local_version
+    - _cmpkey
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pkg_resources/_vendor/packaging/_manylinux.py
+  Classes:
+    - _ELFFileHeader
+    - _InvalidELFFileHeader
+    - _GLibCVersion
+  Fonctions:
+    - __init__
+    - unpack
+    - _get_elf_header
+    - _is_linux_armhf
+    - _is_linux_i686
+    - _have_compatible_abi
+    - _glibc_version_string_confstr
+    - _glibc_version_string_ctypes
+    - _glibc_version_string
+    - _parse_glibc_version
+    - _get_glibc_version
+    - _is_compatible
+    - platform_tags
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pkg_resources/_vendor/packaging/_musllinux.py
+  Classes:
+    - _MuslVersion
+  Fonctions:
+    - _read_unpacked
+    - _parse_ld_musl_from_elf
+    - _parse_musl_version
+    - _get_musl_version
+    - platform_tags
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/pkg_resources/_vendor/packaging/_structures.py
+  Classes:
+    - InfinityType
+    - NegativeInfinityType
+  Fonctions:
+    - __repr__
+    - __hash__
+    - __lt__
+    - __le__
+    - __eq__
+    - __ne__
+    - __gt__
+    - __ge__
+    - __neg__
+    - __repr__
+    - __hash__
+    - __lt__
+    - __le__
+    - __eq__
+    - __ne__
+    - __gt__
+    - __ge__
+    - __neg__
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/archive_util.py
+  Classes:
+    - UnrecognizedFormat
+  Fonctions:
+    - default_filter
+    - unpack_archive
+    - unpack_directory
+    - unpack_zipfile
+    - _resolve_tar_file_or_dir
+    - _iter_open_tar
+    - unpack_tarfile
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/build_meta.py
+  Classes:
+    - SetupRequirementsError
+    - Distribution
+    - _BuildMetaBackend
+    - _BuildMetaLegacyBackend
+  Fonctions:
+    - __init__
+    - fetch_build_eggs
+    - patch
+    - no_install_setup_requires
+    - _get_immediate_subdirectories
+    - _file_with_extension
+    - _open_setup_script
+    - suppress_known_deprecation
+    - _fix_config
+    - _get_build_requires
+    - run_setup
+    - get_requires_for_build_wheel
+    - get_requires_for_build_sdist
+    - prepare_metadata_for_build_wheel
+    - _build_with_temp_dir
+    - build_wheel
+    - build_sdist
+    - run_setup
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/config.py
+  Classes:
+    - StaticModule
+    - ConfigHandler
+    - ConfigMetadataHandler
+    - ConfigOptionsHandler
+  Fonctions:
+    - __init__
+    - __getattr__
+    - patch_path
+    - read_configuration
+    - _get_option
+    - configuration_to_dict
+    - parse_configuration
+    - __init__
+    - parsers
+    - __setitem__
+    - _parse_list
+    - _parse_list_glob
+    - _parse_dict
+    - _parse_bool
+    - _exclude_files_parser
+    - parser
+    - _parse_file
+    - _assert_local
+    - _read_file
+    - _parse_attr
+    - _get_parser_compound
+    - parse
+    - _parse_section_to_dict
+    - parse_section
+    - parse
+    - _deprecated_config_handler
+    - config_handler
+    - __init__
+    - parsers
+    - _parse_version
+    - parsers
+    - _parse_cmdclass
+    - resolve_class
+    - _parse_packages
+    - parse_section_packages__find
+    - parse_section_entry_points
+    - _parse_package_data
+    - parse_section_package_data
+    - parse_section_exclude_package_data
+    - parse_section_extras_require
+    - parse_section_data_files
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/depends.py
+  Classes:
+    - Require
+  Fonctions:
+    - __init__
+    - full_name
+    - version_ok
+    - get_version
+    - is_present
+    - is_current
+    - maybe_close
+    - empty
+    - get_module_constant
+    - extract_constant
+    - _update_globals
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/dep_util.py
+  Fonctions:
+    - newer_pairwise_group
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/dist.py
+  Classes:
+    - Distribution
+    - DistDeprecationWarning
+  Fonctions:
+    - _get_unpatched
+    - get_metadata_version
+    - rfc822_unescape
+    - _read_field_from_msg
+    - _read_field_unescaped_from_msg
+    - _read_list_from_msg
+    - _read_payload_from_msg
+    - read_pkg_file
+    - single_line
+    - write_pkg_file
+    - write_field
+    - check_importable
+    - assert_string_list
+    - check_nsp
+    - check_extras
+    - _check_extra
+    - assert_bool
+    - invalid_unless_false
+    - check_requirements
+    - check_specifier
+    - check_entry_points
+    - check_test_suite
+    - check_package_data
+    - check_packages
+    - patch_missing_pkg_info
+    - __init__
+    - _set_metadata_defaults
+    - _normalize_version
+    - _validate_version
+    - _finalize_requires
+    - _convert_extras_requirements
+    - _suffix_for
+    - _move_install_requirements_markers
+    - is_simple_req
+    - _clean_req
+    - _finalize_license_files
+    - _expand_patterns
+    - _parse_config_files
+    - warn_dash_deprecation
+    - _setuptools_commands
+    - make_option_lowercase
+    - _set_command_options
+    - parse_config_files
+    - fetch_build_eggs
+    - finalize_options
+    - by_order
+    - _removed
+    - _finalize_setup_keywords
+    - get_egg_cache_dir
+    - fetch_build_egg
+    - get_command_class
+    - print_commands
+    - get_command_list
+    - include
+    - exclude_package
+    - has_contents_for
+    - _exclude_misc
+    - _include_misc
+    - exclude
+    - _exclude_packages
+    - _parse_command_opts
+    - get_cmdline_options
+    - iter_distribution_names
+    - handle_display_options
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/errors.py
+  Classes:
+    - RemovedCommandError
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/extension.py
+  Classes:
+    - Extension
+    - Library
+  Fonctions:
+    - _have_cython
+    - __init__
+    - _convert_pyx_sources_to_lang
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/glob.py
+  Fonctions:
+    - glob
+    - iglob
+    - _iglob
+    - glob1
+    - glob0
+    - glob2
+    - _rlistdir
+    - has_magic
+    - _isrecursive
+    - escape
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/installer.py
+  Fonctions:
+    - _fixup_find_links
+    - fetch_build_egg
+    - strip_marker
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/launch.py
+  Fonctions:
+    - run
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/monkey.py
+  Fonctions:
+    - _get_mro
+    - get_unpatched
+    - get_unpatched_class
+    - patch_all
+    - _patch_distribution_metadata
+    - patch_func
+    - get_unpatched_function
+    - patch_for_msvc_specialized_compiler
+    - patch_params
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/msvc.py
+  Classes:
+    - winreg
+    - PlatformInfo
+    - RegistryInfo
+    - SystemInfo
+    - EnvironmentInfo
+  Fonctions:
+    - msvc9_find_vcvarsall
+    - msvc9_query_vcvarsall
+    - _msvc14_find_vc2015
+    - _msvc14_find_vc2017
+    - _msvc14_find_vcvarsall
+    - _msvc14_get_vc_env
+    - msvc14_get_vc_env
+    - msvc14_gen_lib_options
+    - _augment_exception
+    - __init__
+    - target_cpu
+    - target_is_x86
+    - current_is_x86
+    - current_dir
+    - target_dir
+    - cross_dir
+    - __init__
+    - visualstudio
+    - sxs
+    - vc
+    - vs
+    - vc_for_python
+    - microsoft_sdk
+    - windows_sdk
+    - netfx_sdk
+    - windows_kits_roots
+    - microsoft
+    - lookup
+    - __init__
+    - _find_latest_available_vs_ver
+    - find_reg_vs_vers
+    - find_programdata_vs_vers
+    - _as_float_version
+    - VSInstallDir
+    - VCInstallDir
+    - _guess_vc
+    - _guess_vc_legacy
+    - WindowsSdkVersion
+    - WindowsSdkLastVersion
+    - WindowsSdkDir
+    - WindowsSDKExecutablePath
+    - FSharpInstallDir
+    - UniversalCRTSdkDir
+    - UniversalCRTSdkLastVersion
+    - NetFxSdkVersion
+    - NetFxSdkDir
+    - FrameworkDir32
+    - FrameworkDir64
+    - FrameworkVersion32
+    - FrameworkVersion64
+    - _find_dot_net_versions
+    - _use_last_dir_name
+    - __init__
+    - vs_ver
+    - vc_ver
+    - VSTools
+    - VCIncludes
+    - VCLibraries
+    - VCStoreRefs
+    - VCTools
+    - OSLibraries
+    - OSIncludes
+    - OSLibpath
+    - SdkTools
+    - _sdk_tools
+    - _sdk_subdir
+    - SdkSetup
+    - FxTools
+    - NetFxSDKLibraries
+    - NetFxSDKIncludes
+    - VsTDb
+    - MSBuild
+    - HTMLHelpWorkshop
+    - UCRTLibraries
+    - UCRTIncludes
+    - _ucrt_subdir
+    - FSharp
+    - VCRuntimeRedist
+    - return_env
+    - _build_paths
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/namespaces.py
+  Classes:
+    - Installer
+    - DevelopInstaller
+  Fonctions:
+    - install_namespaces
+    - uninstall_namespaces
+    - _get_target
+    - _get_root
+    - _gen_nspkg_line
+    - _get_all_ns_packages
+    - _pkg_names
+    - _get_root
+    - _get_target
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/package_index.py
+  Classes:
+    - ContentChecker
+    - HashChecker
+    - PackageIndex
+    - Credential
+    - PyPIConfig
+  Fonctions:
+    - parse_requirement_arg
+    - parse_bdist_wininst
+    - egg_info_for_url
+    - distros_for_url
+    - distros_for_location
+    - distros_for_filename
+    - interpret_distro_name
+    - unique_values
+    - wrapper
+    - find_external_links
+    - feed
+    - is_valid
+    - report
+    - __init__
+    - from_url
+    - feed
+    - is_valid
+    - report
+    - __init__
+    - add
+    - process_url
+    - process_filename
+    - url_ok
+    - scan_egg_links
+    - scan_egg_link
+    - _scan
+    - process_index
+    - need_version_info
+    - scan_all
+    - find_packages
+    - obtain
+    - check_hash
+    - add_find_links
+    - prescan
+    - not_found_in_index
+    - download
+    - fetch_distribution
+    - find
+    - fetch
+    - gen_setup
+    - _download_to
+    - reporthook
+    - open_url
+    - _download_url
+    - _resolve_vcs
+    - _download_vcs
+    - _download_other
+    - scan_url
+    - _attempt_download
+    - _download_html
+    - _download_svn
+    - _vcs_split_rev_from_url
+    - debug
+    - info
+    - warn
+    - decode_entity
+    - htmldecode
+    - socket_timeout
+    - _socket_timeout
+    - _socket_timeout
+    - _encode_auth
+    - __init__
+    - __iter__
+    - __str__
+    - __init__
+    - creds_by_repository
+    - _get_repo_cred
+    - find_credential
+    - open_with_auth
+    - _splituser
+    - fix_sf_url
+    - local_open
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/py34compat.py
+  Fonctions:
+    - module_from_spec
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/sandbox.py
+  Classes:
+    - UnpickleableException
+    - ExceptionSaver
+    - AbstractSandbox
+    - DirectorySandbox
+    - SandboxViolation
+  Fonctions:
+    - _execfile
+    - save_argv
+    - save_path
+    - override_temp
+    - pushd
+    - dump
+    - __enter__
+    - __exit__
+    - resume
+    - save_modules
+    - _clear_modules
+    - save_pkg_resources_state
+    - setup_context
+    - _needs_hiding
+    - hide_setuptools
+    - run_setup
+    - __init__
+    - _copy
+    - __enter__
+    - __exit__
+    - run
+    - _mk_dual_path_wrapper
+    - wrap
+    - _mk_single_path_wrapper
+    - wrap
+    - _mk_single_with_return
+    - wrap
+    - _mk_query
+    - wrap
+    - _validate_path
+    - _remap_input
+    - _remap_output
+    - _remap_pair
+    - __init__
+    - _violation
+    - _file
+    - _open
+    - tmpnam
+    - _ok
+    - _exempted
+    - _remap_input
+    - _remap_pair
+    - open
+    - __str__
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/unicode_utils.py
+  Fonctions:
+    - decompose
+    - filesys_decode
+    - try_encode
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/wheel.py
+  Classes:
+    - Wheel
+  Fonctions:
+    - unpack
+    - __init__
+    - tags
+    - is_compatible
+    - egg_name
+    - get_dist_info
+    - install_as_egg
+    - _install_as_egg
+    - _convert_metadata
+    - get_metadata
+    - raw_req
+    - _move_data_entries
+    - _fix_namespace_packages
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/windows_support.py
+  Fonctions:
+    - windows_only
+    - hide_file
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/_deprecation_warning.py
+  Classes:
+    - SetuptoolsDeprecationWarning
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/_imp.py
+  Fonctions:
+    - find_spec
+    - find_module
+    - get_frozen_object
+    - get_module
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/__init__.py
+  Classes:
+    - PackageFinder
+    - PEP420PackageFinder
+    - MinimalDistribution
+    - Command
+    - sic
+  Fonctions:
+    - find
+    - _find_packages_iter
+    - _looks_like_package
+    - _build_filter
+    - _looks_like_package
+    - _install_setup_requires
+    - __init__
+    - finalize_options
+    - setup
+    - __init__
+    - _ensure_stringlike
+    - ensure_string_list
+    - reinitialize_command
+    - _find_all_simple
+    - findall
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/command/alias.py
+  Classes:
+    - alias
+  Fonctions:
+    - shquote
+    - initialize_options
+    - finalize_options
+    - run
+    - format_alias
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/command/bdist_egg.py
+  Classes:
+    - bdist_egg
+  Fonctions:
+    - _get_purelib
+    - strip_module
+    - sorted_walk
+    - write_stub
+    - initialize_options
+    - finalize_options
+    - do_install_data
+    - get_outputs
+    - call_command
+    - run
+    - zap_pyfiles
+    - zip_safe
+    - gen_header
+    - copy_metadata_to
+    - get_ext_outputs
+    - walk_egg
+    - analyze_egg
+    - write_safety_flag
+    - scan_module
+    - iter_symbols
+    - can_scan
+    - make_zipfile
+    - visit
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/command/bdist_rpm.py
+  Classes:
+    - bdist_rpm
+  Fonctions:
+    - run
+    - _make_spec_file
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/command/build_clib.py
+  Classes:
+    - build_clib
+  Fonctions:
+    - build_libraries
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/command/build_ext.py
+  Classes:
+    - build_ext
+  Fonctions:
+    - _customize_compiler_for_shlib
+    - if_dl
+    - get_abi3_suffix
+    - run
+    - copy_extensions_to_source
+    - get_ext_filename
+    - initialize_options
+    - finalize_options
+    - setup_shlib_compiler
+    - get_export_symbols
+    - build_extension
+    - links_to_dynamic
+    - get_outputs
+    - __get_stubs_outputs
+    - __get_output_extensions
+    - write_stub
+    - link_shared_object
+    - link_shared_object
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/command/build_py.py
+  Classes:
+    - build_py
+  Fonctions:
+    - make_writable
+    - finalize_options
+    - run
+    - __getattr__
+    - build_module
+    - _get_data_files
+    - get_data_files_without_manifest
+    - _get_pkg_data_files
+    - find_data_files
+    - build_package_data
+    - analyze_manifest
+    - get_data_files
+    - check_package
+    - initialize_options
+    - get_package_dir
+    - exclude_data_files
+    - _get_platform_patterns
+    - assert_relative
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/command/develop.py
+  Classes:
+    - develop
+    - VersionlessRequirement
+  Fonctions:
+    - run
+    - initialize_options
+    - finalize_options
+    - _resolve_setup_path
+    - install_for_development
+    - uninstall_link
+    - install_egg_scripts
+    - install_wrapper_scripts
+    - __init__
+    - __getattr__
+    - as_requirement
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/command/dist_info.py
+  Classes:
+    - dist_info
+  Fonctions:
+    - initialize_options
+    - finalize_options
+    - run
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/command/easy_install.py
+  Classes:
+    - easy_install
+    - PthDistributions
+    - RewritePthDistributions
+    - CommandSpec
+    - WindowsCommandSpec
+    - ScriptWriter
+    - WindowsScriptWriter
+    - WindowsExecutableLauncherWriter
+    - EasyInstallDeprecationWarning
+  Fonctions:
+    - is_64bit
+    - samefile
+    - _to_bytes
+    - isascii
+    - _one_liner
+    - initialize_options
+    - delete_blockers
+    - _delete_path
+    - _render_version
+    - finalize_options
+    - _fix_install_dir_for_user_site
+    - _expand_attrs
+    - expand_basedirs
+    - expand_dirs
+    - run
+    - pseudo_tempname
+    - warn_deprecated_options
+    - check_site_dir
+    - cant_write_to_target
+    - check_pth_processing
+    - install_egg_scripts
+    - add_output
+    - not_editable
+    - check_editable
+    - _tmpdir
+    - easy_install
+    - install_item
+    - select_scheme
+    - process_distribution
+    - should_unzip
+    - maybe_move
+    - install_wrapper_scripts
+    - install_script
+    - _load_template
+    - write_script
+    - install_eggs
+    - egg_distribution
+    - install_egg
+    - install_exe
+    - exe_to_egg
+    - process
+    - install_wheel
+    - installation_report
+    - report_editable
+    - run_setup
+    - build_and_install
+    - _set_fetcher_options
+    - update_pth
+    - unpack_progress
+    - unpack_and_compile
+    - pf
+    - byte_compile
+    - create_home_path
+    - _expand
+    - _pythonpath
+    - get_site_dirs
+    - expand_paths
+    - extract_wininst_cfg
+    - get_exe_prefixes
+    - __init__
+    - _load
+    - save
+    - _wrap_lines
+    - add
+    - remove
+    - make_relative
+    - _wrap_lines
+    - _first_line_re
+    - auto_chmod
+    - update_dist_caches
+    - _collect_zipimporter_cache_entries
+    - _update_zipimporter_cache
+    - _uncache
+    - _remove_and_clear_zip_directory_cache_data
+    - clear_and_remove_cached_zip_archive_directory_data
+    - _replace_zip_directory_cache_data
+    - replace_cached_zip_archive_directory_data
+    - is_python
+    - is_sh
+    - nt_quote_arg
+    - is_python_script
+    - _chmod
+    - chmod
+    - best
+    - _sys_executable
+    - from_param
+    - from_environment
+    - from_string
+    - install_options
+    - _extract_options
+    - as_header
+    - _strip_quotes
+    - _render
+    - get_script_args
+    - get_script_header
+    - get_args
+    - _ensure_safe_name
+    - get_writer
+    - best
+    - _get_script_args
+    - get_header
+    - get_writer
+    - best
+    - _get_script_args
+    - _adjust_header
+    - _use_header
+    - _get_script_args
+    - get_win_launcher
+    - load_launcher_manifest
+    - rmtree
+    - current_umask
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/command/egg_info.py
+  Classes:
+    - InfoCommon
+    - egg_info
+    - FileList
+    - manifest_maker
+    - EggInfoDeprecationWarning
+  Fonctions:
+    - translate_pattern
+    - name
+    - tagged_version
+    - _maybe_tag
+    - tags
+    - initialize_options
+    - tag_svn_revision
+    - tag_svn_revision
+    - save_version_info
+    - finalize_options
+    - write_or_delete_file
+    - write_file
+    - delete_file
+    - run
+    - find_sources
+    - check_broken_egg_info
+    - process_template_line
+    - _remove_files
+    - include
+    - exclude
+    - recursive_include
+    - recursive_exclude
+    - graft
+    - prune
+    - global_include
+    - global_exclude
+    - append
+    - extend
+    - _repair
+    - _safe_path
+    - initialize_options
+    - finalize_options
+    - run
+    - _manifest_normalize
+    - write_manifest
+    - warn
+    - _should_suppress_warning
+    - add_defaults
+    - add_license_files
+    - prune_file_list
+    - _safe_data_files
+    - write_file
+    - write_pkg_info
+    - warn_depends_obsolete
+    - _write_requirements
+    - append_cr
+    - write_requirements
+    - write_setup_requirements
+    - write_toplevel_names
+    - overwrite_arg
+    - write_arg
+    - write_entries
+    - get_pkg_info_revision
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/command/install.py
+  Classes:
+    - install
+  Fonctions:
+    - initialize_options
+    - finalize_options
+    - handle_extra_path
+    - run
+    - _called_from_setup
+    - do_egg_install
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/command/install_egg_info.py
+  Classes:
+    - install_egg_info
+  Fonctions:
+    - initialize_options
+    - finalize_options
+    - run
+    - get_outputs
+    - copytree
+    - skimmer
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/command/install_lib.py
+  Classes:
+    - install_lib
+  Fonctions:
+    - initialize_options
+    - finalize_options
+    - run
+    - get_exclusions
+    - _exclude_pkg_path
+    - _all_packages
+    - _get_SVEM_NSPs
+    - _gen_exclusion_paths
+    - copy_tree
+    - pf
+    - get_outputs
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/command/install_scripts.py
+  Classes:
+    - install_scripts
+  Fonctions:
+    - initialize_options
+    - run
+    - write_script
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/command/py36compat.py
+  Classes:
+    - sdist_add_defaults
+    - sdist_add_defaults
+  Fonctions:
+    - add_defaults
+    - _cs_path_exists
+    - _add_defaults_standards
+    - _add_defaults_optional
+    - _add_defaults_python
+    - _add_defaults_data_files
+    - _add_defaults_ext
+    - _add_defaults_c_libs
+    - _add_defaults_scripts
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/command/register.py
+  Classes:
+    - register
+  Fonctions:
+    - run
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/command/rotate.py
+  Classes:
+    - rotate
+  Fonctions:
+    - initialize_options
+    - finalize_options
+    - run
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/command/saveopts.py
+  Classes:
+    - saveopts
+  Fonctions:
+    - run
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/command/sdist.py
+  Classes:
+    - sdist
+    - NoValue
+  Fonctions:
+    - walk_revctrl
+    - run
+    - initialize_options
+    - _default_to_gztar
+    - make_distribution
+    - _remove_os_link
+    - _add_defaults_optional
+    - _add_defaults_python
+    - _safe_data_files
+    - _add_data_files
+    - _add_defaults_data_files
+    - check_readme
+    - make_release_tree
+    - _manifest_is_not_generated
+    - read_manifest
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/command/setopt.py
+  Classes:
+    - option_base
+    - setopt
+  Fonctions:
+    - config_file
+    - edit_config
+    - initialize_options
+    - finalize_options
+    - initialize_options
+    - finalize_options
+    - run
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/command/test.py
+  Classes:
+    - ScanningLoader
+    - NonDataProperty
+    - test
+  Fonctions:
+    - __init__
+    - loadTestsFromModule
+    - __init__
+    - __get__
+    - initialize_options
+    - finalize_options
+    - test_args
+    - _test_args
+    - with_project_on_sys_path
+    - project_on_sys_path
+    - paths_on_pythonpath
+    - install_dists
+    - run
+    - run_tests
+    - _argv
+    - _resolve_as_ep
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/command/upload.py
+  Classes:
+    - upload
+  Fonctions:
+    - run
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/command/upload_docs.py
+  Classes:
+    - upload_docs
+  Fonctions:
+    - _encode
+    - has_sphinx
+    - initialize_options
+    - finalize_options
+    - create_zipfile
+    - run
+    - _build_part
+    - _build_multipart
+    - upload_file
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/extern/__init__.py
+  Classes:
+    - VendorImporter
+  Fonctions:
+    - __init__
+    - search_path
+    - _module_matches_namespace
+    - load_module
+    - create_module
+    - exec_module
+    - find_spec
+    - install
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/_distutils/archive_util.py
+  Fonctions:
+    - _get_gid
+    - _get_uid
+    - make_tarball
+    - _set_uid_gid
+    - make_zipfile
+    - check_archive_formats
+    - make_archive
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/_distutils/bcppcompiler.py
+  Classes:
+    - BCPPCompiler
+  Fonctions:
+    - __init__
+    - compile
+    - create_static_lib
+    - link
+    - find_library_file
+    - object_filenames
+    - preprocess
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/_distutils/ccompiler.py
+  Classes:
+    - CCompiler
+  Fonctions:
+    - __init__
+    - set_executables
+    - set_executable
+    - _find_macro
+    - _check_macro_definitions
+    - define_macro
+    - undefine_macro
+    - add_include_dir
+    - set_include_dirs
+    - add_library
+    - set_libraries
+    - add_library_dir
+    - set_library_dirs
+    - add_runtime_library_dir
+    - set_runtime_library_dirs
+    - add_link_object
+    - set_link_objects
+    - _setup_compile
+    - _get_cc_args
+    - _fix_compile_args
+    - _prep_compile
+    - _fix_object_args
+    - _fix_lib_args
+    - _need_link
+    - detect_language
+    - preprocess
+    - compile
+    - _compile
+    - create_static_lib
+    - link
+    - link_shared_lib
+    - link_shared_object
+    - link_executable
+    - library_dir_option
+    - runtime_library_dir_option
+    - library_option
+    - has_function
+    - find_library_file
+    - object_filenames
+    - shared_object_filename
+    - executable_filename
+    - library_filename
+    - announce
+    - debug_print
+    - warn
+    - execute
+    - spawn
+    - move_file
+    - mkpath
+    - get_default_compiler
+    - show_compilers
+    - new_compiler
+    - gen_preprocess_options
+    - gen_lib_options
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/_distutils/cmd.py
+  Classes:
+    - Command
+  Fonctions:
+    - __init__
+    - __getattr__
+    - ensure_finalized
+    - initialize_options
+    - finalize_options
+    - dump_options
+    - run
+    - announce
+    - debug_print
+    - _ensure_stringlike
+    - ensure_string
+    - ensure_string_list
+    - _ensure_tested_string
+    - ensure_filename
+    - ensure_dirname
+    - get_command_name
+    - set_undefined_options
+    - get_finalized_command
+    - reinitialize_command
+    - run_command
+    - get_sub_commands
+    - warn
+    - execute
+    - mkpath
+    - copy_file
+    - copy_tree
+    - move_file
+    - spawn
+    - make_archive
+    - make_file
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/_distutils/config.py
+  Classes:
+    - PyPIRCCommand
+  Fonctions:
+    - _get_rc_file
+    - _store_pypirc
+    - _read_pypirc
+    - _read_pypi_response
+    - initialize_options
+    - finalize_options
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/_distutils/core.py
+  Fonctions:
+    - gen_usage
+    - setup
+    - run_commands
+    - run_setup
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/_distutils/cygwinccompiler.py
+  Classes:
+    - CygwinCCompiler
+    - Mingw32CCompiler
+  Fonctions:
+    - get_msvcr
+    - __init__
+    - _compile
+    - link
+    - object_filenames
+    - __init__
+    - check_config_h
+    - _find_exe_version
+    - get_versions
+    - is_cygwincc
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/_distutils/dep_util.py
+  Fonctions:
+    - newer
+    - newer_pairwise
+    - newer_group
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/_distutils/dir_util.py
+  Fonctions:
+    - mkpath
+    - create_tree
+    - copy_tree
+    - _build_cmdtuple
+    - remove_tree
+    - ensure_relative
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/_distutils/dist.py
+  Classes:
+    - Distribution
+    - DistributionMetadata
+  Fonctions:
+    - _ensure_list
+    - __init__
+    - get_option_dict
+    - dump_option_dicts
+    - find_config_files
+    - parse_config_files
+    - parse_command_line
+    - _get_toplevel_options
+    - _parse_command_opts
+    - finalize_options
+    - _show_help
+    - handle_display_options
+    - print_command_list
+    - print_commands
+    - get_command_list
+    - get_command_packages
+    - get_command_class
+    - get_command_obj
+    - _set_command_options
+    - reinitialize_command
+    - announce
+    - run_commands
+    - run_command
+    - has_pure_modules
+    - has_ext_modules
+    - has_c_libraries
+    - has_modules
+    - has_headers
+    - has_scripts
+    - has_data_files
+    - is_pure
+    - __init__
+    - read_pkg_file
+    - _read_field
+    - _read_list
+    - write_pkg_info
+    - write_pkg_file
+    - _write_list
+    - get_name
+    - get_version
+    - get_fullname
+    - get_author
+    - get_author_email
+    - get_maintainer
+    - get_maintainer_email
+    - get_contact
+    - get_contact_email
+    - get_url
+    - get_license
+    - get_description
+    - get_long_description
+    - get_keywords
+    - set_keywords
+    - get_platforms
+    - set_platforms
+    - get_classifiers
+    - set_classifiers
+    - get_download_url
+    - get_requires
+    - set_requires
+    - get_provides
+    - set_provides
+    - get_obsoletes
+    - set_obsoletes
+    - fix_help_options
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/_distutils/errors.py
+  Classes:
+    - DistutilsError
+    - DistutilsModuleError
+    - DistutilsClassError
+    - DistutilsGetoptError
+    - DistutilsArgError
+    - DistutilsFileError
+    - DistutilsOptionError
+    - DistutilsSetupError
+    - DistutilsPlatformError
+    - DistutilsExecError
+    - DistutilsInternalError
+    - DistutilsTemplateError
+    - DistutilsByteCompileError
+    - CCompilerError
+    - PreprocessError
+    - CompileError
+    - LibError
+    - LinkError
+    - UnknownFileError
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/_distutils/extension.py
+  Classes:
+    - Extension
+  Fonctions:
+    - __init__
+    - __repr__
+    - read_setup_file
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/_distutils/fancy_getopt.py
+  Classes:
+    - FancyGetopt
+    - OptionDummy
+  Fonctions:
+    - __init__
+    - _build_index
+    - set_option_table
+    - add_option
+    - has_option
+    - get_attr_name
+    - _check_alias_dict
+    - set_aliases
+    - set_negative_aliases
+    - _grok_option_table
+    - getopt
+    - get_option_order
+    - generate_help
+    - print_help
+    - fancy_getopt
+    - wrap_text
+    - translate_longopt
+    - __init__
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/_distutils/filelist.py
+  Classes:
+    - FileList
+    - _UniqueDirs
+  Fonctions:
+    - __init__
+    - set_allfiles
+    - findall
+    - debug_print
+    - append
+    - extend
+    - sort
+    - remove_duplicates
+    - _parse_template_line
+    - process_template_line
+    - include_pattern
+    - exclude_pattern
+    - _find_all_simple
+    - __call__
+    - filter
+    - findall
+    - glob_to_re
+    - translate_pattern
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/_distutils/file_util.py
+  Fonctions:
+    - _copy_file_contents
+    - copy_file
+    - move_file
+    - write_file
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/_distutils/log.py
+  Classes:
+    - Log
+  Fonctions:
+    - __init__
+    - _log
+    - log
+    - debug
+    - info
+    - warn
+    - error
+    - fatal
+    - set_threshold
+    - set_verbosity
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/_distutils/msvc9compiler.py
+  Classes:
+    - Reg
+    - MacroExpander
+    - MSVCCompiler
+  Fonctions:
+    - get_value
+    - read_keys
+    - read_values
+    - convert_mbcs
+    - __init__
+    - set_macro
+    - load_macros
+    - sub
+    - get_build_version
+    - normalize_and_reduce_paths
+    - removeDuplicates
+    - find_vcvarsall
+    - query_vcvarsall
+    - __init__
+    - initialize
+    - object_filenames
+    - compile
+    - create_static_lib
+    - link
+    - manifest_setup_ldargs
+    - manifest_get_embed_info
+    - _remove_visual_c_ref
+    - library_dir_option
+    - runtime_library_dir_option
+    - library_option
+    - find_library_file
+    - find_exe
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/_distutils/msvccompiler.py
+  Classes:
+    - MacroExpander
+    - MSVCCompiler
+  Fonctions:
+    - read_keys
+    - read_values
+    - convert_mbcs
+    - __init__
+    - set_macro
+    - load_macros
+    - sub
+    - get_build_version
+    - get_build_architecture
+    - normalize_and_reduce_paths
+    - __init__
+    - initialize
+    - object_filenames
+    - compile
+    - create_static_lib
+    - link
+    - library_dir_option
+    - runtime_library_dir_option
+    - library_option
+    - find_library_file
+    - find_exe
+    - get_msvc_paths
+    - set_path_env_var
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/_distutils/py35compat.py
+  Fonctions:
+    - __optim_args_from_interpreter_flags
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/_distutils/py38compat.py
+  Fonctions:
+    - aix_platform
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/_distutils/spawn.py
+  Fonctions:
+    - spawn
+    - find_executable
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/_distutils/sysconfig.py
+  Fonctions:
+    - _is_python_source_dir
+    - _fix_pcbuild
+    - _python_build
+    - get_python_version
+    - get_python_inc
+    - _posix_lib
+    - get_python_lib
+    - customize_compiler
+    - get_config_h_filename
+    - get_makefile_filename
+    - parse_config_h
+    - parse_makefile
+    - expand_makefile_vars
+    - _init_posix
+    - _init_nt
+    - get_config_vars
+    - get_config_var
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/_distutils/text_file.py
+  Classes:
+    - TextFile
+  Fonctions:
+    - __init__
+    - open
+    - close
+    - gen_error
+    - error
+    - warn
+    - readline
+    - readlines
+    - unreadline
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/_distutils/unixccompiler.py
+  Classes:
+    - UnixCCompiler
+  Fonctions:
+    - preprocess
+    - _compile
+    - create_static_lib
+    - link
+    - library_dir_option
+    - _is_gcc
+    - runtime_library_dir_option
+    - library_option
+    - find_library_file
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/_distutils/util.py
+  Fonctions:
+    - get_host_platform
+    - get_platform
+    - _clear_cached_macosx_ver
+    - get_macosx_target_ver_from_syscfg
+    - get_macosx_target_ver
+    - split_version
+    - convert_path
+    - change_root
+    - check_environ
+    - subst_vars
+    - _subst_compat
+    - _subst
+    - grok_environment_error
+    - _init_regex
+    - split_quoted
+    - execute
+    - strtobool
+    - byte_compile
+    - rfc822_escape
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/_distutils/version.py
+  Classes:
+    - Version
+    - StrictVersion
+    - LooseVersion
+  Fonctions:
+    - suppress_known_deprecation
+    - __init__
+    - __repr__
+    - __eq__
+    - __lt__
+    - __le__
+    - __gt__
+    - __ge__
+    - parse
+    - __str__
+    - _cmp
+    - parse
+    - __str__
+    - __repr__
+    - _cmp
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/_distutils/versionpredicate.py
+  Classes:
+    - VersionPredicate
+  Fonctions:
+    - splitUp
+    - __init__
+    - __str__
+    - satisfied_by
+    - split_provision
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/_distutils/_msvccompiler.py
+  Classes:
+    - MSVCCompiler
+  Fonctions:
+    - _find_vc2015
+    - _find_vc2017
+    - _find_vcvarsall
+    - _get_vc_env
+    - _find_exe
+    - __init__
+    - initialize
+    - object_filenames
+    - make_out_path
+    - compile
+    - create_static_lib
+    - link
+    - spawn
+    - _fallback_spawn
+    - library_dir_option
+    - runtime_library_dir_option
+    - library_option
+    - find_library_file
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/_distutils/command/bdist.py
+  Classes:
+    - bdist
+  Fonctions:
+    - show_formats
+    - initialize_options
+    - finalize_options
+    - run
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/_distutils/command/bdist_dumb.py
+  Classes:
+    - bdist_dumb
+  Fonctions:
+    - initialize_options
+    - finalize_options
+    - run
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/_distutils/command/bdist_msi.py
+  Classes:
+    - PyDialog
+    - bdist_msi
+  Fonctions:
+    - __init__
+    - title
+    - back
+    - cancel
+    - next
+    - xbutton
+    - __init__
+    - initialize_options
+    - finalize_options
+    - run
+    - add_files
+    - add_find_python
+    - add_scripts
+    - add_ui
+    - get_installer_filename
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/_distutils/command/bdist_rpm.py
+  Classes:
+    - bdist_rpm
+  Fonctions:
+    - initialize_options
+    - finalize_options
+    - finalize_package_data
+    - run
+    - _dist_path
+    - _make_spec_file
+    - _format_changelog
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/_distutils/command/bdist_wininst.py
+  Classes:
+    - bdist_wininst
+  Fonctions:
+    - __init__
+    - initialize_options
+    - finalize_options
+    - run
+    - get_inidata
+    - escape
+    - create_exe
+    - get_installer_filename
+    - get_exe_bytes
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/_distutils/command/build.py
+  Classes:
+    - build
+  Fonctions:
+    - show_compilers
+    - initialize_options
+    - finalize_options
+    - run
+    - has_pure_modules
+    - has_c_libraries
+    - has_ext_modules
+    - has_scripts
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/_distutils/command/build_clib.py
+  Classes:
+    - build_clib
+  Fonctions:
+    - show_compilers
+    - initialize_options
+    - finalize_options
+    - run
+    - check_library_list
+    - get_library_names
+    - get_source_files
+    - build_libraries
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/_distutils/command/build_ext.py
+  Classes:
+    - build_ext
+  Fonctions:
+    - show_compilers
+    - initialize_options
+    - finalize_options
+    - run
+    - check_extensions_list
+    - get_source_files
+    - get_outputs
+    - build_extensions
+    - _build_extensions_parallel
+    - _build_extensions_serial
+    - _filter_build_errors
+    - build_extension
+    - swig_sources
+    - find_swig
+    - get_ext_fullpath
+    - get_ext_fullname
+    - get_ext_filename
+    - get_export_symbols
+    - get_libraries
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/_distutils/command/build_py.py
+  Classes:
+    - build_py
+  Fonctions:
+    - initialize_options
+    - finalize_options
+    - run
+    - get_data_files
+    - find_data_files
+    - build_package_data
+    - get_package_dir
+    - check_package
+    - check_module
+    - find_package_modules
+    - find_modules
+    - find_all_modules
+    - get_source_files
+    - get_module_outfile
+    - get_outputs
+    - build_module
+    - build_modules
+    - build_packages
+    - byte_compile
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/_distutils/command/build_scripts.py
+  Classes:
+    - build_scripts
+  Fonctions:
+    - initialize_options
+    - finalize_options
+    - get_source_files
+    - run
+    - copy_scripts
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/_distutils/command/check.py
+  Classes:
+    - SilentReporter
+    - check
+  Fonctions:
+    - __init__
+    - system_message
+    - initialize_options
+    - finalize_options
+    - warn
+    - run
+    - check_metadata
+    - check_restructuredtext
+    - _check_rst_data
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/_distutils/command/clean.py
+  Classes:
+    - clean
+  Fonctions:
+    - initialize_options
+    - finalize_options
+    - run
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/_distutils/command/config.py
+  Classes:
+    - config
+  Fonctions:
+    - initialize_options
+    - finalize_options
+    - run
+    - _check_compiler
+    - _gen_temp_sourcefile
+    - _preprocess
+    - _compile
+    - _link
+    - _clean
+    - try_cpp
+    - search_cpp
+    - try_compile
+    - try_link
+    - try_run
+    - check_func
+    - check_lib
+    - check_header
+    - dump_file
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/_distutils/command/install.py
+  Classes:
+    - install
+  Fonctions:
+    - _load_sysconfig_schemes
+    - _load_schemes
+    - _get_implementation
+    - initialize_options
+    - finalize_options
+    - dump_dirs
+    - finalize_unix
+    - finalize_other
+    - select_scheme
+    - _expand_attrs
+    - expand_basedirs
+    - expand_dirs
+    - convert_paths
+    - handle_extra_path
+    - change_roots
+    - create_home_path
+    - run
+    - create_path_file
+    - get_outputs
+    - get_inputs
+    - has_lib
+    - has_headers
+    - has_scripts
+    - has_data
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/_distutils/command/install_data.py
+  Classes:
+    - install_data
+  Fonctions:
+    - initialize_options
+    - finalize_options
+    - run
+    - get_inputs
+    - get_outputs
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/_distutils/command/install_egg_info.py
+  Classes:
+    - install_egg_info
+  Fonctions:
+    - initialize_options
+    - basename
+    - finalize_options
+    - run
+    - get_outputs
+    - safe_name
+    - safe_version
+    - to_filename
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/_distutils/command/install_headers.py
+  Classes:
+    - install_headers
+  Fonctions:
+    - initialize_options
+    - finalize_options
+    - run
+    - get_inputs
+    - get_outputs
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/_distutils/command/install_lib.py
+  Classes:
+    - install_lib
+  Fonctions:
+    - initialize_options
+    - finalize_options
+    - run
+    - build
+    - install
+    - byte_compile
+    - _mutate_outputs
+    - _bytecode_filenames
+    - get_outputs
+    - get_inputs
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/_distutils/command/install_scripts.py
+  Classes:
+    - install_scripts
+  Fonctions:
+    - initialize_options
+    - finalize_options
+    - run
+    - get_inputs
+    - get_outputs
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/_distutils/command/py37compat.py
+  Fonctions:
+    - _pythonlib_compat
+    - compose
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/_distutils/command/register.py
+  Classes:
+    - register
+  Fonctions:
+    - initialize_options
+    - finalize_options
+    - run
+    - check_metadata
+    - _set_config
+    - classifiers
+    - verify_metadata
+    - send_metadata
+    - build_post_data
+    - post_to_server
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/_distutils/command/sdist.py
+  Classes:
+    - sdist
+  Fonctions:
+    - show_formats
+    - checking_metadata
+    - initialize_options
+    - finalize_options
+    - run
+    - check_metadata
+    - get_file_list
+    - add_defaults
+    - _cs_path_exists
+    - _add_defaults_standards
+    - _add_defaults_optional
+    - _add_defaults_python
+    - _add_defaults_data_files
+    - _add_defaults_ext
+    - _add_defaults_c_libs
+    - _add_defaults_scripts
+    - read_template
+    - prune_file_list
+    - write_manifest
+    - _manifest_is_not_generated
+    - read_manifest
+    - make_release_tree
+    - make_distribution
+    - get_archive_files
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/_distutils/command/upload.py
+  Classes:
+    - upload
+  Fonctions:
+    - initialize_options
+    - finalize_options
+    - run
+    - upload_file
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/_vendor/ordered_set.py
+  Classes:
+    - OrderedSet
+  Fonctions:
+    - is_iterable
+    - __init__
+    - __len__
+    - __getitem__
+    - copy
+    - __getstate__
+    - __setstate__
+    - __contains__
+    - add
+    - update
+    - index
+    - pop
+    - discard
+    - clear
+    - __iter__
+    - __reversed__
+    - __repr__
+    - __eq__
+    - union
+    - __and__
+    - intersection
+    - difference
+    - issubset
+    - issuperset
+    - symmetric_difference
+    - _update_items
+    - difference_update
+    - intersection_update
+    - symmetric_difference_update
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/_vendor/pyparsing.py
+  Classes:
+    - _Constants
+    - ParseBaseException
+    - ParseException
+    - ParseFatalException
+    - ParseSyntaxException
+    - RecursiveGrammarException
+    - _ParseResultsWithOffset
+    - ParseResults
+    - ParserElement
+    - _UnboundedCache
+    - _FifoCache
+    - _FifoCache
+    - Token
+    - Empty
+    - NoMatch
+    - Literal
+    - Keyword
+    - CaselessLiteral
+    - CaselessKeyword
+    - CloseMatch
+    - Word
+    - Regex
+    - QuotedString
+    - CharsNotIn
+    - White
+    - _PositionToken
+    - GoToColumn
+    - LineStart
+    - LineEnd
+    - StringStart
+    - StringEnd
+    - WordStart
+    - WordEnd
+    - ParseExpression
+    - And
+    - _ErrorStop
+    - Or
+    - MatchFirst
+    - Each
+    - ParseElementEnhance
+    - FollowedBy
+    - NotAny
+    - _MultipleMatch
+    - OneOrMore
+    - ZeroOrMore
+    - _NullToken
+    - Optional
+    - SkipTo
+    - Forward
+    - _ForwardNoRecurse
+    - TokenConverter
+    - Combine
+    - Group
+    - Dict
+    - Suppress
+    - OnlyOnce
+    - pyparsing_common
+  Fonctions:
+    - _ustr
+    - _xml_escape
+    - __init__
+    - _from_exception
+    - __getattr__
+    - __str__
+    - __repr__
+    - markInputline
+    - __dir__
+    - __init__
+    - __str__
+    - __init__
+    - __getitem__
+    - __repr__
+    - setOffset
+    - __new__
+    - __init__
+    - __getitem__
+    - __setitem__
+    - __delitem__
+    - __contains__
+    - __len__
+    - __bool__
+    - __iter__
+    - __reversed__
+    - _iterkeys
+    - _itervalues
+    - _iteritems
+    - keys
+    - values
+    - items
+    - haskeys
+    - pop
+    - get
+    - insert
+    - append
+    - extend
+    - clear
+    - __getattr__
+    - __add__
+    - __iadd__
+    - __radd__
+    - __repr__
+    - __str__
+    - _asStringList
+    - asList
+    - asDict
+    - toItem
+    - copy
+    - asXML
+    - __lookup
+    - getName
+    - dump
+    - pprint
+    - __getstate__
+    - __setstate__
+    - __getnewargs__
+    - __dir__
+    - col
+    - lineno
+    - line
+    - _defaultStartDebugAction
+    - _defaultSuccessDebugAction
+    - _defaultExceptionDebugAction
+    - nullDebugAction
+    - _trim_arity
+    - extract_stack
+    - extract_tb
+    - wrapper
+    - setDefaultWhitespaceChars
+    - inlineLiteralsUsing
+    - __init__
+    - copy
+    - setName
+    - setResultsName
+    - setBreak
+    - breaker
+    - setParseAction
+    - addParseAction
+    - addCondition
+    - pa
+    - setFailAction
+    - _skipIgnorables
+    - preParse
+    - parseImpl
+    - postParse
+    - _parseNoCache
+    - tryParse
+    - canParseNext
+    - __init__
+    - get
+    - set
+    - clear
+    - cache_len
+    - __init__
+    - get
+    - set
+    - clear
+    - cache_len
+    - __init__
+    - get
+    - set
+    - clear
+    - cache_len
+    - _parseCache
+    - resetCache
+    - enablePackrat
+    - parseString
+    - scanString
+    - transformString
+    - searchString
+    - split
+    - __add__
+    - __radd__
+    - __sub__
+    - __rsub__
+    - __mul__
+    - makeOptionalList
+    - __rmul__
+    - __or__
+    - __ror__
+    - __xor__
+    - __rxor__
+    - __and__
+    - __rand__
+    - __invert__
+    - __call__
+    - suppress
+    - leaveWhitespace
+    - setWhitespaceChars
+    - parseWithTabs
+    - ignore
+    - setDebugActions
+    - setDebug
+    - __str__
+    - __repr__
+    - streamline
+    - checkRecursion
+    - validate
+    - parseFile
+    - __eq__
+    - __ne__
+    - __hash__
+    - __req__
+    - __rne__
+    - matches
+    - runTests
+    - __init__
+    - __init__
+    - __init__
+    - parseImpl
+    - __init__
+    - parseImpl
+    - __init__
+    - parseImpl
+    - copy
+    - setDefaultKeywordChars
+    - __init__
+    - parseImpl
+    - __init__
+    - parseImpl
+    - __init__
+    - parseImpl
+    - __init__
+    - parseImpl
+    - __str__
+    - charsAsStr
+    - __init__
+    - parseImpl
+    - __str__
+    - __init__
+    - parseImpl
+    - __str__
+    - __init__
+    - parseImpl
+    - __str__
+    - __init__
+    - parseImpl
+    - __init__
+    - __init__
+    - preParse
+    - parseImpl
+    - __init__
+    - parseImpl
+    - __init__
+    - parseImpl
+    - __init__
+    - parseImpl
+    - __init__
+    - parseImpl
+    - __init__
+    - parseImpl
+    - __init__
+    - parseImpl
+    - __init__
+    - __getitem__
+    - append
+    - leaveWhitespace
+    - ignore
+    - __str__
+    - streamline
+    - setResultsName
+    - validate
+    - copy
+    - __init__
+    - __init__
+    - parseImpl
+    - __iadd__
+    - checkRecursion
+    - __str__
+    - __init__
+    - parseImpl
+    - __ixor__
+    - __str__
+    - checkRecursion
+    - __init__
+    - parseImpl
+    - __ior__
+    - __str__
+    - checkRecursion
+    - __init__
+    - parseImpl
+    - __str__
+    - checkRecursion
+    - __init__
+    - parseImpl
+    - leaveWhitespace
+    - ignore
+    - streamline
+    - checkRecursion
+    - validate
+    - __str__
+    - __init__
+    - parseImpl
+    - __init__
+    - parseImpl
+    - __str__
+    - __init__
+    - parseImpl
+    - __str__
+    - __init__
+    - parseImpl
+    - __str__
+    - __bool__
+    - __str__
+    - __init__
+    - parseImpl
+    - __str__
+    - __init__
+    - parseImpl
+    - __init__
+    - __lshift__
+    - __ilshift__
+    - leaveWhitespace
+    - streamline
+    - validate
+    - __str__
+    - copy
+    - __str__
+    - __init__
+    - __init__
+    - ignore
+    - postParse
+    - __init__
+    - postParse
+    - __init__
+    - postParse
+    - postParse
+    - suppress
+    - __init__
+    - __call__
+    - reset
+    - traceParseAction
+    - z
+    - delimitedList
+    - countedArray
+    - countFieldParseAction
+    - _flatten
+    - matchPreviousLiteral
+    - copyTokenToRepeater
+    - matchPreviousExpr
+    - copyTokenToRepeater
+    - mustMatchTheseTokens
+    - _escapeRegexRangeChars
+    - oneOf
+    - dictOf
+    - originalTextFor
+    - extractText
+    - ungroup
+    - locatedExpr
+    - srange
+    - matchOnlyAtCol
+    - verifyCol
+    - replaceWith
+    - removeQuotes
+    - tokenMap
+    - pa
+    - _makeTags
+    - makeHTMLTags
+    - makeXMLTags
+    - withAttribute
+    - pa
+    - withClass
+    - infixNotation
+    - nestedExpr
+    - indentedBlock
+    - checkPeerIndent
+    - checkSubIndent
+    - checkUnindent
+    - replaceHTMLEntity
+    - convertToDate
+    - cvt_fn
+    - convertToDatetime
+    - cvt_fn
+    - stripHTMLTags
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/_vendor/more_itertools/more.py
+  Classes:
+    - peekable
+    - bucket
+    - UnequalIterablesError
+    - numeric_range
+    - islice_extended
+    - SequenceView
+    - seekable
+    - run_length
+    - time_limited
+    - AbortThread
+    - callback_iter
+    - countable
+  Fonctions:
+    - chunked
+    - ret
+    - first
+    - last
+    - nth_or_last
+    - __init__
+    - __iter__
+    - __bool__
+    - peek
+    - prepend
+    - __next__
+    - _get_slice
+    - __getitem__
+    - collate
+    - consumer
+    - wrapper
+    - ilen
+    - iterate
+    - with_iter
+    - one
+    - distinct_permutations
+    - _full
+    - _partial
+    - intersperse
+    - unique_to_each
+    - windowed
+    - substrings
+    - substrings_indexes
+    - __init__
+    - __contains__
+    - _get_values
+    - __iter__
+    - __getitem__
+    - spy
+    - interleave
+    - interleave_longest
+    - collapse
+    - walk
+    - side_effect
+    - sliced
+    - ret
+    - split_at
+    - split_before
+    - split_after
+    - split_when
+    - split_into
+    - padded
+    - repeat_last
+    - distribute
+    - stagger
+    - __init__
+    - _zip_equal_generator
+    - zip_equal
+    - zip_offset
+    - sort_together
+    - unzip
+    - itemgetter
+    - getter
+    - divide
+    - always_iterable
+    - adjacent
+    - groupby_transform
+    - __init__
+    - __bool__
+    - __contains__
+    - __eq__
+    - __getitem__
+    - __hash__
+    - __iter__
+    - __len__
+    - _init_len
+    - __reduce__
+    - __repr__
+    - __reversed__
+    - count
+    - index
+    - _get_by_index
+    - count_cycle
+    - mark_ends
+    - locate
+    - lstrip
+    - rstrip
+    - strip
+    - __init__
+    - __iter__
+    - __next__
+    - __getitem__
+    - _islice_helper
+    - always_reversible
+    - consecutive_groups
+    - difference
+    - __init__
+    - __getitem__
+    - __len__
+    - __repr__
+    - __init__
+    - __iter__
+    - __next__
+    - __bool__
+    - peek
+    - elements
+    - seek
+    - encode
+    - decode
+    - exactly_n
+    - circular_shifts
+    - make_decorator
+    - decorator
+    - outer_wrapper
+    - inner_wrapper
+    - map_reduce
+    - rlocate
+    - replace
+    - partitions
+    - set_partitions
+    - set_partitions_helper
+    - __init__
+    - __iter__
+    - __next__
+    - only
+    - ichunked
+    - distinct_combinations
+    - filter_except
+    - map_except
+    - _sample_unweighted
+    - _sample_weighted
+    - sample
+    - is_sorted
+    - __init__
+    - __enter__
+    - __exit__
+    - __iter__
+    - __next__
+    - done
+    - result
+    - _reader
+    - callback
+    - windowed_complete
+    - all_unique
+    - nth_product
+    - nth_permutation
+    - value_chain
+    - product_index
+    - combination_index
+    - permutation_index
+    - __init__
+    - __iter__
+    - __next__
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/_vendor/more_itertools/recipes.py
+  Fonctions:
+    - take
+    - tabulate
+    - tail
+    - consume
+    - nth
+    - all_equal
+    - quantify
+    - pad_none
+    - ncycles
+    - dotproduct
+    - flatten
+    - repeatfunc
+    - _pairwise
+    - pairwise
+    - grouper
+    - roundrobin
+    - partition
+    - powerset
+    - unique_everseen
+    - unique_justseen
+    - iter_except
+    - first_true
+    - random_product
+    - random_permutation
+    - random_combination
+    - random_combination_with_replacement
+    - nth_combination
+    - prepend
+    - convolve
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/_vendor/packaging/markers.py
+  Classes:
+    - InvalidMarker
+    - UndefinedComparison
+    - UndefinedEnvironmentName
+    - Node
+    - Variable
+    - Value
+    - Op
+    - Undefined
+    - Marker
+  Fonctions:
+    - __init__
+    - __str__
+    - __repr__
+    - serialize
+    - serialize
+    - serialize
+    - serialize
+    - _coerce_parse_result
+    - _format_marker
+    - _eval_op
+    - _get_env
+    - _evaluate_markers
+    - format_full_version
+    - default_environment
+    - __init__
+    - __str__
+    - __repr__
+    - evaluate
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/_vendor/packaging/requirements.py
+  Classes:
+    - InvalidRequirement
+    - Requirement
+  Fonctions:
+    - __init__
+    - __str__
+    - __repr__
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/_vendor/packaging/specifiers.py
+  Classes:
+    - InvalidSpecifier
+    - BaseSpecifier
+    - _IndividualSpecifier
+    - LegacySpecifier
+    - Specifier
+    - SpecifierSet
+  Fonctions:
+    - __str__
+    - __hash__
+    - __eq__
+    - __ne__
+    - prereleases
+    - prereleases
+    - contains
+    - filter
+    - __init__
+    - __repr__
+    - __str__
+    - _canonical_spec
+    - __hash__
+    - __eq__
+    - __ne__
+    - _get_operator
+    - _coerce_version
+    - operator
+    - version
+    - prereleases
+    - prereleases
+    - __contains__
+    - contains
+    - filter
+    - __init__
+    - _coerce_version
+    - _compare_equal
+    - _compare_not_equal
+    - _compare_less_than_equal
+    - _compare_greater_than_equal
+    - _compare_less_than
+    - _compare_greater_than
+    - _require_version_compare
+    - wrapped
+    - _compare_compatible
+    - _compare_equal
+    - _compare_not_equal
+    - _compare_less_than_equal
+    - _compare_greater_than_equal
+    - _compare_less_than
+    - _compare_greater_than
+    - _compare_arbitrary
+    - prereleases
+    - prereleases
+    - _version_split
+    - _is_not_suffix
+    - _pad_version
+    - __init__
+    - __repr__
+    - __str__
+    - __hash__
+    - __and__
+    - __eq__
+    - __ne__
+    - __len__
+    - __iter__
+    - prereleases
+    - prereleases
+    - __contains__
+    - contains
+    - filter
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/_vendor/packaging/tags.py
+  Classes:
+    - Tag
+  Fonctions:
+    - __init__
+    - interpreter
+    - abi
+    - platform
+    - __eq__
+    - __hash__
+    - __str__
+    - __repr__
+    - parse_tag
+    - _get_config_var
+    - _normalize_string
+    - _abi3_applies
+    - _cpython_abis
+    - cpython_tags
+    - _generic_abi
+    - generic_tags
+    - _py_interpreter_range
+    - compatible_tags
+    - _mac_arch
+    - _mac_binary_formats
+    - mac_platforms
+    - _linux_platforms
+    - _generic_platforms
+    - platform_tags
+    - interpreter_name
+    - interpreter_version
+    - _version_nodot
+    - sys_tags
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/_vendor/packaging/utils.py
+  Classes:
+    - InvalidWheelFilename
+    - InvalidSdistFilename
+  Fonctions:
+    - canonicalize_name
+    - canonicalize_version
+    - parse_wheel_filename
+    - parse_sdist_filename
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/_vendor/packaging/version.py
+  Classes:
+    - InvalidVersion
+    - _BaseVersion
+    - LegacyVersion
+    - Version
+  Fonctions:
+    - parse
+    - __hash__
+    - __lt__
+    - __le__
+    - __eq__
+    - __ge__
+    - __gt__
+    - __ne__
+    - __init__
+    - __str__
+    - __repr__
+    - public
+    - base_version
+    - epoch
+    - release
+    - pre
+    - post
+    - dev
+    - local
+    - is_prerelease
+    - is_postrelease
+    - is_devrelease
+    - _parse_version_parts
+    - _legacy_cmpkey
+    - __init__
+    - __repr__
+    - __str__
+    - epoch
+    - release
+    - pre
+    - post
+    - dev
+    - local
+    - public
+    - base_version
+    - is_prerelease
+    - is_postrelease
+    - is_devrelease
+    - major
+    - minor
+    - micro
+    - _parse_letter_version
+    - _parse_local_version
+    - _cmpkey
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/_vendor/packaging/_manylinux.py
+  Classes:
+    - _ELFFileHeader
+    - _InvalidELFFileHeader
+    - _GLibCVersion
+  Fonctions:
+    - __init__
+    - unpack
+    - _get_elf_header
+    - _is_linux_armhf
+    - _is_linux_i686
+    - _have_compatible_abi
+    - _glibc_version_string_confstr
+    - _glibc_version_string_ctypes
+    - _glibc_version_string
+    - _parse_glibc_version
+    - _get_glibc_version
+    - _is_compatible
+    - platform_tags
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/_vendor/packaging/_musllinux.py
+  Classes:
+    - _MuslVersion
+  Fonctions:
+    - _read_unpacked
+    - _parse_ld_musl_from_elf
+    - _parse_musl_version
+    - _get_musl_version
+    - platform_tags
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/setuptools/_vendor/packaging/_structures.py
+  Classes:
+    - InfinityType
+    - NegativeInfinityType
+  Fonctions:
+    - __repr__
+    - __hash__
+    - __lt__
+    - __le__
+    - __eq__
+    - __ne__
+    - __gt__
+    - __ge__
+    - __neg__
+    - __repr__
+    - __hash__
+    - __lt__
+    - __le__
+    - __eq__
+    - __ne__
+    - __gt__
+    - __ge__
+    - __neg__
+
+Fichier : /mnt/e/CALENDAR/astro/venv/lib/python3.10/site-packages/_distutils_hack/__init__.py
+  Classes:
+    - DistutilsMetaFinder
+    - DistutilsLoader
+  Fonctions:
+    - warn_distutils_present
+    - clear_distutils
+    - enabled
+    - ensure_local_distutils
+    - do_override
+    - find_spec
+    - spec_for_distutils
+    - create_module
+    - exec_module
+    - spec_for_pip
+    - pip_imported_during_build
+    - add_shim
+    - remove_shim

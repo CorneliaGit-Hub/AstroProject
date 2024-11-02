@@ -407,6 +407,7 @@ button:active {
 <div class="div-bouton">
     <form method="post" action="{% url 'enregistrer_theme' %}">
         {% csrf_token %}
+        <input type="hidden" name="name" value="{{ name }}">
         <input type="hidden" name="data_json" value="{{ theme_data_json }}">
         <button type="submit">Enregistrer le thème</button>
     </form>

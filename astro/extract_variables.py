@@ -43,9 +43,13 @@ def scan_project_directory(directory):
     return all_details
 
 if __name__ == "__main__":
-    project_directory = "/mnt/e/CALENDAR/astro"  # Remplace par le chemin de ton projet
-    details_dict = scan_project_directory(project_directory)
-    for file, details in details_dict.items():
+    project_directories = ["/mnt/e/CALENDAR/astro/astroapp", "/mnt/e/CALENDAR/astro/astroconfig"]
+    all_details = {}
+    for directory in project_directories:
+        details = scan_project_directory(directory)
+        all_details.update(details)
+
+    for file, details in all_details.items():
         print(f"\nFile: {file}")
         if details["classes"]:
             for class_name, class_details in details["classes"].items():
@@ -57,3 +61,4 @@ if __name__ == "__main__":
                     print(f"    Methods: {class_details['methods']}")
         if details["functions"]:
             print(f"  Functions: {details['functions']}")
+

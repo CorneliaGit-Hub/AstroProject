@@ -28,6 +28,7 @@ from urllib.parse import urlencode
 import json
 from django.utils.http import urlencode
 
+
 @login_required
 def enregistrer_theme(request):
     if request.method == "POST":
@@ -48,10 +49,13 @@ def enregistrer_theme(request):
             aspects_str = json.dumps(aspects)
             planet_positions_str = json.dumps(planet_positions)
 
+            # Récupère le nom du thème depuis la session
+            theme_name = request.POST.get('name', "Thème par défaut")  # Récupère le nom du thème depuis le formulaire
+
             # Créer et enregistrer le thème astrologique en base de données
             theme = ThemeAstrologique(
                 utilisateur=request.user,
-                nom_du_theme="Thème par défaut"  # ou un nom dynamique si disponible dans les données
+                nom_du_theme=theme_name
             )
             theme.save()
 
@@ -74,6 +78,7 @@ def enregistrer_theme(request):
         except Exception as e:
             messages.error(request, f"Erreur lors de l'enregistrement : {e}")
             return redirect('birth_results')
+
 
 
 
