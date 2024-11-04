@@ -359,168 +359,213 @@ def format_aspects_text(aspects, planet_positions):
 
 
 
-
-
+# DONNEES DE NAISSANCE
+def get_birth_location_data(city_of_birth, country_of_birth):
+    # Géolocalisation du lieu de naissance
+    location, error = get_location(city_of_birth, country_of_birth)
+    if error:
+        print("Erreur de géolocalisation :", error)
+        return None, None, None, None, error
     
-# BIRTH DATA
-# 6- Vue principale pour traiter les données de naissance
+    print("Débogage : Localisation obtenue ->", location)
+
+    # Extraction des coordonnées de latitude et longitude
+    latitude = location.latitude
+    longitude = location.longitude
+    print("Débogage : Coordonnées extraites - latitude:", latitude, ", longitude:", longitude)
+
+    # Recherche du fuseau horaire
+    timezone_str, error = get_timezone(latitude, longitude)
+    if error:
+        print("Erreur de fuseau horaire :", error)
+        return None, None, None, None, error
+    
+    print("Débogage : Fuseau horaire détecté ->", timezone_str)
+    
+    return location, latitude, longitude, timezone_str, None
+
+
+def convert_latlon_to_dms(latitude, longitude):
+    # Conversion des coordonnées en DMS (Degrés, Minutes, Secondes)
+    latitude_dms = decimal_to_dms(latitude, is_latitude=True)
+    longitude_dms = decimal_to_dms(longitude, is_latitude=False)
+    print("Débogage : Coordonnées en DMS - latitude_dms:", latitude_dms, ", longitude_dms:", longitude_dms)
+    return latitude_dms, longitude_dms
+
+
+def convert_to_local_and_utc(birth_datetime, timezone_str):
+    try:
+        # Conversion en heures locales et UTC
+        birth_datetime_local, birth_datetime_utc, error = convert_birth_datetime(birth_datetime, timezone_str)
+        if error:
+            print("Erreur de conversion datetime :", error)
+            return None, None, error
+        
+        print("Débogage : Conversion datetime réussie - Heure locale :", birth_datetime_local, ", Heure UTC :", birth_datetime_utc)
+        
+        # Corriger le fuseau horaire si nécessaire
+        if timezone_str == "America/Cayenne":
+            timezone = pytz.timezone("Etc/GMT+3")
+            birth_datetime_local = timezone.localize(birth_datetime)
+            print("Débogage : Fuseau horaire UTC-3 appliqué pour Cayenne")
+        else:
+            birth_datetime_local = birth_datetime.replace(tzinfo=ZoneInfo(timezone_str))
+            print("Débogage : Fuseau horaire standard appliqué :", timezone_str)
+        
+        # Convertir l'heure locale en UTC
+        birth_datetime_utc = birth_datetime_local.astimezone(ZoneInfo("UTC"))
+        
+        print("Débogage : Heure locale après conversion :", birth_datetime_local)
+        print("Débogage : Heure UTC après conversion :", birth_datetime_utc)
+        
+        return birth_datetime_local, birth_datetime_utc, None
+    
+    except Exception as e:
+        print("Erreur lors de la conversion des dates :", e)
+        return None, None, f'Erreur de conversion : {e}'
+
+def calculate_julian_and_positions(birth_datetime_utc):
+    # Calcul du jour julien (JD)
+    jd = swe.julday(
+        birth_datetime_utc.year,
+        birth_datetime_utc.month,
+        birth_datetime_utc.day,
+        birth_datetime_utc.hour + birth_datetime_utc.minute / 60.0
+    )
+    print("Débogage : Jour julien calculé ->", jd)
+
+    # Calcul des positions des planètes
+    results, planet_positions = calculate_planet_positions(jd)
+    print("Débogage : Calcul des positions des planètes terminé. Résultats ->", results)
+   
+    if not planet_positions:  # Si planet_positions est vide, utilise une valeur de test
+        planet_positions = [('Soleil', 15.0), ('Lune', 30.0)]
+        print("Débogage : planet_positions était vide, positions par défaut appliquées ->", planet_positions)
+
+    return jd, results, planet_positions
+
+
+def generate_aspects_and_text(planet_positions):
+    # Calcul des aspects planétaires
+    aspects = calculate_astrological_aspects(planet_positions)
+    print("Débogage : Calcul des aspects planétaires terminé. Aspects ->", aspects)
+
+    # Formatage du texte des aspects
+    aspects_text = format_aspects_text(aspects, planet_positions)
+    print("Débogage - aspects_text :", aspects_text)
+    
+    return aspects, aspects_text
+
+
+def prepare_theme_data_json(house_results, aspects, planet_positions):
+    theme_data_json = json.dumps({
+        'houses': house_results,
+        'aspects': aspects,
+        'planet_positions': planet_positions
+    })
+    print("Débogage : Contenu de theme_data_json ->", theme_data_json)
+    return theme_data_json    
+
+
+def extract_birth_data_form(request):
+    name = request.POST['name']
+    birthdate = request.POST['birthdate']
+    birthtime = request.POST['birthtime']
+    country_of_birth = request.POST['country_of_birth']
+    city_of_birth = request.POST['city_of_birth']
+    print("Débogage : Variables extraites - name:", name, ", birthdate:", birthdate, ", birthtime:", birthtime)
+    print("Débogage : Localisation - ville:", city_of_birth, ", pays:", country_of_birth)
+    return name, birthdate, birthtime, country_of_birth, city_of_birth
+    
+
+def create_birth_datetime_and_timestamp(birthdate, birthtime):
+    birth_datetime_str = f"{birthdate} {birthtime}"
+    birth_datetime = datetime.strptime(birth_datetime_str, "%Y-%m-%d %H:%M")
+    print("Débogage : birth_datetime construit ->", birth_datetime)
+
+    # Création du timestamp pour rechargement de l'image
+    timestamp = int(now().timestamp())
+    print("Débogage : Timestamp ajouté ->", timestamp)
+    
+    return birth_datetime, timestamp
+
+
+def convert_coordinates_to_dms(latitude, longitude):
+    latitude_dms, longitude_dms = convert_latlon_to_dms(latitude, longitude)
+    return latitude_dms, longitude_dms
+
+
+def prepare_template_context(name, results, house_results, aspects, aspects_text, birth_datetime_local, birth_datetime_utc, location, latitude_dms, longitude_dms, theme_data_json):
+    return {
+        'name': name,
+        'results': results,
+        'houses': house_results,
+        'aspects': aspects,
+        'aspects_text': aspects_text,
+        'local_year_str': birth_datetime_local.strftime("%Y"),
+        'local_time_str': birth_datetime_local.strftime("%H:%M:%S %Z%z"),
+        'utc_time_str': birth_datetime_utc.strftime("%H:%M:%S %Z%z"),
+        'location': location,
+        'latitude_dms': latitude_dms,
+        'longitude_dms': longitude_dms,
+        'theme_data_json': theme_data_json
+    }
+
+
 def birth_data(request):
     if request.method == 'POST':
-        print("Débogage : La vue 'birth_data' a été appelée.")  # Vérifier si la vue est exécutée
-        print("Débogage : Données POST reçues ->", request.POST)  # Affiche toutes les données reçues
+        print("Débogage : Vue 'birth_data' appelée.")
 
-        # Récupération des données du formulaire
-        name = request.POST['name']
-        birthdate = request.POST['birthdate']
-        birthtime = request.POST['birthtime']
-        country_of_birth = request.POST['country_of_birth']
-        city_of_birth = request.POST['city_of_birth']
-        print("Débogage : Variables extraites - name:", name, ", birthdate:", birthdate, ", birthtime:", birthtime)
-        print("Débogage : Localisation - ville:", city_of_birth, ", pays:", country_of_birth)
+        # Appel pour extraire les données du formulaire
+        name, birthdate, birthtime, country_of_birth, city_of_birth = extract_birth_data_form(request)
+        print("Débogage : Données POST reçues ->", request.POST)
 
-        # Conversion de la chaîne de texte en datetime
-        birth_datetime_str = f"{birthdate} {birthtime}"
-        birth_datetime = datetime.strptime(birth_datetime_str, "%Y-%m-%d %H:%M")
-        print("Débogage : birth_datetime construit ->", birth_datetime)
+        # Appel pour créer l'objet datetime de naissance et le timestamp
+        birth_datetime, timestamp = create_birth_datetime_and_timestamp(birthdate, birthtime)
 
-        # Géolocalisation du lieu de naissance
-        location, error = get_location(city_of_birth, country_of_birth)
+        # Appel pour obtenir la géolocalisation et le fuseau horaire
+        location, latitude, longitude, timezone_str, error = get_birth_location_data(city_of_birth, country_of_birth)
         if error:
-            print("Erreur de géolocalisation :", error)
             return render(request, 'birth_data_form.html', {'error': error})
-        
-        print("Débogage : Localisation obtenue ->", location)
 
+        # Appel pour convertir les coordonnées en DMS (degrés, minutes, secondes)
+        latitude_dms, longitude_dms = convert_coordinates_to_dms(latitude, longitude)
 
-        # Extraction des coordonnées de latitude et longitude
-        latitude = location.latitude
-        longitude = location.longitude
-        print("Débogage : Coordonnées extraites - latitude:", latitude, ", longitude:", longitude)
-
-        # Recherche du fuseau horaire
-        timezone_str, error = get_timezone(latitude, longitude)
+        # Appel pour convertir en heures locales et UTC
+        birth_datetime_local, birth_datetime_utc, error = convert_to_local_and_utc(birth_datetime, timezone_str)
         if error:
-            print("Erreur de fuseau horaire :", error)
             return render(request, 'birth_data_form.html', {'error': error})
-        
-        print("Débogage : Fuseau horaire détecté ->", timezone_str)
 
-        # Ajouter le timestamp pour le forçage du rechargement de l'image
-        timestamp = int(now().timestamp())
-        print("Débogage : Timestamp ajouté ->", timestamp)
+        # Appel pour calculer le jour julien (JD) et les positions des planètes
+        jd, results, planet_positions = calculate_julian_and_positions(birth_datetime_utc)
 
-        # Conversion des coordonnées en DMS (Degrés, Minutes, Secondes)
-        latitude_dms = decimal_to_dms(latitude, is_latitude=True)
-        longitude_dms = decimal_to_dms(longitude, is_latitude=False)
-        print("Débogage : Coordonnées en DMS - latitude_dms:", latitude_dms, ", longitude_dms:", longitude_dms)
-
-
-        # Conversion en heures locales et UTC
-        try:
-            birth_datetime_local, birth_datetime_utc, error = convert_birth_datetime(birth_datetime, timezone_str)
-            if error:
-                print("Erreur de conversion datetime :", error)
-                return render(request, 'birth_data_form.html', {'error': error})
-            
-            print("Débogage : Conversion datetime réussie - Heure locale :", birth_datetime_local, ", Heure UTC :", birth_datetime_utc)
-
-            # Afficher les données d'entrée avant conversion
-            print("Débogage : Heure de naissance d'origine (locale, avant conversion) :", birth_datetime)
-            print("Débogage : Fuseau horaire utilisé pour la conversion :", timezone_str)
-
-
-            # Corriger le fuseau horaire si nécessaire
-            if timezone_str == "America/Cayenne":
-                # Appliquer directement le fuseau horaire UTC-3 en utilisant pytz
-                timezone = pytz.timezone("Etc/GMT+3")
-                birth_datetime_local = timezone.localize(birth_datetime)
-                print("Débogage : Fuseau horaire UTC-3 appliqué pour Cayenne")
-            else:
-                birth_datetime_local = birth_datetime.replace(tzinfo=ZoneInfo(timezone_str))
-                print("Débogage : Fuseau horaire standard appliqué :", timezone_str)
-
-            # Convertir l'heure locale en UTC
-            birth_datetime_utc = birth_datetime_local.astimezone(ZoneInfo("UTC"))
-
-            # Afficher les heures obtenues après conversion
-            print("Débogage : Heure locale après conversion :", birth_datetime_local)
-            print("Débogage : Heure UTC après conversion :", birth_datetime_utc)
-
-        except Exception as e:
-            print("Erreur lors de la conversion des dates :", e)
-            return render(request, 'birth_data_form.html', {'error': f'Erreur de conversion : {e}'})
-
-
-
-
-            
-            
-
-        # Calcul du jour julien (JD)
-        jd = swe.julday(
-            birth_datetime_utc.year,
-            birth_datetime_utc.month,
-            birth_datetime_utc.day,
-            birth_datetime_utc.hour + birth_datetime_utc.minute / 60.0
-        )
-        print("Débogage : Jour julien calculé ->", jd)
-
-        # Calcul des positions des planètes
-        results, planet_positions = calculate_planet_positions(jd)
-        print("Débogage : Calcul des positions des planètes terminé. Résultats ->", results)
-        
-        if not planet_positions:  # Si planet_positions est vide, utilise une valeur de test
-            planet_positions = [('Soleil', 15.0), ('Lune', 30.0)]  # Exemple de positions
-            print("Débogage : planet_positions était vide, positions par défaut appliquées ->", planet_positions)
-
-        # Calcul des maisons astrologiques
+        # Appel pour calculer les maisons astrologiques
         house_results = calculate_astrological_houses(jd, latitude, longitude)
-        print("Débogage : Calcul des maisons astrologiques terminé. Résultats ->", house_results)
+        print("Débogage : Calcul des maisons astrologiques terminé.")
 
-        # Calcul des aspects planétaires
-        aspects = calculate_astrological_aspects(planet_positions)
-        print("Débogage : Calcul des aspects planétaires terminé. Aspects ->", aspects)
+        # Appel pour calculer les aspects planétaires et formater le texte des aspects
+        aspects, aspects_text = generate_aspects_and_text(planet_positions)
 
-        # Ajout de la ligne pour formater le texte des aspects, sans impacter la roue
-        aspects_text = format_aspects_text(aspects, planet_positions)
-        print("Débogage - aspects_text :", aspects_text)  # Cette ligne affiche le contenu après formatage
+        # Appel pour préparer les données du thème en JSON pour le template
+        theme_data_json = prepare_theme_data_json(house_results, aspects, planet_positions)
 
-        # Ajout de theme_data_json pour passer les données au template
-        theme_data_json = json.dumps({
-            'houses': house_results,
-            'aspects': aspects,
-            'planet_positions': planet_positions  # Ajoute planet_positions ici
-        })
-        print("Débogage : Contenu de theme_data_json ->", theme_data_json)
-        
-        # Appel de la fonction pour générer la roue astrologique
-        print("Débogage : Appel de la fonction 'generate_astrological_wheel'.")
+        # Appel pour générer la roue astrologique visuelle
+        print("Débogage : Génération de la roue astrologique.")
         generate_astrological_wheel(planet_positions, house_results, aspects)
 
-        # Transmission des données au modèle, avec aspects pour la roue
-        print("Débogage : Transmission des données au template 'birth_results.html'")
-        print("Débogage : houses transmis ->", house_results)
-        print("Débogage : aspects transmis ->", aspects)
-        print("Débogage : aspects_text transmis ->", aspects_text)
+        # Appel pour préparer le contexte à transmettre au template
+        context = prepare_template_context(
+            name, results, house_results, aspects, aspects_text,
+            birth_datetime_local, birth_datetime_utc, location,
+            latitude_dms, longitude_dms, theme_data_json
+        )
+        
+        return render(request, 'birth_results.html', context)
 
-        return render(request, 'birth_results.html', {
-            'name': name,
-            'results': results,
-            'houses': house_results,
-            'aspects': aspects,      # Pour l'affichage des aspects dans la roue
-            'aspects_text': aspects_text,  # Pour l'affichage en texte
-            'local_year_str': birth_datetime_local.strftime("%Y"),
-            'local_time_str': birth_datetime_local.strftime("%H:%M:%S %Z%z"),
-            'utc_time_str': birth_datetime_utc.strftime("%H:%M:%S %Z%z"),
-            'location': location,
-            'latitude_dms': latitude_dms,
-            'longitude_dms': longitude_dms,
-            'theme_data_json': theme_data_json,  # Ajoute le JSON des données du thème
-        })
-
-    # Si la méthode n'est pas POST, afficher le formulaire de saisie
-    print("Débogage : Affichage du formulaire 'birth_data_form.html' pour une requête GET.")
+    # Affichage du formulaire pour une requête GET
+    print("Débogage : Affichage du formulaire 'birth_data_form.html'.")
     return render(request, 'birth_data_form.html')
+
 
 
 
