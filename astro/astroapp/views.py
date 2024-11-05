@@ -314,7 +314,8 @@ def get_location(city, country):
     
     if not location:
         return None, "Lieu de naissance introuvable."
-    
+    # Ajoute ce print ici
+    print("Géolocalisation - Latitude :", location.latitude, "Longitude :", location.longitude)
     return location, None  # Retourne la localisation et None pour indiquer qu'il n'y a pas d'erreur
 
 # Fonction pour obtenir le fuseau horaire d'une localisation
@@ -354,7 +355,11 @@ def convert_birth_datetime(birth_datetime, timezone_str):
         # Si une erreur est détectée, retourne l'erreur
         if error:
             return None, None, error
-
+            
+        # Ajoute ces prints ici
+        print("Fuseau Horaire :", timezone_str)
+        print("Date/Heure UTC :", birth_datetime_utc)
+    
         # Retourne les dates locales et UTC sans erreur
         return birth_datetime_local, birth_datetime_utc, None
 
@@ -382,6 +387,8 @@ def calculate_julian_day_and_planet_positions(birth_datetime_utc, latitude, long
     # Calcul des positions des planètes
     results, planet_positions = calculate_planet_positions(jd)
 
+    # Ajoute ce print ici
+    print("Jour Julien Calculé :", jd)
     return jd, results, planet_positions
 
 
@@ -641,9 +648,19 @@ def birth_data(request):
 
         # Appel pour calculer les aspects planétaires et formater le texte des aspects
         aspects, aspects_text = generate_aspects_and_text(planet_positions)
+        
+        print("Avant enregistrement - Type et valeur de planet_positions :", type(planet_positions), planet_positions)
+        print("Avant enregistrement - Type et valeur de aspects :", type(aspects), aspects)
+        print("Avant enregistrement - Type et valeur de house_results :", type(house_results), house_results)
+
 
         # Appel pour préparer les données du thème en JSON pour le template
         theme_data_json = prepare_theme_data_json(house_results, aspects, planet_positions)
+        
+        print("Après enregistrement - Type et valeur de planet_positions :", type(planet_positions), planet_positions)
+        print("Après enregistrement - Type et valeur de aspects :", type(aspects), aspects)
+        print("Après enregistrement - Type et valeur de house_results :", type(house_results), house_results)
+
 
         # Appel pour générer la roue astrologique visuelle
         print("Débogage : Génération de la roue astrologique.")
@@ -655,7 +672,9 @@ def birth_data(request):
             birth_datetime_local, birth_datetime_utc, location,
             latitude_dms, longitude_dms, theme_data_json
         )
-        
+
+        print("Débogage : Contenu de context avant rendu :", context)
+
         return render(request, 'birth_results.html', context)
 
     # Affichage du formulaire pour une requête GET
@@ -1383,9 +1402,21 @@ def birth_results(request):
     aspects_str = request.GET.get('aspects', '[]')
     planet_positions_str = request.GET.get('planet_positions', '[]')
 
-    # Appel de la fonction pour désérialiser les données de la roue astrologique : def deserialize_wheel_data
+    # Désérialisation des données
     house_results, aspects, planet_positions = deserialize_wheel_data(house_results_str, aspects_str, planet_positions_str)
 
+    # Conversion des positions planétaires en dictionnaire si elles sont en liste
+    if isinstance(planet_positions, list):
+        planet_positions = {item[0]: {'degree': item[1]} for item in planet_positions}
+
+    # Affichage pour vérification (optionnel)
+    print("Données pour Affichage :", {
+        'house_results': house_results,
+        'aspects': aspects,
+        'planet_positions': planet_positions,
+    })
+
+    print("DEBUG - Données JSON à l'arrivée de birth_results:", request.GET)
 
     # Rendre les données au template
     return render(request, 'birth_results.html', {
@@ -1393,6 +1424,7 @@ def birth_results(request):
         'aspects': aspects,
         'planet_positions': planet_positions,
     })
+
 
 
 

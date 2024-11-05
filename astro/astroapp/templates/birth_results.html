@@ -299,74 +299,10 @@ button:active {
 <table>
     <thead>
         <tr>
-            <th>Planète</th>
-            <th>Degré du signe</th>
-            <th>Signe</th>
-            <th>Degré total</th>
-        </tr>
-    </thead>
-
-
-<tbody>
-    <!-- Débogage - Affichage des résultats transmis -->
-    <pre>Résultats (results) : {{ results|safe }}</pre>
-    <pre>Positions planétaires (planet_positions) : {{ planet_positions|safe }}</pre>
-    <pre>Format et contenu de results : {{ results|pprint }}</pre>
-
-    {% if results %}
-        {% if results.items %}
-            <!-- Affichage pour le format dictionnaire avant enregistrement -->
-            {% for planet, info in results.items %}
-            <tr>
-                <td>{{ planet }}</td>
-                <td>{{ info.sign_degree|floatformat:2 }}°</td>
-                <td>{{ info.sign }}</td>
-                <td>{{ info.degree|floatformat:2 }}°</td>
-            </tr>
-            {% endfor %}
-        {% elif results.0.0 %}
-            <!-- Affichage pour le format liste après enregistrement -->
-            {% for planet_info in results %}
-            <tr>
-                <td>{{ planet_info.0 }}</td>
-                <td>-</td> <!-- Placeholder si l'info du signe n'est pas disponible -->
-                <td>-</td> <!-- Placeholder si l'info du signe n'est pas disponible -->
-                <td>{{ planet_info.1|floatformat:2 }}°</td>
-            </tr>
-            {% endfor %}
-        {% endif %}
-    {% else %}
-        <tr>
-            <td colspan="4">Aucune donnée disponible.</td>
-        </tr>
-    {% endif %}
-</tbody>
-
-
-
-
-
-
-</table>
-
-</div>
-</div>
-</div>
-<!-- / PLANETES -->
-<br><br>
-
-<!-- MAISONS -->
-<div class="container">
-<div class="table-container houses">
-<div class="table-wrapper-maisons">
-        <h3>Maisons astrologiques :</h3>
-<table>
-    <thead>
-        <tr>
             <th>Maison</th>
-            <th>Degré du signe</th>
+            <th>Degré dans le signe</th>
             <th>Signe</th>
-            <th>Degré total</th>
+            <th>Degré DMS</th>
         </tr>
     </thead>
     <tbody>
@@ -388,6 +324,49 @@ button:active {
             </tr>
         {% endif %}
     </tbody>
+</table>
+
+
+</div>
+</div>
+</div>
+<!-- / PLANETES -->
+<br><br>
+
+<!-- MAISONS -->
+<div class="container">
+<div class="table-container houses">
+<div class="table-wrapper-maisons">
+        <h3>Maisons astrologiques :</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Maison</th>
+            <th>Degré du signe</th>
+            <th>Signe</th>
+            <th>Degré total</th>
+        </tr>
+    </thead>
+<tbody>
+    <!-- Débogage - Affichage des données des maisons -->
+    <pre>{{ houses|safe }}</pre>
+
+    {% if houses %}
+        {% for house, info in houses.items %}  <!-- Changer ici : items() au lieu de items -->
+        <tr>
+            <td>{{ house }}</td>
+            <td>{{ info.sign_degree|degrees_minutes }}</td>
+            <td>{{ info.sign }}</td>
+            <td>{{ info.degree_dms }}</td>
+        </tr>
+        {% endfor %}
+    {% else %}
+        <tr>
+            <td colspan="4">Aucune donnée disponible.</td>
+        </tr>
+    {% endif %}
+</tbody>
+
 </table>
 
 </div>
