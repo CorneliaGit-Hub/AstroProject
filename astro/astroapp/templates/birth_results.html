@@ -227,12 +227,6 @@ button:active {
 </head>
 <body>
 <!-- Débogage - Affichage des données transmises -->
-<pre>
-{{ houses|safe }}
-{{ aspects|safe }}
-{{ planet_positions|safe }}
-</pre>
-
 <div class="auth-links">
     {% if user.is_authenticated %}
         <a href="{% url 'deconnexion' %}">Déconnexion</a>
@@ -307,7 +301,7 @@ button:active {
     </thead>
     <tbody>
         <!-- Débogage - Affichage des données des maisons -->
-        <pre>{{ houses|safe }}</pre>
+       
 
         {% if houses %}
             {% for house, info in houses.items %}
@@ -325,8 +319,6 @@ button:active {
         {% endif %}
     </tbody>
 </table>
-
-
 </div>
 </div>
 </div>
@@ -349,7 +341,7 @@ button:active {
     </thead>
 <tbody>
     <!-- Débogage - Affichage des données des maisons -->
-    <pre>{{ houses|safe }}</pre>
+    
 
     {% if houses %}
         {% for house, info in houses.items %}  <!-- Changer ici : items() au lieu de items -->
@@ -389,7 +381,7 @@ button:active {
     </thead>
     <tbody>
         <!-- Débogage - Affichage des données des aspects -->
-        <pre>{{ aspects_text|safe }}</pre>
+        
 
         {% if aspects_text %}
             {% for aspect in aspects_text %}
