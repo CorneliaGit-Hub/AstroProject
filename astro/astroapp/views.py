@@ -74,15 +74,15 @@ def save_theme_to_database(request):
         return None
 
 
-def build_redirection_url(house_results_str, aspects_str, planet_positions_str):
-    """Construit l'URL pour rediriger vers la page des résultats avec les données sérialisées."""
+def build_redirection_url(house_results_str, aspects_str, planet_positions_str, name):
     url = reverse('birth_results') + '?' + urlencode({
         'house_results': house_results_str,
         'aspects': aspects_str,
-        'planet_positions': planet_positions_str
+        'planet_positions': planet_positions_str,
+        'name': name
     })
-    print("Débogage : URL construite pour redirection ->", url)
     return url
+
 
 
 
@@ -109,8 +109,12 @@ def enregistrer_theme(request):
             if theme is None:
                 return redirect('birth_results')
 
-            # Appel de la nouvelle fonction pour construire l'URL de redirection avec les paramètres sérialisés pour l'affichage : def build_redirection_url
-            url = build_redirection_url(house_results_str, aspects_str, planet_positions_str)
+            # Récupère le nom du thème depuis les données POST
+            name = request.POST.get('name', 'Thème par défaut')
+
+            # Appel de la fonction pour construire l'URL de redirection avec les paramètres sérialisés pour l'affichage : def build_redirection_url
+            url = build_redirection_url(house_results_str, aspects_str, planet_positions_str, name)
+
 
             
             print("URL finale de redirection :", url)

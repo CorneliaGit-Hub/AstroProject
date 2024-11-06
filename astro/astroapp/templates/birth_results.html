@@ -245,7 +245,16 @@ button:active {
 <br>
 
     <div class="container">
-        <h2>Résultats astrologiques pour {{ name }}</h2>
+
+<h2>Résultats astrologiques pour 
+    {% if request.GET.name %} 
+        {{ request.GET.name }} 
+    {% else %} 
+        {{ name }} 
+    {% endif %}
+</h2>
+
+
 
 <p><strong>Date :</strong> {{ local_day_str }} {{ local_month_str }} {{ local_year_str }}</p>
 
@@ -442,3 +451,4 @@ button:active {
 <body>
 </body>
 </html>
+
