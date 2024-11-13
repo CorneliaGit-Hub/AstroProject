@@ -1,0 +1,67 @@
+[33md13fc1a[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m HEAD@{0}: reset: moving to d13fc1a169cdfd36fb843b10afc17a1482956f2c
+[33md13fc1a[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m HEAD@{1}: Branch: renamed refs/heads/sauvegarde-travail to refs/heads/main
+[33md13fc1a[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m HEAD@{3}: reset: moving to d13fc1a169cdfd36fb843b10afc17a1482956f2c
+[33mc5838d6[m[33m ([m[1;31morigin/sauvegarde-travail[m[33m, [m[1;32mnouvelle-branche-a-partir-de-c5838d6[m[33m, [m[1;32metat_commit_c5838d6[m[33m)[m HEAD@{4}: reset: moving to c5838d6
+[33mc5838d6[m[33m ([m[1;31morigin/sauvegarde-travail[m[33m, [m[1;32mnouvelle-branche-a-partir-de-c5838d6[m[33m, [m[1;32metat_commit_c5838d6[m[33m)[m HEAD@{5}: checkout: moving from etat_commit_c5838d6 to sauvegarde-travail
+[33mc5838d6[m[33m ([m[1;31morigin/sauvegarde-travail[m[33m, [m[1;32mnouvelle-branche-a-partir-de-c5838d6[m[33m, [m[1;32metat_commit_c5838d6[m[33m)[m HEAD@{6}: checkout: moving from c5838d66882f4665b7d3555b414a787f49c3b086 to etat_commit_c5838d6
+[33mc5838d6[m[33m ([m[1;31morigin/sauvegarde-travail[m[33m, [m[1;32mnouvelle-branche-a-partir-de-c5838d6[m[33m, [m[1;32metat_commit_c5838d6[m[33m)[m HEAD@{7}: checkout: moving from sauvegarde-travail to c5838d6
+[33mc5838d6[m[33m ([m[1;31morigin/sauvegarde-travail[m[33m, [m[1;32mnouvelle-branche-a-partir-de-c5838d6[m[33m, [m[1;32metat_commit_c5838d6[m[33m)[m HEAD@{8}: checkout: moving from nouvelle-branche-a-partir-de-c5838d6 to sauvegarde-travail
+[33mc5838d6[m[33m ([m[1;31morigin/sauvegarde-travail[m[33m, [m[1;32mnouvelle-branche-a-partir-de-c5838d6[m[33m, [m[1;32metat_commit_c5838d6[m[33m)[m HEAD@{9}: checkout: moving from c5838d66882f4665b7d3555b414a787f49c3b086 to nouvelle-branche-a-partir-de-c5838d6
+[33mc5838d6[m[33m ([m[1;31morigin/sauvegarde-travail[m[33m, [m[1;32mnouvelle-branche-a-partir-de-c5838d6[m[33m, [m[1;32metat_commit_c5838d6[m[33m)[m HEAD@{10}: checkout: moving from sauvegarde-travail to c5838d6
+[33mc5838d6[m[33m ([m[1;31morigin/sauvegarde-travail[m[33m, [m[1;32mnouvelle-branche-a-partir-de-c5838d6[m[33m, [m[1;32metat_commit_c5838d6[m[33m)[m HEAD@{11}: checkout: moving from sauvegarde-travail to sauvegarde-travail
+[33mc5838d6[m[33m ([m[1;31morigin/sauvegarde-travail[m[33m, [m[1;32mnouvelle-branche-a-partir-de-c5838d6[m[33m, [m[1;32metat_commit_c5838d6[m[33m)[m HEAD@{12}: commit: Correction de l'affichage du nom du thème après enregistrement
+[33m4b9911e[m HEAD@{13}: commit: Analyse des fonctions dans views.py : extraction des arguments, variables locales, et ajout des descriptions
+[33m652f5f1[m HEAD@{14}: commit: Ajout des modifications pour le débogage et l'affichage des maisons
+[33mbda97be[m HEAD@{15}: reset: moving to bda97be
+[33maf6876a[m HEAD@{16}: commit: Résolution des problèmes de la fonction birth_data et modularisation des données utilisateur
+[33mbda97be[m HEAD@{17}: commit: Modularisation avancée des fonctions de la roue astrologique et corrections diverses
+[33mfd6f11e[m HEAD@{18}: commit: Optimisation de la fonction birth_data et modularisation des appels de fonctions
+[33m560fc54[m HEAD@{19}: checkout: moving from 560fc544fc1d8ab65687c20a39eef8a5e8f5e96f to sauvegarde-travail
+[33m560fc54[m HEAD@{20}: checkout: moving from sauvegarde-travail to 560fc54
+[33m560fc54[m HEAD@{21}: commit: Débogage approfondi - session inachevée : ajout de logs dans birth_data et birth_results.html pour vérification des données houses, aspects, et planet_positions ; persistance de problèmes d'affichage après enregistrement
+[33m1fac0af[m HEAD@{22}: reset: moving to 1fac0af
+[33m2b5e64f[m HEAD@{23}: commit: Sauvegarde des modifications avant de revenir au commit
+[33m1fac0af[m HEAD@{24}: checkout: moving from main to sauvegarde-travail
+[33m1fac0af[m HEAD@{25}: commit: Retire le dossier venv du suivi de Git
+[33m1f67cf9[m HEAD@{26}: commit: Ajout du champ de nom personnalisé pour l'enregistrement des thèmes astrologiques
+[33maf0dcce[m HEAD@{27}: reset: moving to af0dcce85400276a77ffba516473e6932a702730
+[33maf0dcce[m HEAD@{28}: commit: Ajout de la fonctionnalité d'enregistrement des thèmes astrologiques dans la base de données, vérification et correction des fonctionnalités d'affichage et de formatage des aspects astrologiques, ajustement des autorisations pour l'accès à l'interface d'administration.
+[33m7e67710[m HEAD@{29}: reset: moving to 7e67710
+[33m7e67710[m HEAD@{30}: reset: moving to 7e67710
+[33m7e67710[m HEAD@{31}: commit: Finalisation de l'authentification utilisateur avec redirections et affichage conditionnel des boutons. Retrait de l'inclusion de la roue astrologique dans birth_data_form.html.
+[33m3448c01[m HEAD@{32}: commit: Correction de l'affichage des aspects dans la vue des résultats
+[33md13fc1a[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m HEAD@{33}: commit: Correction du formulaire de wheeldisplay.html
+[33mcbf9104[m HEAD@{34}: commit: Restauration du nouveau format du formulaire du fichier wheeldisplay.html
+[33m940f052[m HEAD@{35}: commit: Restauration de wheeldisplay.html
+[33mc235eca[m HEAD@{36}: reset: moving to c235eca
+[33mc235eca[m HEAD@{37}: commit: Restauration du fichier birth_results.html
+[33m26d2ba6[m HEAD@{38}: commit: Réparation
+[33m9ffc8a6[m HEAD@{39}: reset: moving to 9ffc8a6
+[33m9ffc8a6[m HEAD@{40}: reset: moving to 9ffc8a6
+[33m9ffc8a6[m HEAD@{41}: reset: moving to 9ffc8a6
+[33m9ffc8a6[m HEAD@{42}: commit: Amélioration de l'affichage des aspects astrologiques : ajout du formatage pour les aspects dans la vue textuelle avec positions et écarts affichés de manière lisible. Optimisation de l'indentation et ajustements finaux pour la lisibilité de l'interface utilisateur.
+[33m818a388[m HEAD@{43}: commit: Alignement des sections et réduction de l'image sur grands écrans pour améliorer l'affichage adaptatif
+[33mdb887e0[m HEAD@{44}: commit: Adaptation du formulaire dans wheeldisplay pour calculer un nouveau thème avec la structure de birth_data_form, intégration de la validation et des scripts nécessaires
+[33m0f83ebc[m HEAD@{45}: commit: Ajout du tracé des aspects astrologiques dans la roue : styles spécifiques appliqués pour chaque aspect avec tirets longs pour l'Opposition et le Carré. Optimisation des styles de tracé dans draw_aspects pour un rendu visuel conforme aux standards d'astrologie. Prêt à être poussé en production.
+[33m5b2deba[m HEAD@{46}: commit: Restructuration complète de la roue astrologique : amélioration des fonctions de dessin, ajustement des couleurs, ajout des degrés, et positionnement des éléments. Finalisation pour un rendu optimisé.
+[33mde7ba51[m HEAD@{47}: commit: Modularisation de la fonction birth_data : extraction des calculs en fonctions distinctes pour améliorer la lisibilité, la réutilisabilité, et la maintenabilité du code. Ajout des fonctions calculate_astrological_houses et calculate_astrological_aspects.
+[33m80b5f77[m HEAD@{48}: commit: Correction du fuseau horaire pour la Guyane française (UTC-3)
+[33m335ce53[m HEAD@{49}: commit: Session 17: Corrected timezone handling for Cayenne, synchronized changes, and updated report
+[33mabdc89d[m HEAD@{50}: commit: Positionner l'ASC à gauche + corrections visuelles des segments, triangles, subdivisions
+[33mb7a1f5c[m HEAD@{51}: commit: Ajustements des dimensions de la roue astrologique et suppression des marges blanches
+[33m3bd0fc4[m HEAD@{52}: commit: Ajout du formulaire final et de la roue astrologique
+[33ma2c98b4[m HEAD@{53}: commit: Ajout des labels ASC et MC et ajustement visuel de la roue astrologique
+[33m0c0fb8b[m HEAD@{54}: commit: Coloration des cuspides ASC, DSC, MC et FC en noir, ajustement des triangles
+[33mf4323f7[m HEAD@{55}: commit: Ajout des degrés et minutes des cuspides des maisons, alignement et correction de l'affichage des numéros des maisons
+[33m652ce32[m HEAD@{56}: commit: Ajout des lignes reliant les planètes au centre de la roue astrologique
+[33m5f8f8bd[m HEAD@{57}: commit: Ajout final des segments colorés, des positions planétaires et des degrés alignés.
+[33m22796e6[m HEAD@{58}: commit: Première version avec la roue astrologique fonctionnelle
+[33m3e53c53[m HEAD@{59}: commit: Ajout de la génération de la roue astrologique et des positions planétaires
+[33m47d3b9a[m HEAD@{60}: commit: Intégration de l'image de la roue astrologique et corrections de wheeldisplay.html
+[33mba8ea8f[m HEAD@{61}: commit: Amélioration de la responsivité de wheeldisplay.html
+[33m9ee3a41[m HEAD@{62}: commit: Intégration de la vue wheeldisplay dans birth_results
+[33mf09f350[m HEAD@{63}: commit: Ajout de la génération d'une image de la roue zodiacale
+[33mef65a3a[m HEAD@{64}: commit: Ajout de la génération et de l'affichage de l'image zodiac_wheel
+[33m3003e99[m HEAD@{65}: reset: moving to origin/main
+[33mcdbc141[m HEAD@{66}: Branch: renamed refs/heads/master to refs/heads/main
+[33mcdbc141[m HEAD@{68}: commit (initial): Ajout de fichiers HTML dans templates

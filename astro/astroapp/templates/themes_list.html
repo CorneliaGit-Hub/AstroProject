@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Liste des Thèmes Astrologiques</title>
+</head>
+<body>
+    <h1>Mes Thèmes Astrologiques Enregistrés</h1>
+
+    {% if themes %}
+        <ul>
+            {% for theme in themes %}
+                <li>
+                    <strong>{{ theme.nom_du_theme }}</strong><br>
+                    Date de naissance : {{ theme.date_naissance }}<br>
+                    Heure de naissance : {{ theme.heure_naissance }}<br>
+                    Lieu de naissance : {{ theme.lieu_naissance }}<br>
+                    <a href="{% url 'birth_results' theme.id %}">Visualiser</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Aucun thème enregistré pour le moment.</p>
+    {% endif %}
+</body>
+</html>

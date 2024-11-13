@@ -29,109 +29,6 @@ import json
 from django.utils.http import urlencode
 
 # ENREGISTRER UN THEME
-def retrieve_theme_data(request):
-    """Récupère et charge les données JSON envoyées par le formulaire."""
-    data_json = request.POST.get('data_json')
-    if not data_json:
-        messages.error(request, "Données JSON non fournies.")
-        return None
-    try:
-        theme_data = json.loads(data_json)
-        return theme_data
-    except json.JSONDecodeError:
-        messages.error(request, "Erreur de format JSON.")
-        return None
-
-
-def serialize_theme_data(house_results, aspects, planet_positions):
-    """Sérialise les données du thème astrologique en JSON."""
-    house_results_str = json.dumps(house_results)
-    aspects_str = json.dumps(aspects)
-    planet_positions_str = json.dumps(planet_positions)
-
-    # Affiche les données sérialisées pour débogage
-    print("Débogage : Données sérialisées - houses:", house_results_str, ", aspects:", aspects_str, ", planet_positions:", planet_positions_str)
-    
-    return house_results_str, aspects_str, planet_positions_str
-
-
-def save_theme_to_database(request):
-    """Enregistre le thème astrologique en base de données."""
-    theme_name = request.POST.get('name', "Thème par défaut")
-    print("Débogage : Nom du thème récupéré ->", theme_name)
-
-    try:
-        theme = ThemeAstrologique(
-            utilisateur=request.user,
-            nom_du_theme=theme_name
-        )
-        theme.save()
-        print("Débogage : Thème astrologique enregistré avec succès :", theme)
-        return theme
-    except Exception as e:
-        print("Erreur lors de l'enregistrement du thème :", e)
-        messages.error(request, f"Erreur lors de l'enregistrement : {e}")
-        return None
-
-
-def build_redirection_url(house_results_str, aspects_str, planet_positions_str, name):
-    url = reverse('birth_results') + '?' + urlencode({
-        'house_results': house_results_str,
-        'aspects': aspects_str,
-        'planet_positions': planet_positions_str,
-        'name': name
-    })
-    return url
-
-
-
-
-@login_required
-def enregistrer_theme(request):
-    if request.method == "POST":
-        try:
-            # Appel de la  fonction Récupère les données JSON envoyées par le formulaire : def retrieve_theme_data
-            theme_data = retrieve_theme_data(request)
-            if theme_data is None:
-                return redirect('birth_results')
-
-            house_results = theme_data.get('houses', {})
-            aspects = theme_data.get('aspects', [])
-            planet_positions = theme_data.get('planet_positions', [])
-
-
-            # Appel de la  fonction pour sérialiser les données :
-            house_results_str, aspects_str, planet_positions_str = serialize_theme_data(house_results, aspects, planet_positions)
-
-
-            # Appel de la fonction pour récupère le nom du thème depuis la session : def save_theme_to_database
-            theme = save_theme_to_database(request)
-            if theme is None:
-                return redirect('birth_results')
-
-            # Récupère le nom du thème depuis les données POST
-            name = request.POST.get('name', 'Thème par défaut')
-
-            # Appel de la fonction pour construire l'URL de redirection avec les paramètres sérialisés pour l'affichage : def build_redirection_url
-            url = build_redirection_url(house_results_str, aspects_str, planet_positions_str, name)
-
-
-            
-            print("URL finale de redirection :", url)
-            print("house_results_str :", house_results_str)
-            print("aspects_str :", aspects_str)
-            print("planet_positions_str :", planet_positions_str)
-
-            messages.success(request, "Le thème a été enregistré avec succès.")
-            return redirect(url)
-
-        except Exception as e:
-            messages.error(request, f"Erreur lors de l'enregistrement : {e}")
-            print("Erreur lors de l'enregistrement :", e)
-            return redirect('birth_results')
-
-
-
 # CONNEXION
 def inscription(request):
     if request.method == 'POST':
@@ -1401,17 +1298,10 @@ def deserialize_wheel_data(house_results_str, aspects_str, planet_positions_str)
 
 
 def birth_results(request):
-    # Récupérer les paramètres de l'URL
-    house_results_str = request.GET.get('house_results', '{}')
-    aspects_str = request.GET.get('aspects', '[]')
-    planet_positions_str = request.GET.get('planet_positions', '[]')
-
-    # Désérialisation des données
-    house_results, aspects, planet_positions = deserialize_wheel_data(house_results_str, aspects_str, planet_positions_str)
-
-    # Conversion des positions planétaires en dictionnaire si elles sont en liste
-    if isinstance(planet_positions, list):
-        planet_positions = {item[0]: {'degree': item[1]} for item in planet_positions}
+    # Récupération simplifiée des données de thème
+    house_results = {}
+    aspects = []
+    planet_positions = {}
 
     # Affichage pour vérification (optionnel)
     print("Données pour Affichage :", {
@@ -1420,14 +1310,13 @@ def birth_results(request):
         'planet_positions': planet_positions,
     })
 
-    print("DEBUG - Données JSON à l'arrivée de birth_results:", request.GET)
-
     # Rendre les données au template
     return render(request, 'birth_results.html', {
         'house_results': house_results,
         'aspects': aspects,
         'planet_positions': planet_positions,
     })
+
 
 
 
