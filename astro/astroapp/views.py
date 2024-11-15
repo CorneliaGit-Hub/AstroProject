@@ -379,8 +379,6 @@ def format_aspects_text(aspects, planet_positions):
     return formatted_aspects
 
 
-
-
 # DONNEES DE NAISSANCE
 def extract_coordinates(location):
     """Extrait les coordonnées latitude et longitude d'un objet de localisation."""
