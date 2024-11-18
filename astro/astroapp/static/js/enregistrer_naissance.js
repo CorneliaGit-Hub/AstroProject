@@ -1,25 +1,37 @@
-// Gérer l'événement de clic sur le bouton "Enregistrer"
-document.querySelector("#save-button").addEventListener("click", function () {
-    // Récupérer la valeur des champs
-    const birthdateVisible = document.querySelector("#birthdate").value; // Champ visible
-    const birthdateHidden = document.querySelector("#birthdate-hidden"); // Champ caché
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.querySelector("#save-birth-data-form");
 
-    // Debugging : Afficher les valeurs des champs visibles et cachés
-    console.log("Date visible : ", birthdateVisible);
-    console.log("Avant mise à jour, champ caché : ", birthdateHidden.value);
+    if (form) {
+        form.addEventListener("submit", function (event) {
+            event.preventDefault(); // Empêche le rechargement de la page
 
-    // Vérifier si la date visible est vide ou invalide
-    if (!birthdateVisible || birthdateVisible.trim() === "") {
-        alert("La date de naissance est vide ou invalide. Veuillez corriger.");
-        return;
+            const formData = new FormData(form);
+
+            fetch(form.action, {
+                method: "POST",
+                body: formData,
+                headers: {
+                    "X-Requested-With": "XMLHttpRequest",
+                    "X-CSRFToken": formData.get("csrfmiddlewaretoken"),
+                },
+            })
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error("Erreur lors de l'enregistrement.");
+                    }
+                    return response.json();
+                })
+                .then((data) => {
+                    if (data.success) {
+                        alert("Données enregistrées avec succès !");
+                    } else {
+                        alert("Une erreur est survenue : " + data.error);
+                    }
+                })
+                .catch((error) => {
+                    console.error("Erreur AJAX : ", error);
+                    alert("Erreur lors de l'enregistrement.");
+                });
+        });
     }
-
-    // Copier la date visible dans le champ caché
-    birthdateHidden.value = birthdateVisible;
-
-    // Debugging : Vérifier la valeur du champ caché après mise à jour
-    console.log("Après mise à jour, champ caché : ", birthdateHidden.value);
-
-    // Soumettre le formulaire caché
-    document.querySelector("#save-birth-data-form").submit();
 });
