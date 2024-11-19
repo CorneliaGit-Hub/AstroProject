@@ -424,15 +424,22 @@ button:active {
 
 <!-- BOUTON ENREGISTRER -->
 <div class="div-bouton">
-<form method="post" action="{% url 'enregistrer_naissance' %}">
+<form method="post" action="{% url 'enregistrer_naissance' %}" id="enregistrer-form">
     {% csrf_token %}
-    <button type="submit">Enregistrer</button>
+    <button type="submit" id="enregistrer">Enregistrer</button>
 </form>
 </div>
 <!-- / BOUTON ENREGISTRER -->
 
+<!-- Zone pour afficher les messages dynamiques -->
+<div id="message"></div>
+<!-- / Zone pour afficher les messages dynamiques -->
 
 </div>
+
+<!-- Script AJAX -->
+<script src="{% static 'js/ajax_enregistrer.js' %}"></script>
+
 
 </body>
 </html>

@@ -28,15 +28,15 @@ from urllib.parse import urlencode
 import json
 from django.utils.http import urlencode
 from django.http import JsonResponse
-
+from django.contrib import messages  # Import pour les messages flash
 
 # ENREGISTRER UN THEME
-@login_required
 def enregistrer_naissance(request):
     """
     Récupère les données de la session, les valide et les enregistre en base.
     """
     if request.method == "POST":
+        print("Données reçues :", request.POST)  # DEBUG
         # Récupération des données en session
         name = request.session.get("name")
         birthdate = request.session.get("birthdate")
@@ -72,7 +72,7 @@ def enregistrer_naissance(request):
             print("Débogage - Enregistrement réussi dans la base de données.")
             return JsonResponse({
                 "success": True,
-                "message": "Données enregistrées avec succès."
+                "message": "Thème enregistré avec succès !"
             }, json_dumps_params={'ensure_ascii': False})
         except Exception as e:
             print(f"Erreur lors de l'enregistrement en base : {str(e)}")
@@ -82,10 +82,14 @@ def enregistrer_naissance(request):
             }, json_dumps_params={'ensure_ascii': False})
 
     # Si la méthode utilisée n'est pas POST
+    print("Débogage - Requête non POST détectée.")
     return JsonResponse({
         "success": False,
         "message": "Méthode non autorisée."
     }, json_dumps_params={'ensure_ascii': False})
+
+
+
 
 
 
