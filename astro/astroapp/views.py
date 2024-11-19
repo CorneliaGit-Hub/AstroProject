@@ -29,34 +29,20 @@ import json
 from django.utils.http import urlencode
 from django.http import JsonResponse
 
+
 # ENREGISTRER UN THEME
+@login_required
 def enregistrer_naissance(request):
+    """
+    Récupère les données de la session, les valide et les enregistre en base.
+    """
     if request.method == "POST":
-        # Récupération des données de session
+        # Récupération des données en session
         name = request.session.get("name")
         birthdate = request.session.get("birthdate")
         birthtime = request.session.get("birthtime")
         country_of_birth = request.session.get("country_of_birth")
         city_of_birth = request.session.get("city_of_birth")
-
-        # Vérification que toutes les données sont présentes
-        missing_fields = [
-            field for field, value in {
-                "name": name,
-                "birthdate": birthdate,
-                "birthtime": birthtime,
-                "country_of_birth": country_of_birth,
-                "city_of_birth": city_of_birth,
-            }.items() if not value
-        ]
-
-        if missing_fields:
-            # Retourner un message JSON avec les champs manquants
-            return JsonResponse({
-                "success": False,
-                "message": "Certaines données nécessaires sont manquantes.",
-                "missing_fields": missing_fields
-            })
 
         # Affichage des données dans les logs
         print("Débogage - Données récupérées pour l'enregistrement :")
@@ -66,21 +52,41 @@ def enregistrer_naissance(request):
         print(f"Pays de naissance : {country_of_birth}")
         print(f"Ville de naissance : {city_of_birth}")
 
-        # Retourner un message JSON de succès avec les données validées
-        return JsonResponse({
-            "success": True,
-            "message": "Toutes les données sont valides et affichées dans les logs.",
-            "data": {
-                "name": name,
-                "birthdate": birthdate,
-                "birthtime": birthtime,
-                "country_of_birth": country_of_birth,
-                "city_of_birth": city_of_birth,
-            }
-        }, json_dumps_params={'ensure_ascii': False})
+        # Vérification que toutes les données sont présentes
+        if not all([name, birthdate, birthtime, country_of_birth, city_of_birth]):
+            return JsonResponse({
+                "success": False,
+                "message": "Certaines données nécessaires sont manquantes."
+            }, json_dumps_params={'ensure_ascii': False})
 
-    # Méthode non autorisée
-    return JsonResponse({"success": False, "message": "Méthode non autorisée."})
+        # Enregistrement en base de données
+        try:
+            ThemeAstrologique.objects.create(
+                utilisateur=request.user,  # Utilisateur connecté
+                name=name,
+                birthdate=birthdate,
+                birthtime=birthtime,
+                country_of_birth=country_of_birth,
+                city_of_birth=city_of_birth,
+            )
+            print("Débogage - Enregistrement réussi dans la base de données.")
+            return JsonResponse({
+                "success": True,
+                "message": "Données enregistrées avec succès."
+            }, json_dumps_params={'ensure_ascii': False})
+        except Exception as e:
+            print(f"Erreur lors de l'enregistrement en base : {str(e)}")
+            return JsonResponse({
+                "success": False,
+                "message": f"Erreur lors de l'enregistrement : {str(e)}"
+            }, json_dumps_params={'ensure_ascii': False})
+
+    # Si la méthode utilisée n'est pas POST
+    return JsonResponse({
+        "success": False,
+        "message": "Méthode non autorisée."
+    }, json_dumps_params={'ensure_ascii': False})
+
 
 
 
