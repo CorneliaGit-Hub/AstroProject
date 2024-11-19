@@ -39,6 +39,25 @@ def enregistrer_naissance(request):
         country_of_birth = request.session.get("country_of_birth")
         city_of_birth = request.session.get("city_of_birth")
 
+        # Vérification que toutes les données sont présentes
+        missing_fields = [
+            field for field, value in {
+                "name": name,
+                "birthdate": birthdate,
+                "birthtime": birthtime,
+                "country_of_birth": country_of_birth,
+                "city_of_birth": city_of_birth,
+            }.items() if not value
+        ]
+
+        if missing_fields:
+            # Retourner un message JSON avec les champs manquants
+            return JsonResponse({
+                "success": False,
+                "message": "Certaines données nécessaires sont manquantes.",
+                "missing_fields": missing_fields
+            })
+
         # Affichage des données dans les logs
         print("Débogage - Données récupérées pour l'enregistrement :")
         print(f"Nom : {name}")
@@ -47,14 +66,22 @@ def enregistrer_naissance(request):
         print(f"Pays de naissance : {country_of_birth}")
         print(f"Ville de naissance : {city_of_birth}")
 
-        # Retourner un message JSON de succès
-        return JsonResponse(
-            {"success": True, "message": "Données affichées dans les logs."},
-            json_dumps_params={'ensure_ascii': False}
-        )
+        # Retourner un message JSON de succès avec les données validées
+        return JsonResponse({
+            "success": True,
+            "message": "Toutes les données sont valides et affichées dans les logs.",
+            "data": {
+                "name": name,
+                "birthdate": birthdate,
+                "birthtime": birthtime,
+                "country_of_birth": country_of_birth,
+                "city_of_birth": city_of_birth,
+            }
+        }, json_dumps_params={'ensure_ascii': False})
 
     # Méthode non autorisée
     return JsonResponse({"success": False, "message": "Méthode non autorisée."})
+
 
 
 
