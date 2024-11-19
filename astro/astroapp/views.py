@@ -29,6 +29,34 @@ import json
 from django.utils.http import urlencode
 
 # ENREGISTRER UN THEME
+def stocker_donnees_session(request, data):
+    """
+    Stocke les données fournies dans la session Django.
+    Args:
+        request: La requête HTTP.
+        data: Un dictionnaire contenant les données à stocker.
+    """
+    for key, value in data.items():
+        request.session[key] = value
+    print("Données stockées en session :", request.session.items())  # Vérification dans la console
+
+def extract_form_data(request):
+    """
+    Extrait les données du formulaire POST pour les stocker.
+    Args:
+        request: La requête HTTP contenant les données du formulaire.
+    Returns:
+        Un dictionnaire avec les données extraites ou une valeur par défaut si elles sont absentes.
+    """
+    return {
+        "name": request.POST.get("name", "Non défini"),
+        "birthdate": request.POST.get("birthdate", "Non défini"),
+        "birthtime": request.POST.get("birthtime", "Non défini"),
+        "country_of_birth": request.POST.get("country_of_birth", "Non défini"),
+        "city_of_birth": request.POST.get("city_of_birth", "Non défini"),
+    }
+
+
 # CONNEXION
 def inscription(request):
     if request.method == 'POST':
@@ -516,7 +544,16 @@ def prepare_template_context(name, results, house_results, aspects, aspects_text
 
 def birth_data(request):
     if request.method == 'POST':
+        print("Débogage : Requête POST reçue :", request.POST)
         print("Débogage : Vue 'birth_data' appelée.")
+
+        # Appel pour extraire les données du formulaire
+        print("Débogage : Données extraites :", request.POST)
+        donnees = extract_form_data(request)
+
+        # Appel pour stocker les données en session
+        print("Débogage : Appel à stocker_donnees_session")
+        stocker_donnees_session(request, donnees)
 
         # Appel pour extraire les données du formulaire
         name, birthdate, birthtime, country_of_birth, city_of_birth = extract_birth_data_form(request)
