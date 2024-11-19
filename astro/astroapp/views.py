@@ -27,8 +27,38 @@ from django.urls import reverse
 from urllib.parse import urlencode
 import json
 from django.utils.http import urlencode
+from django.http import JsonResponse
 
 # ENREGISTRER UN THEME
+def enregistrer_naissance(request):
+    if request.method == "POST":
+        # Récupération des données de session
+        name = request.session.get("name")
+        birthdate = request.session.get("birthdate")
+        birthtime = request.session.get("birthtime")
+        country_of_birth = request.session.get("country_of_birth")
+        city_of_birth = request.session.get("city_of_birth")
+
+        # Affichage des données dans les logs
+        print("Débogage - Données récupérées pour l'enregistrement :")
+        print(f"Nom : {name}")
+        print(f"Date de naissance : {birthdate}")
+        print(f"Heure de naissance : {birthtime}")
+        print(f"Pays de naissance : {country_of_birth}")
+        print(f"Ville de naissance : {city_of_birth}")
+
+        # Retourner un message JSON de succès
+        return JsonResponse(
+            {"success": True, "message": "Données affichées dans les logs."},
+            json_dumps_params={'ensure_ascii': False}
+        )
+
+    # Méthode non autorisée
+    return JsonResponse({"success": False, "message": "Méthode non autorisée."})
+
+
+
+
 def stocker_donnees_session(request, data):
     """
     Stocke les données fournies dans la session Django.
