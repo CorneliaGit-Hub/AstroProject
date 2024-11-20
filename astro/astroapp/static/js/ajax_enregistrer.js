@@ -1,43 +1,44 @@
 document.addEventListener("DOMContentLoaded", function () {
     const form = document.getElementById("enregistrer-form");
+    const button = document.getElementById("enregistrer");
     const messageDiv = document.getElementById("message");
 
     form.addEventListener("submit", function (event) {
         event.preventDefault(); // Empêche le rechargement de la page
-        console.log("Formulaire soumis."); // Débogage : indique que l'événement submit est capturé
 
-        // Récupération du token CSRF
-        const csrfToken = form.querySelector("input[name='csrfmiddlewaretoken']").value;
-        console.log("Token CSRF récupéré :", csrfToken); // Débogage : vérifie le token CSRF
+        // Changer le texte du bouton pour indiquer l'état
+        button.innerText = "Enregistrement en cours...";
+        button.disabled = true;
 
         // Envoi de la requête AJAX
         fetch(form.action, {
             method: "POST",
             headers: {
-                "X-CSRFToken": csrfToken,
+                "X-CSRFToken": form.querySelector("input[name='csrfmiddlewaretoken']").value,
                 "X-Requested-With": "XMLHttpRequest",
             },
         })
-            .then((response) => {
-                console.log("Réponse brute reçue :", response); // Débogage : montre la réponse brute
-                return response.json();
-            })
+            .then((response) => response.json())
             .then((data) => {
-                console.log("Données JSON reçues :", data); // Débogage : affiche les données JSON
-
                 if (data.success) {
-                    // Message de succès
+                    button.innerText = "Enregistré avec succès !";
                     messageDiv.innerHTML = `<p style="color: green;">${data.message}</p>`;
-                    console.log("Message de succès affiché :", data.message); // Débogage : confirme l'affichage du message
                 } else {
-                    // Message d'erreur
+                    button.innerText = "Erreur lors de l'enregistrement";
                     messageDiv.innerHTML = `<p style="color: red;">${data.message}</p>`;
-                    console.log("Message d'erreur affiché :", data.message); // Débogage : confirme l'affichage du message
                 }
             })
             .catch((error) => {
-                console.error("Erreur AJAX :", error); // Débogage : affiche l'erreur dans la console
-                messageDiv.innerHTML = `<p style="color: red;">Une erreur inattendue s'est produite.</p>`;
+                console.error("Erreur AJAX :", error);
+                button.innerText = "Erreur inattendue";
+                messageDiv.innerHTML = `<p style="color: red;">Une erreur s'est produite.</p>`;
+            })
+            .finally(() => {
+                // Réinitialiser le bouton après un délai
+                setTimeout(() => {
+                    button.innerText = "Enregistrer";
+                    button.disabled = false;
+                }, 3000);
             });
     });
 });
