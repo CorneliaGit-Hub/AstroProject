@@ -26,6 +26,8 @@ document.addEventListener("DOMContentLoaded", function () {
             .then((data) => {
                 if (data.success) {
                     button.innerText = "Enregistré avec succès !";
+                    button.classList.add("registered"); // Changer la couleur du bouton
+                    button.disabled = true; // Désactiver le bouton
                     messageDiv.innerHTML = `<p style="color: green;">${data.message}</p>`;
                 } else {
                     button.innerText = "Erreur lors de l'enregistrement";
@@ -38,11 +40,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 messageDiv.innerHTML = `<p style="color: red;">Une erreur s'est produite.</p>`;
             })
             .finally(() => {
-                // Réinitialiser le bouton après un délai
-                setTimeout(() => {
-                    button.innerText = "Enregistrer";
-                    button.disabled = false;
-                }, 3000);
+                // Optionnel : Réinitialiser après un certain délai si nécessaire
             });
     });
 });
