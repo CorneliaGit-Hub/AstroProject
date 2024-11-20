@@ -28,19 +28,16 @@ document.addEventListener("DOMContentLoaded", function () {
                     button.innerText = "Enregistré avec succès !";
                     button.classList.add("registered"); // Changer la couleur du bouton
                     button.disabled = true; // Désactiver le bouton
-                    messageDiv.innerHTML = `<p style="color: green;">${data.message}</p>`;
+                    messageDiv.innerHTML = `<p style="color: #A9CE02; font-weight:bold;">${data.message}</p>`;
                 } else {
                     button.innerText = "Erreur lors de l'enregistrement";
-                    messageDiv.innerHTML = `<p style="color: red;">${data.message}</p>`;
+                    messageDiv.innerHTML = `<p style="color: #F9074C;">${data.message}</p>`;
                 }
             })
             .catch((error) => {
                 console.error("Erreur AJAX :", error);
                 button.innerText = "Erreur inattendue";
-                messageDiv.innerHTML = `<p style="color: red;">Une erreur s'est produite.</p>`;
-            })
-            .finally(() => {
-                // Optionnel : Réinitialiser après un certain délai si nécessaire
+                messageDiv.innerHTML = `<p style="color: #F9074C;">Une erreur s'est produite.</p>`;
             });
     });
 });

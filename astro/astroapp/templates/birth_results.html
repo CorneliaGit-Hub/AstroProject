@@ -16,11 +16,21 @@
     transition: none !important; /* Supprimer les transitions */
 }
 
-/* Animation du bouton ENRIGISTRER */
-.animate {
-    transform: scale(1.1); /* Agrandit légèrement le bouton */
-    transition: transform 0.2s ease-in-out; /* Transition fluide */
+/* Bouton spécifique pour "Enregistrer" */
+.btn-enregistrer {
+    background-color: #FFA801; /* Jaune par défaut */
+    color: #000; /* Texte violet */
+    font-weight: bold; /* Texte en gras */
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
 }
+
+/* Style pour le message de succès ou d'erreur */
+#message {
+    margin-top: 10px; /* Espacement avec le bouton */
+    text-align: center; /* Centrer le message */
+    font-size: 16px; /* Taille de texte lisible */
+}
+
 /* Style des liens Connexion et S'inscrire */
 .auth-links {
 	display: flex;
@@ -194,6 +204,7 @@ tr:nth-child(even) {
 }
 
 button {
+	font-weight: bold;
     background-color: #6A3D90;
     color: white;
     padding: 12px 20px;
@@ -426,6 +437,8 @@ button:active {
 <!-- / ASPECTS -->
 <br><br>
 
+<!-- MESSAGE -->
+<div id="message"></div>
 
 <!-- BOUTON RETOUR AU FORMUALIRE -->
 <div class="div-bouton">
@@ -436,12 +449,14 @@ button:active {
 </div>
 <!-- / BOUTON RETOUR AU FORMUALIRE -->
 
+
 <!-- BOUTON ENREGISTRER -->
 <div class="div-bouton">
 <form method="post" action="{% url 'enregistrer_naissance' %}" id="enregistrer-form">
     {% csrf_token %}
-    <button type="submit" id="enregistrer">Enregistrer</button>
+    <button type="submit" class="btn-enregistrer" id="enregistrer">Enregistrer</button>
 </form>
+
 </div>
 <!-- / BOUTON ENREGISTRER -->
 
