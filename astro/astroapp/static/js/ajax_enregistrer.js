@@ -10,6 +10,10 @@ document.addEventListener("DOMContentLoaded", function () {
         button.innerText = "Enregistrement en cours...";
         button.disabled = true;
 
+        // Jouer un son de clic
+        const audio = new Audio('/static/sounds/registered.wav');
+        audio.play();
+
         // Envoi de la requête AJAX
         fetch(form.action, {
             method: "POST",
