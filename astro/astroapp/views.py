@@ -32,10 +32,13 @@ from django.contrib import messages  # Import pour les messages flash
 # calculate_julian_day déplacé dans ephemeris_calculations.py
 from astroapp.calculs.ephemeris_calculations import calculate_julian_day
 from astroapp.calculs.ephemeris_calculations import calculate_julian_day_and_planet_positions
+from astroapp.calculs.ephemeris_calculations import calculate_planet_positions
+from astroapp.calculs.ephemeris_calculations import get_zodiac_sign
+
 
 # Test rapide
 test_date = datetime(2023, 11, 21, 12, 0, 0)
-print(f"Jour julien : {calculate_julian_day(test_date)}")
+
 
 # ENREGISTRER UN THEME
 def enregistrer_naissance(request):
@@ -43,7 +46,7 @@ def enregistrer_naissance(request):
     Récupère les données de la session, les valide et les enregistre en base.
     """
     if request.method == "POST":
-        print("Données reçues :", request.POST)  # DEBUG
+
         # Récupération des données en session
         name = request.session.get("name")
         birthdate = request.session.get("birthdate")
@@ -94,12 +97,6 @@ def enregistrer_naissance(request):
         "success": False,
         "message": "Méthode non autorisée."
     }, json_dumps_params={'ensure_ascii': False})
-
-
-
-
-
-
 
 
 
@@ -168,92 +165,8 @@ def zodiac_wheel(request):
     with open(image_path, 'rb') as f:
         return HttpResponse(f.read(), content_type="image/png")
 
-# 1- Fonction pour obtenir le signe astrologique à partir d'un degré
-def get_zodiac_sign(degree):
-    signs = [
-        "Bélier", "Taureau", "Gémeaux", "Cancer", "Lion", "Vierge",
-        "Balance", "Scorpion", "Sagittaire", "Capricorne", "Verseau", "Poissons"
-    ]
-    sign_index = int(degree // 30)
-    sign_degree = degree % 30
-    return signs[sign_index], sign_degree
 
 
-
-
-
-# PLANETES 
-def calculate_single_planet_position(jd, planet_id):
-    """Calcule la position d'une planète en fonction du jour julien."""
-    position, _ = swe.calc_ut(jd, planet_id)
-    degree = position[0]
-    sign, sign_degree = get_zodiac_sign(degree)
-
-    # Afficher la position pour débogage
-    print(f"Débogage : Planète ID {planet_id} - Degré :", degree, ", Signe :", sign, ", Degré dans le signe :", sign_degree)
-
-    planet_data = {
-        'degree': degree,
-        'sign': sign,
-        'sign_degree': sign_degree,
-    }
-    return planet_data, degree
-
-
-def calculate_single_planet_position(jd, planet_id):
-    """Calcule la position d'une planète en fonction du jour julien."""
-    position, _ = swe.calc_ut(jd, planet_id)
-    degree = position[0]
-    sign, sign_degree = get_zodiac_sign(degree)
-
-    # Afficher la position pour débogage
-    print(f"Débogage : Planète ID {planet_id} - Degré :", degree, ", Signe :", sign, ", Degré dans le signe :", sign_degree)
-
-    planet_data = {
-        'degree': degree,
-        'sign': sign,
-        'sign_degree': sign_degree,
-    }
-    return planet_data, degree
-
-
-def format_planet_positions(results, planet_positions):
-    """Prépare les résultats des positions planétaires pour le retour."""
-    # Affiche les résultats pour vérification
-    print("Débogage : Résultats des positions des planètes ->", results)
-    print("Débogage : Positions des planètes en liste ->", planet_positions)
-    return results, planet_positions
-
-
-# 2- Fonction pour calculer les positions des planètes
-def calculate_planet_positions(jd):
-    planets = {
-        'Soleil': swe.SUN,
-        'Lune': swe.MOON,
-        'Mercure': swe.MERCURY,
-        'Vénus': swe.VENUS,
-        'Mars': swe.MARS,
-        'Jupiter': swe.JUPITER,
-        'Saturne': swe.SATURN,
-        'Uranus': swe.URANUS,
-        'Neptune': swe.NEPTUNE,
-        'Pluton': swe.PLUTO,
-    }
-    results = {}
-    planet_positions = []
-
-    print("Débogage : Calcul des positions des planètes pour le jour julien (JD) ->", jd)
-
-
-    for planet_name, planet_id in planets.items():
-        # Appel de la fonction pour calculer la position d'une planète : def calculate_single_planet_position
-        planet_data, planet_degree = calculate_single_planet_position(jd, planet_id)
-        results[planet_name] = planet_data
-        planet_positions.append((planet_name, planet_degree))
-
-
-    # Appel de la fonction pour formater les résultats avant de les renvoyer : def format_planet_positions(
-    return format_planet_positions(results, planet_positions)
     
 
 # 2-Fonction pour convertir les degrés en degrés, minutes et secondes
@@ -531,11 +444,11 @@ def calculate_julian_and_positions(birth_datetime_utc):
 def generate_aspects_and_text(planet_positions):
     # Calcul des aspects planétaires
     aspects = calculate_astrological_aspects(planet_positions)
-    print("Débogage : Calcul des aspects planétaires terminé. Aspects ->", aspects)
+
 
     # Formatage du texte des aspects
     aspects_text = format_aspects_text(aspects, planet_positions)
-    print("Débogage - aspects_text :", aspects_text)
+
     
     return aspects, aspects_text
 
@@ -546,7 +459,7 @@ def prepare_theme_data_json(house_results, aspects, planet_positions):
         'aspects': aspects,
         'planet_positions': planet_positions
     })
-    print("Débogage : Contenu de theme_data_json ->", theme_data_json)
+
     return theme_data_json    
 
 
@@ -597,8 +510,6 @@ def prepare_template_context(name, results, house_results, aspects, aspects_text
 
 def birth_data(request):
     if request.method == 'POST':
-        print("Débogage : Requête POST reçue :", request.POST)
-        print("Débogage : Vue 'birth_data' appelée.")
 
         # Appel pour extraire les données du formulaire
         print("Débogage : Données extraites :", request.POST)
@@ -633,26 +544,18 @@ def birth_data(request):
 
         # Appel pour calculer les maisons astrologiques
         house_results = calculate_astrological_houses(jd, latitude, longitude)
-        print("Débogage : Calcul des maisons astrologiques terminé.")
+
 
         # Appel pour calculer les aspects planétaires et formater le texte des aspects
         aspects, aspects_text = generate_aspects_and_text(planet_positions)
-        
-        print("Avant enregistrement - Type et valeur de planet_positions :", type(planet_positions), planet_positions)
-        print("Avant enregistrement - Type et valeur de aspects :", type(aspects), aspects)
-        print("Avant enregistrement - Type et valeur de house_results :", type(house_results), house_results)
-
+       
 
         # Appel pour préparer les données du thème en JSON pour le template
-        theme_data_json = prepare_theme_data_json(house_results, aspects, planet_positions)
-        
-        print("Après enregistrement - Type et valeur de planet_positions :", type(planet_positions), planet_positions)
-        print("Après enregistrement - Type et valeur de aspects :", type(aspects), aspects)
-        print("Après enregistrement - Type et valeur de house_results :", type(house_results), house_results)
+        theme_data_json = prepare_theme_data_json(house_results, aspects, planet_positions)   
 
 
         # Appel pour générer la roue astrologique visuelle
-        print("Débogage : Génération de la roue astrologique.")
+
         generate_astrological_wheel(planet_positions, house_results, aspects)
 
         # Appel pour préparer le contexte à transmettre au template
@@ -862,15 +765,9 @@ def display_astrological_wheel(request):
     # Appel de la fonciton pour Charger les données depuis les paramètres GET : def extract_wheel_data
     house_results, aspects, planet_positions = extract_wheel_data(request)
 
-
-    # Ajout de débogages pour vérifier les données reçues
-    print("House Results:", house_results)
-    print("Aspects:", aspects)
-    print("Planet Positions:", planet_positions)
-
     # Appel de la fonciotn pour Formater les aspects en texte lisible : def prepare_aspects_text
     aspects_text = prepare_aspects_text(aspects, planet_positions)
-    print("Débogage - aspects_text après formatage :", aspects_text)  # Vérifier le contenu formaté
+
 
     # Appel de la fonction pour préparer le contexte pour le rendu et passer les données formatées au template : def prepare_wheel_contex
     context = prepare_wheel_context(planet_positions, house_results, aspects_text)
@@ -1376,11 +1273,6 @@ def deserialize_wheel_data(house_results_str, aspects_str, planet_positions_str)
         # Si erreur de désérialisation, initialiser avec des valeurs vides
         house_results, aspects, planet_positions = {}, [], []
         print("Erreur de désérialisation :", e)
-
-    # Afficher les données après désérialisation pour vérification
-    print("Débogage - house_results:", house_results)
-    print("Débogage - aspects:", aspects)
-    print("Débogage - planet_positions:", planet_positions)
 
     return house_results, aspects, planet_positions
 
