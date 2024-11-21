@@ -31,7 +31,7 @@ from django.http import JsonResponse
 from django.contrib import messages  # Import pour les messages flash
 # calculate_julian_day déplacé dans ephemeris_calculations.py
 from astroapp.calculs.ephemeris_calculations import calculate_julian_day
-from datetime import datetime
+from astroapp.calculs.ephemeris_calculations import calculate_julian_day_and_planet_positions
 
 # Test rapide
 test_date = datetime(2023, 11, 21, 12, 0, 0)
@@ -371,18 +371,7 @@ def convert_birth_datetime(birth_datetime, timezone_str):
         return None, None, f'Erreur de conversion : {e}'
 
 
-def calculate_julian_day_and_planet_positions(birth_datetime_utc, latitude, longitude):
 
-    # Appel de la fonction pour calculer le jour julien (JD) : def calculate_julian_day
-    jd = calculate_julian_day(birth_datetime_utc)
-
-    
-    # Calcul des positions des planètes
-    results, planet_positions = calculate_planet_positions(jd)
-
-    # Ajoute ce print ici
-    print("Jour Julien Calculé :", jd)
-    return jd, results, planet_positions
 
 
 # Fonction pour calculer les maisons astrologiques
