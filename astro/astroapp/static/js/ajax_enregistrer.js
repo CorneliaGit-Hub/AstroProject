@@ -1,10 +1,14 @@
 document.addEventListener("DOMContentLoaded", function () {
     const form = document.getElementById("enregistrer-form");
     const button = document.getElementById("enregistrer");
+    const spinner = document.getElementById("spinner");
     const messageDiv = document.getElementById("message");
 
     form.addEventListener("submit", function (event) {
         event.preventDefault(); // Empêche le rechargement de la page
+
+        // Affiche le spinner
+        spinner.style.display = "block";
 
         // Changer le texte du bouton pour indiquer l'état
         button.innerText = "Enregistrement en cours...";
@@ -28,16 +32,21 @@ document.addEventListener("DOMContentLoaded", function () {
                     button.innerText = "Enregistré avec succès !";
                     button.classList.add("registered"); // Changer la couleur du bouton
                     button.disabled = true; // Désactiver le bouton
-                    messageDiv.innerHTML = `<p style="color: #A9CE02; font-weight:bold;">${data.message}</p>`;
+                    messageDiv.innerHTML = `<p style="color: #A9CE02; font-weight:bold"">${data.message}</p>`;
                 } else {
                     button.innerText = "Erreur lors de l'enregistrement";
-                    messageDiv.innerHTML = `<p style="color: #F9074C;">${data.message}</p>`;
+                    messageDiv.innerHTML = `<p style="color: red;">${data.message}</p>`;
                 }
             })
             .catch((error) => {
                 console.error("Erreur AJAX :", error);
                 button.innerText = "Erreur inattendue";
-                messageDiv.innerHTML = `<p style="color: #F9074C;">Une erreur s'est produite.</p>`;
-            });
+                messageDiv.innerHTML = `<p style="color: red;">Une erreur s'est produite.</p>`;
+            })
+			.finally(() => {
+				setTimeout(() => {
+					spinner.style.display = "none"; // Cacher le spinner après un délai
+				}, 1000); // Délai de 2 secondes
+			});
     });
 });

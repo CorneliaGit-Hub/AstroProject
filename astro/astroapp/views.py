@@ -29,6 +29,13 @@ import json
 from django.utils.http import urlencode
 from django.http import JsonResponse
 from django.contrib import messages  # Import pour les messages flash
+# calculate_julian_day déplacé dans ephemeris_calculations.py
+from astroapp.calculs.ephemeris_calculations import calculate_julian_day
+from datetime import datetime
+
+# Test rapide
+test_date = datetime(2023, 11, 21, 12, 0, 0)
+print(f"Jour julien : {calculate_julian_day(test_date)}")
 
 # ENREGISTRER UN THEME
 def enregistrer_naissance(request):
@@ -363,16 +370,6 @@ def convert_birth_datetime(birth_datetime, timezone_str):
         # En cas d'erreur, retourne None et le message d'erreur
         return None, None, f'Erreur de conversion : {e}'
 
-
-# julian_day
-def calculate_julian_day(birth_datetime_utc):
-    """Calcule le jour julien (JD) à partir d'une date UTC."""
-    return swe.julday(
-        birth_datetime_utc.year,
-        birth_datetime_utc.month,
-        birth_datetime_utc.day,
-        birth_datetime_utc.hour + birth_datetime_utc.minute / 60.0
-    )
 
 def calculate_julian_day_and_planet_positions(birth_datetime_utc, latitude, longitude):
 

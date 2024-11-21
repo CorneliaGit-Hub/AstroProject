@@ -31,6 +31,13 @@
     font-size: 16px; /* Taille de texte lisible */
 }
 
+/* montrer que l'nregistrement est en cours */
+#spinner {
+    text-align: center;
+    margin-top: 10px;
+}
+
+
 /* Style des liens Connexion et S'inscrire */
 .auth-links {
 	display: flex;
@@ -437,6 +444,12 @@ button:active {
 <!-- / ASPECTS -->
 <br><br>
 
+<!-- SPINNER -->
+<div id="spinner" style="display: none; text-align: center;">
+    <img src="{% static 'images/spinner.gif' %}" alt="Chargement..." style="width: 50px; height: 50px;">
+</div>
+<!-- / SPINNER -->
+
 <!-- MESSAGE -->
 <div id="message"></div>
 
@@ -460,9 +473,7 @@ button:active {
 </div>
 <!-- / BOUTON ENREGISTRER -->
 
-<!-- Zone pour afficher les messages dynamiques -->
-<div id="message"></div>
-<!-- / Zone pour afficher les messages dynamiques -->
+
 
 </div>
 
