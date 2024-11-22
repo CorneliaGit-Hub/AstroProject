@@ -1,5 +1,6 @@
 import swisseph as swe
 
+# JULIAN DAY 
 def calculate_julian_day(birth_datetime_utc):
     """
     Calcule le jour julien (JD) à partir d'une date UTC.
@@ -28,7 +29,17 @@ def calculate_julian_day_and_planet_positions(birth_datetime_utc, latitude, long
     print("Jour Julien Calculé :", jd)
     return jd, results, planet_positions
     
+def calculate_julian_and_positions(birth_datetime_utc):
+    # Appel à la fonciotn qui Calcule le jour julien (JD) : def calculate_julian_day
+    jd = calculate_julian_day(birth_datetime_utc)
+    print("Débogage : Jour julien calculé ->", jd)
 
+    # Appel à la fonciotn qui Calcule les positions des planètes : def calculate_planet_positions(jd):
+    results, planet_positions = calculate_planet_positions(jd)
+    print("Débogage : Calcul des positions des planètes terminé. Résultats ->", results)
+
+    return jd, results, planet_positions
+    
 # PLANETES 
 def calculate_single_planet_position(jd, planet_id):
     """Calcule la position d'une planète en fonction du jour julien."""
@@ -86,6 +97,7 @@ def calculate_planet_positions(jd):
     return format_planet_positions(results, planet_positions)
     
     
+# ZODIAC 
 # 1- Fonction pour obtenir le signe astrologique à partir d'un degré
 def get_zodiac_sign(degree):
     signs = [

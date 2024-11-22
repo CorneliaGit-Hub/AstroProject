@@ -32,8 +32,10 @@ from django.contrib import messages  # Import pour les messages flash
 # calculate_julian_day déplacé dans ephemeris_calculations.py
 from astroapp.calculs.ephemeris_calculations import calculate_julian_day
 from astroapp.calculs.ephemeris_calculations import calculate_julian_day_and_planet_positions
+from astroapp.calculs.ephemeris_calculations import calculate_julian_and_positions
 from astroapp.calculs.ephemeris_calculations import calculate_planet_positions
 from astroapp.calculs.ephemeris_calculations import get_zodiac_sign
+
 
 
 # Test rapide
@@ -429,16 +431,7 @@ def convert_to_local_and_utc(birth_datetime, timezone_str):
     return birth_datetime_local, birth_datetime_utc, None
 
 
-def calculate_julian_and_positions(birth_datetime_utc):
-    # Appel à la fonciotn qui Calcule le jour julien (JD) : def calculate_julian_day
-    jd = calculate_julian_day(birth_datetime_utc)
-    print("Débogage : Jour julien calculé ->", jd)
 
-    # Appel à la fonciotn qui Calcule les positions des planètes : def calculate_planet_positions(jd):
-    results, planet_positions = calculate_planet_positions(jd)
-    print("Débogage : Calcul des positions des planètes terminé. Résultats ->", results)
-
-    return jd, results, planet_positions
 
 
 def generate_aspects_and_text(planet_positions):
