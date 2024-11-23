@@ -40,14 +40,25 @@ from astroapp.utils.geolocation_utils import (
     determine_timezone,
     extract_date_info
 )
-from astroapp.utils.conversions_utils import convert_to_dms
-from astroapp.utils.conversions_utils import convert_to_utc
-from astroapp.utils.conversions_utils import convert_birth_datetime
-from astroapp.utils.conversions_utils import convert_latlon_to_dms
-from astroapp.utils.conversions_utils import decimal_to_dms
-from astroapp.utils.conversions_utils import convert_to_local_and_utc
-from astroapp.utils.conversions_utils import create_birth_datetime_and_timestamp
-from astroapp.utils.conversions_utils import convert_coordinates_to_dms
+from astroapp.utils.conversions_utils import (
+    convert_to_dms,
+    convert_to_utc,
+    convert_birth_datetime,
+    convert_latlon_to_dms,
+    decimal_to_dms,
+    convert_to_local_and_utc,
+    create_birth_datetime_and_timestamp,
+    convert_coordinates_to_dms,
+)
+
+
+
+from astroapp.utils.zodiac_utils import get_zodiac_sign
+from astroapp.utils.zodiac_utils import get_zodiac_data
+from astroapp.utils.zodiac_utils import load_zodiac_font
+
+
+
 
 
 
@@ -295,15 +306,7 @@ def zodiac_wheel(request):
     with open(image_path, 'rb') as f:
         return HttpResponse(f.read(), content_type="image/png")
 
-# Fonction pour obtenir le signe astrologique à partir d'un degré
-def get_zodiac_sign(degree):
-    signs = [
-        "Bélier", "Taureau", "Gémeaux", "Cancer", "Lion", "Vierge",
-        "Balance", "Scorpion", "Sagittaire", "Capricorne", "Verseau", "Poissons"
-    ]
-    sign_index = int(degree // 30)
-    sign_degree = degree % 30
-    return signs[sign_index], sign_degree
+
 
 
 
@@ -899,26 +902,9 @@ def draw_divisions(ax, rotation_offset):
     draw_subdivisions(ax, rotation_offset)
 
 
-def get_zodiac_data():
-    """Retourne les éléments, les couleurs et les symboles des signes du zodiaque."""
-    elements = ['fire', 'earth', 'air', 'water', 
-                'fire', 'earth', 'air', 'water', 
-                'fire', 'earth', 'air', 'water']
 
-    sign_colors = {
-        'fire': "#f9074c",   # Bélier, Lion, Sagittaire
-        'earth': "#c59626",  # Taureau, Vierge, Capricorne
-        'air': "#1a8fe9",    # Gémeaux, Balance, Verseau
-        'water': "#62ce02"   # Cancer, Scorpion, Poissons
-    }
 
-    zodiac_symbols = ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'v', 'x', 'c']
-    return elements, sign_colors, zodiac_symbols
 
-def load_zodiac_font():
-    """Charge et retourne la police HamburgSymbols pour les symboles du zodiaque."""
-    font_path = os.path.join(settings.BASE_DIR, 'astroapp', 'fonts', 'hamburgsymbols', 'HamburgSymbols.ttf')
-    return font_manager.FontProperties(fname=font_path)
 
 
 def draw_zodiac_symbols(ax, rotation_offset):
