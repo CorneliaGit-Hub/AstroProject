@@ -124,6 +124,9 @@ from astroapp.wheel.wheel_segments import draw_divisions
 
 from astroapp.wheel.wheel_core import create_astrological_figure
 from astroapp.wheel.wheel_core import draw_circle
+from astroapp.wheel.wheel_core import display_degrees
+from astroapp.wheel.wheel_core import generate_astrological_wheel
+
 
 
 from astroapp.utils.files_utils import save_astrological_image
@@ -630,60 +633,6 @@ def display_astrological_wheel(request):
 
 
 
-# Fonction générale pour appeler les sous foncitons.
-def generate_astrological_wheel(planet_positions, house_results, aspects):
-    # Définir le chemin d'image
-    image_path = os.path.join(settings.BASE_DIR, 'astroapp/static/images/zodiac_wheel.png')
-
-    # Initialiser la figure et les axes
-    fig, ax = create_astrological_figure()
-
-    # Calculer l’offset de rotation pour aligner l'ascendant à gauche
-    asc_angle = house_results['Maison 1']['degree']
-    rotation_offset = np.radians(-asc_angle + 180)
-
-    # Dessiner le cercle principal
-    draw_circle(ax)
-
-    # Dessiner les segments colorés des signes
-    draw_segments(ax, rotation_offset)
-
-    # Ajouter les divisions principales et les subdivisions
-    draw_divisions(ax, rotation_offset)
-
-    # Placer les symboles des signes du zodiaque
-    draw_zodiac_symbols(ax, rotation_offset)
-
-    # Positionner les symboles des planètes selon leurs positions calculées et ajouter les lignes de liaison
-    draw_planet_positions(ax, planet_positions, rotation_offset)
-
-    # Ajouter les cuspides des maisons et les triangles pour les maisons principales
-    draw_houses_and_cusps(ax, house_results, rotation_offset)
-
-    # Afficher les degrés et minutes pour chaque planète et chaque maison
-    display_degrees(ax, planet_positions, house_results, rotation_offset)
-
-    # Ajouter les lignes pour l'ASC et le MC avec leurs marqueurs
-    draw_asc_mc_lines(ax, house_results, rotation_offset)
-
-    # Ajouter les numéros des maisons
-    draw_house_numbers(ax, house_results, rotation_offset)
-    
-    # Appeler draw_aspects pour dessiner les aspects
-    draw_aspects(ax, aspects, rotation_offset)
-
-
-    # Ajuster les limites de l'axe pour ne pas couper les angles
-    ax.set_xlim(-2.9, 2.9)
-    ax.set_ylim(-2.9, 2.9)
-
-    # Supprimer les marges automatiques et régler la figure pour occuper tout l'espace
-    plt.subplots_adjust(left=0, right=1, top=1, bottom=0)
-    fig.set_size_inches(12, 12)
-    ax.set_aspect('equal')
-    
-    # Sauvegarder l'image finale
-    save_astrological_image(fig, image_path)
 
 
 
@@ -737,15 +686,7 @@ def generate_astrological_wheel(planet_positions, house_results, aspects):
 
 
 
-def display_degrees(ax, planet_positions, house_results, rotation_offset):
-    # Appelle de la fonction du Dictionnaire des couleurs des planètes : def get_planet_colors
-    planet_colors = get_planet_colors()
 
-    # Appelle de la fonction pour l'Affichage des degrés pour chaque planète : def display_planet_degrees
-    display_planet_degrees(ax, planet_positions, rotation_offset, planet_colors)
-
-    # Appelle de la fonction pour l'Affichage des degrés pour chaque cuspide de maison (en noir) : def display_house_degrees
-    display_house_degrees(ax, house_results, rotation_offset)
 
 
 
