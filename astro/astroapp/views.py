@@ -104,6 +104,14 @@ from astroapp.wheel.wheel_symbols import get_planet_colors
 from astroapp.wheel.wheel_symbols import display_planet_degrees
 
 
+from astroapp.wheel.wheel_aspects import get_aspect_style
+from astroapp.wheel.wheel_aspects import calculate_aspect_positions
+from astroapp.wheel.wheel_aspects import draw_aspects
+
+
+
+
+
 
 
 
@@ -906,61 +914,12 @@ def draw_house_numbers(ax, house_results, rotation_offset):
         ax.text(x_text, y_text, roman_house_num, fontsize=12, ha='center', va='center', color='black', weight='bold')
 
 
-def get_aspect_style(type_aspect):
-    """Retourne le style pour le type d'aspect donné, ou None si non défini."""
-    aspect_styles = {
-        'Opposition': {'color': 'red', 'linestyle': (0, (10, 5)), 'linewidth': 1.0},
-        'Trigone': {'color': 'blue', 'linestyle': '-', 'linewidth': 0.8},
-        'Carré': {'color': 'red', 'linestyle': (0, (10, 5)), 'linewidth': 1.0},
-        'Sextile': {'color': 'blue', 'linestyle': '-', 'linewidth': 0.8},
-    }
-    return aspect_styles.get(type_aspect)
 
 
-def calculate_aspect_positions(pos1, pos2, rotation_offset):
-    """Calcule les positions corrigées pour les lignes d'aspect en fonction de l'angle et du décalage."""
-    angle1 = np.radians(pos1) + rotation_offset
-    angle2 = np.radians(pos2) + rotation_offset
-    x1, y1 = 0.8 * np.cos(angle1), 0.8 * np.sin(angle1)
-    x2, y2 = 0.8 * np.cos(angle2), 0.8 * np.sin(angle2)
-    return x1, y1, x2, y2
 
 
-def draw_aspects(ax, aspects, rotation_offset):
-    """
-    Dessine les aspects astrologiques entre les planètes sur la roue astrologique.
-
-    Paramètres :
-    - ax : objet Axe de Matplotlib sur lequel la roue astrologique est dessinée.
-    - aspects : liste de tuples contenant les informations sur chaque aspect. 
-                Chaque tuple est de la forme (type_aspect, pos1, pos2),
-                où type_aspect est le type d'aspect ('opposition', 'trigone', etc.)
-                et pos1, pos2 sont les positions angulaires des deux planètes en degrés.
-    - rotation_offset : décalage angulaire pour aligner les aspects sur la roue.
-    """
-    # Paramètres de style pour chaque type d'aspect
-    aspect_styles = {
-        'Opposition': {'color': 'red', 'linestyle': (0, (10, 5)), 'linewidth': 1.0},  # Tirets longs
-        'Trigone': {'color': 'blue', 'linestyle': '-', 'linewidth': 0.8},
-        'Carré': {'color': 'red', 'linestyle': (0, (10, 5)), 'linewidth': 1.0},  # Tirets longs
-        'Sextile': {'color': 'blue', 'linestyle': '-', 'linewidth': 0.8},
-    }
-
-    for aspect in aspects:
-        type_aspect, pos1, pos2 = aspect
-        # Appel de la fonciotn pour Obtenir le style pour le type d'aspect : def get_aspect_style
-        style = get_aspect_style(type_aspect)
-        if not style:
-            continue
 
 
-        # Appel de la fonciotn pour Appliquer le décalage de rotation et... :  def calculate_aspect_positions
-        # Calculer les positions des extrémités des lignes d'aspect
-        x1, y1, x2, y2 = calculate_aspect_positions(pos1, pos2, rotation_offset)
-
-
-        # Dessiner la ligne d'aspect
-        ax.plot([x1, x2], [y1, y2], color=style['color'], linestyle=style['linestyle'], linewidth=style['linewidth'], zorder=10)
 
 
 
