@@ -24,4 +24,8 @@ def draw_circle(ax):
     # Ajouter un cercle extérieur pour la bordure de la roue
     outer_border_circle = plt.Circle((0, 0), 1.2, color='none', ec='black', linewidth=0.5, zorder=5)
     ax.add_patch(outer_border_circle)
+    
+    
+    
+
 
