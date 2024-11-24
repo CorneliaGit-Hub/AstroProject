@@ -62,6 +62,14 @@ from astroapp.utils.planet_utils import (
     draw_planet_positions
 )
 
+from astroapp.utils.data_utils import format_single_aspect
+
+
+from astroapp.calculs.aspects_calculations import calculate_angular_difference
+from astroapp.calculs.aspects_calculations import add_aspect_if_present
+from astroapp.calculs.aspects_calculations import calculate_aspects
+from astroapp.calculs.aspects_calculations import calculate_astrological_aspects
+
 
 
 
@@ -389,62 +397,17 @@ def calculate_astrological_houses(jd, latitude, longitude):
 
 
 # ASPECTS
-# Fonction pour calculer les aspects planétaires
-def calculate_astrological_aspects(planet_positions):
-    aspects = calculate_aspects(planet_positions)
-    return aspects
 
 
-def add_aspect_if_present(aspects, planet1, pos1, planet2, pos2, diff, aspect_definitions, aspect_orbs):
-    """Vérifie si un aspect existe entre deux positions planétaires et l'ajoute à la liste des aspects."""
-    for aspect_name, aspect_angle in aspect_definitions.items():
-        orbe = aspect_orbs[aspect_name]
-        if abs(diff - aspect_angle) <= orbe:
-            aspects.append((aspect_name, pos1, pos2))
 
 
-def calculate_angular_difference(pos1, pos2):
-    """Calcule la différence angulaire minimale entre deux positions planétaires."""
-    diff = abs(pos1 - pos2)
-    return min(diff, 360 - diff)
 
 
-# Fonction pour afficher les aspects planétaires
-def calculate_aspects(planet_positions):
-    aspects = []
-    aspect_definitions = {
-        'Conjonction': 0,
-        'Sextile': 60,
-        'Carré': 90,
-        'Trigone': 120,
-        'Opposition': 180,
-    }
-    aspect_orbs = {
-        'Conjonction': 8,
-        'Sextile': 6,
-        'Carré': 6,
-        'Trigone': 8,
-        'Opposition': 8,
-    }
-
-    for i in range(len(planet_positions)):
-        for j in range(i + 1, len(planet_positions)):
-            planet1, pos1 = planet_positions[i]
-            planet2, pos2 = planet_positions[j]
-            
-            # Appel la fonction qui Calcule la différence angulaire minimale entre deux positions
-            diff = calculate_angular_difference(pos1, pos2)
 
 
-            # Appel la focntion qui Vérifie si un aspect est présent et l'ajoute s'il est détecté : def add_aspect_if_present
-            add_aspect_if_present(aspects, planet1, pos1, planet2, pos2, diff, aspect_definitions, aspect_orbs)
 
-    return aspects
+
     
-
-def format_single_aspect(aspect_name, planet1, pos1, planet2, pos2, ecart):
-    """Formate un aspect individuel en texte lisible."""
-    return f"« {aspect_name} »  {planet1} ({pos1:.2f}°) et {planet2} ({pos2:.2f}°), avec un écart de « {ecart:.2f}° »."
 
 
 # Fonction pour formater les aspects en texte lisible avec les positions et l'écart en degrés
@@ -463,23 +426,6 @@ def format_aspects_text(aspects, planet_positions):
         formatted_aspects.append(format_single_aspect(aspect_name, planet1, pos1, planet2, pos2, ecart))
    
     return formatted_aspects
-
-
-# DONNEES DE NAISSANCE
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
