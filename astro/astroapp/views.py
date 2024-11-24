@@ -63,6 +63,15 @@ from astroapp.utils.planet_utils import (
 )
 
 from astroapp.utils.data_utils import format_single_aspect
+from astroapp.utils.data_utils import prepare_theme_data_json
+from astroapp.utils.data_utils import prepare_wheel_context
+from astroapp.utils.data_utils import prepare_planetary_context
+from astroapp.utils.data_utils import extract_request_parameters
+from astroapp.utils.data_utils import extract_wheel_data
+from astroapp.utils.data_utils import deserialize_wheel_data
+
+
+
 
 
 from astroapp.calculs.aspects_calculations import calculate_angular_difference
@@ -409,7 +418,7 @@ def calculate_astrological_houses(jd, latitude, longitude):
 
     
 
-
+# RESTE DANS VIEWS
 # Fonction pour formater les aspects en texte lisible avec les positions et l'écart en degrés
 def format_aspects_text(aspects, planet_positions):
     # Dictionnaire pour retrouver le nom de la planète à partir de la position
@@ -428,7 +437,7 @@ def format_aspects_text(aspects, planet_positions):
     return formatted_aspects
 
 
-
+# RESTE DANS VIEWS
 def generate_aspects_and_text(planet_positions):
     # Calcul des aspects planétaires
     aspects = calculate_astrological_aspects(planet_positions)
@@ -441,14 +450,7 @@ def generate_aspects_and_text(planet_positions):
     return aspects, aspects_text
 
 
-def prepare_theme_data_json(house_results, aspects, planet_positions):
-    theme_data_json = json.dumps({
-        'houses': house_results,
-        'aspects': aspects,
-        'planet_positions': planet_positions
-    })
 
-    return theme_data_json    
 
 
 def extract_birth_data_form(request):
@@ -556,12 +558,6 @@ def birth_data(request):
 
 
 # PLANETES & MAISONS
-def extract_request_parameters(request):
-    """Extrait les paramètres de date, ville et pays depuis la requête GET."""
-    selected_date = request.GET.get('date')
-    city_of_birth = request.GET.get('city_of_birth')
-    country_of_birth = request.GET.get('country_of_birth')
-    return selected_date, city_of_birth, country_of_birth
 
 
 
@@ -570,6 +566,7 @@ def extract_request_parameters(request):
 
 
 
+# RESTE DANS VIEWS
 def convert_to_utc(date_obj, timezone_str):
     """Convertit un objet datetime en UTC selon le fuseau horaire fourni."""
     try:
@@ -596,18 +593,7 @@ def convert_to_utc(date_obj, timezone_str):
 
 
 
-# Fonction pour préparer le contexte de rendu HTML
-def prepare_planetary_context(selected_date, city_of_birth, country_of_birth, local_day_str, local_month_str, local_year_str, results, house_results):
-    return {
-        'selected_date': selected_date,
-        'city_of_birth': city_of_birth,
-        'country_of_birth': country_of_birth,
-        'local_day_str': local_day_str,
-        'local_month_str': local_month_str,
-        'local_year_str': local_year_str,
-        'results': results,
-        'houses': house_results,
-    }
+
 
 # Fonction pour calculer les positions planétaires et les maisons
 def calculate_positions_and_houses(jd, latitude, longitude):
@@ -677,24 +663,14 @@ def planetary_position(request):# Calculer le jour julien (JD)
 
     
 # ROUE
-def extract_wheel_data(request):
-    """Extrait les données de la roue astrologique des paramètres GET."""
-    house_results = json.loads(request.GET.get('house_results', '{}'))
-    aspects = json.loads(request.GET.get('aspects', '[]'))
-    planet_positions = json.loads(request.GET.get('planet_positions', '[]'))
-    return house_results, aspects, planet_positions
 
+
+# RESTE DANS VIEWS
 def prepare_aspects_text(aspects, planet_positions):
     """Prépare le texte formaté des aspects pour l'affichage."""
     return format_aspects_text(aspects, planet_positions)
 
-def prepare_wheel_context(planet_positions, house_results, aspects_text):
-    """Prépare le contexte pour le rendu de la roue astrologique."""
-    return {
-        'results': planet_positions,
-        'houses': house_results,
-        'aspects_text': aspects_text
-    }
+
 
 def display_astrological_wheel(request):
     # Appel de la fonciton pour Charger les données depuis les paramètres GET : def extract_wheel_data
@@ -1138,18 +1114,7 @@ def draw_aspects(ax, aspects, rotation_offset):
 
 
 
-def deserialize_wheel_data(house_results_str, aspects_str, planet_positions_str):
-    """Désérialise les données JSON pour les maisons, les aspects et les positions planétaires."""
-    try:
-        house_results = json.loads(house_results_str)
-        aspects = json.loads(aspects_str)
-        planet_positions = json.loads(planet_positions_str)
-    except json.JSONDecodeError as e:
-        # Si erreur de désérialisation, initialiser avec des valeurs vides
-        house_results, aspects, planet_positions = {}, [], []
-        print("Erreur de désérialisation :", e)
 
-    return house_results, aspects, planet_positions
 
 
 def birth_results(request):
