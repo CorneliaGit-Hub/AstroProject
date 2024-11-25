@@ -135,6 +135,11 @@ from astroapp.utils.session_data_utils import stocker_donnees_session
 from astroapp.utils.session_data_utils import extract_form_data
 from astroapp.utils.session_data_utils import extract_birth_data_form
 
+from astroapp.utils.data_utils import prepare_template_context
+from astroapp.utils.data_utils import format_aspects_text
+from astroapp.utils.data_utils import prepare_aspects_text
+
+
 
 # Test rapide
 test_date = datetime(2023, 11, 21, 12, 0, 0)
@@ -259,23 +264,8 @@ def zodiac_wheel(request):
 
  
 
-# RESTE DANS VIEWS
-# Fonction pour formater les aspects en texte lisible avec les positions et l'écart en degrés
-def format_aspects_text(aspects, planet_positions):
-    # Dictionnaire pour retrouver le nom de la planète à partir de la position
-    planet_dict = {position: name for name, position in planet_positions}
-    
-    formatted_aspects = []
-    for aspect_name, pos1, pos2 in aspects:
-        planet1 = planet_dict.get(pos1, "Inconnu")
-        planet2 = planet_dict.get(pos2, "Inconnu")
-        # Appel la focntion : def calculate_angular_difference
-        ecart = calculate_angular_difference(pos1, pos2)
 
-        # Appel de la fonction pour formater un aspect individuel ! def format_single_aspect
-        formatted_aspects.append(format_single_aspect(aspect_name, planet1, pos1, planet2, pos2, ecart))
-   
-    return formatted_aspects
+
 
 
 # RESTE DANS VIEWS
@@ -297,21 +287,7 @@ def generate_aspects_and_text(planet_positions):
 
 
 
-def prepare_template_context(name, results, house_results, aspects, aspects_text, birth_datetime_local, birth_datetime_utc, location, latitude_dms, longitude_dms, theme_data_json):
-    return {
-        'name': name,
-        'results': results,
-        'houses': house_results,
-        'aspects': aspects,
-        'aspects_text': aspects_text,
-        'local_year_str': birth_datetime_local.strftime("%Y"),
-        'local_time_str': birth_datetime_local.strftime("%H:%M:%S %Z%z"),
-        'utc_time_str': birth_datetime_utc.strftime("%H:%M:%S %Z%z"),
-        'location': location,
-        'latitude_dms': latitude_dms,
-        'longitude_dms': longitude_dms,
-        'theme_data_json': theme_data_json
-    }
+
 
 
 def birth_data(request):
@@ -462,9 +438,7 @@ def planetary_position(request):# Calculer le jour julien (JD)
 # ROUE
 
 # RESTE DANS VIEWS
-def prepare_aspects_text(aspects, planet_positions):
-    """Prépare le texte formaté des aspects pour l'affichage."""
-    return format_aspects_text(aspects, planet_positions)
+
 
 
 
