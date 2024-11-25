@@ -30,80 +30,78 @@ from django.utils.http import urlencode
 from django.http import JsonResponse
 from django.contrib import messages  # Import pour les messages flash
 
-from astroapp.utils.geolocation_utils import (
-    get_location,
-    get_timezone,
-    localize_datetime,
-    extract_coordinates,
-    retrieve_timezone,
-    get_birth_location_data,
-    geolocate_city,
-    determine_timezone,
-    extract_date_info
-)
-from astroapp.utils.conversions_utils import (
-    convert_to_dms,
-    convert_to_utc,
-    convert_birth_datetime,
-    convert_latlon_to_dms,
-    decimal_to_dms,
-    convert_to_local_and_utc,
-    create_birth_datetime_and_timestamp,
-    convert_coordinates_to_dms,
-)
-from astroapp.utils.zodiac_utils import (
-    get_zodiac_sign,
-    get_zodiac_data,
-    load_zodiac_font
-)
+from astroapp.utils.geolocation_utils import get_location
+from astroapp.utils.geolocation_utils import get_timezone
+from astroapp.utils.geolocation_utils import localize_datetime
+from astroapp.utils.geolocation_utils import extract_coordinates
+from astroapp.utils.geolocation_utils import retrieve_timezone
+from astroapp.utils.geolocation_utils import get_birth_location_data
+from astroapp.utils.geolocation_utils import geolocate_city
+from astroapp.utils.geolocation_utils import determine_timezone
+from astroapp.utils.geolocation_utils import extract_date_info
 
-from astroapp.utils.planet_utils import (
-    get_planet_data,
-    place_planet,
-    draw_planet_positions
-)
-from astroapp.utils.data_utils import (
-    format_single_aspect,
-    prepare_theme_data_json,
-    prepare_wheel_context,
-    prepare_planetary_context,
-    extract_request_parameters,
-    extract_wheel_data,
-    deserialize_wheel_data,
-)
-from astroapp.calculs.aspects_calculations import (
-    calculate_angular_difference,
-    add_aspect_if_present,
-    calculate_aspects,
-    calculate_astrological_aspects,
-)
-from astroapp.calculs.planet_calculations import (
-    calculate_single_planet_position,
-    calculate_planet_positions,
-    format_planet_positions,
-)
-from astroapp.calculs.ephemeris_calculations import (
-    calculate_julian_day,
-    calculate_julian_day_and_planet_positions,
-    calculate_julian_and_positions,
-)
-from astroapp.calculs.houses_calculations import (
-    format_house_cusp,
-    get_asc_mc,
-    calculate_houses,
-    calculate_astrological_houses,
-    calculate_positions_and_houses,
-)
-from astroapp.wheel.wheel_symbols import (
-    draw_zodiac_symbols,
-    get_planet_colors,
-    display_planet_degrees,
-)
-from astroapp.wheel.wheel_aspects import (
-    get_aspect_style,
-    calculate_aspect_positions,
-    draw_aspects,
-)
+from astroapp.utils.conversions_utils import convert_to_dms
+from astroapp.utils.conversions_utils import convert_to_utc
+from astroapp.utils.conversions_utils import convert_birth_datetime
+from astroapp.utils.conversions_utils import convert_latlon_to_dms
+from astroapp.utils.conversions_utils import decimal_to_dms
+from astroapp.utils.conversions_utils import convert_to_local_and_utc
+from astroapp.utils.conversions_utils import create_birth_datetime_and_timestamp
+from astroapp.utils.conversions_utils import convert_coordinates_to_dms
+
+from astroapp.utils.data_utils import format_single_aspect
+from astroapp.utils.data_utils import prepare_theme_data_json
+from astroapp.utils.data_utils import prepare_wheel_context
+from astroapp.utils.data_utils import prepare_planetary_context
+from astroapp.utils.data_utils import extract_request_parameters
+from astroapp.utils.data_utils import extract_wheel_data
+from astroapp.utils.data_utils import deserialize_wheel_data
+from astroapp.utils.data_utils import prepare_template_context
+from astroapp.utils.data_utils import format_aspects_text
+from astroapp.utils.data_utils import prepare_aspects_text
+from astroapp.utils.data_utils import generate_aspects_and_text
+
+from astroapp.utils.zodiac_utils import get_zodiac_sign
+from astroapp.utils.zodiac_utils import get_zodiac_data
+from astroapp.utils.zodiac_utils import load_zodiac_font
+
+from astroapp.utils.planet_utils import get_planet_data
+from astroapp.utils.planet_utils import place_planet
+from astroapp.utils.planet_utils import draw_planet_positions
+
+from astroapp.utils.session_data_utils import stocker_donnees_session
+from astroapp.utils.session_data_utils import extract_form_data
+from astroapp.utils.session_data_utils import extract_birth_data_form
+
+from astroapp.utils.files_utils import save_astrological_image
+
+from astroapp.calculs.aspects_calculations import calculate_angular_difference
+from astroapp.calculs.aspects_calculations import add_aspect_if_present
+from astroapp.calculs.aspects_calculations import calculate_aspects
+from astroapp.calculs.aspects_calculations import calculate_astrological_aspects
+
+from astroapp.calculs.planet_calculations import calculate_single_planet_position
+from astroapp.calculs.planet_calculations import calculate_planet_positions
+from astroapp.calculs.planet_calculations import format_planet_positions
+
+from astroapp.calculs.ephemeris_calculations import calculate_julian_day
+from astroapp.calculs.ephemeris_calculations import calculate_julian_day_and_planet_positions
+from astroapp.calculs.ephemeris_calculations import calculate_julian_and_positions
+
+from astroapp.calculs.houses_calculations import format_house_cusp
+from astroapp.calculs.houses_calculations import get_asc_mc
+from astroapp.calculs.houses_calculations import calculate_houses
+from astroapp.calculs.houses_calculations import calculate_astrological_houses
+from astroapp.calculs.houses_calculations import calculate_positions_and_houses
+
+from astroapp.wheel.wheel_symbols import draw_zodiac_symbols
+from astroapp.wheel.wheel_symbols import get_planet_colors
+from astroapp.wheel.wheel_symbols import display_planet_degrees
+
+from astroapp.wheel.wheel_aspects import get_aspect_style
+from astroapp.wheel.wheel_aspects import calculate_aspect_positions
+from astroapp.wheel.wheel_aspects import draw_aspects
+
 
 from astroapp.wheel.wheel_houses import add_house_cusps
 from astroapp.wheel.wheel_houses import add_house_triangles
@@ -130,24 +128,6 @@ from astroapp.wheel.wheel_core import display_degrees
 from astroapp.wheel.wheel_core import generate_astrological_wheel
 
 
-
-from astroapp.utils.files_utils import save_astrological_image
-
-from astroapp.utils.session_data_utils import stocker_donnees_session
-from astroapp.utils.session_data_utils import extract_form_data
-from astroapp.utils.session_data_utils import extract_birth_data_form
-
-from astroapp.utils.data_utils import prepare_template_context
-from astroapp.utils.data_utils import format_aspects_text
-from astroapp.utils.data_utils import prepare_aspects_text
-
-from astroapp.utils.data_utils import generate_aspects_and_text
-
-
-# Test rapide
-test_date = datetime(2023, 11, 21, 12, 0, 0)
-
-
 # ENREGISTRER UN THEME
 def enregistrer_naissance(request):
     """
@@ -161,14 +141,6 @@ def enregistrer_naissance(request):
         birthtime = request.session.get("birthtime")
         country_of_birth = request.session.get("country_of_birth")
         city_of_birth = request.session.get("city_of_birth")
-
-        # Affichage des données dans les logs
-        print("Débogage - Données récupérées pour l'enregistrement :")
-        print(f"Nom : {name}")
-        print(f"Date de naissance : {birthdate}")
-        print(f"Heure de naissance : {birthtime}")
-        print(f"Pays de naissance : {country_of_birth}")
-        print(f"Ville de naissance : {city_of_birth}")
 
         # Vérification que toutes les données sont présentes
         if not all([name, birthdate, birthtime, country_of_birth, city_of_birth]):
@@ -209,10 +181,6 @@ def enregistrer_naissance(request):
 
 
 
-
-
-
-
 # CONNEXION
 def inscription(request):
     if request.method == 'POST':
@@ -242,61 +210,26 @@ def deconnexion(request):
     return redirect('birth_data')  # Redirige vers birth_data après la déconnexion
 
 
-# JULIAN DAY 
-
-# PLANETES 
 
 
-
-# ZODIAQUE
-# Fonction pour retourner l'image de la roue zodiacale
+# ZODIAQUE - Fonction pour retourner l'image de la roue zodiacale
 def zodiac_wheel(request):
     image_path = os.path.join(settings.BASE_DIR, 'static', 'images', 'zodiac_wheel.png')
     with open(image_path, 'rb') as f:
         return HttpResponse(f.read(), content_type="image/png")
 
-
-
-# MAISONS
-
-
-# GEOLOCALISATION
-
-
-# ASPECTS
-
- 
-
-
-
-
-
-# RESTE DANS VIEWS
-
-
-
-
-    
-
-
-
-
-
-
+# Traite les données de naissance soumises via le formulaire birth_data_form.html, et transmet les résultats astrologiques au template `birth_results.html`.
 def birth_data(request):
     if request.method == 'POST':
 
         # Appel pour extraire les données du formulaire
-        print("Débogage : Données extraites :", request.POST)
         donnees = extract_form_data(request)
 
         # Appel pour stocker les données en session
-        print("Débogage : Appel à stocker_donnees_session")
         stocker_donnees_session(request, donnees)
 
         # Appel pour extraire les données du formulaire
         name, birthdate, birthtime, country_of_birth, city_of_birth = extract_birth_data_form(request)
-        print("Débogage : Données POST reçues ->", request.POST)
 
         # Appel pour créer l'objet datetime de naissance et le timestamp
         birth_datetime, timestamp = create_birth_datetime_and_timestamp(birthdate, birthtime)
@@ -340,20 +273,14 @@ def birth_data(request):
             latitude_dms, longitude_dms, theme_data_json
         )
 
-        print("Débogage : Contenu de context avant rendu :", context)
-
         return render(request, 'birth_results.html', context)
 
     # Affichage du formulaire pour une requête GET
-    print("Débogage : Affichage du formulaire 'birth_data_form.html'.")
     return render(request, 'birth_data_form.html')
 
 
 
-# PLANETES & MAISONS
-
-
-# RESTE DANS VIEWS
+# Convertit un objet datetime en UTC en appliquant le fuseau horaire spécifié.
 def convert_to_utc(date_obj, timezone_str):
     """Convertit un objet datetime en UTC selon le fuseau horaire fourni."""
     try:
@@ -377,23 +304,21 @@ def convert_to_utc(date_obj, timezone_str):
         return None, error_message
 
 
-# Position des Planètes
+# Calcule les positions planétaires et les maisons, puis transmet les données au template `planetary_position.html` pour affichage.
 def planetary_position(request):# Calculer le jour julien (JD)
     # Appel de la foction : def extract_request_parameters
     selected_date, city_of_birth, country_of_birth = extract_request_parameters(request)
 
     # Vérifier si les champs requis sont fournis
     if not selected_date or not city_of_birth or not country_of_birth:
-        print("Erreur : Champs manquants - date:", selected_date, ", ville:", city_of_birth, ", pays:", country_of_birth)
+
         return HttpResponse("Tous les champs (date, ville de naissance, pays de naissance) doivent être renseignés.")
     
-    print("Débogage : Variables reçues - date:", selected_date, ", ville:", city_of_birth, ", pays:", country_of_birth)
 
     # Appel de la fonction pour extraire les informations de date : def extract_date_info
     date_obj, local_day_str, local_month_str, local_year_str = extract_date_info(selected_date)
 
-    # Utiliser le geolocator pour obtenir la latitude et la longitude
-    print("Debug - Tentative de géolocalisation avec geolocator")
+    # Utiliser le geolocator pour obtenir la latitude et la longitude    print("Debug - Tentative de géolocalisation avec geolocator")
     latitude, longitude, error = geolocate_city(city_of_birth, country_of_birth)
     if error:
         return HttpResponse(error)
@@ -427,14 +352,7 @@ def planetary_position(request):# Calculer le jour julien (JD)
     return render(request, 'planetary_position.html', context)
 
 
-    
-# ROUE
-
-# RESTE DANS VIEWS
-
-
-
-
+# Génère et transmet les données nécessaires pour afficher la roue astrologique dans le template `birth_results.html`.
 def display_astrological_wheel(request):
     # Appel de la fonciton pour Charger les données depuis les paramètres GET : def extract_wheel_data
     house_results, aspects, planet_positions = extract_wheel_data(request)
@@ -448,25 +366,12 @@ def display_astrological_wheel(request):
     return render(request, 'birth_results.html', context)
 
 
-
-
-
-
-
-
-
+# Prépare et transmet les données astrologiques au template `birth_results.html` pour l'affichage.
 def birth_results(request):
     # Récupération simplifiée des données de thème
     house_results = {}
     aspects = []
     planet_positions = {}
-
-    # Affichage pour vérification (optionnel)
-    print("Données pour Affichage :", {
-        'house_results': house_results,
-        'aspects': aspects,
-        'planet_positions': planet_positions,
-    })
 
     # Rendre les données au template
     return render(request, 'birth_results.html', {
@@ -474,5 +379,4 @@ def birth_results(request):
         'aspects': aspects,
         'planet_positions': planet_positions,
     })
-
 
