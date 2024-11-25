@@ -131,41 +131,9 @@ from astroapp.wheel.wheel_core import generate_astrological_wheel
 
 from astroapp.utils.files_utils import save_astrological_image
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+from astroapp.utils.session_data_utils import stocker_donnees_session
+from astroapp.utils.session_data_utils import extract_form_data
+from astroapp.utils.session_data_utils import extract_birth_data_form
 
 
 # Test rapide
@@ -232,32 +200,9 @@ def enregistrer_naissance(request):
 
 
 
-def stocker_donnees_session(request, data):
-    """
-    Stocke les données fournies dans la session Django.
-    Args:
-        request: La requête HTTP.
-        data: Un dictionnaire contenant les données à stocker.
-    """
-    for key, value in data.items():
-        request.session[key] = value
-    print("Données stockées en session :", request.session.items())  # Vérification dans la console
 
-def extract_form_data(request):
-    """
-    Extrait les données du formulaire POST pour les stocker.
-    Args:
-        request: La requête HTTP contenant les données du formulaire.
-    Returns:
-        Un dictionnaire avec les données extraites ou une valeur par défaut si elles sont absentes.
-    """
-    return {
-        "name": request.POST.get("name", "Non défini"),
-        "birthdate": request.POST.get("birthdate", "Non défini"),
-        "birthtime": request.POST.get("birthtime", "Non défini"),
-        "country_of_birth": request.POST.get("country_of_birth", "Non défini"),
-        "city_of_birth": request.POST.get("city_of_birth", "Non défini"),
-    }
+
+
 
 
 # CONNEXION
@@ -289,26 +234,9 @@ def deconnexion(request):
     return redirect('birth_data')  # Redirige vers birth_data après la déconnexion
 
 
-
-
 # JULIAN DAY 
 
-
-
-    
-
-    
-
-
 # PLANETES 
-
-
-
-
-
-
-
-    
 
 
 
@@ -321,59 +249,15 @@ def zodiac_wheel(request):
 
 
 
-
-
-
-
-
-
 # MAISONS
-
-
-
-
-
-
-
-
-
-
 
 
 # GEOLOCALISATION
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # ASPECTS
 
-
-
-
-
-
-
-
-
-
-    
+ 
 
 # RESTE DANS VIEWS
 # Fonction pour formater les aspects en texte lisible avec les positions et l'écart en degrés
@@ -409,21 +293,7 @@ def generate_aspects_and_text(planet_positions):
 
 
 
-
-def extract_birth_data_form(request):
-    name = request.POST['name']
-    birthdate = request.POST['birthdate']
-    birthtime = request.POST['birthtime']
-    country_of_birth = request.POST['country_of_birth']
-    city_of_birth = request.POST['city_of_birth']
-    print("Débogage : Variables extraites - name:", name, ", birthdate:", birthdate, ", birthtime:", birthtime)
-    print("Débogage : Localisation - ville:", city_of_birth, ", pays:", country_of_birth)
-    return name, birthdate, birthtime, country_of_birth, city_of_birth
     
-
-
-
-
 
 
 
@@ -511,16 +381,7 @@ def birth_data(request):
 
 
 
-
-
-
 # PLANETES & MAISONS
-
-
-
-
-
-
 
 
 # RESTE DANS VIEWS
@@ -545,14 +406,6 @@ def convert_to_utc(date_obj, timezone_str):
         error_message = f"Erreur de conversion du fuseau horaire : {e}"
         print(error_message)
         return None, error_message
-
-
-
-
-
-
-
-
 
 
 # Position des Planètes
@@ -605,10 +458,6 @@ def planetary_position(request):# Calculer le jour julien (JD)
     return render(request, 'planetary_position.html', context)
 
 
-
-    
-    
-
     
 # ROUE
 
@@ -630,64 +479,6 @@ def display_astrological_wheel(request):
     # Appel de la fonction pour préparer le contexte pour le rendu et passer les données formatées au template : def prepare_wheel_contex
     context = prepare_wheel_context(planet_positions, house_results, aspects_text)
     return render(request, 'birth_results.html', context)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-
-               
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 def draw_asc_mc_marker(ax, label, degree, rotation_offset):
@@ -728,27 +519,6 @@ def draw_asc_mc_lines(ax, house_results, rotation_offset):
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 def birth_results(request):
     # Récupération simplifiée des données de thème
     house_results = {}
@@ -768,12 +538,5 @@ def birth_results(request):
         'aspects': aspects,
         'planet_positions': planet_positions,
     })
-
-
-
-
-
-
-# FIN 
 
 
