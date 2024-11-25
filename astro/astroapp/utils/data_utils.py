@@ -1,5 +1,7 @@
 import json
 from astroapp.calculs.aspects_calculations import calculate_angular_difference
+from astroapp.calculs.aspects_calculations import calculate_astrological_aspects
+
 
 
 def format_single_aspect(aspect_name, planet1, pos1, planet2, pos2, ecart):
@@ -116,3 +118,16 @@ def format_aspects_text(aspects, planet_positions):
 def prepare_aspects_text(aspects, planet_positions):
     """Prépare le texte formaté des aspects pour l'affichage."""
     return format_aspects_text(aspects, planet_positions)
+    
+    
+    
+def generate_aspects_and_text(planet_positions):
+    # Calcul des aspects planétaires
+    aspects = calculate_astrological_aspects(planet_positions)
+
+
+    # Formatage du texte des aspects
+    aspects_text = format_aspects_text(aspects, planet_positions)
+
+    
+    return aspects, aspects_text

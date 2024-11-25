@@ -139,6 +139,7 @@ from astroapp.utils.data_utils import prepare_template_context
 from astroapp.utils.data_utils import format_aspects_text
 from astroapp.utils.data_utils import prepare_aspects_text
 
+from astroapp.utils.data_utils import generate_aspects_and_text
 
 
 # Test rapide
@@ -269,16 +270,6 @@ def zodiac_wheel(request):
 
 
 # RESTE DANS VIEWS
-def generate_aspects_and_text(planet_positions):
-    # Calcul des aspects planétaires
-    aspects = calculate_astrological_aspects(planet_positions)
-
-
-    # Formatage du texte des aspects
-    aspects_text = format_aspects_text(aspects, planet_positions)
-
-    
-    return aspects, aspects_text
 
 
 
