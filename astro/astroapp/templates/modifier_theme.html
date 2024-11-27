@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Modifier un Thème</title>
+</head>
+<body>
+    <h1>Modifier un Thème</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <label for="name">Nom :</label>
+        <input type="text" id="name" name="name" value="{{ theme.name }}" required><br>
+
+        <label for="birthdate">Date de naissance :</label>
+        <input type="date" id="birthdate" name="birthdate" value="{{ theme.birthdate }}"><br>
+
+        <label for="birthtime">Heure de naissance :</label>
+        <input type="time" id="birthtime" name="birthtime" value="{{ theme.birthtime }}"><br>
+
+        <label for="country_of_birth">Pays de naissance :</label>
+        <input type="text" id="country_of_birth" name="country_of_birth" value="{{ theme.country_of_birth }}"><br>
+
+        <label for="city_of_birth">Ville de naissance :</label>
+        <input type="text" id="city_of_birth" name="city_of_birth" value="{{ theme.city_of_birth }}"><br>
+
+        <button type="submit">Enregistrer les modifications</button>
+        <a href="{% url 'liste_themes' %}">Annuler</a>
+    </form>
+</body>
+</html>

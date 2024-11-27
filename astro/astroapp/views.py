@@ -85,7 +85,7 @@ from astroapp.wheel.wheel_core import draw_circle
 from astroapp.wheel.wheel_core import display_degrees
 from astroapp.wheel.wheel_core import generate_astrological_wheel
 
-
+from django.shortcuts import get_object_or_404  # Import nécessaire si absent
 
 # ENREGISTRER UN THEME
 def enregistrer_naissance(request):
@@ -172,6 +172,22 @@ def liste_themes(request):
     
     themes = ThemeAstrologique.objects.filter(utilisateur=request.user)
     return render(request, 'liste_themes.html', {'themes': themes})
+
+
+
+def modifier_theme(request, id):
+    theme = get_object_or_404(ThemeAstrologique, id=id, utilisateur=request.user)
+    
+    if request.method == 'POST':
+        theme.name = request.POST.get('name')
+        theme.birthdate = request.POST.get('birthdate')
+        theme.birthtime = request.POST.get('birthtime')
+        theme.country_of_birth = request.POST.get('country_of_birth')
+        theme.city_of_birth = request.POST.get('city_of_birth')
+        theme.save()
+        return redirect('liste_themes')  # Redirection après modification
+    
+    return render(request, 'modifier_theme.html', {'theme': theme})
 
 
 # ZODIAQUE - Fonction pour retourner l'image de la roue zodiacale
