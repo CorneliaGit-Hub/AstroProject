@@ -17,9 +17,9 @@ from matplotlib import font_manager
 from matplotlib import patches  # Ajout du module patches pour dessiner les segments
 
 # Imports Django
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.conf import settings
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404 
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.urls import reverse
@@ -85,7 +85,10 @@ from astroapp.wheel.wheel_core import draw_circle
 from astroapp.wheel.wheel_core import display_degrees
 from astroapp.wheel.wheel_core import generate_astrological_wheel
 
-from django.shortcuts import get_object_or_404  # Import nécessaire si absent
+
+
+
+
 
 # ENREGISTRER UN THEME
 def enregistrer_naissance(request):
@@ -149,7 +152,6 @@ def inscription(request):
         form = UserCreationForm()
     return render(request, 'registration/signup.html', {'form': form})
 
-
 def connexion(request):
     if request.method == 'POST':
         form = AuthenticationForm(data=request.POST)
@@ -166,6 +168,7 @@ def deconnexion(request):
     return redirect('birth_data')  # Redirige vers birth_data après la déconnexion
 
 
+# THEMES
 def liste_themes(request):
     if not request.user.is_authenticated:
         return redirect('connexion')  # Redirection si l'utilisateur n'est pas connecté
@@ -174,10 +177,8 @@ def liste_themes(request):
     return render(request, 'liste_themes.html', {'themes': themes})
 
 
-
 def modifier_theme(request, id):
     theme = get_object_or_404(ThemeAstrologique, id=id, utilisateur=request.user)
-    
     if request.method == 'POST':
         theme.name = request.POST.get('name')
         theme.birthdate = request.POST.get('birthdate')
@@ -185,9 +186,20 @@ def modifier_theme(request, id):
         theme.country_of_birth = request.POST.get('country_of_birth')
         theme.city_of_birth = request.POST.get('city_of_birth')
         theme.save()
-        return redirect('liste_themes')  # Redirection après modification
-    
+        return redirect('liste_themes')
     return render(request, 'modifier_theme.html', {'theme': theme})
+
+
+def supprimer_theme(request, id):
+    theme = get_object_or_404(ThemeAstrologique, id=id, utilisateur=request.user)
+
+    if request.method == 'POST':
+        theme.delete()
+        return redirect('liste_themes')  # Redirection après suppression
+
+    return render(request, 'supprimer_theme.html', {'theme': theme})
+
+
 
 
 # ZODIAQUE - Fonction pour retourner l'image de la roue zodiacale

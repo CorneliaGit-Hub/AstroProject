@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Supprimer un Thème</title>
+</head>
+<body>
+    <h1>Supprimer un Thème</h1>
+    <p>Êtes-vous sûr de vouloir supprimer le thème <strong>{{ theme.name }}</strong> ?</p>
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit">Oui, supprimer</button>
+        <a href="{% url 'liste_themes' %}">Annuler</a>
+    </form>
+</body>
+</html>
