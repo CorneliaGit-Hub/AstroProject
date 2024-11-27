@@ -112,3 +112,10 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'astroapp', 'static')]
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Sécurité des cookies et des sessions
+SESSION_COOKIE_SECURE = True  # Empêche la transmission des cookies en HTTP non sécurisé
+CSRF_COOKIE_SECURE = True  # Protège le cookie CSRF contre les attaques
+SECURE_BROWSER_XSS_FILTER = True  # Active le filtre XSS du navigateur
+SECURE_SSL_REDIRECT = False  # Change à True si le site utilise HTTPS
+

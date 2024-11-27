@@ -182,7 +182,7 @@ def liste_themes(request):
     themes = ThemeAstrologique.objects.filter(utilisateur=request.user)
     return render(request, 'liste_themes.html', {'themes': themes})
 
-
+@login_required
 def modifier_theme(request, id):
     theme = get_object_or_404(ThemeAstrologique, id=id, utilisateur=request.user)
     if request.method == 'POST':
@@ -195,7 +195,7 @@ def modifier_theme(request, id):
         return redirect('liste_themes')
     return render(request, 'modifier_theme.html', {'theme': theme})
 
-
+@login_required
 def supprimer_theme(request, id):
     theme = get_object_or_404(ThemeAstrologique, id=id, utilisateur=request.user)
 
