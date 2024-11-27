@@ -1,79 +1,57 @@
-import pytz
-from timezonefinder import TimezoneFinder
-from geopy.geocoders import Nominatim
-from datetime import datetime
-import swisseph as swe
-from zoneinfo import ZoneInfo
-from django.http import HttpResponse
-from django.conf import settings
+# Imports standards
 import os
-import time
+import logging  # Ajoute ceci en haut du fichier
+logger = logging.getLogger(__name__)  # Initialise le logger
+from datetime import datetime
+from urllib.parse import urlencode
+import json
+
+# Imports tiers
+import pytz
+import swisseph as swe
 import matplotlib
 matplotlib.use('Agg')  # Utiliser le backend sans interface graphique pour Matplotlib
 import matplotlib.pyplot as plt  # Import une seule fois
 import numpy as np
 from matplotlib import font_manager
 from matplotlib import patches  # Ajout du module patches pour dessiner les segments
-import matplotlib.patches as patches
-from django.utils.timezone import now
-timestamp = int(now().timestamp())
+
+# Imports Django
+from django.http import HttpResponse, JsonResponse
+from django.conf import settings
 from django.shortcuts import render, redirect
-from .models import ThemeAstrologique
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.contrib.auth.decorators import login_required
-from django.contrib import messages
 from django.urls import reverse
-from urllib.parse import urlencode
-import json
-from django.utils.http import urlencode
-from django.http import JsonResponse
-from django.contrib import messages  # Import pour les messages flash
+from django.utils.timezone import now
 
-from astroapp.utils.geolocation_utils import get_location
-from astroapp.utils.geolocation_utils import get_timezone
-from astroapp.utils.geolocation_utils import localize_datetime
-from astroapp.utils.geolocation_utils import extract_coordinates
-from astroapp.utils.geolocation_utils import retrieve_timezone
+# Imports internes
+from .models import ThemeAstrologique
+
 from astroapp.utils.geolocation_utils import get_birth_location_data
 from astroapp.utils.geolocation_utils import geolocate_city
 from astroapp.utils.geolocation_utils import determine_timezone
 from astroapp.utils.geolocation_utils import extract_date_info
 
-from astroapp.utils.conversions_utils import convert_to_dms
 from astroapp.utils.conversions_utils import convert_to_utc
-from astroapp.utils.conversions_utils import convert_birth_datetime
-from astroapp.utils.conversions_utils import convert_latlon_to_dms
-from astroapp.utils.conversions_utils import decimal_to_dms
 from astroapp.utils.conversions_utils import convert_to_local_and_utc
 from astroapp.utils.conversions_utils import create_birth_datetime_and_timestamp
 from astroapp.utils.conversions_utils import convert_coordinates_to_dms
 
-from astroapp.utils.data_utils import format_single_aspect
 from astroapp.utils.data_utils import prepare_theme_data_json
 from astroapp.utils.data_utils import prepare_wheel_context
 from astroapp.utils.data_utils import prepare_planetary_context
 from astroapp.utils.data_utils import extract_request_parameters
 from astroapp.utils.data_utils import extract_wheel_data
-from astroapp.utils.data_utils import deserialize_wheel_data
 from astroapp.utils.data_utils import prepare_template_context
-from astroapp.utils.data_utils import format_aspects_text
 from astroapp.utils.data_utils import prepare_aspects_text
 from astroapp.utils.data_utils import generate_aspects_and_text
-
-from astroapp.utils.zodiac_utils import get_zodiac_sign
-from astroapp.utils.zodiac_utils import get_zodiac_data
-from astroapp.utils.zodiac_utils import load_zodiac_font
-
-from astroapp.utils.planet_utils import get_planet_data
-from astroapp.utils.planet_utils import place_planet
-from astroapp.utils.planet_utils import draw_planet_positions
 
 from astroapp.utils.session_data_utils import stocker_donnees_session
 from astroapp.utils.session_data_utils import extract_form_data
 from astroapp.utils.session_data_utils import extract_birth_data_form
 
-from astroapp.utils.files_utils import save_astrological_image
+from astroapp.utils.validation_utils import validate_required_fields
 
 from astroapp.calculs.aspects_calculations import calculate_angular_difference
 from astroapp.calculs.aspects_calculations import add_aspect_if_present
@@ -102,37 +80,15 @@ from astroapp.wheel.wheel_aspects import get_aspect_style
 from astroapp.wheel.wheel_aspects import calculate_aspect_positions
 from astroapp.wheel.wheel_aspects import draw_aspects
 
-
-from astroapp.wheel.wheel_houses import add_house_cusps
-from astroapp.wheel.wheel_houses import add_house_triangles
-from astroapp.wheel.wheel_houses import draw_houses_and_cusps
-from astroapp.wheel.wheel_houses import display_house_degrees
-from astroapp.wheel.wheel_houses import get_roman_numerals
-from astroapp.wheel.wheel_houses import calculate_house_position
-from astroapp.wheel.wheel_houses import draw_house_numbers
-from astroapp.wheel.wheel_houses import draw_asc_mc_marker
-from astroapp.wheel.wheel_houses import draw_asc_mc_lines
-
-
-from astroapp.wheel.wheel_segments import get_segment_colors
-from astroapp.wheel.wheel_segments import draw_single_segment
-from astroapp.wheel.wheel_segments import draw_segments
-from astroapp.wheel.wheel_segments import draw_main_divisions
-from astroapp.wheel.wheel_segments import draw_subdivisions
-from astroapp.wheel.wheel_segments import draw_divisions
-
-
 from astroapp.wheel.wheel_core import create_astrological_figure
 from astroapp.wheel.wheel_core import draw_circle
 from astroapp.wheel.wheel_core import display_degrees
 from astroapp.wheel.wheel_core import generate_astrological_wheel
 
 
+
 # ENREGISTRER UN THEME
 def enregistrer_naissance(request):
-    """
-    Récupère les données de la session, les valide et les enregistre en base.
-    """
     if request.method == "POST":
 
         # Récupération des données en session
@@ -152,27 +108,27 @@ def enregistrer_naissance(request):
         # Enregistrement en base de données
         try:
             ThemeAstrologique.objects.create(
-                utilisateur=request.user,  # Utilisateur connecté
+                utilisateur=request.user,
                 name=name,
                 birthdate=birthdate,
                 birthtime=birthtime,
                 country_of_birth=country_of_birth,
                 city_of_birth=city_of_birth,
             )
-            print("Débogage - Enregistrement réussi dans la base de données.")
             return JsonResponse({
                 "success": True,
                 "message": "Thème enregistré avec succès !"
             }, json_dumps_params={'ensure_ascii': False})
         except Exception as e:
-            print(f"Erreur lors de l'enregistrement en base : {str(e)}")
+            # Ajouter le message d'erreur dans les logs
+            logger.error(f"Erreur lors de l'enregistrement en base : {str(e)}")
             return JsonResponse({
                 "success": False,
                 "message": f"Erreur lors de l'enregistrement : {str(e)}"
             }, json_dumps_params={'ensure_ascii': False})
 
-    # Si la méthode utilisée n'est pas POST
-    print("Débogage - Requête non POST détectée.")
+    # Méthode non autorisée
+    logger.warning("Méthode non autorisée utilisée pour enregistrer un thème.")
     return JsonResponse({
         "success": False,
         "message": "Méthode non autorisée."
@@ -220,6 +176,21 @@ def zodiac_wheel(request):
 
 # Traite les données de naissance soumises via le formulaire birth_data_form.html, et transmet les résultats astrologiques au template `birth_results.html`.
 def birth_data(request):
+    """
+    Gère la soumission des données de naissance via le formulaire.
+
+    - Récupère et valide les données du formulaire `birth_data_form.html`.
+    - Calcule les positions planétaires, maisons astrologiques, et aspects.
+    - Prépare une roue astrologique visuelle et transmet les données au template `birth_results.html`.
+
+    Paramètres :
+    - request (HttpRequest) : Objet représentant la requête HTTP.
+
+    Retour :
+    - HttpResponse : Renvoie une page HTML contenant les résultats astrologiques
+      ou le formulaire avec un message d'erreur si une étape échoue.
+    """
+
     if request.method == 'POST':
 
         # Appel pour extraire les données du formulaire
@@ -230,6 +201,14 @@ def birth_data(request):
 
         # Appel pour extraire les données du formulaire
         name, birthdate, birthtime, country_of_birth, city_of_birth = extract_birth_data_form(request)
+        
+        # Valider les champs requis
+        fields = [name, birthdate, birthtime, city_of_birth, country_of_birth]
+        field_names = ["Nom", "Date de naissance", "Heure de naissance", "Ville de naissance", "Pays de naissance"]
+        is_valid, error_message = validate_required_fields(fields, field_names)
+
+        if not is_valid:
+            return render(request, 'birth_data_form.html', {'error': error_message})
 
         # Appel pour créer l'objet datetime de naissance et le timestamp
         birth_datetime, timestamp = create_birth_datetime_and_timestamp(birthdate, birthtime)
@@ -286,7 +265,6 @@ def convert_to_utc(date_obj, timezone_str):
     try:
         # Applique le fuseau horaire local fourni pour convertir la date en UTC
         local_tz = pytz.timezone(timezone_str)
-        print(f"Debug - Application du fuseau horaire : {timezone_str}")
         
         # Si l'objet date n'a pas encore de fuseau horaire, applique local_tz
         if date_obj.tzinfo is None:
@@ -294,25 +272,44 @@ def convert_to_utc(date_obj, timezone_str):
         
         # Conversion en UTC
         date_utc = date_obj.astimezone(pytz.utc)
-        print(f"Debug - Date locale après application du fuseau : {date_obj}, Date UTC : {date_utc}")
         
         return date_utc, None
 
     except Exception as e:
         error_message = f"Erreur de conversion du fuseau horaire : {e}"
-        print(error_message)
         return None, error_message
 
 
 # Calcule les positions planétaires et les maisons, puis transmet les données au template `planetary_position.html` pour affichage.
 def planetary_position(request):# Calculer le jour julien (JD)
+    """
+    Calcule les positions planétaires et les maisons astrologiques pour une date et un lieu donnés.
+
+    - Extrait les paramètres nécessaires depuis la requête HTTP.
+    - Récupère les informations géographiques et temporelles.
+    - Calcule les positions des planètes et des maisons astrologiques.
+    - Transmet les données calculées au template `planetary_position.html`.
+
+    Paramètres :
+    - request (HttpRequest) : Objet représentant la requête HTTP.
+
+    Retour :
+    - HttpResponse : Renvoie une page HTML contenant les positions planétaires
+      ou un message d'erreur si une étape échoue.
+    """
+
     # Appel de la foction : def extract_request_parameters
     selected_date, city_of_birth, country_of_birth = extract_request_parameters(request)
 
     # Vérifier si les champs requis sont fournis
-    if not selected_date or not city_of_birth or not country_of_birth:
+    # Valider les champs requis
+    fields = [selected_date, city_of_birth, country_of_birth]
+    field_names = ["Date de naissance", "Ville de naissance", "Pays de naissance"]
+    is_valid, error_message = validate_required_fields(fields, field_names)
 
-        return HttpResponse("Tous les champs (date, ville de naissance, pays de naissance) doivent être renseignés.")
+    if not is_valid:
+        return HttpResponse(error_message)
+
     
 
     # Appel de la fonction pour extraire les informations de date : def extract_date_info
@@ -321,11 +318,14 @@ def planetary_position(request):# Calculer le jour julien (JD)
     # Utiliser le geolocator pour obtenir la latitude et la longitude    print("Debug - Tentative de géolocalisation avec geolocator")
     latitude, longitude, error = geolocate_city(city_of_birth, country_of_birth)
     if error:
+        logger.error(f"Erreur dans planetary_position : {error}")
         return HttpResponse(error)
 
+
     # Debugging: Afficher les valeurs de latitude et longitude
-    print(f"Debug - Latitude: {latitude}, Longitude: {longitude}")
-    print(f"Debug - Ville de naissance: {city_of_birth}, Pays de naissance: {country_of_birth}")
+    logger.debug(f"Latitude: {latitude}, Longitude: {longitude}")
+    logger.debug(f"Ville de naissance: {city_of_birth}, Pays de naissance: {country_of_birth}")
+
 
 
     # Appel à la fonction pour Fixer manuellement le fuseau horaire si le lieu est Cayenne : def determine_timezone
