@@ -166,6 +166,12 @@ def deconnexion(request):
     return redirect('birth_data')  # Redirige vers birth_data après la déconnexion
 
 
+def liste_themes(request):
+    if not request.user.is_authenticated:
+        return redirect('connexion')  # Redirection si l'utilisateur n'est pas connecté
+    
+    themes = ThemeAstrologique.objects.filter(utilisateur=request.user)
+    return render(request, 'liste_themes.html', {'themes': themes})
 
 
 # ZODIAQUE - Fonction pour retourner l'image de la roue zodiacale

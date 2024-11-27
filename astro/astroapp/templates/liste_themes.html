@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Liste des Thèmes</title>
+</head>
+<body>
+    <h1>Vos Thèmes Astrologiques</h1>
+    <table border="1">
+        <tr>
+            <th>Nom</th>
+            <th>Date de Création</th>
+            <th>Actions</th>
+        </tr>
+        {% for theme in themes %}
+        <tr>
+            <td>{{ theme.name }}</td>
+            <td>{{ theme.date_de_creation }}</td>
+            <td>
+				<span style="color: gray;">Modifier (en cours)</span>
+				<span style="color: gray;">Supprimer (en cours)</span>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

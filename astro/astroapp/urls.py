@@ -11,4 +11,5 @@ urlpatterns = [
     path('inscription/', views.inscription, name='inscription'),
     path('deconnexion/', views.deconnexion, name='deconnexion'),
     path('birth_results/enregistrer/', views.enregistrer_naissance, name='enregistrer_naissance'),
+    path('themes/', views.liste_themes, name='liste_themes'),
 ]
