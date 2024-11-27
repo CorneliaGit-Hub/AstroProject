@@ -151,30 +151,6 @@ def draw_asc_mc_marker(ax, label, degree, rotation_offset):
                 
                 
                 
-def draw_asc_mc_marker(ax, label, degree, rotation_offset):
-    """Dessine la ligne, le marqueur et le label pour l'ASC ou le MC."""
-    angle = np.radians(degree)
-    angle_corrected = angle + rotation_offset
-    x_pos = 2.3 * np.cos(angle_corrected)
-    y_pos = 2.3 * np.sin(angle_corrected)
-
-    ax.plot([0, x_pos], [0, y_pos], color='black', lw=0.5, zorder=1)
-
-    if label == 'ASC':
-        triangle = patches.RegularPolygon((x_pos, y_pos), numVertices=3, radius=0.20,
-                                          orientation=angle_corrected + np.radians(270),
-                                          edgecolor='black', facecolor='white', lw=0.5, zorder=3)
-        ax.add_patch(triangle)
-        ax.text(x_pos + 0.4 * np.cos(angle_corrected), y_pos + 0.4 * np.sin(angle_corrected), 
-                'ASC', fontsize=12, ha='center', va='center', color='black', weight='bold')
-
-    elif label == 'MC':
-        circle = plt.Circle((x_pos, y_pos), 0.20, facecolor='white', edgecolor='black', lw=0.5, zorder=2)
-        ax.add_patch(circle)
-        ax.text(x_pos + 0.35 * np.cos(angle_corrected), y_pos + 0.35 * np.sin(angle_corrected), 
-                'MC', fontsize=12, ha='center', va='center', color='black', weight='bold')
-                
-                
                 
 def draw_asc_mc_lines(ax, house_results, rotation_offset):
     # Dictionnaire pour associer ASC et MC aux maisons

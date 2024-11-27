@@ -3,7 +3,7 @@ import re
 
 # Chemin du dossier de l'application
 app_folder = r"/mnt/e/CALENDAR/astro/astroapp"
-excluded_files = {"views_functions_variables.py", "extract_html_dependencies.py", "views.py", "analyse_astroapp.py"}
+excluded_files = {"extract_html_dependencies.py", "analyse_astroapp.py", "generate_code_report_by_files.py", "generer_arbre_du_logiciel.py", }
 
 # Regex patterns pour chaque extraction spécifique
 function_pattern = re.compile(r"def\s+(\w+)\s*\(.*?\):")
