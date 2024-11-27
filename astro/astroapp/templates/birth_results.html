@@ -16,13 +16,39 @@
     transition: none !important; /* Supprimer les transitions */
 }
 
-/* Bouton spécifique pour "Enregistrer" */
-.btn-enregistrer {
-    background-color: #FFA801; /* Jaune par défaut */
-    color: #000; /* Texte violet */
+/* BBOUTON THEME */
+.btn-themes {
+    background-color: #FFA801; /* Jaune */
+    color: #000; /* Texte noir */
     font-weight: bold; /* Texte en gras */
     transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+    width: 300px; /* Largeur fixe, ajustable */
+    padding: 12px; /* Hauteur du bouton inchangée */
+    margin: 10px auto; /* Centre horizontalement */
+    text-align: center;
+    border-radius: 5px; /* Coins arrondis */
+    font-size: 14px; /* Taille du texte */
+    cursor: pointer;
+    display: block; /* Assure le centrage dans une div */
+	text-decoration:none;
 }
+
+/* Effet hover */
+.btn-themes:hover {
+    background-color: #FFD364; /* Jaune plus clair */
+    color: #000; /* Texte violet */
+    transform: scale(1.05);
+}
+
+/* Effet active */
+.btn-themes:active {
+    background-color: #E08B00; /* Orange plus foncé */
+    transform: scale(0.95);
+}
+
+/* / BBOUTON THEME */
+
+
 
 /* Style pour le message de succès ou d'erreur */
 #message {
@@ -444,6 +470,13 @@ button:active {
 <!-- / ASPECTS -->
 <br><br>
 
+<!-- BOUTON LISTE DES THEMES -->
+<div class="div-bouton">
+    <a href="{% url 'liste_themes' %}" class=" btn-themes">Voir mes thèmes enregistrés</a>
+</div>
+<!-- / BOUTON LISTE DES THEMES -->
+<br><br>
+
 <!-- SPINNER -->
 <div id="spinner" style="display: none; text-align: center;">
     <img src="{% static 'images/spinner.gif' %}" alt="Chargement..." style="width: 50px; height: 50px;">
@@ -452,6 +485,7 @@ button:active {
 
 <!-- MESSAGE -->
 <div id="message"></div>
+<!-- / MESSAGE -->
 
 <!-- BOUTON RETOUR AU FORMUALIRE -->
 <div class="div-bouton">
@@ -461,6 +495,7 @@ button:active {
         </form>
 </div>
 <!-- / BOUTON RETOUR AU FORMUALIRE -->
+
 
 
 <!-- BOUTON ENREGISTRER -->
