@@ -17,8 +17,8 @@
             <td>{{ theme.name }}</td>
             <td>{{ theme.date_de_creation }}</td>
             <td>
-				<span style="color: gray;">Modifier (en cours)</span>
-				<span style="color: gray;">Supprimer (en cours)</span>
+                <a href="{% url 'modifier_theme' theme.id %}">Modifier</a>
+                <a href="{% url 'supprimer_theme' theme.id %}">Supprimer</a>
             </td>
         </tr>
         {% endfor %}
