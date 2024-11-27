@@ -16,6 +16,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 LOGIN_URL = '/connexion/'
+LOGIN_REDIRECT_URL = '/themes/'  # Redirige après connexion
 
 # Application definition
 INSTALLED_APPS = [

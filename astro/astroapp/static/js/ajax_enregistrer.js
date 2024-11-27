@@ -26,23 +26,44 @@ document.addEventListener("DOMContentLoaded", function () {
                 "X-Requested-With": "XMLHttpRequest",
             },
         })
-            .then((response) => response.json())
-            .then((data) => {
-                if (data.success) {
-                    button.innerText = "Enregistré avec succès !";
-                    button.classList.add("registered"); // Changer la couleur du bouton
-                    button.disabled = true; // Désactiver le bouton
-                    messageDiv.innerHTML = `<p style="color: #A9CE02; font-weight:bold"">${data.message}</p>`;
-                } else {
-                    button.innerText = "Erreur lors de l'enregistrement";
-                    messageDiv.innerHTML = `<p style="color: red;">${data.message}</p>`;
-                }
-            })
-            .catch((error) => {
-                console.error("Erreur AJAX :", error);
-                button.innerText = "Erreur inattendue";
-                messageDiv.innerHTML = `<p style="color: red;">Une erreur s'est produite.</p>`;
-            })
+		
+			.then((response) => {
+				if (response.redirected) {
+					window.location.href = response.url; // Redirige vers l'URL reçue
+				} else {
+					return response.json();
+				}
+			})
+			
+			.then((data) => {
+				if (data.success) {
+					button.innerText = "Enregistré avec succès !";
+					button.classList.add("registered");
+					button.disabled = true;
+					messageDiv.innerHTML = `<p style="color: #A9CE02; font-weight:bold">${data.message}</p>`;
+				} else {
+					if (data.redirect_url) {
+						window.location.href = data.redirect_url; // Redirige vers l'URL spécifiée
+					} else {
+						button.innerText = "Erreur lors de l'enregistrement";
+						messageDiv.innerHTML = `<p style="color: red;">${data.message}</p>`;
+					}
+				}
+			})
+
+
+
+
+			.catch((error) => {
+				if (error.response && error.response.status === 403) {
+					window.location.href = "/connexion/"; // Redirection vers la page de connexion
+				} else {
+					console.error("Erreur AJAX :", error);
+					button.innerText = "Erreur inattendue";
+					messageDiv.innerHTML = `<p style="color: red;">Une erreur s'est produite.</p>`;
+				}
+			})
+
 			.finally(() => {
 				setTimeout(() => {
 					spinner.style.display = "none"; // Cacher le spinner après un délai

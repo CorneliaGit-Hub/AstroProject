@@ -22,6 +22,7 @@ from django.conf import settings
 from django.shortcuts import render, redirect, get_object_or_404 
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from django.utils.timezone import now
 
@@ -91,7 +92,11 @@ from astroapp.wheel.wheel_core import generate_astrological_wheel
 
 
 # ENREGISTRER UN THEME
+@login_required
 def enregistrer_naissance(request):
+    if not request.user.is_authenticated:
+        return redirect('connexion')  # Redirige immédiatement vers la page de connexion
+
     if request.method == "POST":
 
         # Récupération des données en session
@@ -131,11 +136,11 @@ def enregistrer_naissance(request):
             }, json_dumps_params={'ensure_ascii': False})
 
     # Méthode non autorisée
-    logger.warning("Méthode non autorisée utilisée pour enregistrer un thème.")
     return JsonResponse({
         "success": False,
         "message": "Méthode non autorisée."
     }, json_dumps_params={'ensure_ascii': False})
+
 
 
 
@@ -169,6 +174,7 @@ def deconnexion(request):
 
 
 # THEMES
+@login_required
 def liste_themes(request):
     if not request.user.is_authenticated:
         return redirect('connexion')  # Redirection si l'utilisateur n'est pas connecté
