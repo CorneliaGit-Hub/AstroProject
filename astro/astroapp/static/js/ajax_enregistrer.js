@@ -42,6 +42,16 @@ document.addEventListener("DOMContentLoaded", function () {
             .then((data) => {
                 if (data && data.success) {
                     console.log("Enregistrement réussi :", data.message);
+
+                    // Jouer le son en cas de succès
+                    const audio = new Audio('/static/sounds/registered.wav');
+                    audio.play().then(() => {
+                        console.log("Son joué avec succès.");
+                    }).catch((error) => {
+                        console.error("Erreur lors de la lecture du son :", error);
+                    });
+
+                    // Affiche le message de succès
                     button.innerText = "Enregistré avec succès !";
                     button.classList.add("registered");
                     messageDiv.innerHTML = `<p style="color: #A9CE02; font-weight:bold">${data.message}</p>`;
@@ -76,4 +86,11 @@ document.addEventListener("DOMContentLoaded", function () {
             button.innerText = "Erreur inattendue";
         }, 500); // Retard d’affichage de 500ms
     }
+
+    // Test pour la lecture audio
+    console.log("Test de lecture du son...");
+    const testAudio = new Audio('/static/sounds/registered.wav');
+    testAudio.play()
+        .then(() => console.log("Son joué avec succès."))
+        .catch((error) => console.error("Erreur lors de la lecture du son :", error));
 });
