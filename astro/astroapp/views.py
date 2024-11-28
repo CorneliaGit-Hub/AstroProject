@@ -94,9 +94,6 @@ from astroapp.wheel.wheel_core import generate_astrological_wheel
 # ENREGISTRER UN THEME
 @login_required
 def enregistrer_naissance(request):
-    if not request.user.is_authenticated:
-        return redirect('connexion')  # Redirige immédiatement vers la page de connexion
-
     if request.method == "POST":
 
         # Récupération des données en session
@@ -128,7 +125,6 @@ def enregistrer_naissance(request):
                 "message": "Thème enregistré avec succès !"
             }, json_dumps_params={'ensure_ascii': False})
         except Exception as e:
-            # Ajouter le message d'erreur dans les logs
             logger.error(f"Erreur lors de l'enregistrement en base : {str(e)}")
             return JsonResponse({
                 "success": False,
@@ -140,6 +136,7 @@ def enregistrer_naissance(request):
         "success": False,
         "message": "Méthode non autorisée."
     }, json_dumps_params={'ensure_ascii': False})
+
 
 
 
