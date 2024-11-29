@@ -6,6 +6,8 @@ from datetime import datetime
 from urllib.parse import urlencode
 import json
 
+from .forms import BirthDataForm
+
 # Imports tiers
 import pytz
 import swisseph as swe
@@ -85,10 +87,6 @@ from astroapp.wheel.wheel_core import create_astrological_figure
 from astroapp.wheel.wheel_core import draw_circle
 from astroapp.wheel.wheel_core import display_degrees
 from astroapp.wheel.wheel_core import generate_astrological_wheel
-
-
-
-
 
 
 # ENREGISTRER UN THEME
@@ -179,6 +177,37 @@ def liste_themes(request):
     themes = ThemeAstrologique.objects.filter(utilisateur=request.user)
     return render(request, 'liste_themes.html', {'themes': themes})
 
+    
+@login_required
+def ouvrir_theme(request, id):
+    # Récupère le thème spécifique pour cet utilisateur
+    theme = get_object_or_404(ThemeAstrologique, id=id, utilisateur=request.user)
+
+    # Injecte les données dans la session, en s'assurant que la date est au format ISO
+    request.session['name'] = theme.name
+    request.session['birthdate'] = theme.birthdate.strftime('%Y-%m-%d')  # Assure le format ISO
+    request.session['birthtime'] = theme.birthtime.isoformat()
+    request.session['country_of_birth'] = theme.country_of_birth
+    request.session['city_of_birth'] = theme.city_of_birth
+
+    # Imprime les valeurs stockées pour vérifier
+    print("Session 'name':", request.session['name'])
+    print("Session 'birthdate' (ISO format):", request.session['birthdate'])
+    print("Session 'birthtime' (ISO format):", request.session['birthtime'])
+    print("Session 'country_of_birth':", request.session['country_of_birth'])
+    print("Session 'city_of_birth':", request.session['city_of_birth'])
+
+    # Imprime les valeurs des clés pour vérifier leur présence immédiatement après sauvegarde
+    print("Session Key-Value pairs after setting in ouvrir_theme:")
+    for key, value in request.session.items():
+        print(f"{key}: {value}")
+        
+    # Redirige vers le formulaire principal
+    return redirect('birth_data')
+
+
+
+
 @login_required
 def modifier_theme(request, id):
     theme = get_object_or_404(ThemeAstrologique, id=id, utilisateur=request.user)
@@ -213,6 +242,10 @@ def zodiac_wheel(request):
 
 # Traite les données de naissance soumises via le formulaire birth_data_form.html, et transmet les résultats astrologiques au template `birth_results.html`.
 def birth_data(request):
+    # Affiche toutes les données de session pour vérifier leur présence
+    print("Session Key-Value pairs on loading birth_data:")
+    for key, value in request.session.items():
+        print(f"{key}: {value}")
     """
     Gère la soumission des données de naissance via le formulaire.
 
@@ -227,18 +260,25 @@ def birth_data(request):
     - HttpResponse : Renvoie une page HTML contenant les résultats astrologiques
       ou le formulaire avec un message d'erreur si une étape échoue.
     """
-
     if request.method == 'POST':
 
-        # Appel pour extraire les données du formulaire
-        donnees = extract_form_data(request)
-
-        # Appel pour stocker les données en session
-        stocker_donnees_session(request, donnees)
-
-        # Appel pour extraire les données du formulaire
+        # Extraire les données du formulaire
         name, birthdate, birthtime, country_of_birth, city_of_birth = extract_birth_data_form(request)
-        
+
+        # Debugging : Afficher les données reçues et celles stockées en session
+        print("Date reçue depuis le formulaire :", request.POST.get('birthdate'))
+        print("Date de naissance pour l'input :", request.session.get('birthdate'))
+        print("Session Data:", request.session.items())
+
+        # Stocker les données en session
+        stocker_donnees_session(request, {
+            'name': name,
+            'birthdate': birthdate,
+            'birthtime': birthtime,
+            'country_of_birth': country_of_birth,
+            'city_of_birth': city_of_birth
+        })
+
         # Valider les champs requis
         fields = [name, birthdate, birthtime, city_of_birth, country_of_birth]
         field_names = ["Nom", "Date de naissance", "Heure de naissance", "Ville de naissance", "Pays de naissance"]
@@ -247,42 +287,38 @@ def birth_data(request):
         if not is_valid:
             return render(request, 'birth_data_form.html', {'error': error_message})
 
-        # Appel pour créer l'objet datetime de naissance et le timestamp
+        # Créer un objet datetime pour la naissance et un timestamp
         birth_datetime, timestamp = create_birth_datetime_and_timestamp(birthdate, birthtime)
 
-        # Appel pour obtenir la géolocalisation et le fuseau horaire
+        # Obtenir la géolocalisation et le fuseau horaire
         location, latitude, longitude, timezone_str, error = get_birth_location_data(city_of_birth, country_of_birth)
         if error:
             return render(request, 'birth_data_form.html', {'error': error})
 
-        # Appel pour convertir les coordonnées en DMS (degrés, minutes, secondes)
+        # Convertir les coordonnées en DMS (degrés, minutes, secondes)
         latitude_dms, longitude_dms = convert_coordinates_to_dms(latitude, longitude)
 
-        # Appel pour convertir en heures locales et UTC
+        # Convertir les heures en local et UTC
         birth_datetime_local, birth_datetime_utc, error = convert_to_local_and_utc(birth_datetime, timezone_str)
         if error:
             return render(request, 'birth_data_form.html', {'error': error})
 
-        # Appel pour calculer le jour julien (JD) et les positions des planètes
+        # Calculer le jour julien (JD) et les positions des planètes
         jd, results, planet_positions = calculate_julian_and_positions(birth_datetime_utc)
 
-        # Appel pour calculer les maisons astrologiques
+        # Calculer les maisons astrologiques
         house_results = calculate_astrological_houses(jd, latitude, longitude)
 
-
-        # Appel pour calculer les aspects planétaires et formater le texte des aspects
+        # Calculer les aspects planétaires et leur texte
         aspects, aspects_text = generate_aspects_and_text(planet_positions)
-       
 
-        # Appel pour préparer les données du thème en JSON pour le template
-        theme_data_json = prepare_theme_data_json(house_results, aspects, planet_positions)   
+        # Préparer les données du thème en JSON
+        theme_data_json = prepare_theme_data_json(house_results, aspects, planet_positions)
 
-
-        # Appel pour générer la roue astrologique visuelle
-
+        # Générer la roue astrologique visuelle
         generate_astrological_wheel(planet_positions, house_results, aspects)
 
-        # Appel pour préparer le contexte à transmettre au template
+        # Préparer le contexte à transmettre au template
         context = prepare_template_context(
             name, results, house_results, aspects, aspects_text,
             birth_datetime_local, birth_datetime_utc, location,
@@ -292,7 +328,28 @@ def birth_data(request):
         return render(request, 'birth_results.html', context)
 
     # Affichage du formulaire pour une requête GET
-    return render(request, 'birth_data_form.html')
+    # Vérifier si des données existent dans la session
+    print("Date de naissance pour l'input :", request.session.get('birthdate'))  # Debug
+    initial_data = {
+        'name': request.session.get('name', ''),
+        'birthdate': request.session.get('birthdate', ''),
+        'birthtime': request.session.get('birthtime', ''),
+        'country_of_birth': request.session.get('country_of_birth', ''),
+        'city_of_birth': request.session.get('city_of_birth', ''),
+    }
+    print("DEBUG - Valeur dans la session pour birthdate (GET) :", request.session.get('birthdate'))
+    print("Date de naissance pour l'input :", request.session.get('birthdate'))
+
+    # Créer un formulaire pré-rempli si les données existent
+    form = BirthDataForm(initial=initial_data)
+
+    # Supprimer les données de la session après utilisation
+    for key in ['name', 'birthdate', 'birthtime', 'country_of_birth', 'city_of_birth']:
+        if key in request.session:
+            del request.session[key]
+    print("DEBUG - Session au moment du rendu :", request.session.items())
+    return render(request, 'birth_data_form.html', {'form': form})
+
 
 
 

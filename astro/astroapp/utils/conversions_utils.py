@@ -83,7 +83,13 @@ def convert_to_local_and_utc(birth_datetime, timezone_str):
 
 def create_birth_datetime_and_timestamp(birthdate, birthtime):
     birth_datetime_str = f"{birthdate} {birthtime}"
-    birth_datetime = datetime.strptime(birth_datetime_str, "%Y-%m-%d %H:%M")
+    # Supporte les formats avec ou sans secondes
+    try:
+        birth_datetime = datetime.strptime(birth_datetime_str, "%Y-%m-%d %H:%M:%S")
+    except ValueError:
+        birth_datetime = datetime.strptime(birth_datetime_str, "%Y-%m-%d %H:%M")
+
+
     print("Débogage : birth_datetime construit ->", birth_datetime)
 
     # Création du timestamp pour rechargement de l'image

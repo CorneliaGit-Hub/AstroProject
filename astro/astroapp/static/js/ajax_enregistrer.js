@@ -86,11 +86,4 @@ document.addEventListener("DOMContentLoaded", function () {
             button.innerText = "Erreur inattendue";
         }, 500); // Retard d’affichage de 500ms
     }
-
-    // Test pour la lecture audio
-    console.log("Test de lecture du son...");
-    const testAudio = new Audio('/static/sounds/registered.wav');
-    testAudio.play()
-        .then(() => console.log("Son joué avec succès."))
-        .catch((error) => console.error("Erreur lors de la lecture du son :", error));
 });

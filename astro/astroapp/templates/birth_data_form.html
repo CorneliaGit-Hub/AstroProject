@@ -27,17 +27,17 @@
 	font-weight: bold;
 	transition: background-color 0.3s ease;
 }
-
+Valeur récupérée pour birthdate
 .auth-links a:hover {
 	background-color: #A9CE02; /* Couleur verte au survol */
 }
 
 /* BODY */
 body {
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    padding: 20px;
-    background-color: #f9f9f9;
+	font-family: 'Arial', sans-serif;
+	margin: 0;
+	padding: 20px;
+	background-color: #f9f9f9;
 }
 
 h2 {
@@ -130,46 +130,52 @@ button:hover {
 
 <h2>Formulaire de données de naissance</h2>
 
+<p style="text-align:center;">Valeur récupérée pour birthdate : {{ request.session.birthdate }}</p>
+
+
 <form method="post" action="{% url 'birth_data' %}">
     {% csrf_token %}
     <div class="form-group">
         <label for="name">Nom:</label>
-        <input type="text" id="name" placeholder="Nom" name="name" required>
+        <input type="text" id="name" name="name" value="{{ form.name.value|default_if_none:'' }}" placeholder="Nom" required>
     </div>
+<p>DEBUG - Valeur dans le template pour birthdate : {{ request.session.birthdate }}</p>
+
     <div class="form-group">
-		<label for="birthdate">Date de naissance:</label>
-		<input type="date" id="birthdate" name="birthdate" required>
+        <label for="birthdate">Date de naissance:</label>
+        <input type="date" id="birthdate" name="birthdate" 
+               value="{{ request.session.birthdate|default:'' }}" required>
     </div>
-	<div class="form-group">
-		<label for="birthtime">Heure de naissance:</label>
-		<input type="time" id="birthtime" name="birthtime" required>
-	</div>
+
+    <div class="form-group">
+        <label for="birthtime">Heure de naissance:</label>
+        <input type="time" id="birthtime" name="birthtime" value="{{ form.birthtime.value|default_if_none:'' }}" required>
+    </div>
+    
     <div class="form-group">
         <label for="country_of_birth">Pays de naissance:</label>
-        <input type="text" id="country_of_birth" placeholder="Pays de naissance" name="country_of_birth" required>
+        <input type="text" id="country_of_birth" name="country_of_birth" value="{{ form.country_of_birth.value|default_if_none:'' }}" placeholder="Pays de naissance" required>
     </div>
+    
     <div class="form-group">
         <label for="city_of_birth">Ville de naissance:</label>
-        <input type="text" id="city_of_birth" placeholder="Ville de naissance" name="city_of_birth" required>
+        <input type="text" id="city_of_birth" name="city_of_birth" value="{{ form.city_of_birth.value|default_if_none:'' }}" placeholder="Ville de naissance" required>
     </div>
-    <button type="submit">Envoyer</button>
+    <button type="submit" class="btn btn-primary">Envoyer</button>
 </form>
 
+
+
 <script>
-    // Flatpickr pour le champ de date
-    flatpickr("#birthdate", {
-        dateFormat: "Y-m-d",  // Garder le format actuel qui s'adapte à l'utilisateur
-        allowInput: true,     // Permettre la saisie manuelle
-        enableTime: false,    // Désactiver le choix de l'heure
-        defaultDate: "today",  // Date par défaut à aujourd'hui
-        altInput: true,       // Garde l'affichage avec le format natif
-        altFormat: "d/m/Y",   // Afficher le format de manière conviviale (optionnel)
-        yearSelector: true,   // Activer la sélection de l'année dans le calendrier
-        monthSelectorType: 'static',  // Activer la sélection du mois dans le calendrier
-        minDate: "1900-01-01",  // Option : Placer une date minimale (facultatif)
-        maxDate: "2100-12-31"   // Option : Placer une date maximale (facultatif)
+    // Affiche la valeur de l'input de date dans la console après le chargement de la page
+    document.addEventListener("DOMContentLoaded", function () {
+        const input = document.getElementById("birthdate");
+        console.log("Valeur dans l'input après chargement :", input.value);
     });
 </script>
+
+
+
 
 
 </body>

@@ -90,68 +90,68 @@
             transform: scale(1.05);
         }
 
-/* Style unique pour le bouton en bas de page */
-.btn-retour-formulaire {
-    display: block; /* Prend toute la largeur disponible */
-    width: 80%; /* Largeur égale à celle du tableau */
-    margin: 20px auto; /* Centre horizontalement avec une marge */
-    padding: 15px 0; /* Ajuste la hauteur */
-    background-color: #6A3D90; /* Couleur violette */
-    color: white; /* Texte blanc */
-    text-align: center; /* Centre le texte */
-    text-decoration: none; /* Supprime le soulignement */
-    font-weight: bold; /* Texte en gras */
-    border-radius: 8px; /* Coins arrondis */
-    font-size: 18px; /* Texte plus grand */
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
+        /* Style unique pour le bouton en bas de page */
+        .btn-retour-formulaire {
+            display: block;
+            width: 80%;
+            margin: 20px auto;
+            padding: 15px 0;
+            background-color: #6A3D90;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 8px;
+            font-size: 18px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
 
-/* Effet hover pour le bouton unique */
-.btn-retour-formulaire:hover {
-    background-color: #A9CE02; /* Couleur verte */
-    color: #000; /* Texte noir */
-    transform: scale(1.02); /* Légère augmentation de taille */
-}
+        .btn-retour-formulaire:hover {
+            background-color: #A9CE02;
+            color: #000;
+            transform: scale(1.02);
+        }
 
-/* Effet active (au clic) */
-.btn-retour-formulaire:active {
-    background-color: #E08B00; /* Orange foncé */
-    transform: scale(0.95); /* Légère réduction */
-}
-
+        .btn-retour-formulaire:active {
+            background-color: #E08B00;
+            transform: scale(0.95);
+        }
     </style>
 </head>
 <body>
     <h1>Vos Thèmes Astrologiques</h1>
 
-<table>
-    <tr>
-        <th colspan="6">Coordonnées de naissance</th>
-    </tr>
-    <tr>
-        <th>Nom</th>
-        <th>Date</th>
-        <th>Heure</th>
-        <th>Lieu</th>
-        <th>Modifier</th>
-        <th>Supprimer</th>
-    </tr>
-    {% for theme in themes %}
-    <tr>
-        <td>{{ theme.name }}</td>
-        <td>{{ theme.birthdate }}</td>
-        <td>{{ theme.birthtime }}</td>
-        <td>{{ theme.city_of_birth }}</td>
-        <td>
-            <a href="{% url 'modifier_theme' theme.id %}">Modifier</a>
-        </td>
-        <td>
-            <a href="{% url 'supprimer_theme' theme.id %}">Supprimer</a>
-        </td>
-    </tr>
-    {% endfor %}
-</table>
-
+    <table>
+        <tr>
+            <th colspan="7">Coordonnées de naissance</th>
+        </tr>
+        <tr>
+            <th>Nom</th>
+            <th>Date</th>
+            <th>Heure</th>
+            <th>Lieu</th>
+            <th>Ouvrir</th>
+            <th>Modifier</th>
+            <th>Supprimer</th>
+        </tr>
+        {% for theme in themes %}
+        <tr>
+            <td>{{ theme.name }}</td>
+            <td>{{ theme.birthdate }}</td>
+            <td>{{ theme.birthtime }}</td>
+            <td>{{ theme.city_of_birth }}</td>
+            <td>
+                <a href="{% url 'ouvrir_theme' theme.id %}">Ouvrir</a>
+            </td>
+            <td>
+                <a href="{% url 'modifier_theme' theme.id %}">Modifier</a>
+            </td>
+            <td>
+                <a href="{% url 'supprimer_theme' theme.id %}">Supprimer</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
 
     <a href="{% url 'birth_data' %}" class="btn-retour-formulaire">Revenir au formulaire</a>
 </body>
