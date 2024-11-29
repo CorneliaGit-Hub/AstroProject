@@ -329,7 +329,9 @@ def birth_data(request):
 
     # Affichage du formulaire pour une requête GET
     # Vérifier si des données existent dans la session
-    print("Date de naissance pour l'input :", request.session.get('birthdate'))  # Debug
+    print("DEBUG - Date de naissance dans la session (avant extraction) :", request.session.get('birthdate'))
+
+    # Préparer les données initiales pour le formulaire
     initial_data = {
         'name': request.session.get('name', ''),
         'birthdate': request.session.get('birthdate', ''),
@@ -337,19 +339,24 @@ def birth_data(request):
         'country_of_birth': request.session.get('country_of_birth', ''),
         'city_of_birth': request.session.get('city_of_birth', ''),
     }
-    print("DEBUG - Valeur dans la session pour birthdate (GET) :", request.session.get('birthdate'))
-    print("Date de naissance pour l'input :", request.session.get('birthdate'))
+    print("DEBUG - Données initiales pour le formulaire :", initial_data)
 
-    # Créer un formulaire pré-rempli si les données existent
+    # Créer un formulaire pré-rempli avec les données initiales
     form = BirthDataForm(initial=initial_data)
 
-    # Supprimer les données de la session après utilisation
+    # Supprimer les données de la session après avoir créé le formulaire
     for key in ['name', 'birthdate', 'birthtime', 'country_of_birth', 'city_of_birth']:
         if key in request.session:
             del request.session[key]
-    print("DEBUG - Session au moment du rendu :", request.session.items())
-    return render(request, 'birth_data_form.html', {'form': form})
 
+    # Vérification finale de la session
+    print("DEBUG - Session après suppression des clés :", dict(request.session.items()))
+
+    # Rendre la page avec le formulaire
+    return render(request, 'birth_data_form.html', {
+        'form': form,
+        'birthdate_debug': initial_data.get('birthdate', '')  # Passer directement les données initiales
+    })
 
 
 
@@ -444,6 +451,7 @@ def planetary_position(request):# Calculer le jour julien (JD)
         results, house_results
     )
     return render(request, 'planetary_position.html', context)
+    
 
 
 # Génère et transmet les données nécessaires pour afficher la roue astrologique dans le template `birth_results.html`.

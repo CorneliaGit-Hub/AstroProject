@@ -130,7 +130,10 @@ button:hover {
 
 <h2>Formulaire de données de naissance</h2>
 
-<p style="text-align:center;">Valeur récupérée pour birthdate : {{ request.session.birthdate }}</p>
+<p style="text-align:center;">Valeur récupérée 1 : {{ request.session.birthdate }}</p>
+
+<p style="text-align:center;">Valeur injectée 2 : {{ request.session.birthdate|default:'Non définie' }}</p>
+
 
 
 <form method="post" action="{% url 'birth_data' %}">
@@ -139,13 +142,20 @@ button:hover {
         <label for="name">Nom:</label>
         <input type="text" id="name" name="name" value="{{ form.name.value|default_if_none:'' }}" placeholder="Nom" required>
     </div>
-<p>DEBUG - Valeur dans le template pour birthdate : {{ request.session.birthdate }}</p>
 
-    <div class="form-group">
+
+<div class="form-group">
         <label for="birthdate">Date de naissance:</label>
-        <input type="date" id="birthdate" name="birthdate" 
-               value="{{ request.session.birthdate|default:'' }}" required>
-    </div>
+
+
+<input type="date" id="birthdate" name="birthdate" 
+       value="{{ birthdate_debug|default:'' }}" required>
+
+
+<p>DEBUG - Valeur pour birthdate_debug : {{ birthdate_debug }}</p>
+
+
+</div>
 
     <div class="form-group">
         <label for="birthtime">Heure de naissance:</label>
