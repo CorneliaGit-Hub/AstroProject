@@ -174,7 +174,7 @@ def liste_themes(request):
     if not request.user.is_authenticated:
         return redirect('connexion')  # Redirection si l'utilisateur n'est pas connecté
     
-    themes = ThemeAstrologique.objects.filter(utilisateur=request.user)
+    themes = ThemeAstrologique.objects.filter(utilisateur=request.user).order_by('-id')
     return render(request, 'liste_themes.html', {'themes': themes})
 
     
