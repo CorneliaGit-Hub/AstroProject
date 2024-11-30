@@ -204,7 +204,7 @@ h2 {
     }
 }
 
-
+/* TABLE */
 table {
     width: 100%; /* La table occupe toute la largeur de la div */
     border-collapse: collapse;
@@ -235,7 +235,16 @@ tr:nth-child(even) {
 	width:60%;
 	margin: 0 auto;
 }
-
+/* TOUS LES BOUTONS  */
+.all-btn {
+	max-width: 85%;
+	margin: 0 auto;
+	border:#6A3D90 2px solid;
+	border-radius:10px;
+	padding-bottom:10px;
+	transition: transform 0.3s ease-in-out;
+}
+/* BOUTONS */
 button {
 	font-weight: bold;
     background-color: #6A3D90;
@@ -247,7 +256,7 @@ button {
     font-size: 16px;
     display: block;
     width: 100%;
-    margin-top: 20px;
+    margin-top: 10px;
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
@@ -260,6 +269,7 @@ button:active {
     transform: scale(0.95);
 }
 
+/* LONGITUDES - LATTIDUES */
 .long {
     display: flex;
     justify-content: space-between;
@@ -281,10 +291,17 @@ button:active {
 .long div strong {
     color: #6A3D90;
 }
+
+/* NOM DU THE%E */
+.nom-du-theme {
+	color:#FA6A0A;
+}
     </style>
 </head>
 <body>
 <!-- Débogage - Affichage des données transmises -->
+
+<!-- CONNEXION -->
 <div class="auth-links">
     {% if user.is_authenticated %}
         <a href="{% url 'deconnexion' %}">Déconnexion</a>
@@ -293,23 +310,69 @@ button:active {
         <a href="{% url 'inscription' %}">S'inscrire</a>
     {% endif %}
 </div>
+<!-- / CONNEXION -->
 
+
+<!-- ROUE ASTROLOGIQUE -->
 <div class="container">
     {% include 'wheeldisplay.html' %}
 </div>
+<!-- / ROUE ASTROLOGIQUE -->
+<br><br>
+
+<!-- TOUS LES BOUTONS-->
+<div class="all-btn">
+<!-- BOUTON LISTE DES THEMES -->
+<div class="div-bouton">
+    <a href="{% url 'liste_themes' %}" class=" btn-themes">Voir mes thèmes enregistrés</a>
+</div>
+<!-- / BOUTON LISTE DES THEMES -->
 
 
+<!-- SPINNER -->
+<div id="spinner" style="display: none; text-align: center;">
+    <img src="{% static 'images/spinner.gif' %}" alt="Chargement..." style="width: 50px; height: 50px;">
+</div>
+<!-- / SPINNER -->
 
-<br>
+<!-- MESSAGE -->
+<div id="message"></div>
+<!-- / MESSAGE -->
 
-    <div class="container">
+<!-- BOUTON RETOUR AU FORMUALIRE -->
+<div class="div-bouton">
+        <form method="get" action="{% url 'birth_data' %}">
+            <input type="hidden" name="reset" value="true">
+            <button type="submit">Revenir au formulaire</button>
+        </form>
+</div>
+<!-- / BOUTON RETOUR AU FORMUALIRE -->
 
-<h2>Résultats astrologiques pour 
+
+<!-- BOUTON ENREGISTRER -->
+<div class="div-bouton">
+<form method="post" action="{% url 'enregistrer_naissance' %}" id="enregistrer-form">
+    {% csrf_token %}
+    <button type="submit" class="btn-enregistrer" id="enregistrer">Enregistrer</button>
+</form>
+
+</div>
+<!-- / BOUTON ENREGISTRER -->
+
+</div>
+<!-- / TOUS LES BOUTONS-->
+<br><br>
+
+<!-- LONGITUDES / LATTITUDES  -->
+<div class="container">
+
+<h2>Résultats astrologiques pour  : <span class="nom-du-theme"> 
     {% if request.GET.name %} 
         {{ request.GET.name }} 
     {% else %} 
         {{ name }} 
     {% endif %}
+    </span>
 </h2>
 
 <!-- DATE -->
@@ -355,8 +418,10 @@ button:active {
 </div>
 
 </div>
-
+<!-- / LONGITUDES / LATTITUDES  -->
 <br><br>
+
+
 
 <!-- PLANETES -->
 <div class="container">
@@ -476,12 +541,17 @@ button:active {
 <!-- / ASPECTS -->
 <br><br>
 
+
+
+
+<!-- TOUS LES BOUTONS-->
+<div class="all-btn">
 <!-- BOUTON LISTE DES THEMES -->
 <div class="div-bouton">
     <a href="{% url 'liste_themes' %}" class=" btn-themes">Voir mes thèmes enregistrés</a>
 </div>
 <!-- / BOUTON LISTE DES THEMES -->
-<br><br>
+
 
 <!-- SPINNER -->
 <div id="spinner" style="display: none; text-align: center;">
@@ -503,7 +573,6 @@ button:active {
 <!-- / BOUTON RETOUR AU FORMUALIRE -->
 
 
-
 <!-- BOUTON ENREGISTRER -->
 <div class="div-bouton">
 <form method="post" action="{% url 'enregistrer_naissance' %}" id="enregistrer-form">
@@ -514,7 +583,17 @@ button:active {
 </div>
 <!-- / BOUTON ENREGISTRER -->
 
+</div>
+<!-- / TOUS LES BOUTONS-->
+<br><br>
 
+
+
+
+
+
+
+<br><br>
 
 </div>
 

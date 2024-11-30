@@ -5,156 +5,67 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Affichage de la roue astrologique</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <style>
-        /* Conteneur principal */
-        body {
-            background-color: #f9f9f9;
-            font-family: 'Arial', sans-serif;
-        }
 
-        .main-container {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            padding: 20px;
-        }
+<style>
 
-        /* Conteneur pour les champs de saisie */
-        .form-container {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            width: 100%;
-            max-width: 800px;
-            padding: 20px;
-            border: 1px solid #6A3D90;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            background-color: #fff;
-        }
+/* Conteneur principal */
+body {
+    background-color: #f9f9f9;
+    font-family: 'Arial', sans-serif;
+}
 
-        /* Champs de saisie et boutons */
-        .form-container div {
-            width: 100%;
-        }
+.main-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+}
 
-        input[type="text"],
-        input[type="date"],
-        input[type="time"] {
-            width: 100%;
-            padding: 6px;
-            border-radius: 5px;
-            border: 1px solid #6A3D90;
-            font-size: 14px;
-            box-sizing: border-box;
-            background-color: #f9f9f9;
-        }
+/* Conteneur pour la roue astrologique */
+.wheel-container {
+    width: 100%;
+    padding: 20px 0;
+    text-align: center;
+}
 
-        button {
-            grid-column: span 2;
-            padding: 8px;
-            margin-top: 5px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            background-color: #6A3D90;
-            color: white;
-			transition: background-color 0.3s ease;
-        }
+.wheel-container img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
 
-        button:hover {
-            background-color: #5a2e7c;
-			transform: scale(1.01); /* Agrandit le bouton de 5% */
 
-        }
-		
-		    /* Style pour le bouton "Enregistrer" */
-		.btn-enregistrer {
-			padding: 8px;
-			margin-top: 5px;
-			border: none;
-			border-radius: 5px;
-			cursor: pointer;
-			font-size: 16px;
-			background-color: #FFA801; /* Couleur bleue par exemple */
-			color: white;
-			transition: background-color 0.3s ease;
-		}
-	
-		.btn-enregistrer:hover {
-			background-color: #EE9F00; /* Couleur plus foncée au survol */
-			transform: scale(1.01); /* Agrandit le bouton de 5% */
-		}
-		
+/* NOM */
+.nom-du-theme {
+	color:#FA6A0A;
+}
 
-        /* Conteneur pour la roue astrologique */
-        .wheel-container {
-            width: 100%;
-            padding: 20px 0;
-            text-align: center;
-        }
-
-        .wheel-container img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .form-container {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+</style>
 </head>
 <body>
 
+
+
+<!-- ROUE -->
 <div class="main-container">
-    <h2>Calculer un nouveau thème</h2>
-    <!-- Formulaire pour les données de naissance -->
-    <form method="post" action="{% url 'birth_data' %}" class="form-container">
-        {% csrf_token %}
-        <div>
-            <label for="name">Nom:</label>
-            <input type="text" id="name" name="name" placeholder="Nom" required>
-        </div>
-<div>
-    <label for="birthdate">Date de naissance:</label>
-    <input type="date" id="birthdate" name="birthdate" required>
-</div>
 
-<div>
-    <label for="birthdate">Heure de naissance:</label>
-    <input type="time" id="birthtime" name="birthtime" required>
-</div>
-
-        <div>
-            <label for="country_of_birth">Pays de naissance:</label>
-            <input type="text" id="country_of_birth" name="country_of_birth" placeholder="Pays de naissance" required>
-        </div>
-        <div>
-            <label for="city_of_birth">Ville de naissance:</label>
-            <input type="text" id="city_of_birth" name="city_of_birth" placeholder="Ville de naissance" required>
-        </div>
-<button type="submit">Calculer</button>
-<!--  -->
-
-    </form>
-</div>
-
-<div class="main-container">
+<h2>Thème astral de : <span class="nom-du-theme">
+    {% if request.GET.name %} 
+        {{ request.GET.name }} 
+    {% else %} 
+        {{ name }} 
+    {% endif %}
+    </span>
+</h2>
     <!-- Conteneur pour la roue astrologique -->
     <div class="wheel-container">
         <img src="{% static 'images/zodiac_wheel.png' %}?{{ timestamp }}" alt="Roue astrologique">
     </div>
 </div>
+<!-- / ROUE -->
 
 
 <script>
