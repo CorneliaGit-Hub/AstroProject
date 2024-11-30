@@ -16,55 +16,8 @@
     transition: none !important; /* Supprimer les transitions */
 }
 
-/* BBOUTON THEME */
-.btn-themes {
-    background-color: #FFA801; /* Jaune */
-    color: #000; /* Texte noir */
-    font-weight: bold; /* Texte en gras */
-    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
-    width: 300px; /* Largeur fixe, ajustable */
-    padding: 12px; /* Hauteur du bouton inchangée */
-    margin: 10px auto; /* Centre horizontalement */
-    text-align: center;
-    border-radius: 5px; /* Coins arrondis */
-    font-size: 14px; /* Taille du texte */
-    cursor: pointer;
-    display: block; /* Assure le centrage dans une div */
-	text-decoration:none;
-}
 
-/* Effet hover */
-.btn-themes:hover {
-    background-color: #FFD364; /* Jaune plus clair */
-    color: #000; /* Texte violet */
-    transform: scale(1.05);
-}
-
-/* Effet active */
-.btn-themes:active {
-    background-color: #E08B00; /* Orange plus foncé */
-    transform: scale(0.95);
-}
-
-/* / BBOUTON THEME */
-
-
-
-/* Style pour le message de succès ou d'erreur */
-#message {
-    margin-top: 10px; /* Espacement avec le bouton */
-    text-align: center; /* Centrer le message */
-    font-size: 16px; /* Taille de texte lisible */
-}
-
-/* montrer que l'nregistrement est en cours */
-#spinner {
-    text-align: center;
-    margin-top: 10px;
-}
-
-
-/* Style des liens Connexion et S'inscrire */
+/* CONEXION */
 .auth-links {
 	display: flex;
 	gap: 10px;
@@ -230,11 +183,7 @@ tr:nth-child(even) {
     background-color: #f2f2f2;
 }
 
-/* BOUTON */
-.div-bouton {
-	width:60%;
-	margin: 0 auto;
-}
+
 /* TOUS LES BOUTONS  */
 .all-btn {
 	max-width: 85%;
@@ -248,6 +197,12 @@ tr:nth-child(even) {
 .all-btn:hover {
     transform: translateY(-5px); /* Déplace légèrement la div */
     background-color: #f0f0f0; /* Change la couleur d'arrière-plan */
+}
+
+/* DIV BOUTON */
+.div-bouton {
+	width:60%;
+	margin: 0 auto;
 }
 /* BOUTONS */
 button {
@@ -267,11 +222,87 @@ button {
 
 button:hover {
     background-color: #A9CE02;
-    transform: scale(1.05);
+    transform: scale(1.02);
 }
 
 button:active {
     transform: scale(0.95);
+}
+
+
+/* BBOUTON THEME */
+.btn-themes {
+    background-color: #FFA801; /* Jaune */
+    color: #000; /* Texte noir */
+    font-weight: bold; /* Texte en gras */
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+    width: 300px; /* Largeur fixe, ajustable */
+    padding: 12px; /* Hauteur du bouton inchangée */
+    margin: 10px auto; /* Centre horizontalement */
+    text-align: center;
+    border-radius: 5px; /* Coins arrondis */
+    font-size: 14px; /* Taille du texte */
+    cursor: pointer;
+    display: block; /* Assure le centrage dans une div */
+	text-decoration:none;
+}
+
+/* Effet hover */
+.btn-themes:hover {
+    background-color: #FFD364; /* Jaune plus clair */
+    color: #FFF; /* Texte violet */
+    transform: scale(1.02);
+}
+
+/* Effet active */
+.btn-themes:active {
+    background-color: #E08B00; /* Orange plus foncé */
+    transform: scale(0.95);
+}
+
+/* / BBOUTON THEME */
+
+
+
+/* BOUTON RETOUR */
+.btn-retour {
+    background-color: ##6A3D90
+; /* Vert */
+    color: white;
+}
+
+.btn-retour:hover {
+    background-color: #86699f; /* Vert plus foncé */
+	color:#FFA801;
+	transform: scale(1.02);
+}
+/*  / BOUTON RETOUR */
+
+
+
+
+/* MESSAGE D'ERREUR */
+#message {
+    margin-top: 10px; /* Espacement avec le bouton */
+    text-align: center; /* Centrer le message */
+    font-size: 16px; /* Taille de texte lisible */
+}
+
+/* SPINNERs */
+#spinner {
+    text-align: center;
+    margin-top: 10px;
+}
+
+/* BOUTON ENREGISTRER */
+.btn-enregistrer {
+    background-color: #FFA801; /* Jaune */
+    color: black;
+}
+
+.btn-enregistrer:hover {
+    background-color: #f2b744; /* Jaune plus clair */
+	color:#FFF;
 }
 
 /* LONGITUDES - LATTIDUES */
@@ -325,48 +356,7 @@ button:active {
 <!-- / ROUE ASTROLOGIQUE -->
 <br><br>
 
-<!-- TOUS LES BOUTONS-->
-<div class="all-btn">
-<!-- BOUTON LISTE DES THEMES -->
-<div class="div-bouton">
-    <a href="{% url 'liste_themes' %}" class=" btn-themes">Voir mes thèmes enregistrés</a>
-</div>
-<!-- / BOUTON LISTE DES THEMES -->
 
-
-<!-- SPINNER -->
-<div id="spinner" style="display: none; text-align: center;">
-    <img src="{% static 'images/spinner.gif' %}" alt="Chargement..." style="width: 50px; height: 50px;">
-</div>
-<!-- / SPINNER -->
-
-<!-- MESSAGE -->
-<div id="message"></div>
-<!-- / MESSAGE -->
-
-<!-- BOUTON RETOUR AU FORMUALIRE -->
-<div class="div-bouton">
-        <form method="get" action="{% url 'birth_data' %}">
-            <input type="hidden" name="reset" value="true">
-            <button type="submit">Revenir au formulaire</button>
-        </form>
-</div>
-<!-- / BOUTON RETOUR AU FORMUALIRE -->
-
-
-<!-- BOUTON ENREGISTRER -->
-<div class="div-bouton">
-<form method="post" action="{% url 'enregistrer_naissance' %}" id="enregistrer-form">
-    {% csrf_token %}
-    <button type="submit" class="btn-enregistrer" id="enregistrer">Enregistrer</button>
-</form>
-
-</div>
-<!-- / BOUTON ENREGISTRER -->
-
-</div>
-<!-- / TOUS LES BOUTONS-->
-<br><br>
 
 <!-- LONGITUDES / LATTITUDES  -->
 <div class="container">
@@ -572,7 +562,7 @@ button:active {
 <div class="div-bouton">
         <form method="get" action="{% url 'birth_data' %}">
             <input type="hidden" name="reset" value="true">
-            <button type="submit">Revenir au formulaire</button>
+            <button type="submit" class="btn-retour">Revenir au formulaire</button>
         </form>
 </div>
 <!-- / BOUTON RETOUR AU FORMUALIRE -->
