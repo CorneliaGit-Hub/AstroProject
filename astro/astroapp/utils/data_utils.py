@@ -78,6 +78,7 @@ def deserialize_wheel_data(house_results_str, aspects_str, planet_positions_str)
     
     
     
+
 def prepare_template_context(name, results, house_results, aspects, aspects_text, birth_datetime_local, birth_datetime_utc, location, latitude_dms, longitude_dms, theme_data_json):
     return {
         'name': name,
@@ -88,8 +89,8 @@ def prepare_template_context(name, results, house_results, aspects, aspects_text
         'local_day_str': birth_datetime_local.strftime("%d"),
         'local_month_str': birth_datetime_local.strftime("%B"),
         'local_year_str': birth_datetime_local.strftime("%Y"),
-        'local_time_str': birth_datetime_local.strftime("%H:%M:%S %Z%z"),
-        'utc_time_str': birth_datetime_utc.strftime("%H:%M:%S %Z%z"),
+        'local_time_str': birth_datetime_local.strftime("%H:%M:%S %Z") + birth_datetime_local.strftime("%z")[:3],
+        'utc_time_str': birth_datetime_utc.strftime("%H:%M:%S %Z") + birth_datetime_utc.strftime("%z")[:3],
         'location': location,
         'latitude_dms': latitude_dms,
         'longitude_dms': longitude_dms,
