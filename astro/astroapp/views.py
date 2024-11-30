@@ -209,19 +209,6 @@ def ouvrir_theme(request, id):
 
 
 @login_required
-def modifier_theme(request, id):
-    theme = get_object_or_404(ThemeAstrologique, id=id, utilisateur=request.user)
-    if request.method == 'POST':
-        theme.name = request.POST.get('name')
-        theme.birthdate = request.POST.get('birthdate')
-        theme.birthtime = request.POST.get('birthtime')
-        theme.country_of_birth = request.POST.get('country_of_birth')
-        theme.city_of_birth = request.POST.get('city_of_birth')
-        theme.save()
-        return redirect('liste_themes')
-    return render(request, 'modifier_theme.html', {'theme': theme})
-
-@login_required
 def supprimer_theme(request, id):
     theme = get_object_or_404(ThemeAstrologique, id=id, utilisateur=request.user)
 

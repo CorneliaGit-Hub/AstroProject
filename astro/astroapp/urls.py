@@ -13,6 +13,5 @@ urlpatterns = [
     path('birth_results/enregistrer/', views.enregistrer_naissance, name='enregistrer_naissance'),
     path('themes/', views.liste_themes, name='liste_themes'),
     path('themes/ouvrir/<int:id>/', views.ouvrir_theme, name='ouvrir_theme'),
-    path('themes/modifier/<int:id>/', views.modifier_theme, name='modifier_theme'),
     path('themes/supprimer/<int:id>/', views.supprimer_theme, name='supprimer_theme'),
 ]

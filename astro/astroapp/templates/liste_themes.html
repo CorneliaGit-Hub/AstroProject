@@ -123,7 +123,7 @@
 
     <table>
         <tr>
-            <th colspan="7">Coordonnées de naissance</th>
+            <th colspan="6">Coordonnées de naissance</th>
         </tr>
         <tr>
             <th>Nom</th>
@@ -131,7 +131,6 @@
             <th>Heure</th>
             <th>Lieu</th>
             <th>Ouvrir</th>
-            <th>Modifier</th>
             <th>Supprimer</th>
         </tr>
         {% for theme in themes %}
@@ -141,11 +140,8 @@
             <td>{{ theme.birthtime }}</td>
             <td>{{ theme.city_of_birth }}</td>
             <td>
-                <a href="{% url 'ouvrir_theme' theme.id %}">Ouvrir</a>
-            </td>
-            <td>
-                <a href="{% url 'modifier_theme' theme.id %}">Modifier</a>
-            </td>
+                <!-- Bouton Ouvrir  -->
+                <a href="{% url 'ouvrir_theme' theme.id %}">Ouvrir</a></td>
             <td>
                 <a href="{% url 'supprimer_theme' theme.id %}">Supprimer</a>
             </td>
