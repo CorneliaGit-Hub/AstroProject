@@ -113,7 +113,7 @@ button:hover {
 }
 
     .btn-themes {
-        background-color: #FFA801; /* Jaune */
+        background-color: #A9CE02; /* Jaune */
         color: #000;
         font-weight: bold;
         text-decoration: none;
@@ -129,12 +129,12 @@ button:hover {
     }
 
     .btn-themes:hover {
-        background-color: #FFD364;
+        background-color: #bfd84b;
         transform: scale(1.05);
     }
 
     .btn-themes:active {
-        background-color: #E08B00;
+        background-color: #A9CE02;
         transform: scale(0.95);
     }
 
@@ -171,8 +171,10 @@ button:hover {
 
 
 <input type="date" id="birthdate" name="birthdate" 
-       value="{{ birthdate_debug|default:'' }}" required 
-       min="1000-01-01" max="9999-12-31">
+       value="{{ birthdate_debug|default:'' }}" required>
+
+
+<p>DEBUG - Valeur pour birthdate_debug : {{ birthdate_debug }}</p>
 
 
 </div>
