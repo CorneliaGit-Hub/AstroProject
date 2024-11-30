@@ -289,6 +289,18 @@ def birth_data(request):
 
         # Créer un objet datetime pour la naissance et un timestamp
         birth_datetime, timestamp = create_birth_datetime_and_timestamp(birthdate, birthtime)
+        
+        # Vérifier si l'année est valide
+        birth_year = birth_datetime.year
+        if birth_year < 1000 or birth_year > 9999:
+            return render(request, 'birth_data_form.html', {
+                'error': 'L\'année de naissance doit être comprise entre 1000 et 9999.',
+                'name': name,
+                'birthdate': birthdate,
+                'birthtime': birthtime,
+                'country_of_birth': country_of_birth,
+                'city_of_birth': city_of_birth
+            })
 
         # Obtenir la géolocalisation et le fuseau horaire
         location, latitude, longitude, timezone_str, error = get_birth_location_data(city_of_birth, country_of_birth)
