@@ -3,6 +3,8 @@ from timezonefinder import TimezoneFinder
 from pytz import timezone
 from zoneinfo import ZoneInfo
 from datetime import datetime
+import pytz
+
 
 
 
@@ -59,6 +61,16 @@ def retrieve_timezone(latitude, longitude):
     
     
 def get_birth_location_data(city_of_birth, country_of_birth):
+    """
+    Obtenir les données de localisation et fuseau horaire d'un lieu de naissance.
+
+    Args:
+        city_of_birth (str): Nom de la ville de naissance.
+        country_of_birth (str): Nom du pays de naissance.
+
+    Returns:
+        tuple: (localisation, latitude, longitude, fuseau horaire, message d'erreur).
+    """
     # Géolocalisation du lieu de naissance
     location, error = get_location(city_of_birth, country_of_birth)
     if error:
@@ -67,16 +79,19 @@ def get_birth_location_data(city_of_birth, country_of_birth):
     
     print("Débogage : Localisation obtenue ->", location)
 
-    # Appel de la fonction pour extraire les coordonnées latitude et longitude : def extract_coordinates
+    # Appel de la fonction pour extraire les coordonnées latitude et longitude
     latitude, longitude = extract_coordinates(location)
 
-    # Appel de la fonction pour récupérer le fuseau horaire : def retrieve_timezone
-    timezone_str, error = retrieve_timezone(latitude, longitude)
+    # Appel de la fonction pour récupérer le fuseau horaire
+    timezone_str, error = determine_timezone(city_of_birth, country_of_birth, latitude, longitude)
+    if error:
+        print("Erreur lors de la détermination du fuseau horaire :", error)
+        return None, None, None, None, error
 
-    
     print("Débogage : Fuseau horaire détecté ->", timezone_str)
-    
+
     return location, latitude, longitude, timezone_str, None
+
     
     
  
@@ -94,21 +109,35 @@ def geolocate_city(city, country):
     
     
 def determine_timezone(city, country, latitude, longitude):
-    """Détermine le fuseau horaire pour une ville et un pays donnés, avec un cas particulier pour Cayenne."""
-    if city.lower() == "cayenne" and country.lower() in ["guyane française", "french guiana"]:
-        timezone_at = "Etc/GMT+3"  # UTC-3 pour Cayenne
-        print("Débogage : Fuseau horaire pour Cayenne forcé à UTC-3")
-    else:
+    """
+    Détermine le fuseau horaire pour un lieu donné.
+
+    Args:
+        city (str): Nom de la ville.
+        country (str): Nom du pays.
+        latitude (float): Latitude du lieu.
+        longitude (float): Longitude du lieu.
+
+    Returns:
+        tuple: (fuseau horaire (str), message d'erreur (None si tout va bien)).
+    """
+    try:
+        # Gestion spécifique de la Guyane française
+        if country.lower() in ["guyane française", "french guiana"]:
+            print("Débogage : Fuseau horaire pour la Guyane française détecté (UTC-3).")
+            return "Etc/GMT+3", None
+
+        # Sinon, détecter automatiquement le fuseau horaire
         tf = TimezoneFinder()
-        timezone_at = tf.timezone_at(lng=longitude, lat=latitude)
-        print(f"Debug - Fuseau horaire détecté par TimezoneFinder : {timezone_at}")
+        timezone = tf.timezone_at(lng=longitude, lat=latitude)
+        if not timezone:
+            return None, "Impossible de déterminer le fuseau horaire."
 
-    if not timezone_at:
-        error_message = "Impossible de déterminer le fuseau horaire pour ce lieu."
-        print("Erreur :", error_message)
-        return None, error_message
+        print(f"Débogage : Fuseau horaire détecté automatiquement -> {timezone}")
+        return timezone, None
+    except Exception as e:
+        return None, f"Erreur lors de la détermination du fuseau horaire : {e}"
 
-    return timezone_at, None
     
     
 
