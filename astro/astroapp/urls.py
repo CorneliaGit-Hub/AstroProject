@@ -14,4 +14,5 @@ urlpatterns = [
     path('themes/', views.liste_themes, name='liste_themes'),
     path('themes/ouvrir/<int:id>/', views.ouvrir_theme, name='ouvrir_theme'),
     path('themes/supprimer/<int:id>/', views.supprimer_theme, name='supprimer_theme'),
+    path('themes/supprimer_multiple/', views.supprimer_multiple_themes, name='supprimer_multiple_themes'),
 ]

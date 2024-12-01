@@ -227,6 +227,25 @@ def supprimer_theme(request, id):
         return JsonResponse({"success": False, "message": f"Erreur serveur : {str(e)}"}, status=500)
 
 
+from django.http import JsonResponse
+
+@login_required
+def supprimer_multiple_themes(request):
+    if request.method == "POST":
+        data = json.loads(request.body)  # Récupère les données envoyées dans la requête
+        ids = data.get("ids", [])  # Liste des IDs à supprimer
+
+        if not ids:
+            return JsonResponse({"success": False, "message": "Aucun ID fourni."})
+
+        # Vérifie et supprime les thèmes appartenant à l'utilisateur
+        themes = ThemeAstrologique.objects.filter(id__in=ids, utilisateur=request.user)
+        count = themes.count()
+        themes.delete()
+
+        return JsonResponse({"success": True, "message": f"{count} thème(s) supprimé(s) avec succès !"})
+
+    return JsonResponse({"success": False, "message": "Requête invalide."})
 
 
 

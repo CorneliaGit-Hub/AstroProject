@@ -152,8 +152,19 @@ a:hover {
 </head>
 <body>
     <h1>Vos Thèmes Astrologiques</h1>
+    
+<!-- BOUTON SUPPRESSION -->
+<div style="text-align: center; margin-top: 20px;">
+    <button id="deleteSelected" style="background-color: #F9074C; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">
+        Supprimer les thèmes sélectionnés
+    </button>
+</div>
+<!-- / BOUTON SUPPRESSION -->
+
+<br>
 
 <!-- TABLE -->
+<div>
 <table>
     <tr>
         <th colspan="7">Coordonnées de naissance</th>
@@ -192,6 +203,7 @@ a:hover {
     </tr>
     {% endfor %}
 </table>
+</div>
 <!-- / TABLE -->
 
 
@@ -218,7 +230,9 @@ a:hover {
 
 
 <!-- BOUTON RETOUR -->
+<div>
 <a href="{% url 'birth_data' %}" class="btn-retour-formulaire">Revenir au formulaire</a>
+</div>
 <!-- / BOUTON RETOUR -->
 
 
@@ -229,6 +243,10 @@ a:hover {
 <!-- CASE A COCHER -->
 <script src="{% static 'js/checkbox_manager.js' %}"></script>
 <!-- / CASE A COCHER -->
+
+<!-- SUPPRIMER LES THEMES -->
+<script src="{% static 'js/delete_multiple_themes.js' %}"></script>
+<!-- SUPPRIMER LES THEMES -->
 
 </body>
 </html>
