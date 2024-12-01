@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -182,15 +184,23 @@ a:hover {
     </table>
 <!-- / TABLE -->   
 
-
+<!-- CSRF Token -->
+<input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+<!-- / CSRF Token -->
+    
 <!-- AARRIERE PLAN TRANSPARENT -->
 <div id="modalOverlay"></div>
 <!-- / AARRIERE PLAN TRANSPARENT -->
 
 <!-- FENETRE MODALE -->
-<div id="deleteModal" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 300px; padding: 20px; background-color: white; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); text-align: center; border-radius: 10px;">
+<div id="deleteModal" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 300px; padding: 20px; background-color: white; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); text-align: center; border-radius: 10px; z-index: 1000;">
+
     <p>Voulez-vous vraiment supprimer ce thème ?</p>
+    <!-- CONFIRMER -->
     <button id="confirmDelete" style="background-color: red; color: white; padding: 10px; border: none; border-radius: 5px;">Confirmer</button>
+
+
+	<!-- ANULLER -->
     <button id="cancelDelete" style="background-color: gray; color: white; padding: 10px; border: none; border-radius: 5px;">Annuler</button>
 </div>
 <!-- / FENETRE MODALE -->
@@ -202,58 +212,7 @@ a:hover {
 
 
 <!-- CONFIRMER SUPPRESSION -->
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        let deleteModal = document.getElementById("deleteModal");
-        let confirmDeleteButton = document.getElementById("confirmDelete");
-        let cancelDeleteButton = document.getElementById("cancelDelete");
-        let currentThemeId = null;
-
-        // Cible tous les boutons "Supprimer"
-        document.querySelectorAll(".delete-btn").forEach(function(deleteButton) {
-            deleteButton.addEventListener("click", function(event) {
-                event.preventDefault(); // Empêche toute redirection
-                currentThemeId = this.getAttribute("data-id"); // Récupère l'ID depuis data-id
-                deleteModal.style.display = "block"; // Affiche la modale
-                document.getElementById("modalOverlay").style.display = "block"; // Affiche l'arrière-plan
-            });
-        });
-
-        // Bouton "Confirmer"
-        confirmDeleteButton.addEventListener("click", function() {
-            if (currentThemeId) {
-                fetch(`/themes/supprimer/${currentThemeId}/`, {
-                    method: "POST",
-                    headers: {
-                        "X-CSRFToken": document.querySelector('[name=csrfmiddlewaretoken]').value
-                    }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        // Supprime la ligne du tableau sans recharger la page
-                        document.querySelector(`a[data-id='${currentThemeId}']`).closest("tr").remove();
-                    } else {
-                        alert("Erreur : " + data.message);
-                    }
-                    deleteModal.style.display = "none"; // Ferme la modale
-                    document.getElementById("modalOverlay").style.display = "none"; // Ferme l'arrière-plan
-                })
-                .catch(error => {
-                    alert("Erreur réseau : " + error);
-                    deleteModal.style.display = "none"; // Ferme la modale
-                    document.getElementById("modalOverlay").style.display = "none"; // Ferme l'arrière-plan
-                });
-            }
-        });
-
-        // Bouton "Annuler"
-        cancelDeleteButton.addEventListener("click", function() {
-            deleteModal.style.display = "none"; // Ferme la modale
-            document.getElementById("modalOverlay").style.display = "none"; // Ferme l'arrière-plan
-        });
-    });
-</script>
+<script src="{% static 'js/delete_theme.js' %}"></script>
 <!-- / CONFIRMER SUPPRESSION -->
 
 
