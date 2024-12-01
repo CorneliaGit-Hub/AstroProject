@@ -154,35 +154,46 @@ a:hover {
     <h1>Vos Thèmes Astrologiques</h1>
 
 <!-- TABLE -->
-    <table>
-        <tr>
-            <th colspan="6">Coordonnées de naissance</th>
-        </tr>
-        <tr>
-            <th>Nom</th>
-            <th>Date</th>
-            <th>Heure</th>
-            <th>Lieu</th>
-            <th>Ouvrir</th>
-            <th>Supprimer</th>
-        </tr>
-        {% for theme in themes %}
-        <tr>
-            <td>{{ theme.name }}</td>
-            <td>{{ theme.birthdate }}</td>
-            <td>{{ theme.birthtime }}</td>
-            <td>{{ theme.city_of_birth }}</td>
-            <td>
-                <!-- Bouton Ouvrir  -->
-                <a href="{% url 'ouvrir_theme' theme.id %}">Ouvrir</a></td>
-            <td>
-                <a href="#" data-id="{{ theme.id }}" class="delete-btn">Supprimer</a>
+<table>
+    <tr>
+        <th colspan="7">Coordonnées de naissance</th>
+    </tr>
+    <tr>
+        <th>Nom</th>
+        <th>Date</th>
+        <th>Heure</th>
+        <th>Lieu</th>
+        <th>Ouvrir</th>
+        <!-- Colonne "Sélectionner" -->
+        <th>
+            <input type="checkbox" id="selectAll" />
+        </th>
+        <!-- Colonne "Supprimer" -->
+        <th>Supprimer</th>
+    </tr>
+    {% for theme in themes %}
+    <tr>
+        <td>{{ theme.name }}</td>
+        <td>{{ theme.birthdate }}</td>
+        <td>{{ theme.birthtime }}</td>
+        <td>{{ theme.city_of_birth }}</td>
+        <!-- Bouton Ouvrir -->
+        <td>
+            <a href="{% url 'ouvrir_theme' theme.id %}">Ouvrir</a>
+        </td>
+        <!-- Case à cocher individuelle -->
+        <td>
+            <input type="checkbox" class="theme-checkbox" data-id="{{ theme.id }}" />
+        </td>
+        <!-- Bouton Supprimer -->
+        <td>
+            <a href="#" data-id="{{ theme.id }}" class="delete-btn">Supprimer</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+<!-- / TABLE -->
 
-            </td>
-        </tr>
-        {% endfor %}
-    </table>
-<!-- / TABLE -->   
 
 <!-- CSRF Token -->
 <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
@@ -215,6 +226,9 @@ a:hover {
 <script src="{% static 'js/delete_theme.js' %}"></script>
 <!-- / CONFIRMER SUPPRESSION -->
 
+<!-- CASE A COCHER -->
+<script src="{% static 'js/checkbox_manager.js' %}"></script>
+<!-- / CASE A COCHER -->
 
 </body>
 </html>
