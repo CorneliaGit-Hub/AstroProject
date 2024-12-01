@@ -1,5 +1,4 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -71,7 +70,32 @@ a:hover {
 	transform: scale(1.1);
 }
 
-/* Bouton retour */
+/* TOUS LES BOUTONS */
+/* BOUTON TOUT SELECTIONNER */
+button#deleteSelected {
+    background-color: #FA6A0A; /* Rouge vif */
+    color: white; /* Texte blanc */
+    padding: 10px 20px; /* Espacement intérieur */
+    border: none; /* Supprime les bordures */
+    border-radius: 5px; /* Coins arrondis */
+    cursor: pointer; /* Curseur en main */
+    font-size: 16px; /* Taille de la police */
+    font-weight: bold; /* Texte en gras */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ombre légère */
+    transition: all 0.3s ease; /* Animation douce */
+}
+
+/* Effet au survol */
+button#deleteSelected:hover {
+    background-color: #FFA801; /* Orange vif */
+    color: #FFFFFF; /* Texte blanc */
+    transform: scale(1.05); /* Légèrement agrandi */
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* Ombre plus prononcée */
+}
+/* / BOUTON TOUT SELECTIONNER */
+
+
+/* BOUTON RETOUR */
 .btn-retour {
 	display: block;
 	width: 200px;
@@ -118,7 +142,10 @@ a:hover {
 	background-color: #E08B00;
 	transform: scale(0.95);
 }
-/* Style pour la modale */
+/* / BOUTON RETOUR */
+
+
+/* DENETRE MODALE */
 #deleteModal {
     display: none;
     position: fixed;
@@ -145,21 +172,25 @@ a:hover {
     background-color: rgba(0, 0, 0, 0.5); /* Couleur avec transparence */
     z-index: 999; /* Couche sous la modale */
 }
-
-}
+/* / DENETRE MODALE */
 
 </style>
+
+
+
 </head>
+
 <body>
     <h1>Vos Thèmes Astrologiques</h1>
     
 <!-- BOUTON SUPPRESSION -->
 <div id="deleteButtonContainer" style="text-align: center; margin-top: 20px; display: none;">
-    <button id="deleteSelected" style="background-color: #F9074C; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">
+    <button id="deleteSelected">
         Supprimer les thèmes sélectionnés
     </button>
 </div>
 <!-- / BOUTON SUPPRESSION -->
+
 
 
 <br>
