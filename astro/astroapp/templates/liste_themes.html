@@ -196,11 +196,24 @@ button#deleteSelected:hover {
 }
 /* / DENETRE MODALE */
 
+/* TRI */
+.div-tri {
+	text-align:center;
+}
+
+.tri-options a.active {
+    font-weight: bold;
+    text-decoration: underline;
+	text-align:center;
+}
+/* / TRI */
+
 </style>
 
 
 
 </head>
+
 
 <body>
 
@@ -228,6 +241,20 @@ button#deleteSelected:hover {
 
 <br>
 
+<!-- TRI -->
+<div class="div-tri">
+<div class="tri-options">
+    <strong>Trier par :</strong>
+    <a href="?sort=-date_de_creation" {% if current_sort == '-date_de_creation' %}class="active"{% endif %}>Date (descendant)</a> |
+    <a href="?sort=date_de_creation" {% if current_sort == 'date_de_creation' %}class="active"{% endif %}>Date (ascendant)</a> |
+    <a href="?sort=name" {% if current_sort == 'name' %}class="active"{% endif %}>Nom (A-Z)</a> |
+    <a href="?sort=-name" {% if current_sort == '-name' %}class="active"{% endif %}>Nom (Z-A)</a>
+</div>
+</div>
+<!-- / TRI -->
+
+
+<br>
 <!-- TABLE -->
 <div>
 <table>

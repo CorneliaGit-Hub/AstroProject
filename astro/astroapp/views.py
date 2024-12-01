@@ -8,6 +8,7 @@ import json
 
 from .forms import BirthDataForm
 
+
 # Imports tiers
 import pytz
 import swisseph as swe
@@ -27,6 +28,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from django.utils.timezone import now
+from django.db.models import F  # Import pour la gestion dynamique des champs
 
 # Imports internes
 from .models import ThemeAstrologique
@@ -171,11 +173,20 @@ def deconnexion(request):
 # THEMES
 @login_required
 def liste_themes(request):
-    if not request.user.is_authenticated:
-        return redirect('connexion')  # Redirection si l'utilisateur n'est pas connecté
+    # Récupérer le critère de tri depuis l'URL (par défaut : tri décroissant par date)
+    sort = request.GET.get('sort', '-date_de_creation')
+
+    # Limiter les options de tri aux champs autorisés (ascendants et descendants)
+    allowed_sorts = ['name', 'date_de_creation', '-date_de_creation', '-name']
+    if sort not in allowed_sorts:
+        sort = '-date_de_creation'  # Revenir au tri par défaut si le paramètre est invalide
+
+    # Trier les thèmes de l'utilisateur connecté
+    themes = ThemeAstrologique.objects.filter(utilisateur=request.user).order_by(sort)
     
-    themes = ThemeAstrologique.objects.filter(utilisateur=request.user).order_by('-id')
-    return render(request, 'liste_themes.html', {'themes': themes})
+    return render(request, 'liste_themes.html', {'themes': themes, 'current_sort': sort})
+
+
 
     
 @login_required
