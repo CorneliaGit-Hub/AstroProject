@@ -1,59 +1,65 @@
 document.addEventListener("DOMContentLoaded", function () {
-    console.log("Gestion de la suppression multiple initialisée.");
+    console.log("DOM chargé, initialisation du script de suppression multiple.");
 
-    const deleteSelectedButton = document.getElementById("deleteSelected");
+    const deleteButton = document.getElementById("deleteSelected");
     const themeCheckboxes = document.querySelectorAll(".theme-checkbox");
 
-    deleteSelectedButton.addEventListener("click", function () {
+    if (!deleteButton || themeCheckboxes.length === 0) {
+        console.error("Bouton de suppression ou cases à cocher non trouvés !");
+        return;
+    }
+
+    deleteButton.addEventListener("click", function () {
         console.log("Bouton 'Supprimer les thèmes sélectionnés' cliqué.");
 
-        // Récupérer les IDs des thèmes sélectionnés
+        // Récupère les IDs des cases cochées
         const selectedIds = Array.from(themeCheckboxes)
             .filter(checkbox => checkbox.checked)
             .map(checkbox => checkbox.dataset.id);
 
-        console.log("IDs des thèmes sélectionnés :", selectedIds);
+        const uniqueIds = [...new Set(selectedIds)]; // Supprime les doublons
+        console.log("IDs uniques sélectionnés :", uniqueIds);
 
-        if (selectedIds.length === 0) {
-            alert("Aucun thème sélectionné.");
+        if (uniqueIds.length === 0) {
+            alert("Aucun thème sélectionné !");
             return;
         }
 
-        // Confirmation
-        if (!confirm("Êtes-vous sûr de vouloir supprimer les thèmes sélectionnés ?")) {
-            return;
-        }
-
-        // Effectuer une requête POST pour supprimer les thèmes
-        fetch(`/themes/supprimer_multiple/`, {
+        // Envoie la requête au serveur
+        fetch("/themes/supprimer_multiple/", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "X-CSRFToken": document.querySelector('[name=csrfmiddlewaretoken]').value
+                "X-CSRFToken": document.querySelector('[name=csrfmiddlewaretoken]').value,
             },
-            body: JSON.stringify({ ids: selectedIds })
+            body: JSON.stringify({ ids: uniqueIds }),
         })
-        .then(response => response.json())
-        .then(data => {
-            console.log("Réponse JSON reçue :", data);
-
-            if (data.success) {
-                alert("Thèmes supprimés avec succès !");
-                // Supprime les lignes du tableau
-                selectedIds.forEach(id => {
-                    const row = document.querySelector(`.theme-checkbox[data-id="${id}"]`).closest("tr");
-                    if (row) {
-                        row.remove();
-                        console.log("Ligne supprimée pour l'ID :", id);
-                    }
-                });
-            } else {
-                alert("Erreur lors de la suppression : " + data.message);
-            }
-        })
-        .catch(error => {
-            console.error("Erreur réseau :", error);
-            alert("Erreur réseau lors de la suppression.");
-        });
+            .then(response => {
+                console.log("Réponse brute du serveur :", response);
+                if (!response.ok) {
+                    throw new Error("Erreur réseau !");
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log("Réponse JSON du serveur :", data);
+                if (data.success) {
+                    alert(data.message);
+                    // Supprime les lignes du tableau sans recharger la page
+                    uniqueIds.forEach(id => {
+                        const row = document.querySelector(`.theme-checkbox[data-id='${id}']`).closest("tr");
+                        if (row) {
+                            row.remove();
+                            console.log(`Ligne avec ID ${id} supprimée.`);
+                        }
+                    });
+                } else {
+                    alert("Erreur : " + data.message);
+                }
+            })
+            .catch(error => {
+                console.error("Erreur lors de la requête :", error);
+                alert("Erreur réseau lors de la suppression.");
+            });
     });
 });

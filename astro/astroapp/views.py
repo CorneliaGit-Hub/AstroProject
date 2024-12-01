@@ -227,25 +227,40 @@ def supprimer_theme(request, id):
         return JsonResponse({"success": False, "message": f"Erreur serveur : {str(e)}"}, status=500)
 
 
-from django.http import JsonResponse
+
 
 @login_required
 def supprimer_multiple_themes(request):
     if request.method == "POST":
-        data = json.loads(request.body)  # Récupère les données envoyées dans la requête
-        ids = data.get("ids", [])  # Liste des IDs à supprimer
+        try:
+            data = json.loads(request.body)  # Récupère les données envoyées dans la requête
+            ids = data.get("ids", [])  # Liste des IDs à supprimer
 
-        if not ids:
-            return JsonResponse({"success": False, "message": "Aucun ID fourni."})
+            print(f"IDs reçus pour suppression : {ids}")  # Debugging
+            print(f"Utilisateur actuel : {request.user}")  # Debugging
 
-        # Vérifie et supprime les thèmes appartenant à l'utilisateur
-        themes = ThemeAstrologique.objects.filter(id__in=ids, utilisateur=request.user)
-        count = themes.count()
-        themes.delete()
+            if not ids:
+                return JsonResponse({"success": False, "message": "Aucun ID fourni."})
 
-        return JsonResponse({"success": True, "message": f"{count} thème(s) supprimé(s) avec succès !"})
+            # Vérifie et supprime les thèmes appartenant à l'utilisateur
+            themes = ThemeAstrologique.objects.filter(id__in=ids, utilisateur=request.user)
+            print(f"Thèmes trouvés pour suppression : {[theme.name for theme in themes]}")  # Debugging
+            count = themes.count()
+            themes.delete()
+            print(f"{count} thème(s) supprimé(s).")  # Debugging
+
+            return JsonResponse({"success": True, "message": f"{count} thème(s) supprimé(s) avec succès !"})
+
+        except Exception as e:
+            print(f"Erreur lors de la suppression : {e}")  # Debugging
+            return JsonResponse({"success": False, "message": f"Erreur : {str(e)}"})
 
     return JsonResponse({"success": False, "message": "Requête invalide."})
+
+
+
+
+
 
 
 
