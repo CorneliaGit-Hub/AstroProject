@@ -212,10 +212,18 @@ def ouvrir_theme(request, id):
 def supprimer_theme(request, id):
     theme = get_object_or_404(ThemeAstrologique, id=id, utilisateur=request.user)
 
+    # Vérifie si la requête est POST
     if request.method == 'POST':
         theme.delete()
-        return redirect('liste_themes')  # Redirection après suppression
 
+        # Vérifie si la requête est AJAX
+        if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+            return JsonResponse({"success": True, "message": "Thème supprimé avec succès !"})
+
+        # Redirection classique si la requête n'est pas AJAX
+        return redirect('liste_themes')
+
+    # Affiche une page de confirmation si ce n'est pas une requête POST
     return render(request, 'supprimer_theme.html', {'theme': theme})
 
 

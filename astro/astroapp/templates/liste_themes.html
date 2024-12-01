@@ -1,126 +1,157 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <title>Liste des Thèmes</title>
-    <style>
-        /* Style général */
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #f9f9f9;
-        }
+<meta charset="UTF-8">
+<title>Liste des Thèmes</title>
+<style>
+/* Style général */
+body {
+	font-family: 'Arial', sans-serif;
+	margin: 0;
+	padding: 20px;
+	background-color: #f9f9f9;
+}
 
-        h1 {
-            text-align: center;
-            color: #6A3D90;
-            font-size: 28px;
-            margin-bottom: 20px;
-        }
+h1 {
+	text-align: center;
+	color: #6A3D90;
+	font-size: 28px;
+	margin-bottom: 20px;
+}
 
-        /* Style du tableau */
-        table {
-            width: 80%;
-            margin: 0 auto;
-            border-collapse: collapse;
-            background-color: #fff;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-        }
+/* Style du tableau */
+table {
+	width: 80%;
+	margin: 0 auto;
+	border-collapse: collapse;
+	background-color: #fff;
+	border-radius: 10px;
+	overflow: hidden;
+	box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
 
-        th, td {
-            padding: 12px 15px;
-            text-align: center;
-            border: 1px solid #ddd;
-        }
+th, td {
+	padding: 12px 15px;
+	text-align: center;
+	border: 1px solid #ddd;
+}
 
-        th {
-            background-color: #6A3D90;
-            color: white;
-            font-size: 16px;
-            font-weight: bold;
-        }
+th {
+	background-color: #6A3D90;
+	color: white;
+	font-size: 16px;
+	font-weight: bold;
+}
 
-        tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
+tr:nth-child(even) {
+	background-color: #f2f2f2;
+}
 
-        tr:hover {
-            background-color: #FFD364; /* Survol des lignes */
-        }
+tr:hover {
+	background-color: #FFD364; /* Survol des lignes */
+}
 
-        td {
-            font-size: 14px;
-            color: #333;
-        }
+td {
+	font-size: 14px;
+	color: #333;
+}
 
-        /* Style des liens */
-        a {
-            color: #6A3D90;
-            font-weight: bold;
-            text-decoration: none;
-            transition: color 0.3s ease, transform 0.2s ease;
-        }
+/* Style des liens */
+a {
+	color: #6A3D90;
+	font-weight: bold;
+	text-decoration: none;
+	transition: color 0.3s ease, transform 0.2s ease;
+}
 
-        a:hover {
-            color: #A9CE02; /* Vert clair au survol */
-            transform: scale(1.1);
-        }
+a:hover {
+	color: #A9CE02; /* Vert clair au survol */
+	transform: scale(1.1);
+}
 
-        /* Bouton retour */
-        .btn-retour {
-            display: block;
-            width: 200px;
-            margin: 20px auto;
-            padding: 10px 20px;
-            background-color: #6A3D90;
-            color: white;
-            text-align: center;
-            text-decoration: none;
-            font-weight: bold;
-            border-radius: 5px;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-        }
+/* Bouton retour */
+.btn-retour {
+	display: block;
+	width: 200px;
+	margin: 20px auto;
+	padding: 10px 20px;
+	background-color: #6A3D90;
+	color: white;
+	text-align: center;
+	text-decoration: none;
+	font-weight: bold;
+	border-radius: 5px;
+	transition: background-color 0.3s ease, transform 0.2s ease;
+}
 
-        .btn-retour:hover {
-            background-color: #A9CE02;
-			color:#000;
-            transform: scale(1.05);
-        }
+.btn-retour:hover {
+	background-color: #A9CE02;
+	color:#000;
+	transform: scale(1.05);
+}
 
-        /* Style unique pour le bouton en bas de page */
-        .btn-retour-formulaire {
-            display: block;
-            width: 80%;
-            margin: 20px auto;
-            padding: 15px 0;
-            background-color: #6A3D90;
-            color: white;
-            text-align: center;
-            text-decoration: none;
-            font-weight: bold;
-            border-radius: 8px;
-            font-size: 18px;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-        }
+/* Style unique pour le bouton en bas de page */
+.btn-retour-formulaire {
+	display: block;
+	width: 80%;
+	margin: 20px auto;
+	padding: 15px 0;
+	background-color: #6A3D90;
+	color: white;
+	text-align: center;
+	text-decoration: none;
+	font-weight: bold;
+	border-radius: 8px;
+	font-size: 18px;
+	transition: background-color 0.3s ease, transform 0.2s ease;
+}
 
-        .btn-retour-formulaire:hover {
-            background-color: #A9CE02;
-            color: #000;
-            transform: scale(1.02);
-        }
+.btn-retour-formulaire:hover {
+	background-color: #A9CE02;
+	color: #000;
+	transform: scale(1.02);
+}
 
-        .btn-retour-formulaire:active {
-            background-color: #E08B00;
-            transform: scale(0.95);
-        }
-    </style>
+.btn-retour-formulaire:active {
+	background-color: #E08B00;
+	transform: scale(0.95);
+}
+/* Style pour la modale */
+#deleteModal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    border-radius: 10px;
+    z-index: 1000;
+}
+
+/* Superposition pour obscurcir l'arrière-plan */
+#modalOverlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw; /* Largeur complète de la fenêtre */
+    height: 100vh; /* Hauteur complète de la fenêtre */
+    background-color: rgba(0, 0, 0, 0.5); /* Couleur avec transparence */
+    z-index: 999; /* Couche sous la modale */
+}
+
+}
+
+</style>
 </head>
 <body>
     <h1>Vos Thèmes Astrologiques</h1>
 
+<!-- TABLE -->
     <table>
         <tr>
             <th colspan="6">Coordonnées de naissance</th>
@@ -143,12 +174,89 @@
                 <!-- Bouton Ouvrir  -->
                 <a href="{% url 'ouvrir_theme' theme.id %}">Ouvrir</a></td>
             <td>
-                <a href="{% url 'supprimer_theme' theme.id %}">Supprimer</a>
+                <a href="#" data-id="{{ theme.id }}" class="delete-btn">Supprimer</a>
+
             </td>
         </tr>
         {% endfor %}
     </table>
+<!-- / TABLE -->   
 
-    <a href="{% url 'birth_data' %}" class="btn-retour-formulaire">Revenir au formulaire</a>
+
+<!-- AARRIERE PLAN TRANSPARENT -->
+<div id="modalOverlay"></div>
+<!-- / AARRIERE PLAN TRANSPARENT -->
+
+<!-- FENETRE MODALE -->
+<div id="deleteModal" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 300px; padding: 20px; background-color: white; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); text-align: center; border-radius: 10px;">
+    <p>Voulez-vous vraiment supprimer ce thème ?</p>
+    <button id="confirmDelete" style="background-color: red; color: white; padding: 10px; border: none; border-radius: 5px;">Confirmer</button>
+    <button id="cancelDelete" style="background-color: gray; color: white; padding: 10px; border: none; border-radius: 5px;">Annuler</button>
+</div>
+<!-- / FENETRE MODALE -->
+
+
+<!-- BOUTON RETOUR -->
+<a href="{% url 'birth_data' %}" class="btn-retour-formulaire">Revenir au formulaire</a>
+<!-- / BOUTON RETOUR -->
+
+
+<!-- CONFIRMER SUPPRESSION -->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        let deleteModal = document.getElementById("deleteModal");
+        let confirmDeleteButton = document.getElementById("confirmDelete");
+        let cancelDeleteButton = document.getElementById("cancelDelete");
+        let currentThemeId = null;
+
+        // Cible tous les boutons "Supprimer"
+        document.querySelectorAll(".delete-btn").forEach(function(deleteButton) {
+            deleteButton.addEventListener("click", function(event) {
+                event.preventDefault(); // Empêche toute redirection
+                currentThemeId = this.getAttribute("data-id"); // Récupère l'ID depuis data-id
+                deleteModal.style.display = "block"; // Affiche la modale
+                document.getElementById("modalOverlay").style.display = "block"; // Affiche l'arrière-plan
+            });
+        });
+
+        // Bouton "Confirmer"
+        confirmDeleteButton.addEventListener("click", function() {
+            if (currentThemeId) {
+                fetch(`/themes/supprimer/${currentThemeId}/`, {
+                    method: "POST",
+                    headers: {
+                        "X-CSRFToken": document.querySelector('[name=csrfmiddlewaretoken]').value
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Supprime la ligne du tableau sans recharger la page
+                        document.querySelector(`a[data-id='${currentThemeId}']`).closest("tr").remove();
+                    } else {
+                        alert("Erreur : " + data.message);
+                    }
+                    deleteModal.style.display = "none"; // Ferme la modale
+                    document.getElementById("modalOverlay").style.display = "none"; // Ferme l'arrière-plan
+                })
+                .catch(error => {
+                    alert("Erreur réseau : " + error);
+                    deleteModal.style.display = "none"; // Ferme la modale
+                    document.getElementById("modalOverlay").style.display = "none"; // Ferme l'arrière-plan
+                });
+            }
+        });
+
+        // Bouton "Annuler"
+        cancelDeleteButton.addEventListener("click", function() {
+            deleteModal.style.display = "none"; // Ferme la modale
+            document.getElementById("modalOverlay").style.display = "none"; // Ferme l'arrière-plan
+        });
+    });
+</script>
+<!-- / CONFIRMER SUPPRESSION -->
+
+
 </body>
 </html>
+
