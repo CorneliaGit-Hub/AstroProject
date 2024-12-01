@@ -5,6 +5,28 @@
 <meta charset="UTF-8">
 <title>Liste des Thèmes</title>
 <style>
+/* CONEXION */
+.auth-links {
+	display: flex;
+	gap: 10px;
+	margin-top: 20px; /* Marge supérieure pour éloigner des autres éléments */
+	margin-bottom: 20px; 
+	justify-content: flex-end; /* Aligne les liens à droite */
+}
+
+.auth-links a {
+	background-color: #6A3D90; /* Couleur violette */
+	color: white;
+	padding: 8px 16px;
+	border-radius: 5px;
+	text-decoration: none;
+	font-weight: bold;
+	transition: background-color 0.3s ease;
+}
+
+.auth-links a:hover {
+	background-color: #A9CE02; /* Couleur verte au survol */
+}
 /* Style général */
 body {
 	font-family: 'Arial', sans-serif;
@@ -181,6 +203,17 @@ button#deleteSelected:hover {
 </head>
 
 <body>
+
+<!-- CONNEXION -->
+<div class="auth-links">
+    {% if user.is_authenticated %}
+        <a href="{% url 'deconnexion' %}">Déconnexion</a>
+    {% else %}
+        <a href="{% url 'connexion' %}">Connexion</a>
+        <a href="{% url 'inscription' %}">S'inscrire</a>
+    {% endif %}
+</div>
+<!-- / CONNEXION -->
     <h1>Vos Thèmes Astrologiques</h1>
     
 <!-- BOUTON SUPPRESSION -->
