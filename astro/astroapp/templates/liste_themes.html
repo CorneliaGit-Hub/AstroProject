@@ -154,12 +154,13 @@ a:hover {
     <h1>Vos Thèmes Astrologiques</h1>
     
 <!-- BOUTON SUPPRESSION -->
-<div style="text-align: center; margin-top: 20px;">
+<div id="deleteButtonContainer" style="text-align: center; margin-top: 20px; display: none;">
     <button id="deleteSelected" style="background-color: #F9074C; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">
         Supprimer les thèmes sélectionnés
     </button>
 </div>
 <!-- / BOUTON SUPPRESSION -->
+
 
 <br>
 
@@ -194,7 +195,8 @@ a:hover {
         </td>
         <!-- Case à cocher individuelle -->
         <td>
-            <input type="checkbox" class="theme-checkbox" data-id="{{ theme.id }}" />
+            <input type="checkbox" class="theme-checkbox" data-id="1" />
+
         </td>
         <!-- Bouton Supprimer -->
         <td>
@@ -239,6 +241,10 @@ a:hover {
 <!-- CONFIRMER SUPPRESSION -->
 <script src="{% static 'js/delete_theme.js' %}"></script>
 <!-- / CONFIRMER SUPPRESSION -->
+
+<!-- TOGGLE DELETE BUTTON -->
+<script src="{% static 'js/toggle_delete_button.js' %}"></script>
+<!-- / TOGGLE DELETE BUTTON -->
 
 <!-- CASE A COCHER -->
 <script src="{% static 'js/checkbox_manager.js' %}"></script>
