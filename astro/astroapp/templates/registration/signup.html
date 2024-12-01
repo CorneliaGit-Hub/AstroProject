@@ -1,17 +1,208 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inscription</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inscription</title>
+<style>
+/* Style général */
+body {
+font-family: 'Arial', sans-serif;
+background-color: #f9f9f9;
+margin: 0;
+padding: 0;
+display: flex;
+justify-content: center;
+align-items: center;
+min-height: 100vh;
+}
+
+/* Conteneur principal */
+.form-container {
+background-color: #ffffff;
+padding: 40px;
+border-radius: 10px;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+width: 60%;
+max-width: 800px;
+text-align: center;
+}
+
+h2 {
+color: #6A3D90;
+margin-bottom: 20px;
+}
+
+form {
+display: flex;
+flex-direction: column;
+gap: 20px;
+align-items: center;
+}
+
+label {
+font-size: 16px;
+color: #333;
+font-weight: bold;
+text-align: left;
+width: 100%;
+}
+
+/* Champ texte */
+input[type="text"] {
+padding: 12px;
+font-size: 16px;
+border: 1px solid #ddd;
+border-radius: 5px;
+width: 100%;
+box-sizing: border-box;
+}
+
+/* Champ mot de passe */
+input[type="password"] {
+padding: 12px;
+font-size: 16px;
+border: 1px solid #ddd;
+border-radius: 5px;
+width: 100%;
+box-sizing: border-box;
+}
+
+/* Champ email (si utilisé dans un autre formulaire) */
+input[type="email"] {
+padding: 12px;
+font-size: 16px;
+border: 1px solid #ddd;
+border-radius: 5px;
+width: 100%;
+box-sizing: border-box;
+}
+
+input[type="text"],
+input[type="password"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+
+input:focus {
+border-color: #6A3D90;
+box-shadow: 0 0 5px rgba(106, 61, 144, 0.3);
+outline: none;
+}
+
+ul {
+text-align: left;
+font-size: 14px;
+color: #666;
+margin: 10px 0 0;
+padding-left: 20px;
+line-height: 1.5;
+}
+
+ul li {
+margin-bottom: 5px;
+}
+
+button {
+background-color: #6A3D90;
+color: white;
+font-size: 16px;
+font-weight: bold;
+padding: 12px 20px;
+border: none;
+border-radius: 5px;
+cursor: pointer;
+transition: all 0.3s ease;
+width: 100%;
+max-width: 200px;
+}
+
+button:hover {
+background-color: #A9CE02;
+transform: scale(1.05);
+}
+
+p {
+margin-top: 20px;
+color: #555;
+}
+
+p a {
+color: #6A3D90;
+text-decoration: none;
+font-weight: bold;
+}
+
+p a:hover {
+color: #A9CE02;
+}
+
+.errorlist {
+color: #FF0000;
+font-size: 14px;
+text-align: left;
+margin: -10px 0 10px;
+padding-left: 10px;
+}
+
+.div-form {
+	width:85%;
+	margin:auto;
+}
+
+.div-form-content {
+	width:85%;
+	margin:auto;
+}
+</style>
+
 </head>
+
 <body>
+
+<div class="form-container">
+
     <h2>Inscription</h2>
-    <form method="post">
+
+<!-- FORMULAIRE -->   
+<div class="div-form">
+<div class="div-form-content">
+<form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
+        <!-- Nom d'utilisateur -->
+        <div>
+            <label for="id_username">Nom d'utilisateur :</label>
+            <input type="text" id="id_username" name="username" required>
+            <p class="help-text">Requis. 150 caractères maximum. Uniquement des lettres, chiffres et caractères spéciaux (@ . + - _).</p>
+        </div>
+        <!-- Mot de passe -->
+        <div>
+            <label for="id_password1">Mot de passe :</label>
+            <input type="password" id="id_password1" name="password1" required>
+            <ul>
+                <li>Votre mot de passe ne peut pas trop ressembler à vos autres informations personnelles.</li>
+                <li>Votre mot de passe doit contenir au minimum 8 caractères.</li>
+                <li>Votre mot de passe ne peut pas être un mot de passe couramment utilisé.</li>
+                <li>Votre mot de passe ne peut pas être entièrement numérique.</li>
+            </ul>
+        </div>
+        <!-- Confirmation du mot de passe -->
+        <div>
+            <label for="id_password2">Confirmation du mot de passe :</label>
+            <input type="password" id="id_password2" name="password2" required>
+            <p class="help-text">Saisissez à nouveau le même mot de passe pour vérification.</p>
+        </div>
+        <!-- Bouton S'inscrire -->
         <button type="submit">S'inscrire</button>
     </form>
+</div>
+</div>
+<!-- / FORMULAIRE -->   
+    
+    <!-- Lien Connexion -->
     <p>Déjà inscrit ? <a href="{% url 'connexion' %}">Connexion</a></p>
+</div>
 </body>
 </html>
