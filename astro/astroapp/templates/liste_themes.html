@@ -208,6 +208,49 @@ button#deleteSelected:hover {
 }
 /* / TRI */
 
+
+/* PAGINATION */
+.pagination {
+    display: flex;
+    justify-content: center; /* Centre les liens horizontalement */
+    align-items: center; /* Centre les liens verticalement */
+    margin: 20px 0; /* Ajoute un espace au-dessus et en dessous */
+    font-size: 14px; /* Taille de texte pour harmoniser */
+}
+
+/* Liens interactifs */
+.pagination a {
+    margin: 0 10px; /* Ajoute un espacement entre les liens */
+    text-decoration: none;
+    color: #6A3D90; /* Couleur violette */
+    font-weight: bold;
+    transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.pagination a:hover {
+    color: #A9CE02; /* Vert clair au survol */
+    transform: scale(1.1); /* Légèrement agrandi */
+}
+
+/* Page active */
+.pagination .current {
+    font-weight: bold;
+    color: white; /* Texte blanc */
+    background-color: #6A3D90; /* Fond violet */
+    border-radius: 20px; /* Arrondi pour un effet bouton */
+    padding: 5px 10px; /* Ajoute de l’espace autour du texte */
+}
+
+/* Texte statique (ex. : "Page 1 sur 2") */
+.pagination span {
+    color: #555; /* Couleur grise foncée pour différencier */
+    font-style: normal; /* Garde un style simple mais différent */
+    margin: 0 5px; /* Espacement autour du texte statique */
+}
+
+/* PAGINATION */
+
+
 </style>
 
 
@@ -274,7 +317,7 @@ button#deleteSelected:hover {
         <!-- Colonne "Supprimer" -->
         <th>Supprimer</th>
     </tr>
-    {% for theme in themes %}
+    {% for theme in page_obj %}
     <tr>
         <td>{{ theme.name }}</td>
         <td>{{ theme.birthdate }}</td>
@@ -287,19 +330,42 @@ button#deleteSelected:hover {
         <!-- Case à cocher individuelle -->
         <td>
            <input type="checkbox" class="theme-checkbox" data-id="{{ theme.id }}" />
-
-
         </td>
         <!-- Bouton Supprimer -->
         <td>
             <a href="#" data-id="{{ theme.id }}" class="delete-btn">Supprimer</a>
         </td>
     </tr>
+    {% empty %}
+    <tr>
+        <td colspan="7">Aucun thème trouvé.</td>
+    </tr>
     {% endfor %}
 </table>
 </div>
 <!-- / TABLE -->
 
+
+
+<!-- PAGNINATION -->
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1&sort={{ current_sort }}">Premier</a>
+            <a href="?page={{ page_obj.previous_page_number }}&sort={{ current_sort }}">Précédent</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} sur {{ page_obj.paginator.num_pages }}
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}&sort={{ current_sort }}">Suivant</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}&sort={{ current_sort }}">Dernier</a>
+        {% endif %}
+    </span>
+</div>
+<!-- / PAGNINATION -->
 
 <!-- CSRF Token -->
 <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">

@@ -169,6 +169,8 @@ def deconnexion(request):
     logout(request)
     return redirect('birth_data')  # Redirige vers birth_data après la déconnexion
 
+from django.core.paginator import Paginator  # Import du module de pagination
+
 
 # THEMES
 @login_required
@@ -183,9 +185,16 @@ def liste_themes(request):
 
     # Trier les thèmes de l'utilisateur connecté
     themes = ThemeAstrologique.objects.filter(utilisateur=request.user).order_by(sort)
-    
-    return render(request, 'liste_themes.html', {'themes': themes, 'current_sort': sort})
 
+    # Pagination : Diviser la liste des thèmes en pages de 10 éléments
+    paginator = Paginator(themes, 10)  # 10 thèmes par page
+    page_number = request.GET.get('page')  # Récupérer le numéro de page dans l'URL
+    page_obj = paginator.get_page(page_number)  # Obtenir la page correspondante
+
+    return render(request, 'liste_themes.html', {
+        'page_obj': page_obj,  # Objets de la page actuelle
+        'current_sort': sort,  # Critère de tri actuel
+    })
 
 
     
