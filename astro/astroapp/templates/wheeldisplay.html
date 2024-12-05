@@ -60,10 +60,11 @@ body {
     {% endif %}
     </span>
 </h2>
-    <!-- Conteneur pour la roue astrologique -->
-    <div class="wheel-container">
-        <img src="{% static 'images/zodiac_wheel.png' %}?{{ timestamp }}" alt="Roue astrologique">
-    </div>
+<!-- Conteneur pour la roue astrologique -->
+<div class="wheel-container">
+    <img src="{{ image_url }}" alt="Roue astrologique">
+</div>
+
 </div>
 <!-- / ROUE -->
 
@@ -77,6 +78,8 @@ body {
         altFormat: "d/m/Y"
     });
 </script>
+
+<script src="{% static 'js/onbeforeunload.js' %}"></script>
 
 </body>
 </html>

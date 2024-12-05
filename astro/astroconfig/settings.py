@@ -112,8 +112,9 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-# Dossier pour les fichiers statiques (images, CSS, etc.)
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'astroapp', 'static')]
+# Dossier temporaire pour stocker les images astrologiques
+TEMP_IMAGE_DIR = os.path.join(BASE_DIR, 'astroapp', 'static', 'images', 'temps')
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
@@ -122,6 +123,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Sécurité des cookies et des sessions
 SESSION_COOKIE_SECURE = True  # Empêche la transmission des cookies en HTTP non sécurisé
+
+# Configuration des sessions Django
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'  # Utilisation de la base de données pour les sessions
+SESSION_COOKIE_AGE = 1209600  # Durée de la session en secondes (2 semaines)
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False  # Les sessions persistent même après la fermeture du navigateur
+
 CSRF_COOKIE_SECURE = True  # Protège le cookie CSRF contre les attaques
 SECURE_BROWSER_XSS_FILTER = True  # Active le filtre XSS du navigateur
 SECURE_SSL_REDIRECT = False  # Change à True si le site utilise HTTPS

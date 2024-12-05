@@ -5,6 +5,7 @@ logger = logging.getLogger(__name__)  # Initialise le logger
 from datetime import datetime
 from urllib.parse import urlencode
 import json
+import uuid
 
 from .forms import BirthDataForm
 
@@ -286,12 +287,40 @@ def supprimer_multiple_themes(request):
 
 # ZODIAQUE - Fonction pour retourner l'image de la roue zodiacale
 def zodiac_wheel(request):
-    image_path = os.path.join(settings.BASE_DIR, 'static', 'images', 'zodiac_wheel.png')
+    # Vérifier si l'utilisateur est authentifié
+    if request.user.is_authenticated:
+        print(f"DEBUG - Utilisateur authentifié : {request.user.username} (ID: {request.user.id})")
+    else:
+        print("DEBUG - Aucun utilisateur authentifié.")
+
+    # Générer un identifiant unique pour le fichier
+    unique_id = uuid.uuid4()  # Générer un identifiant unique
+    image_name = f"zodiac_wheel_{unique_id}.png"  # Nom unique basé sur UUID
+    image_path = os.path.join(settings.TEMP_IMAGE_DIR, "generated_images", image_name)  # Stocker dans un sous-dossier
+    
+    # Debugging : Afficher les informations générées
+    print(f"DEBUG - Chemin d'image généré (zodiac_wheel) : {image_path}")
+
+    # Créer le répertoire si nécessaire
+    os.makedirs(os.path.dirname(image_path), exist_ok=True)
+
+    # Vérifier si l'image existe
+    if not os.path.exists(image_path):
+        return HttpResponse("L'image astrologique n'a pas encore été générée", status=404)
+
+    # Ouvrir et renvoyer l'image
     with open(image_path, 'rb') as f:
         return HttpResponse(f.read(), content_type="image/png")
 
+
+
 # Traite les données de naissance soumises via le formulaire birth_data_form.html, et transmet les résultats astrologiques au template `birth_results.html`.
 def birth_data(request):
+    if request.user.is_authenticated:
+        print(f"DEBUG - Utilisateur authentifié : {request.user.username} (ID: {request.user.id})")
+    else:
+        print("DEBUG - Aucun utilisateur authentifié.")
+
     # Affiche toutes les données de session pour vérifier leur présence
     print("Session Key-Value pairs on loading birth_data:")
     for key, value in request.session.items():
@@ -311,6 +340,7 @@ def birth_data(request):
       ou le formulaire avec un message d'erreur si une étape échoue.
     """
     if request.method == 'POST':
+        print(f"DEBUG - Utilisateur connecté ID (birth_data) : {request.user.id}")
 
         # Extraire les données du formulaire
         name, birthdate, birthtime, country_of_birth, city_of_birth = extract_birth_data_form(request)
@@ -377,8 +407,22 @@ def birth_data(request):
         # Préparer les données du thème en JSON
         theme_data_json = prepare_theme_data_json(house_results, aspects, planet_positions)
 
-        # Générer la roue astrologique visuelle
-        generate_astrological_wheel(planet_positions, house_results, aspects)
+        # Générer un chemin dynamique pour l'image
+        unique_id = uuid.uuid4()  # Génère un identifiant unique
+        image_name = f"zodiac_wheel_{unique_id}.png"  # Nom unique basé sur UUID
+        image_path = os.path.join(settings.TEMP_IMAGE_DIR, "generated_images", image_name)  # Dossier pour stocker les images
+
+        # Débogages à placer ici après l'initialisation
+        print(f"DEBUG - Chemin d'image généré (birth_data) : {image_path}")
+
+
+
+        # Créer le répertoire utilisateur si nécessaire
+        os.makedirs(os.path.dirname(image_path), exist_ok=True)
+
+        # Générer la roue astrologique avec le chemin dynamique
+        generate_astrological_wheel(planet_positions, house_results, aspects, image_path)
+
 
         # Préparer le contexte à transmettre au template
         context = prepare_template_context(
@@ -386,6 +430,10 @@ def birth_data(request):
             birth_datetime_local, birth_datetime_utc, location,
             latitude_dms, longitude_dms, theme_data_json
         )
+        
+        # Ajouter l'URL de l'image au contexte
+        context["image_url"] = f"/static/images/temps/generated_images/{image_name}"
+
 
         return render(request, 'birth_results.html', context)
 
@@ -543,4 +591,32 @@ def birth_results(request):
         'aspects': aspects,
         'planet_positions': planet_positions,
     })
+
+
+
+
+def delete_image(request):
+    if request.method == "POST":
+        # Récupérer le nom ou le chemin de l'image à partir de la requête
+        image_name = request.POST.get("image_name")  # Nom de l'image à supprimer
+        if not image_name:
+            return JsonResponse({"success": False, "message": "Nom de l'image non fourni."})
+
+        # Construire le chemin d'accès complet
+        image_path = os.path.join(settings.TEMP_IMAGE_DIR, "generated_images", image_name)
+
+        # Débogage
+        print(f"DEBUG - Chemin d'image à supprimer : {image_path}")
+        
+        # Vérifier si le fichier existe et tenter de le supprimer
+        if os.path.exists(image_path):
+            try:
+                os.remove(image_path)
+                return JsonResponse({"success": True, "message": "Image supprimée avec succès."})
+            except Exception as e:
+                return JsonResponse({"success": False, "error": str(e)})
+        else:
+            return JsonResponse({"success": False, "message": "Aucune image à supprimer."})
+    return JsonResponse({"success": False, "message": "Requête invalide."})
+
 

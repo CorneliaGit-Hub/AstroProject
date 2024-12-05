@@ -55,9 +55,7 @@ def display_degrees(ax, planet_positions, house_results, rotation_offset):
 
 
 # Fonction générale pour appeler les sous foncitons.
-def generate_astrological_wheel(planet_positions, house_results, aspects):
-    # Définir le chemin d'image
-    image_path = os.path.join(settings.BASE_DIR, 'astroapp/static/images/zodiac_wheel.png')
+def generate_astrological_wheel(planet_positions, house_results, aspects, image_path):
 
     # Initialiser la figure et les axes
     fig, ax = create_astrological_figure()
