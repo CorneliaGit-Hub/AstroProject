@@ -228,26 +228,6 @@ def ouvrir_theme(request, id):
 
 
 
-@login_required
-def supprimer_theme(request, id):
-
-    try:
-        theme = get_object_or_404(ThemeAstrologique, id=id, utilisateur=request.user)
-
-        if request.method == 'POST':
-            theme.delete()
-            # Réponse JSON pour AJAX
-            return JsonResponse({"success": True, "message": "Thème supprimé avec succès !"})
-        
-        # Si ce n'est pas une requête POST
-        return JsonResponse({"success": False, "message": "Requête invalide, POST attendu."}, status=400)
-
-    except Exception as e:
-        # En cas d'erreur, retourne un message JSON
-        return JsonResponse({"success": False, "message": f"Erreur serveur : {str(e)}"}, status=500)
-
-
-
 
 @login_required
 def supprimer_multiple_themes(request):

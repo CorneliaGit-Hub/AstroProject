@@ -302,23 +302,25 @@ button#deleteSelected:hover {
 <div>
 <table>
     <tr>
-        <th colspan="7">Coordonnées de naissance</th>
+        <th colspan="6">Coordonnées de naissance</th>
     </tr>
     <tr>
+        <!-- Colonne "Sélectionner" déplacée tout à gauche -->
+        <th>
+            <input type="checkbox" id="selectAll" />
+        </th>
         <th>Nom</th>
         <th>Date</th>
         <th>Heure</th>
         <th>Lieu</th>
         <th>Ouvrir</th>
-        <!-- Colonne "Sélectionner" -->
-        <th>
-            <input type="checkbox" id="selectAll" />
-        </th>
-        <!-- Colonne "Supprimer" -->
-        <th>Supprimer</th>
     </tr>
     {% for theme in page_obj %}
     <tr>
+        <!-- Case à cocher individuelle -->
+        <td>
+           <input type="checkbox" class="theme-checkbox" data-id="{{ theme.id }}" />
+        </td>
         <td>{{ theme.name }}</td>
         <td>{{ theme.birthdate }}</td>
         <td>{{ theme.birthtime }}</td>
@@ -327,23 +329,16 @@ button#deleteSelected:hover {
         <td>
             <a href="{% url 'ouvrir_theme' theme.id %}">Ouvrir</a>
         </td>
-        <!-- Case à cocher individuelle -->
-        <td>
-           <input type="checkbox" class="theme-checkbox" data-id="{{ theme.id }}" />
-        </td>
-        <!-- Bouton Supprimer -->
-        <td>
-            <a href="#" data-id="{{ theme.id }}" class="delete-btn">Supprimer</a>
-        </td>
     </tr>
     {% empty %}
     <tr>
-        <td colspan="7">Aucun thème trouvé.</td>
+        <td colspan="6">Aucun thème trouvé.</td>
     </tr>
     {% endfor %}
 </table>
 </div>
 <!-- / TABLE -->
+
 
 
 

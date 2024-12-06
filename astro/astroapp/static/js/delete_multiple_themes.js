@@ -47,10 +47,17 @@ document.addEventListener("DOMContentLoaded", function () {
                     alert(data.message);
                     // Supprime les lignes du tableau sans recharger la page
                     uniqueIds.forEach(id => {
-                        const row = document.querySelector(`.theme-checkbox[data-id='${id}']`).closest("tr");
-                        if (row) {
-                            row.remove();
-                            console.log(`Ligne avec ID ${id} supprimée.`);
+                        const element = document.querySelector(`.theme-checkbox[data-id='${id}']`);
+                        if (element) {
+                            const row = element.closest("tr");
+                            if (row) {
+                                row.remove();
+                                console.log(`Ligne avec ID ${id} supprimée.`);
+                            } else {
+                                console.warn(`Impossible de trouver la ligne pour l'ID : ${id}`);
+                            }
+                        } else {
+                            console.error(`Case à cocher non trouvée pour l'ID : ${id}`);
                         }
                     });
                 } else {
