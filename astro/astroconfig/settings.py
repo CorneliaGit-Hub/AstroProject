@@ -133,3 +133,35 @@ CSRF_COOKIE_SECURE = True  # Protège le cookie CSRF contre les attaques
 SECURE_BROWSER_XSS_FILTER = True  # Active le filtre XSS du navigateur
 SECURE_SSL_REDIRECT = False  # Change à True si le site utilise HTTPS
 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {message}',
+            'style': '{',
+        },
+        'simple': {
+            'format': '{levelname} {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': 'INFO',
+        },
+        'astroapp': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+    },
+}

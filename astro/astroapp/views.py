@@ -212,14 +212,12 @@ def ouvrir_theme(request, id):
     request.session['city_of_birth'] = theme.city_of_birth
 
     # Imprime les valeurs stockées pour vérifier
-    print("Session 'name':", request.session['name'])
     print("Session 'birthdate' (ISO format):", request.session['birthdate'])
     print("Session 'birthtime' (ISO format):", request.session['birthtime'])
     print("Session 'country_of_birth':", request.session['country_of_birth'])
     print("Session 'city_of_birth':", request.session['city_of_birth'])
 
     # Imprime les valeurs des clés pour vérifier leur présence immédiatement après sauvegarde
-    print("Session Key-Value pairs after setting in ouvrir_theme:")
     for key, value in request.session.items():
         print(f"{key}: {value}")
         
@@ -257,17 +255,13 @@ def supprimer_multiple_themes(request):
             data = json.loads(request.body)  # Récupère les données envoyées dans la requête
             ids = data.get("ids", [])  # Liste des IDs à supprimer
 
-            print(f"Utilisateur actuel : {request.user}")  # Debugging
-
             if not ids:
                 return JsonResponse({"success": False, "message": "Aucun ID fourni."})
 
             # Vérifie et supprime les thèmes appartenant à l'utilisateur
             themes = ThemeAstrologique.objects.filter(id__in=ids, utilisateur=request.user)
-            print(f"Thèmes trouvés pour suppression : {[theme.name for theme in themes]}")  # Debugging
             count = themes.count()
             themes.delete()
-            print(f"{count} thème(s) supprimé(s).")  # Debugging
 
             return JsonResponse({"success": True, "message": f"{count} thème(s) supprimé(s) avec succès !"})
 
@@ -286,11 +280,6 @@ def supprimer_multiple_themes(request):
 
 # ZODIAQUE - Fonction pour retourner l'image de la roue zodiacale
 def zodiac_wheel(request):
-    # Vérifier si l'utilisateur est authentifié
-    if request.user.is_authenticated:
-        print(f"DEBUG - Utilisateur authentifié : {request.user.username} (ID: {request.user.id})")
-    else:
-        print("DEBUG - Aucun utilisateur authentifié.")
 
     # Générer un identifiant unique pour le fichier
     unique_id = uuid.uuid4()  # Générer un identifiant unique
@@ -321,7 +310,6 @@ def birth_data(request):
         print("DEBUG - Aucun utilisateur authentifié.")
 
     # Affiche toutes les données de session pour vérifier leur présence
-    print("Session Key-Value pairs on loading birth_data:")
     for key, value in request.session.items():
         print(f"{key}: {value}")
     """
@@ -345,9 +333,7 @@ def birth_data(request):
         name, birthdate, birthtime, country_of_birth, city_of_birth = extract_birth_data_form(request)
 
         # Debugging : Afficher les données reçues et celles stockées en session
-        print("Date reçue depuis le formulaire :", request.POST.get('birthdate'))
         print("Date de naissance pour l'input :", request.session.get('birthdate'))
-        print("Session Data:", request.session.items())
 
         # Stocker les données en session
         stocker_donnees_session(request, {
@@ -411,11 +397,6 @@ def birth_data(request):
         image_name = f"zodiac_wheel_{unique_id}.png"  # Nom unique basé sur UUID
         image_path = os.path.join(settings.TEMP_IMAGE_DIR, image_name)  # Dossier pour stocker les images
 
-        # Débogages à placer ici après l'initialisation
-        print(f"DEBUG - Chemin d'image généré (birth_data) : {image_path}")
-
-
-
         # Créer le répertoire utilisateur si nécessaire
         os.makedirs(os.path.dirname(image_path), exist_ok=True)
 
@@ -453,7 +434,6 @@ def birth_data(request):
         'country_of_birth': request.session.get('country_of_birth', ''),
         'city_of_birth': request.session.get('city_of_birth', ''),
     }
-    print("DEBUG - Données initiales pour le formulaire :", initial_data)
 
     # Créer un formulaire pré-rempli avec les données initiales
     form = BirthDataForm(initial=initial_data)
@@ -530,7 +510,7 @@ def planetary_position(request):# Calculer le jour julien (JD)
     # Appel de la fonction pour extraire les informations de date : def extract_date_info
     date_obj, local_day_str, local_month_str, local_year_str = extract_date_info(selected_date)
 
-    # Utiliser le geolocator pour obtenir la latitude et la longitude    print("Debug - Tentative de géolocalisation avec geolocator")
+    # Utiliser le geolocator pour obtenir la latitude et la longitude   
     latitude, longitude, error = geolocate_city(city_of_birth, country_of_birth)
     if error:
         logger.error(f"Erreur dans planetary_position : {error}")
@@ -609,7 +589,6 @@ def delete_image(request):
     if request.method == "POST":
         print(f"DEBUG - Requête POST complète : {request.POST}")  # Affiche tout le POST
         image_name = request.POST.get("image_name", "")
-        print(f"DEBUG - Nom brut de l'image récupéré : {image_name}")  # Ajout pour vérifier le nom brut
 
         if not image_name:
             print("DEBUG - Nom de l'image manquant dans la requête POST.")
@@ -631,7 +610,7 @@ def delete_image(request):
                 print(f"DEBUG - Image supprimée avec succès : {image_path}")
                 return JsonResponse({"success": True, "message": "Image supprimée avec succès."})
             except Exception as e:
-                print(f"DEBUG - Erreur lors de la suppression de l'image : {e}")
+
                 return JsonResponse({"success": False, "error": str(e)})
         else:
             print(f"DEBUG - L'image n'existe pas ou a déjà été supprimée : {image_path}")

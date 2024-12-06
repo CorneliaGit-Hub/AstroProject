@@ -1,5 +1,8 @@
 import os
 import matplotlib.pyplot as plt
+import logging
+logger = logging.getLogger('astroapp')
+
 
 def remove_existing_image(image_path):
     """
@@ -14,10 +17,8 @@ def remove_existing_image(image_path):
     if image_path and os.path.exists(image_path):
         try:
             os.remove(image_path)
-            print(f"DEBUG - Ancienne image supprimée avec succès : {image_path}")
             return True
         except Exception as e:
-            print(f"DEBUG - Erreur lors de la suppression de l'image {image_path} : {e}")
             return False
     else:
         print(f"DEBUG - Image introuvable ou déjà supprimée : {image_path}")
@@ -29,7 +30,6 @@ def save_astrological_image(fig, image_path, session):
     # Débogage : Vérification de l'image précédente dans la session
     if 'last_generated_image' in session:
         previous_image = session['last_generated_image']
-        print(f"DEBUG - Image précédente à supprimer : {previous_image}")
         remove_existing_image(previous_image)
     else:
         print("DEBUG - Aucune image précédente enregistrée dans la session.")
@@ -37,12 +37,10 @@ def save_astrological_image(fig, image_path, session):
     # Sauvegarder la nouvelle image générée
     try:
         fig.savefig(image_path, dpi=300)
-        print(f"DEBUG - Image sauvegardée avec succès : {image_path}")
     except Exception as e:
         print(f"DEBUG - Erreur lors de la sauvegarde de l'image : {e}")
     finally:
         plt.close(fig)  # Libérer la mémoire
-        print("DEBUG - Figure matplotlib fermée.")
 
     # Mettre à jour la session avec la nouvelle image
     session['last_generated_image'] = image_path
