@@ -1,31 +1,40 @@
 import os
 import re
 
-# Chemin du dossier contenant les fichiers à modifier
-directory = "./astroapp/"
+# Chemin de ton projet
+project_path = "./astroapp/"  # Mets à jour ce chemin si nécessaire
 
-# Parcourir tous les fichiers dans le dossier
-for root, _, files in os.walk(directory):
+# Modèles de logs trop verbeux à simplifier
+patterns = [
+    # Logs des planètes
+    (r"logger\.debug\(f\"Planète ID .*?\"\)", ""),
+    (r"logger\.debug\(f\"Résultats des positions des planètes .*?\"\)", 
+     "logger.info('Calcul des positions planétaires terminé avec succès.')"),
+    
+    # Logs de géolocalisation
+    (r"logger\.debug\(f\"Géolocalisation .*?\"\)", 
+     "logger.info('Géolocalisation réussie et fuseau horaire détecté.')"),
+    
+    # Logs sur les images
+    (r"logger\.debug\(f\"Chemin complet de l'image .*?\"\)", ""),
+    (r"logger\.debug\(f\"Image supprimée .*?\"\)", 
+     "logger.info('Image temporaire supprimée.')"),
+]
+
+# Parcourir tous les fichiers Python
+for root, _, files in os.walk(project_path):
     for file in files:
-        if file.endswith(".py"):  # Modifier uniquement les fichiers Python
+        if file.endswith(".py"):
             file_path = os.path.join(root, file)
             with open(file_path, "r", encoding="utf-8") as f:
                 content = f.read()
 
-            # Remplacer les print par logger.debug
-            # Exemple : print("Message :", variable) -> logger.debug(f"Message : {variable}")
-            new_content = re.sub(
-                r'print\((.*)\)',
-                r'logger.debug(f"\1")',
-                content
-            )
+            # Appliquer les remplacements
+            for pattern, replacement in patterns:
+                content = re.sub(pattern, replacement, content)
 
-            # Ajouter l'import du logger si nécessaire
-            if "import logging" not in new_content:
-                new_content = "import logging\nlogger = logging.getLogger('astroapp')\n\n" + new_content
-
-            # Écrire les modifications dans le fichier
+            # Sauvegarder les modifications
             with open(file_path, "w", encoding="utf-8") as f:
-                f.write(new_content)
+                f.write(content)
 
-print("Les fichiers ont été modifiés avec succès !")
+print("Tous les logs inutiles ont été supprimés ou remplacés par des messages courts.")

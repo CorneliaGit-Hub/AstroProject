@@ -2,6 +2,7 @@
 import os
 import logging  # Ajoute ceci en haut du fichier
 logger = logging.getLogger(__name__)  # Initialise le logger
+logger = logging.getLogger('astroapp')
 from datetime import datetime
 from urllib.parse import urlencode
 import json
@@ -518,8 +519,8 @@ def planetary_position(request):# Calculer le jour julien (JD)
 
 
     # Debugging: Afficher les valeurs de latitude et longitude
-    logger.debug(f"Latitude: {latitude}, Longitude: {longitude}")
-    logger.debug(f"Ville de naissance: {city_of_birth}, Pays de naissance: {country_of_birth}")
+    # logger.info(f"Latitude: {latitude}, Longitude: {longitude}")
+    # logger.info(f"Ville de naissance: {city_of_birth}, Pays de naissance: {country_of_birth}")
 
 
 

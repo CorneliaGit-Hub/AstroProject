@@ -137,18 +137,14 @@ LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
     'formatters': {
-        'verbose': {
-            'format': '{levelname} {asctime} {module} {message}',
-            'style': '{',
-        },
         'simple': {
-            'format': '{levelname} {message}',
+            'format': '{levelname} - {message}',
             'style': '{',
         },
     },
     'handlers': {
         'console': {
-            'level': 'DEBUG',
+            'level': 'INFO',  # Affiche uniquement INFO et niveaux supérieurs
             'class': 'logging.StreamHandler',
             'formatter': 'simple',
         },
@@ -156,12 +152,19 @@ LOGGING = {
     'loggers': {
         'django': {
             'handlers': ['console'],
-            'level': 'INFO',
+            'level': 'ERROR',  # Affiche uniquement les erreurs critiques de Django
+            'propagate': False,
         },
         'astroapp': {
             'handlers': ['console'],
-            'level': 'DEBUG',
+            'level': 'INFO',  # Désactive DEBUG par défaut pour votre application
             'propagate': False,
         },
     },
 }
+
+
+
+
+
+
