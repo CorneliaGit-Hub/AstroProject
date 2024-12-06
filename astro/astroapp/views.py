@@ -420,7 +420,9 @@ def birth_data(request):
         os.makedirs(os.path.dirname(image_path), exist_ok=True)
 
         # Générer la roue astrologique avec le chemin dynamique
-        generate_astrological_wheel(planet_positions, house_results, aspects, image_path)
+        generate_astrological_wheel(planet_positions, house_results, aspects, image_path, request.session)
+        print(f"DEBUG - Appel à generate_astrological_wheel avec image_path : {image_path}")
+
 
         # Stocker le chemin de l'image dans la session
         request.session["last_generated_image"] = image_path

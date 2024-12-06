@@ -55,7 +55,7 @@ def display_degrees(ax, planet_positions, house_results, rotation_offset):
 
 
 # Fonction générale pour appeler les sous foncitons.
-def generate_astrological_wheel(planet_positions, house_results, aspects, image_path):
+def generate_astrological_wheel(planet_positions, house_results, aspects, image_path, session):
 
     # Initialiser la figure et les axes
     fig, ax = create_astrological_figure()
@@ -105,4 +105,4 @@ def generate_astrological_wheel(planet_positions, house_results, aspects, image_
     ax.set_aspect('equal')
     
     # Sauvegarder l'image finale
-    save_astrological_image(fig, image_path)
+    save_astrological_image(fig, image_path, session)
