@@ -231,7 +231,7 @@ def ouvrir_theme(request, id):
 
 @login_required
 def supprimer_theme(request, id):
-    print(f"Vue supprimer_theme appelée avec ID : {id}")
+
     try:
         theme = get_object_or_404(ThemeAstrologique, id=id, utilisateur=request.user)
 
@@ -257,7 +257,6 @@ def supprimer_multiple_themes(request):
             data = json.loads(request.body)  # Récupère les données envoyées dans la requête
             ids = data.get("ids", [])  # Liste des IDs à supprimer
 
-            print(f"IDs reçus pour suppression : {ids}")  # Debugging
             print(f"Utilisateur actuel : {request.user}")  # Debugging
 
             if not ids:
@@ -296,7 +295,7 @@ def zodiac_wheel(request):
     # Générer un identifiant unique pour le fichier
     unique_id = uuid.uuid4()  # Générer un identifiant unique
     image_name = f"zodiac_wheel_{unique_id}.png"  # Nom unique basé sur UUID
-    image_path = os.path.join(settings.TEMP_IMAGE_DIR, "generated_images", image_name)  # Stocker dans un sous-dossier
+    image_path = os.path.join(settings.TEMP_IMAGE_DIR, image_name)  # Stocker dans un sous-dossier
     
     # Debugging : Afficher les informations générées
     print(f"DEBUG - Chemin d'image généré (zodiac_wheel) : {image_path}")
@@ -410,7 +409,7 @@ def birth_data(request):
         # Générer un chemin dynamique pour l'image
         unique_id = uuid.uuid4()  # Génère un identifiant unique
         image_name = f"zodiac_wheel_{unique_id}.png"  # Nom unique basé sur UUID
-        image_path = os.path.join(settings.TEMP_IMAGE_DIR, "generated_images", image_name)  # Dossier pour stocker les images
+        image_path = os.path.join(settings.TEMP_IMAGE_DIR, image_name)  # Dossier pour stocker les images
 
         # Débogages à placer ici après l'initialisation
         print(f"DEBUG - Chemin d'image généré (birth_data) : {image_path}")
@@ -423,6 +422,9 @@ def birth_data(request):
         # Générer la roue astrologique avec le chemin dynamique
         generate_astrological_wheel(planet_positions, house_results, aspects, image_path)
 
+        # Stocker le chemin de l'image dans la session
+        request.session["last_generated_image"] = image_path
+        print(f"DEBUG - Image générée enregistrée en session : {image_path}")
 
         # Préparer le contexte à transmettre au template
         context = prepare_template_context(
@@ -432,7 +434,7 @@ def birth_data(request):
         )
         
         # Ajouter l'URL de l'image au contexte
-        context["image_url"] = f"/static/images/temps/generated_images/{image_name}"
+        context["image_url"] = f"/static/images/temps/{image_name}"
 
 
         return render(request, 'birth_results.html', context)
@@ -597,13 +599,18 @@ def birth_results(request):
 
 def delete_image(request):
     if request.method == "POST":
+        print("DEBUG - Requête POST reçue pour delete_image.")
+        print("DEBUG - Requête POST reçue pour delete_image.")
         # Récupérer le nom ou le chemin de l'image à partir de la requête
         image_name = request.POST.get("image_name")  # Nom de l'image à supprimer
         if not image_name:
             return JsonResponse({"success": False, "message": "Nom de l'image non fourni."})
 
+        # Débogage
+        print(f"DEBUG - Chemin de l'image à supprimer depuis la session : {image_path}")
+
         # Construire le chemin d'accès complet
-        image_path = os.path.join(settings.TEMP_IMAGE_DIR, "generated_images", image_name)
+        image_path = os.path.join(settings.TEMP_IMAGE_DIR, image_name)
 
         # Débogage
         print(f"DEBUG - Chemin d'image à supprimer : {image_path}")
