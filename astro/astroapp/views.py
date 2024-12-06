@@ -599,33 +599,50 @@ def birth_results(request):
 
 
 
+from django.views.decorators.csrf import csrf_exempt
+
+@csrf_exempt
 def delete_image(request):
+    """
+    Supprime l'image spécifiée dans une requête POST.
+    """
     if request.method == "POST":
-        print("DEBUG - Requête POST reçue pour delete_image.")
-        print("DEBUG - Requête POST reçue pour delete_image.")
-        # Récupérer le nom ou le chemin de l'image à partir de la requête
-        image_name = request.POST.get("image_name")  # Nom de l'image à supprimer
+        print(f"DEBUG - Requête POST complète : {request.POST}")  # Affiche tout le POST
+        image_name = request.POST.get("image_name", "")
+        print(f"DEBUG - Nom brut de l'image récupéré : {image_name}")  # Ajout pour vérifier le nom brut
+
         if not image_name:
+            print("DEBUG - Nom de l'image manquant dans la requête POST.")
             return JsonResponse({"success": False, "message": "Nom de l'image non fourni."})
 
-        # Débogage
-        print(f"DEBUG - Chemin de l'image à supprimer depuis la session : {image_path}")
-
-        # Construire le chemin d'accès complet
+        # Construire le chemin complet de l'image
         image_path = os.path.join(settings.TEMP_IMAGE_DIR, image_name)
+        print(f"DEBUG - Chemin complet de l'image à supprimer : {image_path}")
 
-        # Débogage
-        print(f"DEBUG - Chemin d'image à supprimer : {image_path}")
-        
-        # Vérifier si le fichier existe et tenter de le supprimer
+        # Vérification supplémentaire sur le nom de l'image
+        if not image_name.startswith("zodiac_wheel_") or not image_name.endswith(".png"):
+            print(f"DEBUG - Nom d'image incorrect ou non sécurisé : {image_name}")
+            return JsonResponse({"success": False, "message": "Nom d'image incorrect ou non sécurisé."})
+
+        # Vérifier si l'image existe
         if os.path.exists(image_path):
             try:
                 os.remove(image_path)
+                print(f"DEBUG - Image supprimée avec succès : {image_path}")
                 return JsonResponse({"success": True, "message": "Image supprimée avec succès."})
             except Exception as e:
+                print(f"DEBUG - Erreur lors de la suppression de l'image : {e}")
                 return JsonResponse({"success": False, "error": str(e)})
         else:
-            return JsonResponse({"success": False, "message": "Aucune image à supprimer."})
-    return JsonResponse({"success": False, "message": "Requête invalide."})
+            print(f"DEBUG - L'image n'existe pas ou a déjà été supprimée : {image_path}")
+            return JsonResponse({"success": False, "message": "Image introuvable ou déjà supprimée."})
+    else:
+        print("DEBUG - Requête invalide. Seules les requêtes POST sont acceptées.")
+        return JsonResponse({"success": False, "message": "Requête invalide."})
+
+
+
+
+
 
 

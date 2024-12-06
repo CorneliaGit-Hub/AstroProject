@@ -2,12 +2,27 @@ import os
 import matplotlib.pyplot as plt
 
 def remove_existing_image(image_path):
-    """Supprime l'image existante à un chemin donné si elle est présente."""
-    if os.path.exists(image_path):
-        os.remove(image_path)
-        print(f"Ancienne image supprimée : {image_path}")
+    """
+    Supprime l'image existante à un chemin donné si elle est présente.
+
+    Args:
+        image_path (str): Le chemin absolu de l'image à supprimer.
+
+    Returns:
+        bool: True si l'image a été supprimée avec succès, False sinon.
+    """
+    if image_path and os.path.exists(image_path):
+        try:
+            os.remove(image_path)
+            print(f"DEBUG - Ancienne image supprimée avec succès : {image_path}")
+            return True
+        except Exception as e:
+            print(f"DEBUG - Erreur lors de la suppression de l'image {image_path} : {e}")
+            return False
     else:
-        print(f"Aucune ancienne image à supprimer : {image_path}")
+        print(f"DEBUG - Image introuvable ou déjà supprimée : {image_path}")
+        return False
+
 
 
 def save_astrological_image(fig, image_path, session):

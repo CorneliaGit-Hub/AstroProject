@@ -68,6 +68,19 @@ body {
 </div>
 <!-- / ROUE -->
 
+<script>
+window.addEventListener('beforeunload', function () {
+    const imageUrl = "{{ image_url }}";
+    const imageName = imageUrl.split('/').pop(); // Prend uniquement la partie après le dernier "/"
+    console.log("DEBUG - Nom extrait :", imageName);
+
+    const data = new FormData();
+    data.append('image_name', imageName);
+
+    navigator.sendBeacon("{% url 'delete_image' %}", data);
+});
+</script>
+
 
 <script>
     // Initialiser Flatpickr pour le champ de date
@@ -80,6 +93,8 @@ body {
 </script>
 
 <script src="{% static 'js/onbeforeunload.js' %}"></script>
+
+
 
 </body>
 </html>
