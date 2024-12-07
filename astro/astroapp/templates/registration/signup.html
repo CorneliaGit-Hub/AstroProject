@@ -13,7 +13,7 @@ body {
     padding: 0;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     min-height: 100vh;
 }
 
@@ -26,6 +26,7 @@ body {
     width: 50%;
     max-width: 700px;
     text-align: center;
+	margin-top: 40px;
 }
 
 /* Titre */
@@ -71,6 +72,15 @@ input[type="email"]:focus {
     outline: none;
 }
 
+/* Modifier la couleur des placeholders */
+input::placeholder {
+    color: #a2a2a2; /* Change cette couleur selon tes besoins */
+}
+
+/* Ajouter un focus pour le placeholder */
+input:focus::placeholder {
+    color: #aaa; /* Couleur plus claire ou différente au focus */
+}
 
 /* Bouton */
 button {
@@ -83,12 +93,15 @@ button {
     border-radius: 5px;
     cursor: pointer;
     transition: all 0.3s ease;
+    width: 100%; /* Assure que le bouton prend toute la largeur de son conteneur */
+    box-sizing: border-box; /* Inclut les bordures dans la largeur */
 }
 
 button:hover {
     background-color: #A9CE02;
-    transform: scale(1.05);
+    transform: scale(1.02);
 }
+
 
 /* Messages d'aide */
 .help-text {
@@ -157,43 +170,43 @@ button:hover {
     <!-- NOM D'UTILISATEUR -->
     <div>
         <label for="id_username">Nom d'utilisateur :</label>
-        <input type="text" id="id_username" name="username" placeholder="Nom d'utilisateur : " required>
-        <p class="help-text">Requis. 150 caractères maximum. Uniquement des lettres, chiffres et caractères spéciaux (@ . + - _).</p>
+        <input type="text" id="id_username" name="username" placeholder="Nom d'utilisateur : lettres, chiffres et caractères spéciaux (@ . + - _). " required>
+    </div>
+    
+    <!-- PRÉNOM -->
+    <div>
+        <label for="id_prenom">Prénom :</label>
+        <input type="text" id="id_username" name="username" placeholder="Prénom : Uniquement lettres et espaces" required>
     </div>
 
-    <!-- ADRESSE E-MAIL -->
-    <div>
-        <label for="id_email">Adresse e-mail :</label>
-        <input type="email" id="id_email" name="email" placeholder="Adresse e-mail :" required>
-        <p class="help-text">Requis. Une adresse e-mail valide.</p>
-    </div>
 
     <!-- NOM -->
     <div>
         <label for="id_nom">Nom :</label>
-        <input type="text" id="id_nom" name="nom" placeholder="Nom : " required>
-        <p class="help-text">Requis. 150 caractères maximum. Uniquement des lettres et espaces.</p>
+        <input type="text" id="id_nom" name="nom" placeholder="Nom : Uniquement lettres et espaces" required>
+    </div>
+    
+    
+    <!-- ADRESSE E-MAIL -->
+    <div>
+        <label for="id_email">Adresse e-mail :</label>
+        <input type="email" id="id_email" name="email" placeholder="Adresse e-mail valide" required>
     </div>
 
-    <!-- PRÉNOM -->
-    <div>
-        <label for="id_prenom">Prénom :</label>
-        <input type="text" id="id_prenom" name="prenom" placeholder="Prénom : " required>
-        <p class="help-text">Requis. 150 caractères maximum. Uniquement des lettres et espaces.</p>
-    </div>
+
+
+
 
     <!-- MOT DE PASSE -->
     <div>
         <label for="id_password1">Mot de passe :</label>
-        <input type="password" id="id_password1" name="password1" placeholder="Mot de passe : " required>
-        <p class="help-text">Votre mot de passe doit :</p>
+        <input type="password" id="id_password1" name="password1" placeholder="Mot de passe" required>
     </div>
 
     <!-- CONFIRMATION DU MOT DE PASSE -->
     <div>
         <label for="id_password2">Confirmation du mot de passe :</label>
-        <input type="password" id="id_password2" name="password2" placeholder="Confirmez le mot de passe : " required>
-        <p class="help-text">Saisissez à nouveau le même mot de passe pour vérification.</p>
+        <input type="password" id="id_password2" name="password2" placeholder="Confirmez le mot de passe" required>
     </div>
 
     <!-- BOUTON S'INSCRIRE -->
