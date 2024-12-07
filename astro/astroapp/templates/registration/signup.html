@@ -51,7 +51,8 @@ label {
 
 /* Champs d'entrée */
 input[type="text"],
-input[type="password"] {
+input[type="password"],
+input[type="email"] {
     padding: 10px;
     font-size: 14px;
     border: 1px solid #ddd;
@@ -63,11 +64,13 @@ input[type="password"] {
 }
 
 input[type="text"]:focus,
-input[type="password"]:focus {
+input[type="password"]:focus,
+input[type="email"]:focus {
     border-color: #6A3D90;
     box-shadow: 0 0 5px rgba(106, 61, 144, 0.3);
     outline: none;
 }
+
 
 /* Bouton */
 button {
@@ -154,41 +157,42 @@ button:hover {
     <!-- NOM D'UTILISATEUR -->
     <div>
         <label for="id_username">Nom d'utilisateur :</label>
-        <input type="text" id="id_username" name="username" required>
+        <input type="text" id="id_username" name="username" placeholder="Nom d'utilisateur : " required>
         <p class="help-text">Requis. 150 caractères maximum. Uniquement des lettres, chiffres et caractères spéciaux (@ . + - _).</p>
+    </div>
+
+    <!-- ADRESSE E-MAIL -->
+    <div>
+        <label for="id_email">Adresse e-mail :</label>
+        <input type="email" id="id_email" name="email" placeholder="Adresse e-mail :" required>
+        <p class="help-text">Requis. Une adresse e-mail valide.</p>
     </div>
 
     <!-- NOM -->
     <div>
         <label for="id_nom">Nom :</label>
-        <input type="text" id="id_nom" name="nom" required>
+        <input type="text" id="id_nom" name="nom" placeholder="Nom : " required>
         <p class="help-text">Requis. 150 caractères maximum. Uniquement des lettres et espaces.</p>
     </div>
 
     <!-- PRÉNOM -->
     <div>
         <label for="id_prenom">Prénom :</label>
-        <input type="text" id="id_prenom" name="prenom" required>
+        <input type="text" id="id_prenom" name="prenom" placeholder="Prénom : " required>
         <p class="help-text">Requis. 150 caractères maximum. Uniquement des lettres et espaces.</p>
     </div>
 
     <!-- MOT DE PASSE -->
     <div>
         <label for="id_password1">Mot de passe :</label>
-        <input type="password" id="id_password1" name="password1" required>
+        <input type="password" id="id_password1" name="password1" placeholder="Mot de passe : " required>
         <p class="help-text">Votre mot de passe doit :</p>
-        <ul>
-            <li>Ne pas trop ressembler à vos autres informations personnelles.</li>
-            <li>Contenir au minimum 8 caractères.</li>
-            <li>Ne pas être un mot de passe couramment utilisé.</li>
-            <li>Ne pas être entièrement numérique.</li>
-        </ul>
     </div>
 
     <!-- CONFIRMATION DU MOT DE PASSE -->
     <div>
         <label for="id_password2">Confirmation du mot de passe :</label>
-        <input type="password" id="id_password2" name="password2" required>
+        <input type="password" id="id_password2" name="password2" placeholder="Confirmez le mot de passe : " required>
         <p class="help-text">Saisissez à nouveau le même mot de passe pour vérification.</p>
     </div>
 
@@ -198,6 +202,7 @@ button:hover {
     </div>
 </form>
 <!-- / FORMULAIRE -->
+
   
 
  

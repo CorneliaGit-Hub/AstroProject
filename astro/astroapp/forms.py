@@ -16,7 +16,8 @@ class BirthDataForm(forms.Form):
 class CustomUserCreationForm(UserCreationForm):
     nom = forms.CharField(max_length=150, required=True, label="Nom")
     prenom = forms.CharField(max_length=150, required=True, label="Prénom")
+    email = forms.EmailField(required=True, label="Adresse e-mail")
 
     class Meta:
         model = User
-        fields = ['username', 'nom', 'prenom', 'password1', 'password2']
+        fields = ['username', 'email', 'prenom', 'nom', 'password1', 'password2']

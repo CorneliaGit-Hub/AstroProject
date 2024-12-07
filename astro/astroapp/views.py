@@ -153,24 +153,22 @@ from django.contrib import messages
 # CONNEXION
 def inscription(request):
     if request.method == 'POST':
-        print("DEBUG - Requête POST reçue.")  # Debug
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
-            print("DEBUG - Formulaire valide.")  # Debug
             user = form.save(commit=False)
             user.first_name = form.cleaned_data.get('prenom')
             user.last_name = form.cleaned_data.get('nom')
+            user.email = form.cleaned_data.get('email')  # Ajout de l'email
             user.save()
             login(request, user)
-            messages.success(request, f"Bienvenue, {user.first_name} ! Votre inscription a été réussie.")
-            print("DEBUG - Redirection vers birth_data...")  # Debug
-            return redirect('birth_data')
+            messages.success(request, f"Bienvenue, {user.first_name} ! Vous êtes inscrit sur le site.")
+            return redirect('birth_data')  # Redirige vers le formulaire de données de naissance
         else:
-            print("DEBUG - Formulaire invalide :", form.errors)  # Debug
+            print(form.errors)  # Affiche les erreurs dans la console pour le débogage
     else:
-        print("DEBUG - Requête GET reçue.")  # Debug
         form = CustomUserCreationForm()
     return render(request, 'registration/signup.html', {'form': form})
+
 
 
 
