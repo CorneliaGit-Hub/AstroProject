@@ -8,8 +8,13 @@ from urllib.parse import urlencode
 import json
 import uuid
 
+from .forms import CustomUserCreationForm
+
 from .forms import BirthDataForm
 
+from django import forms
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 
 # Imports tiers
 import pytz
@@ -145,16 +150,30 @@ def enregistrer_naissance(request):
 
 
 # CONNEXION
+from django.shortcuts import render, redirect
+from django.contrib.auth import login
+from .forms import CustomUserCreationForm
+
 def inscription(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = CustomUserCreationForm(request.POST)
         if form.is_valid():
-            user = form.save()
+            user = form.save(commit=False)
+            user.first_name = form.cleaned_data.get('prenom')
+            user.last_name = form.cleaned_data.get('nom')
+            user.save()
             login(request, user)
-            return redirect('birth_data')  # Redirige vers le formulaire de données de naissance
+            print("Redirection vers birth_data...")  # Debug ici
+            return redirect('birth_data')
     else:
-        form = UserCreationForm()
+        form = CustomUserCreationForm()
     return render(request, 'registration/signup.html', {'form': form})
+
+
+
+
+
+
 
 def connexion(request):
     if request.method == 'POST':

@@ -90,8 +90,8 @@ button:hover {
 /* Messages d'aide */
 .help-text {
     font-size: 12px;
-    color: #666;
-    margin-top: -5px;
+    color: #797878;
+    margin-top: 2px;
     margin-bottom: 5px;
 }
 
@@ -147,36 +147,58 @@ button:hover {
 <div class="div-form-content">
 
 
-<!-- FORMULAIRE -->  
+<!-- FORMULAIRE -->
 <form method="post">
-        {% csrf_token %}
-        <!-- Nom d'utilisateur -->
-        <div>
-            <label for="id_username">Nom d'utilisateur :</label>
-            <input type="text" id="id_username" name="username" required>
-            <p class="help-text">Requis. 150 caractères maximum. Uniquement des lettres, chiffres et caractères spéciaux (@ . + - _).</p>
-        </div>
-        <!-- Mot de passe -->
-        <div>
-            <label for="id_password1">Mot de passe :</label>
-            <input type="password" id="id_password1" name="password1" required>
-            <ul>
-                <li>Votre mot de passe ne peut pas trop ressembler à vos autres informations personnelles.</li>
-                <li>Votre mot de passe doit contenir au minimum 8 caractères.</li>
-                <li>Votre mot de passe ne peut pas être un mot de passe couramment utilisé.</li>
-                <li>Votre mot de passe ne peut pas être entièrement numérique.</li>
-            </ul>
-        </div>
-        <!-- Confirmation du mot de passe -->
-        <div>
-            <label for="id_password2">Confirmation du mot de passe :</label>
-            <input type="password" id="id_password2" name="password2" required>
-            <p class="help-text">Saisissez à nouveau le même mot de passe pour vérification.</p>
-        </div>
-        <!-- Bouton S'inscrire -->
+    {% csrf_token %}
+    
+    <!-- NOM D'UTILISATEUR -->
+    <div>
+        <label for="id_username">Nom d'utilisateur :</label>
+        <input type="text" id="id_username" name="username" required>
+        <p class="help-text">Requis. 150 caractères maximum. Uniquement des lettres, chiffres et caractères spéciaux (@ . + - _).</p>
+    </div>
+
+    <!-- NOM -->
+    <div>
+        <label for="id_nom">Nom :</label>
+        <input type="text" id="id_nom" name="nom" required>
+        <p class="help-text">Requis. 150 caractères maximum. Uniquement des lettres et espaces.</p>
+    </div>
+
+    <!-- PRÉNOM -->
+    <div>
+        <label for="id_prenom">Prénom :</label>
+        <input type="text" id="id_prenom" name="prenom" required>
+        <p class="help-text">Requis. 150 caractères maximum. Uniquement des lettres et espaces.</p>
+    </div>
+
+    <!-- MOT DE PASSE -->
+    <div>
+        <label for="id_password1">Mot de passe :</label>
+        <input type="password" id="id_password1" name="password1" required>
+        <p class="help-text">Votre mot de passe doit :</p>
+        <ul>
+            <li>Ne pas trop ressembler à vos autres informations personnelles.</li>
+            <li>Contenir au minimum 8 caractères.</li>
+            <li>Ne pas être un mot de passe couramment utilisé.</li>
+            <li>Ne pas être entièrement numérique.</li>
+        </ul>
+    </div>
+
+    <!-- CONFIRMATION DU MOT DE PASSE -->
+    <div>
+        <label for="id_password2">Confirmation du mot de passe :</label>
+        <input type="password" id="id_password2" name="password2" required>
+        <p class="help-text">Saisissez à nouveau le même mot de passe pour vérification.</p>
+    </div>
+
+    <!-- BOUTON S'INSCRIRE -->
+    <div>
         <button type="submit">S'inscrire</button>
-    </form>
-<!-- / FORMULAIRE -->  
+    </div>
+</form>
+<!-- / FORMULAIRE -->
+  
 
  
 </div>
