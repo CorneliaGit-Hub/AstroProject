@@ -7,155 +7,130 @@
 <style>
 /* Style général */
 body {
-font-family: 'Arial', sans-serif;
-background-color: #f9f9f9;
-margin: 0;
-padding: 0;
-display: flex;
-justify-content: center;
-align-items: center;
-min-height: 100vh;
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
 }
 
 /* Conteneur principal */
 .form-container {
-background-color: #ffffff;
-padding: 40px;
-border-radius: 10px;
-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-width: 60%;
-max-width: 800px;
-text-align: center;
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 50%;
+    max-width: 700px;
+    text-align: center;
 }
 
+/* Titre */
 h2 {
-color: #6A3D90;
-margin-bottom: 20px;
+    color: #6A3D90;
+    margin-bottom: 15px;
+    font-size: 22px;
 }
 
+/* Formulaire */
 form {
-display: flex;
-flex-direction: column;
-gap: 20px;
-align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    text-align: left;
 }
 
 label {
-font-size: 16px;
-color: #333;
-font-weight: bold;
-text-align: left;
-width: 100%;
+    font-weight: bold;
+    font-size: 14px;
+    color: #333;
 }
 
-/* Champ texte */
-input[type="text"] {
-padding: 12px;
-font-size: 16px;
-border: 1px solid #ddd;
-border-radius: 5px;
-width: 100%;
-box-sizing: border-box;
-}
-
-/* Champ mot de passe */
-input[type="password"] {
-padding: 12px;
-font-size: 16px;
-border: 1px solid #ddd;
-border-radius: 5px;
-width: 100%;
-box-sizing: border-box;
-}
-
-/* Champ email (si utilisé dans un autre formulaire) */
-input[type="email"] {
-padding: 12px;
-font-size: 16px;
-border: 1px solid #ddd;
-border-radius: 5px;
-width: 100%;
-box-sizing: border-box;
-}
-
+/* Champs d'entrée */
 input[type="text"],
 input[type="password"] {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+    background-color: #f9f9f9;
 }
 
-
-input:focus {
-border-color: #6A3D90;
-box-shadow: 0 0 5px rgba(106, 61, 144, 0.3);
-outline: none;
+input[type="text"]:focus,
+input[type="password"]:focus {
+    border-color: #6A3D90;
+    box-shadow: 0 0 5px rgba(106, 61, 144, 0.3);
+    outline: none;
 }
 
-ul {
-text-align: left;
-font-size: 14px;
-color: #666;
-margin: 10px 0 0;
-padding-left: 20px;
-line-height: 1.5;
-}
-
-ul li {
-margin-bottom: 5px;
-}
-
+/* Bouton */
 button {
-background-color: #6A3D90;
-color: white;
-font-size: 16px;
-font-weight: bold;
-padding: 12px 20px;
-border: none;
-border-radius: 5px;
-cursor: pointer;
-transition: all 0.3s ease;
-width: 100%;
-max-width: 200px;
+    background-color: #6A3D90;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
 button:hover {
-background-color: #A9CE02;
-transform: scale(1.05);
+    background-color: #A9CE02;
+    transform: scale(1.05);
 }
 
-p {
-margin-top: 20px;
-color: #555;
+/* Messages d'aide */
+.help-text {
+    font-size: 12px;
+    color: #666;
+    margin-top: -5px;
+    margin-bottom: 5px;
 }
 
-p a {
-color: #6A3D90;
-text-decoration: none;
-font-weight: bold;
-}
-
-p a:hover {
-color: #A9CE02;
-}
-
+/* Erreurs */
 .errorlist {
-color: #FF0000;
-font-size: 14px;
-text-align: left;
-margin: -10px 0 10px;
-padding-left: 10px;
+    color: #FF0000;
+    font-size: 12px;
+    margin: -5px 0 5px;
+    text-align: left;
 }
 
-.div-form {
-	width:85%;
-	margin:auto;
+/* Responsive design */
+@media (max-width: 768px) {
+    .form-container {
+        width: 80%;
+        padding: 20px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
 }
 
-.div-form-content {
-	width:85%;
-	margin:auto;
+@media (max-width: 480px) {
+    .form-container {
+        width: 95%;
+        padding: 15px;
+    }
+
+    h2 {
+        font-size: 18px;
+    }
+
+    button {
+        font-size: 12px;
+        padding: 8px;
+    }
 }
+
 </style>
 
 </head>
@@ -166,9 +141,13 @@ padding-left: 10px;
 
     <h2>Inscription</h2>
 
-<!-- FORMULAIRE -->   
+<!-- DIV FORMULAIRE -->   
 <div class="div-form">
+
 <div class="div-form-content">
+
+
+<!-- FORMULAIRE -->  
 <form method="post">
         {% csrf_token %}
         <!-- Nom d'utilisateur -->
@@ -197,9 +176,13 @@ padding-left: 10px;
         <!-- Bouton S'inscrire -->
         <button type="submit">S'inscrire</button>
     </form>
+<!-- / FORMULAIRE -->  
+
+ 
 </div>
+
 </div>
-<!-- / FORMULAIRE -->   
+<!-- / div FORMULAIRE -->   
     
     <!-- Lien Connexion -->
     <p>Déjà inscrit ? <a href="{% url 'connexion' %}">Connexion</a></p>
