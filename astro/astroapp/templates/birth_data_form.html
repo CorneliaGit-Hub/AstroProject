@@ -9,7 +9,22 @@
 
 
 <style>
-/* Style des liens Connexion et S'inscrire */
+/* MESSAGE */
+.messages {
+    margin: 0px auto;
+    max-width: 500px;
+    text-align: center;
+}
+.message.success {
+    color: #FA6A0A;
+    font-weight: bold;
+}
+.message.error {
+    color: #F9074C;
+    font-weight: bold;
+}
+
+/* CONNEXION */
 .auth-links {
 	display: flex;
 	gap: 10px;
@@ -142,6 +157,15 @@ button:hover {
 
 </head>
 <body>
+
+{% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+            <p class="message {{ message.tags }}">{{ message }}</p>
+        {% endfor %}
+    </div>
+{% endif %}
+
 
 <div class="auth-links">
     {% if user.is_authenticated %}

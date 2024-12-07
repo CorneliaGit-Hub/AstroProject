@@ -146,28 +146,34 @@ def enregistrer_naissance(request):
 
 
 
-
+from .forms import CustomUserCreationForm
+from django.contrib import messages
 
 
 # CONNEXION
-from django.shortcuts import render, redirect
-from django.contrib.auth import login
-from .forms import CustomUserCreationForm
-
 def inscription(request):
     if request.method == 'POST':
+        print("DEBUG - Requête POST reçue.")  # Debug
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
+            print("DEBUG - Formulaire valide.")  # Debug
             user = form.save(commit=False)
             user.first_name = form.cleaned_data.get('prenom')
             user.last_name = form.cleaned_data.get('nom')
             user.save()
             login(request, user)
-            print("Redirection vers birth_data...")  # Debug ici
+            messages.success(request, f"Bienvenue, {user.first_name} ! Votre inscription a été réussie.")
+            print("DEBUG - Redirection vers birth_data...")  # Debug
             return redirect('birth_data')
+        else:
+            print("DEBUG - Formulaire invalide :", form.errors)  # Debug
     else:
+        print("DEBUG - Requête GET reçue.")  # Debug
         form = CustomUserCreationForm()
     return render(request, 'registration/signup.html', {'form': form})
+
+
+
 
 
 
