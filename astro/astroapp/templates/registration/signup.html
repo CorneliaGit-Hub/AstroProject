@@ -28,6 +28,11 @@ body {
     text-align: center;
 	margin-top: 40px;
 }
+.messages {
+    color: #FA6A0A;
+	font-weight:bold;
+	font-size:16px;
+}
 
 /* Titre */
 h2 {
@@ -156,9 +161,22 @@ button:hover {
 <div class="form-container">
 
     <h2>Inscription</h2>
+<br>
 
 <!-- DIV FORMULAIRE -->   
 <div class="div-form">
+
+{% if messages %}
+<div class="messages">
+    {% for message in messages %}
+    <div class="alert alert-danger">
+        {{ message }}
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+<br><br>
+
 
 <div class="div-form-content">
 

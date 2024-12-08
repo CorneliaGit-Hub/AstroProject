@@ -157,13 +157,15 @@ signer = Signer()
 # CONNEXION
 def inscription(request):
     if request.method == 'POST':
+        print(request.POST)  # Affiche les données soumises
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
-            user.is_active = False
+            user.is_active = False  # Ne pas activer le compte immédiatement
             user.save()
-
-            signer = Signer()
+            
+            # Préparation de l'email de confirmation
+            signer = Signer()  # Assure-toi que le signer est correctement initialisé
             token = signer.sign(user.email)
             confirmation_link = request.build_absolute_uri('/confirmation/?token=' + token)
             send_mail(
@@ -173,13 +175,21 @@ def inscription(request):
                 [user.email],
                 fail_silently=False,
             )
-            # Redirige avec l'email comme argument
+
+            # Redirection vers une nouvelle page après l'inscription
             return redirect('email_sent', email=user.email)
         else:
-            print("Erreurs du formulaire:", form.errors)
+            # Gestion des erreurs spécifiques
+            for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(request, f"{field.capitalize()} : {error}")
+
     else:
         form = CustomUserCreationForm()
+    
     return render(request, 'registration/signup.html', {'form': form})
+
+
 
 
  

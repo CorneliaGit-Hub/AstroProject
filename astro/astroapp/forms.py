@@ -11,6 +11,18 @@ class CustomUserCreationForm(UserCreationForm):
         model = CustomUser
         fields = ['username', 'email', 'prenom', 'nom', 'password1', 'password2']
 
+    def clean_username(self):
+        username = self.cleaned_data.get('username')
+        if CustomUser.objects.filter(username=username).exists():
+            raise forms.ValidationError("Ce nom d'utilisateur est déjà pris. Veuillez en choisir un autre.")
+        return username
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if CustomUser.objects.filter(email=email).exists():
+            raise forms.ValidationError("Cette e-mail est déjà utilisée. Veuillez en fournir un autre ou vous connecter.")
+        return email
+
 class BirthDataForm(forms.Form):
     name = forms.CharField(max_length=100, required=True)
     birthdate = forms.DateField(
