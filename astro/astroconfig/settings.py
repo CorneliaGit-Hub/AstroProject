@@ -29,6 +29,8 @@ INSTALLED_APPS = [
     'astroapp',  # L'application 'astroapp'
 ]
 
+AUTH_USER_MODEL = 'astroapp.CustomUser'  # Utilisation du modèle utilisateur personnalisé
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

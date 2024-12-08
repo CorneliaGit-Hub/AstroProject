@@ -14,7 +14,7 @@ from .forms import BirthDataForm
 
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
+from .models import CustomUser
 
 # Imports tiers
 import pytz
@@ -193,13 +193,13 @@ def confirm_email(request):
     signer = Signer()
     try:
         email = signer.unsign(token)
-        user = User.objects.get(email=email)
+        user = CustomUser.objects.get(email=email)
         if not user.is_active:
             user.is_active = True
             user.save()
             messages.success(request, "Votre email a été confirmé avec succès. Vous pouvez maintenant vous connecter.")
             return redirect('connexion')
-    except (BadSignature, User.DoesNotExist):
+    except (BadSignature, CustomUser.DoesNotExist):
         messages.error(request, "Lien invalide ou expiré.")
         return redirect('inscription')
 

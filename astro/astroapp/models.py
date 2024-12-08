@@ -1,8 +1,12 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
+
+class CustomUser(AbstractUser):
+    # Ajoute des champs personnalisés si nécessaire
+    email = models.EmailField(unique=True)  # Assure l'unicité de l'email
 
 class ThemeAstrologique(models.Model):
-    utilisateur = models.ForeignKey(User, on_delete=models.CASCADE)
+    utilisateur = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
     birthdate = models.DateField()
     birthtime = models.TimeField()
@@ -12,5 +16,3 @@ class ThemeAstrologique(models.Model):
 
     def __str__(self):
         return f"{self.name} ({self.utilisateur.username})"
-
-
