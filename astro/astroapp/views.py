@@ -150,21 +150,20 @@ from .forms import CustomUserCreationForm
 from django.contrib import messages
 
 from django.core.mail import send_mail
+
 from django.core.signing import BadSignature, Signer
 signer = Signer()
 
 # CONNEXION
 def inscription(request):
     if request.method == 'POST':
-        print(request.POST)  # Affiche les données soumises
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
-            user.is_active = False  # Ne pas activer le compte immédiatement
+            user.is_active = False
             user.save()
-            
-            # Préparation de l'email de confirmation
-            signer = Signer()  # Assure-toi que le signer est correctement initialisé
+
+            signer = Signer()
             token = signer.sign(user.email)
             confirmation_link = request.build_absolute_uri('/confirmation/?token=' + token)
             send_mail(
@@ -174,15 +173,14 @@ def inscription(request):
                 [user.email],
                 fail_silently=False,
             )
-
-            # Redirection vers une nouvelle page après l'inscription
-            return redirect('email_sent')  # Redirige vers une nouvelle page
+            # Redirige avec l'email comme argument
+            return redirect('email_sent', email=user.email)
         else:
-            print("Erreurs du formulaire:", form.errors)  # Affiche les erreurs si le formulaire n'est pas valide
+            print("Erreurs du formulaire:", form.errors)
     else:
         form = CustomUserCreationForm()
-    
     return render(request, 'registration/signup.html', {'form': form})
+
 
  
 def confirm_email(request):
@@ -206,10 +204,8 @@ def confirm_email(request):
     return redirect('connexion')
 
 
-
-
-def email_sent(request):
-    return render(request, 'registration/email_sent.html')
+def email_sent(request, email):
+    return render(request, 'registration/email_sent.html', {'email': email})
 
 
 

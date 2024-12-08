@@ -105,11 +105,11 @@
 
 <div>
 {% if messages %}
-    <ul style="color: #FA6A0A; text-align: left; font-weight:bold;">
+    <p style="color: #FA6A0A; text-align: center; font-weight:bold;">
     {% for message in messages %}
-    <li>{{ message }}</li>
+    {{ message }}
     {% endfor %}
-    </ul>
+    </p>
 {% endif %}
 </div><br>
 
