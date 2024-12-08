@@ -10,7 +10,7 @@
             font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
+            background-color: #e9edf1;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -20,18 +20,37 @@
         /* Conteneur principal */
         .container {
             background-color: #ffffff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
             width: 100%;
             max-width: 400px;
             text-align: center;
+            position: relative;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
 
         /* Titre */
         h2 {
             margin-bottom: 20px;
-            color: #333;
+            color: #444;
+        }
+
+        /* Message d'alerte */
+        .alert {
+            color: #FA6A0A;
+            background-color: #fff3e6;
+            border: 1px solid #FA6A0A;
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(250, 106, 10, 0.2);
         }
 
         /* Formulaire */
@@ -43,18 +62,19 @@
 
         input[type="text"],
         input[type="password"] {
-            padding: 10px;
+            padding: 12px;
             font-size: 16px;
             border: 1px solid #ddd;
-            border-radius: 5px;
+            border-radius: 8px;
             width: 100%;
             box-sizing: border-box;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
         input[type="text"]:focus,
         input[type="password"]:focus {
             border-color: #6A3D90;
-            box-shadow: 0 0 5px rgba(106, 61, 144, 0.3);
+            box-shadow: 0 0 8px rgba(106, 61, 144, 0.4);
             outline: none;
         }
 
@@ -64,9 +84,9 @@
             color: white;
             font-size: 16px;
             font-weight: bold;
-            padding: 10px;
+            padding: 12px;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
             transition: background-color 0.3s ease, transform 0.2s ease;
         }
@@ -95,25 +115,18 @@
     </style>
 </head>
 <body>
-
-
-
-
     <div class="container">
+        <!-- Affichage des messages -->
+        {% if messages %}
+            <div class="alert">
+                {% for message in messages %}
+                    {{ message }}
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <!-- Formulaire de connexion -->
         <h2>Connexion</h2>
-
-
-<div>
-{% if messages %}
-    <p style="color: #FA6A0A; text-align: center; font-weight:bold;">
-    {% for message in messages %}
-    {{ message }}
-    {% endfor %}
-    </p>
-{% endif %}
-</div><br>
-
-
         <form method="post">
             {% csrf_token %}
             {{ form.as_p }}
