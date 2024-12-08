@@ -169,39 +169,47 @@ def inscription(request):
             confirmation_link = request.build_absolute_uri('/confirmation/?token=' + token)
             send_mail(
                 'Confirmez votre adresse email',
-                'Suivez ce lien pour activer votre compte : {}'.format(confirmation_link),
+                f'Suivez ce lien pour activer votre compte : {confirmation_link}',
                 'from@example.com',
                 [user.email],
                 fail_silently=False,
             )
-            messages.success(request, "Merci de vous être inscrit. Veuillez vérifier votre email pour activer votre compte.")
-            return redirect('connexion')
+
+            # Redirection vers une nouvelle page après l'inscription
+            return redirect('email_sent')  # Redirige vers une nouvelle page
         else:
-            print("Erreurs du formulaire:", form.errors)  # Ajoute ceci pour voir les erreurs si le formulaire n'est pas valide
+            print("Erreurs du formulaire:", form.errors)  # Affiche les erreurs si le formulaire n'est pas valide
     else:
         form = CustomUserCreationForm()
+    
     return render(request, 'registration/signup.html', {'form': form})
 
-
-
-# views.py
-
-
-
+ 
 def confirm_email(request):
-    token = request.GET.get('token')
-    signer = Signer()
+    token = request.GET.get('token', None)
+    if not token:
+        messages.error(request, "Le lien de confirmation est invalide ou manquant.")
+        return redirect('connexion')
+    
     try:
+        signer = Signer()
         email = signer.unsign(token)
         user = CustomUser.objects.get(email=email)
+
         if not user.is_active:
             user.is_active = True
             user.save()
             messages.success(request, "Votre email a été confirmé avec succès. Vous pouvez maintenant vous connecter.")
-            return redirect('connexion')
     except (BadSignature, CustomUser.DoesNotExist):
-        messages.error(request, "Lien invalide ou expiré.")
-        return redirect('inscription')
+        messages.error(request, "Le lien de confirmation est invalide ou expiré.")
+    
+    return redirect('connexion')
+
+
+
+
+def email_sent(request):
+    return render(request, 'registration/email_sent.html')
 
 
 

@@ -95,8 +95,25 @@
     </style>
 </head>
 <body>
+
+
+
+
     <div class="container">
         <h2>Connexion</h2>
+
+
+<div>
+{% if messages %}
+    <ul style="color: #FA6A0A; text-align: left; font-weight:bold;">
+    {% for message in messages %}
+    <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+{% endif %}
+</div><br>
+
+
         <form method="post">
             {% csrf_token %}
             {{ form.as_p }}
