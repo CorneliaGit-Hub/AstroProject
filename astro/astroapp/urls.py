@@ -15,4 +15,5 @@ urlpatterns = [
     path('themes/ouvrir/<int:id>/', views.ouvrir_theme, name='ouvrir_theme'),
     path('themes/supprimer_multiple/', views.supprimer_multiple_themes, name='supprimer_multiple_themes'),
     path('delete_image/', views.delete_image, name='delete_image'),
+    path('confirmation/', views.confirm_email, name='confirm_email'),
 ]

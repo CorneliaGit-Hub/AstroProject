@@ -133,6 +133,14 @@ CSRF_COOKIE_SECURE = True  # Protège le cookie CSRF contre les attaques
 SECURE_BROWSER_XSS_FILTER = True  # Active le filtre XSS du navigateur
 SECURE_SSL_REDIRECT = False  # Change à True si le site utilise HTTPS
 
+# Configuration de l'envoi d'emails
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'tepi.djet.neheh@gmail.com'
+EMAIL_HOST_PASSWORD = 'sycz mlyq xvxc kfzr'
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,

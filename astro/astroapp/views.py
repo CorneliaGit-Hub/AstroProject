@@ -149,33 +149,59 @@ def enregistrer_naissance(request):
 from .forms import CustomUserCreationForm
 from django.contrib import messages
 
+from django.core.mail import send_mail
+from django.core.signing import BadSignature, Signer
+signer = Signer()
 
 # CONNEXION
 def inscription(request):
     if request.method == 'POST':
+        print(request.POST)  # Affiche les données soumises
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
-            user.first_name = form.cleaned_data.get('prenom')
-            user.last_name = form.cleaned_data.get('nom')
-            user.email = form.cleaned_data.get('email')  # Ajout de l'email
+            user.is_active = False  # Ne pas activer le compte immédiatement
             user.save()
-            login(request, user)
-            messages.success(request, f"Bienvenue, {user.first_name} ! Vous êtes inscrit sur le site.")
-            return redirect('birth_data')  # Redirige vers le formulaire de données de naissance
+            
+            # Préparation de l'email de confirmation
+            signer = Signer()  # Assure-toi que le signer est correctement initialisé
+            token = signer.sign(user.email)
+            confirmation_link = request.build_absolute_uri('/confirmation/?token=' + token)
+            send_mail(
+                'Confirmez votre adresse email',
+                'Suivez ce lien pour activer votre compte : {}'.format(confirmation_link),
+                'from@example.com',
+                [user.email],
+                fail_silently=False,
+            )
+            messages.success(request, "Merci de vous être inscrit. Veuillez vérifier votre email pour activer votre compte.")
+            return redirect('connexion')
         else:
-            print(form.errors)  # Affiche les erreurs dans la console pour le débogage
+            print("Erreurs du formulaire:", form.errors)  # Ajoute ceci pour voir les erreurs si le formulaire n'est pas valide
     else:
         form = CustomUserCreationForm()
     return render(request, 'registration/signup.html', {'form': form})
 
 
 
+# views.py
 
 
 
-
-
+def confirm_email(request):
+    token = request.GET.get('token')
+    signer = Signer()
+    try:
+        email = signer.unsign(token)
+        user = User.objects.get(email=email)
+        if not user.is_active:
+            user.is_active = True
+            user.save()
+            messages.success(request, "Votre email a été confirmé avec succès. Vous pouvez maintenant vous connecter.")
+            return redirect('connexion')
+    except (BadSignature, User.DoesNotExist):
+        messages.error(request, "Lien invalide ou expiré.")
+        return redirect('inscription')
 
 
 
