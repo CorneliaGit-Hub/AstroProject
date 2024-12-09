@@ -5,28 +5,96 @@
 <meta charset="UTF-8">
 <title>Liste des Thèmes</title>
 <style>
-/* CONEXION */
+
+/* CONNEXION */
+/* Conteneur principal */
+.auth-user {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* Les éléments restent alignés à droite */
+    gap: 10px;
+    padding: 10px 15px;
+    background-color: #f4f4f4;
+	border:#6A3D90 1px solid;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 82%; /* Fixe la largeur à 80% */
+    margin: 0 auto; /* Centre la barre horizontalement dans son conteneur */
+}
+
+/* Pour les utilisateurs authentifiés */
+.auth-logged-in {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Icône de l'utilisateur */
+.user-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.status-indicator {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 12px;
+    height: 12px;
+    background-color: #00ff00; /* Vert pour connecté */
+    border: 2px solid white;
+    border-radius: 50%;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Nom de l'utilisateur */
+.user-name {
+    font-weight: bold;
+    font-size: 14px;
+    color: #000;
+}
+
+/* Bouton de déconnexion */
+.logout-btn {
+    background-color: #6A3D90;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 12px;
+    transition: background-color 0.3s ease;
+}
+
+.logout-btn:hover {
+    background-color: #A9CE02;
+}
+
+/* Pour les utilisateurs non authentifiés */
 .auth-links {
-	display: flex;
-	gap: 10px;
-	margin-top: 20px; /* Marge supérieure pour éloigner des autres éléments */
-	margin-bottom: 20px; 
-	justify-content: flex-end; /* Aligne les liens à droite */
+    display: flex;
+    gap: 10px;
 }
 
-.auth-links a {
-	background-color: #6A3D90; /* Couleur violette */
-	color: white;
-	padding: 8px 16px;
-	border-radius: 5px;
-	text-decoration: none;
-	font-weight: bold;
-	transition: background-color 0.3s ease;
+.auth-btn {
+    background-color: #6A3D90;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
 }
 
-.auth-links a:hover {
-	background-color: #A9CE02; /* Couleur verte au survol */
+.auth-btn:hover {
+    background-color: #A9CE02;
 }
+/* / CONNEXION */
+
+
+
 /* Style général */
 body {
 	font-family: 'Arial', sans-serif;
@@ -37,20 +105,25 @@ body {
 
 h1 {
 	text-align: center;
-	color: #6A3D90;
+	color: #000;
 	font-size: 28px;
 	margin-bottom: 20px;
 }
 
 /* Style du tableau */
 table {
-	width: 80%;
+	width: 84%;
 	margin: 0 auto;
 	border-collapse: collapse;
 	background-color: #fff;
 	border-radius: 10px;
 	overflow: hidden;
 	box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.div-birth-details {
+	background:#D1B866;
+	color: #000;
 }
 
 th, td {
@@ -141,7 +214,7 @@ button#deleteSelected:hover {
 /* Style unique pour le bouton en bas de page */
 .btn-retour-formulaire {
 	display: block;
-	width: 80%;
+	width: 84%;
 	margin: 20px auto;
 	padding: 15px 0;
 	background-color: #6A3D90;
@@ -260,16 +333,29 @@ button#deleteSelected:hover {
 
 <body>
 
-<!-- CONNEXION -->
-<div class="auth-links">
+<!-- AUTHENTIFICATION -->
+<div class="auth-user">
     {% if user.is_authenticated %}
-        <a href="{% url 'deconnexion' %}">Déconnexion</a>
+        <div class="auth-logged-in">
+            <div style="position: relative; display: inline-block;">
+                <img src="{% static 'images/user-icons/user-icon-orange.png' %}" alt="Icône utilisateur" class="user-icon">
+                <!-- Cercle de statut -->
+                <div class="status-indicator"></div>
+                
+            </div>
+            <span class="user-name">{{ user.username }}</span>
+            <a href="{% url 'deconnexion' %}" class="logout-btn">Déconnexion</a>
+        </div>
     {% else %}
-        <a href="{% url 'connexion' %}">Connexion</a>
-        <a href="{% url 'inscription' %}">S'inscrire</a>
+        <div class="auth-links">
+            <a href="{% url 'connexion' %}" class="auth-btn">Connexion</a>
+            <a href="{% url 'inscription' %}" class="auth-btn">S'inscrire</a>
+        </div>
     {% endif %}
 </div>
-<!-- / CONNEXION -->
+<!-- /AUTHENTIFICATION -->
+
+
     <h1>Vos Thèmes Astrologiques</h1>
     
 <!-- BOUTON SUPPRESSION -->
@@ -306,14 +392,14 @@ button#deleteSelected:hover {
     </tr>
     <tr>
         <!-- Colonne "Sélectionner" déplacée tout à gauche -->
-        <th>
+        <th class="div-birth-details">
             <input type="checkbox" id="selectAll" />
         </th>
-        <th>Nom</th>
-        <th>Date</th>
-        <th>Heure</th>
-        <th>Lieu</th>
-        <th>Ouvrir</th>
+        <th class="div-birth-details">Nom</th>
+        <th class="div-birth-details">Date</th>
+        <th class="div-birth-details">Heure</th>
+        <th class="div-birth-details">Lieu</th>
+        <th class="div-birth-details">Ouvrir</th>
     </tr>
     {% for theme in page_obj %}
     <tr>
@@ -346,8 +432,8 @@ button#deleteSelected:hover {
 <div class="pagination">
     <span class="step-links">
         {% if page_obj.has_previous %}
-            <a href="?page=1&sort={{ current_sort }}">Premier</a>
-            <a href="?page={{ page_obj.previous_page_number }}&sort={{ current_sort }}">Précédent</a>
+            <a href="">Premier</a>
+            <a href="">Précédent</a>
         {% endif %}
 
         <span class="current">
@@ -355,8 +441,8 @@ button#deleteSelected:hover {
         </span>
 
         {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}&sort={{ current_sort }}">Suivant</a>
-            <a href="?page={{ page_obj.paginator.num_pages }}&sort={{ current_sort }}">Dernier</a>
+            <a href="">Suivant</a>
+            <a href="">Dernier</a>
         {% endif %}
     </span>
 </div>
