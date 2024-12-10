@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Erreur CSRF</title>
+<style>
+body {
+	font-family: 'Arial', sans-serif;
+	background-color: #f9f9f9;
+	margin: 0;
+	padding: 20px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+}
+.container {
+	text-align: center;
+	background-color: #ffffff;
+	padding: 30px;
+	border-radius: 10px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	width: 90%;
+	max-width: 500px;
+}
+.connected {
+	color:#FA6A0A;
+}
+.disconnected {
+	color:#07B3F2;
+}
+h1 {
+	color: #F9074C;
+	font-size: 24px;
+	margin-bottom: 15px;
+}
+p {
+	color: #555;
+	font-size: 16px;
+	margin-bottom: 25px;
+}
+a {
+	display: inline-block;
+	background-color: #6A3D90;
+	color: white;
+	font-size: 14px;
+	font-weight: bold;
+	padding: 10px 20px;
+	border-radius: 5px;
+	text-decoration: none;
+	transition: all 0.3s ease;
+}
+a:hover {
+	background-color: #A9CE02;
+	color: #000;
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>Erreur de validation</h1>
+<br>
+
+<p>Vous êtes probablement <strong><span class="connected">déjà connecté</span>. </strong></p>
+
+<p><strong>Veuillez vous <span class="disconnected">déconnecter</span>,</strong> puis réessayer.</p>
+<br>
+        
+  <a href="{% url 'inscription' %}">Recharger la page</a>
+  </div>
+</body>
+</html>

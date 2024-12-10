@@ -246,5 +246,29 @@ button:hover {
     <!-- Lien Connexion -->
     <p>Déjà inscrit ? <a href="{% url 'connexion' %}">Connexion</a></p>
 </div>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    // Vérifie si l'utilisateur est connecté via une requête GET
+    fetch("{% url 'verifier_connexion' %}")
+        .then(response => response.json())
+        .then(data => {
+            if (data.connected) {
+                // Affiche un message et redirige l'utilisateur connecté
+                alert("Vous êtes déjà connecté. Redirection...");
+                window.location.href = "{% url 'birth_data' %}";
+            }
+        })
+        .catch(error => {
+            console.error("Erreur lors de la vérification de connexion :", error);
+        });
+});
+</script>
+
+
+
+
+
 </body>
 </html>

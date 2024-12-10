@@ -154,18 +154,25 @@ from django.core.mail import send_mail
 from django.core.signing import BadSignature, Signer
 signer = Signer()
 
+from django.views.decorators.csrf import csrf_exempt
+
+
 # CONNEXION
 def inscription(request):
+    # Vérifie si l'utilisateur est connecté
+    if request.user.is_authenticated:
+        messages.info(request, "Vous êtes déjà connecté. Redirection vers la page principale.")
+        return redirect('birth_data')
+
     if request.method == 'POST':
-        print(request.POST)  # Affiche les données soumises
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
             user.is_active = False  # Ne pas activer le compte immédiatement
             user.save()
-            
+
             # Préparation de l'email de confirmation
-            signer = Signer()  # Assure-toi que le signer est correctement initialisé
+            signer = Signer()
             token = signer.sign(user.email)
             confirmation_link = request.build_absolute_uri('/confirmation/?token=' + token)
             send_mail(
@@ -176,18 +183,43 @@ def inscription(request):
                 fail_silently=False,
             )
 
-            # Redirection vers une nouvelle page après l'inscription
             return redirect('email_sent', email=user.email)
         else:
-            # Gestion des erreurs spécifiques
             for field, errors in form.errors.items():
                 for error in errors:
                     messages.error(request, f"{field.capitalize()} : {error}")
 
     else:
         form = CustomUserCreationForm()
-    
+
     return render(request, 'registration/signup.html', {'form': form})
+    
+
+
+# Vue pour vérifier si l'utilisateur est connecté
+@csrf_exempt
+def verifier_connexion(request):
+    """
+    Vérifie si l'utilisateur est connecté.
+    Retourne un JSON indiquant le statut.
+    """
+    if request.method == "GET":  # Accepte uniquement GET
+        if request.user.is_authenticated:
+            return JsonResponse({'connected': True})
+        return JsonResponse({'connected': False})
+    return JsonResponse({'error': 'Méthode non autorisée.'}, status=405)
+
+
+def csrf_failure(request, reason=""):
+    """
+    Vue pour gérer les erreurs CSRF de manière conviviale.
+    """
+    return render(request, 'registration/csrf_failure.html', {
+        'message': "Votre session a expiré ou une erreur est survenue. Veuillez recharger la page.",
+        'reason': reason,
+    })
+
+
 
 
 

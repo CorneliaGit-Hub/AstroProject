@@ -1,6 +1,8 @@
 from django.urls import path, include
 from . import views
 from .views import email_sent
+from astroapp.views import verifier_connexion
+
 
 
 
@@ -11,6 +13,7 @@ urlpatterns = [
     path('birth_results/text/', views.birth_results, name='birth_results_text'),
     path('connexion/', views.connexion, name='connexion'),
     path('inscription/', views.inscription, name='inscription'),
+    path('verifier-connexion/', verifier_connexion, name='verifier_connexion'),
     path('email-sent/<email>/', email_sent, name='email_sent'),
     path('deconnexion/', views.deconnexion, name='deconnexion'),
     path('birth_results/enregistrer/', views.enregistrer_naissance, name='enregistrer_naissance'),

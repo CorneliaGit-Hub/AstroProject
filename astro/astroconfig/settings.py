@@ -124,16 +124,22 @@ TEMP_IMAGE_DIR = os.path.join(BASE_DIR, 'astroapp', 'static', 'images', 'temps')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Sécurité des cookies et des sessions
-SESSION_COOKIE_SECURE = True  # Empêche la transmission des cookies en HTTP non sécurisé
+SESSION_COOKIE_SECURE = False   # Empêche la transmission des cookies en HTTP non sécurisé
 
 # Configuration des sessions Django
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'  # Utilisation de la base de données pour les sessions
 SESSION_COOKIE_AGE = 1209600  # Durée de la session en secondes (2 semaines)
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False  # Les sessions persistent même après la fermeture du navigateur
 
-CSRF_COOKIE_SECURE = True  # Protège le cookie CSRF contre les attaques
+# Configuration des cookies CSRF
+CSRF_COOKIE_SECURE = False  # Désactivé pour le développement local (HTTP)
+
 SECURE_BROWSER_XSS_FILTER = True  # Active le filtre XSS du navigateur
 SECURE_SSL_REDIRECT = False  # Change à True si le site utilise HTTPS
+
+# Configuration de la gestion des erreurs CSRF
+CSRF_FAILURE_VIEW = 'astroapp.views.csrf_failure'
+
 
 # Configuration de l'envoi d'emails
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -172,6 +178,8 @@ LOGGING = {
         },
     },
 }
+
+
 
 
 
