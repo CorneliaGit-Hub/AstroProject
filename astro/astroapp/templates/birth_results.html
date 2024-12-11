@@ -398,6 +398,30 @@ button:active {
 .nom-du-theme {
 	color:#FA6A0A;
 }
+
+
+.scroll-buttons {
+    position: fixed;
+    right: 15px;
+    bottom: 15%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 1000;
+}
+
+/* SCROLL BUTTONS */
+.scroll-buttons a img {
+    width: 40px;
+    height: auto;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.scroll-buttons a:hover img {
+    transform: scale(1.1);
+}
+
     </style>
 </head>
 <body>
@@ -422,18 +446,18 @@ button:active {
             <a href="{% url 'inscription' %}" class="auth-btn">S'inscrire</a>
         </div>
     {% endif %}
-</div>
+</div><br>
 <!-- /AUTHENTIFICATION -->
-<br>
+
 
 
 
 <!-- ROUE ASTROLOGIQUE -->
 <div class="container">
     {% include 'wheeldisplay.html' %}
-</div>
+</div><br><br>
 <!-- / ROUE ASTROLOGIQUE -->
-<br><br>
+
 
 
 
@@ -491,9 +515,9 @@ button:active {
     </div>
 </div>
 
-</div>
+</div><br><br>
 <!-- / LONGITUDES / LATTITUDES  -->
-<br><br>
+
 
 
 
@@ -531,9 +555,9 @@ button:active {
 </table>
 </div>
 </div>
-</div>
+</div><br><br>
 <!-- / PLANETES -->
-<br><br>
+
 
 <!-- MAISONS -->
 <div class="container">
@@ -573,9 +597,8 @@ button:active {
 
 </div>
 </div>
-</div>
+</div><br><br>
 <!-- / MAISONS -->
-<br><br>
 
 
 <!-- ASPECTS -->
@@ -609,9 +632,9 @@ button:active {
 
 </div>
 </div>
-</div>
+</div><br><br>
 <!-- / ASPECTS -->
-<br><br>
+
 
 
 
@@ -656,23 +679,39 @@ button:active {
 </div>
 <!-- / BOUTON ENREGISTRER -->
 
-</div>
+</div><br><br><br><br>
 <!-- / TOUS LES BOUTONS-->
-<br><br>
 
 
 
 
 
+<!-- SCROLL BUTTONS -->
+<div class="scroll-buttons">
 
-
-<br><br>
-
+    <!-- Bouton pour remonter en haut -->
+    <a href="#" class="scroll-up">
+        <img src="/static/images/arrows/up-arrow.png" alt="Haut" />
+    </a>
+	<!-- / Bouton pour remonter en haut -->
+    
+    <!-- Bouton pour descendre en bas -->
+    <a href="#" class="scroll-down">
+        <img src="/static/images/arrows/down-arrow.png" alt="Bas" />
+    </a>
+    <!-- / Bouton pour descendre en bas -->
+    
 </div>
+<!-- / SCROLL BUTTONS -->
 
-<!-- Script AJAX -->
+
+<!-- Script SCROLL BUTTONS -->
+<script src="/static/js/scroll-buttons.js"></script>
+<!-- / Script SCROLL BUTTONS -->
+
+<!-- Script ENREGISTERE -->
 <script src="{% static 'js/ajax_enregistrer.js' %}"></script>
-
+<!-- / Script ENREGISTERE -->
 
 </body>
 </html>
