@@ -302,15 +302,16 @@ button:active {
     color: #000; /* Texte noir */
     font-weight: bold; /* Texte en gras */
     transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
-    width: 300px; /* Largeur fixe, ajustable */
-    padding: 12px; /* Hauteur du bouton inchangée */
+    width: 80%; /* Largeur dynamique */
+    max-width: 300px; /* Limite maximale */
+    padding: 12px; /* Ajuste la hauteur */
     margin: 10px auto; /* Centre horizontalement */
     text-align: center;
     border-radius: 5px; /* Coins arrondis */
-    font-size: 14px; /* Taille du texte */
+    font-size: 16px; /* Taille ajustée pour une meilleure visibilité */
     cursor: pointer;
     display: block; /* Assure le centrage dans une div */
-	text-decoration:none;
+    text-decoration: none;
 }
 
 /* Effet hover */
@@ -399,18 +400,17 @@ button:active {
 	color:#FA6A0A;
 }
 
-
+/* SCROLL BUTTONS */
 .scroll-buttons {
     position: fixed;
-    right: 15px;
+    right: 15px; /* Espacement par défaut pour les grands écrans */
     bottom: 15%;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 5px; /* Espacement entre les flèches (inchangé) */
     z-index: 1000;
 }
 
-/* SCROLL BUTTONS */
 .scroll-buttons a img {
     width: 40px;
     height: auto;
@@ -421,6 +421,26 @@ button:active {
 .scroll-buttons a:hover img {
     transform: scale(1.1);
 }
+
+/* Écran moyen (entre 576px et 768px) */
+@media (min-width: 576px) and (max-width: 767px) {
+    .scroll-buttons {
+        right: 10px; /* Réduction de l'espacement avec le bord droit */
+    }
+}
+
+/* Écran petit (moins de 576px) */
+@media (max-width: 575px) {
+    .scroll-buttons {
+        right: 2px; /* Espacement minimal pour petits écrans */
+    }
+}
+
+
+
+
+
+
 
     </style>
 </head>
@@ -641,9 +661,11 @@ button:active {
 
 <!-- TOUS LES BOUTONS-->
 <div class="all-btn">
+
+
 <!-- BOUTON LISTE DES THEMES -->
 <div class="div-bouton">
-    <a href="{% url 'liste_themes' %}" class=" btn-themes">Voir mes thèmes enregistrés</a>
+    <a href="{% url 'liste_themes' %}" class=" btn-themes">Voir mes thèmes</a>
 </div>
 <!-- / BOUTON LISTE DES THEMES -->
 
