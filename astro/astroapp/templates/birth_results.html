@@ -197,16 +197,20 @@ transform: translateY(-10px);
 margin-bottom: 20px; /* Espacement entre chaque table */
 }
 
-.table-wrapper-planetes,
-.table-wrapper-maisons {
+.table-wrapper-planetes {
 width: 100%;
-
 margin: 0 auto;
 }
 
 @media (min-width: 1024px) {
 .table-wrapper-planetes {
 width: 35%;
+}
+}
+
+@media (min-width: 900px) {
+.table-wrapper-maisons {
+width: 40%; /* Largeur moyenne pour les écrans de taille intermédiaire */
 }
 }
 
@@ -219,24 +223,25 @@ width: 45%; /* Largeur moyenne pour les écrans de taille intermédiaire */
 /* MAISONS */
 .table-wrapper-maisons {
 width: 100%; /* Largeur pour les petits écrans */
+margin: 0 auto;
 }
 
 
 @media (min-width: 1024px) {
 .table-wrapper-maisons {
-width: 55%;
+width: 40%;
 }
 }
 
 @media (min-width: 900px) {
 .table-wrapper-maisons {
-width: 70%; /* Largeur moyenne pour les écrans de taille intermédiaire */
+width: 45%; /* Largeur moyenne pour les écrans de taille intermédiaire */
 }
 }
 
 @media (min-width: 768px) {
 .table-wrapper-maisons {
-width: 80%; /* Largeur moyenne pour les écrans de taille intermédiaire */
+width: 50%; /* Largeur moyenne pour les écrans de taille intermédiaire */
 }
 }
 
@@ -279,6 +284,7 @@ border-collapse: collapse;
 margin-bottom: 20px;
 }
 
+/* COLONNES PLANETES */
 .col-planete {
     width: 25%; /* Largeur pour la colonne des planètes */
 }
@@ -291,6 +297,23 @@ margin-bottom: 20px;
 .col-degre-dms {
     width: 25%; /* Largeur pour le degré d'arc */
 }
+
+
+/* COLONNES MAISONS */
+.col-maison {
+    width: 25%;
+}
+.col-degre-signe-2 {
+    width: 20%; /* Largeur pour le degré dans le signe */
+}
+.col-signe-2 {
+    width: 30%; /* Largeur pour le signe */
+}
+.col-degre-dms-2 {
+    width: 25%; /* Largeur pour le degré d'arc */
+}
+
+
 
 th, td {
 border: 1px solid #ddd;
@@ -659,25 +682,32 @@ right: 5px; /* Espacement minimal pour petits écrans */
 <div class="table-container houses">
 <div class="table-wrapper-maisons">
 <h3>Maisons astrologiques :</h3>
+
+
+<!-- TABLE -->
 <table>
 <thead>
 <tr>
-    <th>Maison</th>
-    <th>Degré du signe</th>
-    <th>Signe</th>
-    <th>Degré total</th>
+    <th class="col-maison">Maison</th>
+    <th class="col-degre-signe-2">Degré</th>
+    <th class="col-signe-2">Signe</th>
+    <th class="col-degre-dms-2">Degré d'arc</th>
 </tr>
 </thead>
 <tbody>
 <!-- Débogage - Affichage des données des maisons -->
 
-
 {% if houses %}
-{% for house, info in houses.items %}  <!-- Changer ici : items() au lieu de items -->
+{% for house, info in houses.items %}
 <tr>
     <td>{{ house }}</td>
     <td>{{ info.sign_degree|degrees_minutes }}</td>
-    <td>{{ info.sign }}</td>
+    
+    <td>
+        <span class="sign-symbol" style="color: {{ info.sign_color|default:'#000000' }};">{{ info.sign_symbol }}</span>
+        {{ info.sign }}
+    </td>
+    
     <td>{{ info.degree_dms }}</td>
 </tr>
 {% endfor %}
@@ -686,9 +716,14 @@ right: 5px; /* Espacement minimal pour petits écrans */
     <td colspan="4">Aucune donnée disponible.</td>
 </tr>
 {% endif %}
-</tbody>
 
+
+
+</tbody>
 </table>
+<!-- / TABLE -->
+
+
 
 </div>
 </div>

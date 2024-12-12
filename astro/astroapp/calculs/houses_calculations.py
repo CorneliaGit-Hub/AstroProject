@@ -1,4 +1,5 @@
 from astroapp.utils.zodiac_utils import get_zodiac_sign
+from astroapp.utils.zodiac_utils import get_zodiac_data
 from astroapp.utils.conversions_utils import convert_to_dms
 import swisseph as swe
 
@@ -45,10 +46,26 @@ def calculate_houses(jd, latitude, longitude):
     
 # Fonction pour calculer les maisons astrologiques
 def calculate_astrological_houses(jd, latitude, longitude):
-    # Utiliser les mêmes fonctions de calcul que dans zodiacwheel.py
+    # Calculer les maisons
     house_results = calculate_houses(jd, latitude, longitude)
     
+    # Charger les symboles et couleurs des signes
+    elements, sign_colors, zodiac_symbols = get_zodiac_data()
+
+    # Enrichir chaque maison avec les données des signes
+    for house, cusp_data in house_results.items():
+        cusp_degree = cusp_data['degree']  # Degré total de la cuspide
+        sign, sign_degree = get_zodiac_sign(cusp_degree)  # Obtenir le signe et le degré
+        sign_index = int(cusp_degree // 30)  # Index du signe
+
+        # Ajouter les symboles et couleurs des signes
+        cusp_data['sign'] = sign
+        cusp_data['sign_degree'] = sign_degree
+        cusp_data['sign_symbol'] = zodiac_symbols[sign_index]
+        cusp_data['sign_color'] = sign_colors[elements[sign_index]]
+
     return house_results
+
     
     
     
