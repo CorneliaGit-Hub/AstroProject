@@ -1,12 +1,13 @@
 import json
 from astroapp.calculs.aspects_calculations import calculate_angular_difference
 from astroapp.calculs.aspects_calculations import calculate_astrological_aspects
+from astroapp.utils.planet_utils import get_planet_data  
 
 
 
 def format_single_aspect(aspect_name, planet1, pos1, planet2, pos2, ecart):
     """Formate un aspect individuel en texte lisible."""
-    return f"« {aspect_name} »  {planet1} ({pos1:.2f}°) et {planet2} ({pos2:.2f}°), avec un écart de « {ecart:.2f}° »."
+    return f" {aspect_name} :  {planet1} ({pos1:.2f}°) et {planet2} ({pos2:.2f}°), avec un écart de {ecart:.2f}°."
 
 
 def prepare_theme_data_json(house_results, aspects, planet_positions):
@@ -32,6 +33,19 @@ def prepare_wheel_context(planet_positions, house_results, aspects_text):
     
 # Fonction pour préparer le contexte de rendu HTML
 def prepare_planetary_context(selected_date, city_of_birth, country_of_birth, local_day_str, local_month_str, local_year_str, results, house_results):
+    # Récupérer les symboles des planètes
+    planet_symbols, _ = get_planet_data()
+    print("DEBUG - Symboles récupérés :", planet_symbols)
+
+    # Ajouter les symboles aux résultats (chaque planète a son symbole spécifique)
+    for planet, data in results.items():
+        if isinstance(data, dict):
+            data['symbol'] = planet_symbols.get(planet, '?')  # Associe un symbole spécifique ou "?" par défaut
+            print(f"DEBUG - {planet} : Symbole ajouté -> {data['symbol']}")
+        else:
+            print(f"WARNING - Données inattendues pour {planet} : {data}")
+
+    # Retourne les données enrichies pour le template
     return {
         'selected_date': selected_date,
         'city_of_birth': city_of_birth,
@@ -42,6 +56,14 @@ def prepare_planetary_context(selected_date, city_of_birth, country_of_birth, lo
         'results': results,
         'houses': house_results,
     }
+
+
+
+
+
+
+
+
     
     
     

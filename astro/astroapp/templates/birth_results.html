@@ -2,346 +2,370 @@
 <!DOCTYPE html>
 <html lang="fr">
 {% load static %}
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Résultats astrologiques</title>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Résultats astrologiques</title>
+
 <style>
+/* FONT */
+@font-face {
+font-family: 'HamburgSymbols';
+src: url('/static/fonts/hamburgsymbols/HamburgSymbols.ttf') format('truetype');
+}
+
+.planet-symbol {
+font-family: 'HamburgSymbols', sans-serif;
+font-size:24px;
+font-weight: 500;
+}
+
 /*Après ENRIGISTRER */
 .registered {
-    background-color: #A9CE02 !important; /* Vert clair */
-    color: #000 !important; /* Texte noir */
-    cursor: default; /* Indiquer que le bouton n'est plus cliquable */
-    transform: none !important; /* Supprimer toute transformation */
-    transition: none !important; /* Supprimer les transitions */
+background-color: #A9CE02 !important; /* Vert clair */
+color: #000 !important; /* Texte noir */
+cursor: default; /* Indiquer que le bouton n'est plus cliquable */
+transform: none !important; /* Supprimer toute transformation */
+transition: none !important; /* Supprimer les transitions */
 }
 
 
 /* CONNEXION */
 /* Conteneur principal */
 .auth-user {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end; /* Les éléments restent alignés à droite */
-    gap: 10px;
-    padding: 10px 15px;
-    background-color: #f4f4f4;
-	border:#6A3D90 1px solid;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    width: 82%; /* Fixe la largeur à 80% */
-    margin: 0 auto; /* Centre la barre horizontalement dans son conteneur */
+display: flex;
+align-items: center;
+justify-content: flex-end; /* Les éléments restent alignés à droite */
+gap: 10px;
+padding: 10px 15px;
+background-color: #f4f4f4;
+border:#6A3D90 1px solid;
+border-radius: 10px;
+box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+width: 82%; /* Fixe la largeur à 80% */
+margin: 0 auto; /* Centre la barre horizontalement dans son conteneur */
 }
 
 
 /* Pour les utilisateurs authentifiés */
 .auth-logged-in {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+display: flex;
+align-items: center;
+gap: 10px;
 }
 
 /* Icône de l'utilisateur */
 .user-icon {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    object-fit: cover;
+width: 40px;
+height: 40px;
+border-radius: 50%;
+object-fit: cover;
 }
 
 .status-indicator {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    width: 12px;
-    height: 12px;
-    background-color: #00ff00; /* Vert pour connecté */
-    border: 2px solid white;
-    border-radius: 50%;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+position: absolute;
+bottom: 0;
+right: 0;
+width: 12px;
+height: 12px;
+background-color: #00ff00; /* Vert pour connecté */
+border: 2px solid white;
+border-radius: 50%;
+box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
 
 /* Nom de l'utilisateur */
 .user-name {
-    font-weight: bold;
-    font-size: 14px;
-    color: #000;
+font-weight: bold;
+font-size: 14px;
+color: #000;
 }
 
 /* Bouton de déconnexion */
 .logout-btn {
-    background-color: #6A3D90;
-    color: white;
-    padding: 5px 10px;
-    border-radius: 5px;
-    text-decoration: none;
-    font-size: 12px;
-    transition: background-color 0.3s ease;
+background-color: #6A3D90;
+color: white;
+padding: 5px 10px;
+border-radius: 5px;
+text-decoration: none;
+font-size: 12px;
+transition: background-color 0.3s ease;
 }
 
 .logout-btn:hover {
-    background-color: #A9CE02;
+background-color: #A9CE02;
 }
 
 /* Pour les utilisateurs non authentifiés */
 .auth-links {
-    display: flex;
-    gap: 10px;
+display: flex;
+gap: 10px;
 }
 
 .auth-btn {
-    background-color: #6A3D90;
-    color: white;
-    padding: 8px 12px;
-    border-radius: 5px;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 14px;
-    transition: background-color 0.3s ease;
+background-color: #6A3D90;
+color: white;
+padding: 8px 12px;
+border-radius: 5px;
+text-decoration: none;
+font-weight: bold;
+font-size: 14px;
+transition: background-color 0.3s ease;
 }
 
 .auth-btn:hover {
-    background-color: #A9CE02;
+background-color: #A9CE02;
 }
 
 
 
-/* BODY */
+/* STYLES */
 body {
-	font-family: 'Arial', sans-serif;
-	margin: 0;
-	padding: 20px;
-	background-color: #f9f9f9;
+font-family: 'Arial', sans-serif;
+margin: 0;
+padding: 20px;
+background-color: #f9f9f9;
 }
 
 h2 {
-	text-align: center;
-	color: #333;
-	font-size: 28px;
-	margin-bottom: 20px;
+text-align: center;
+color: #333;
+font-size: 28px;
+margin-bottom: 20px;
 }
 
+/* DIV CONTAINER */
 .container {
-	max-width: 80%;
-	margin: 0 auto;
-	background-color: #fff;
-	padding: 30px;
-	border-radius: 10px;
-	box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-	transition: transform 0.3s ease-in-out;
+max-width: 80%;
+margin: 0 auto;
+background-color: #fff;
+padding: 30px;
+border-radius: 10px;
+box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+transition: transform 0.3s ease-in-out;
 }
 
 .container:hover {
-	transform: translateY(-10px);
+transform: translateY(-10px);
 }
 
 .container img {
-    width: 100%; /* Taille par défaut pour les petits et moyens écrans */
+width: 100%; /* Taille par défaut pour les petits et moyens écrans */
+}
+
+@media (min-width: 1024px) {
+.container img {
+width: 75%; /* Réduction de l'image uniquement sur les grands écrans */
+max-width: 600px; /* Limite la taille maximale de l'image */
+}
 }
 
 
+/* ROUE */
 .wheel-wrapper {
-	max-width: 80%;
-	margin: 0 auto;
-	background-color: #fff;
-	padding: 30px;
-	border-radius: 10px;
-	box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-	transition: transform 0.3s ease-in-out;
+max-width: 80%;
+margin: 0 auto;
+background-color: #fff;
+padding: 30px;
+border-radius: 10px;
+box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+transition: transform 0.3s ease-in-out;
 }
 
 .wheel-wrapper:hover {
-	transform: translateY(-10px);
+transform: translateY(-10px);
 }
 
 
 
-@media (min-width: 1024px) {
-    .container img {
-        width: 75%; /* Réduction de l'image uniquement sur les grands écrans */
-        max-width: 600px; /* Limite la taille maximale de l'image */
-    }
-}
+
 
 /* TABLE */
 .table-container {
-    margin-bottom: 20px; /* Espacement entre chaque table */
+margin-bottom: 20px; /* Espacement entre chaque table */
 }
 
 .table-wrapper-planetes,
 .table-wrapper-maisons {
-    width: 100%;
+width: 100%;
 
-    margin: 0 auto;
-}
-
-@media (min-width: 768px) {
-    .table-wrapper-planetes {
-        width: 45%; /* Largeur moyenne pour les écrans de taille intermédiaire */
-    }
+margin: 0 auto;
 }
 
 @media (min-width: 1024px) {
-    .table-wrapper-planetes {
-        width: 35%;
-    }
+.table-wrapper-planetes {
+width: 35%;
+}
 }
 
-
+@media (min-width: 768px) {
+.table-wrapper-planetes {
+width: 45%; /* Largeur moyenne pour les écrans de taille intermédiaire */
+}
+}
 
 /* MAISONS */
-    .table-wrapper-maisons {
-        width: 100%; /* Largeur pour les petits écrans */
-    }
-	
-@media (min-width: 768px) {
-    .table-wrapper-maisons {
-        width: 80%; /* Largeur moyenne pour les écrans de taille intermédiaire */
-    }
+.table-wrapper-maisons {
+width: 100%; /* Largeur pour les petits écrans */
 }
 
-
-@media (min-width: 900px) {
-    .table-wrapper-maisons {
-        width: 70%; /* Largeur moyenne pour les écrans de taille intermédiaire */
-    }
-}
 
 @media (min-width: 1024px) {
-    .table-wrapper-maisons {
-        width: 55%;
-    }
+.table-wrapper-maisons {
+width: 55%;
 }
+}
+
+@media (min-width: 900px) {
+.table-wrapper-maisons {
+width: 70%; /* Largeur moyenne pour les écrans de taille intermédiaire */
+}
+}
+
+@media (min-width: 768px) {
+.table-wrapper-maisons {
+width: 80%; /* Largeur moyenne pour les écrans de taille intermédiaire */
+}
+}
+
+
+
+
+
 
 
 
 /* ASPECTS */
 .table-wrapper-aspects {
-    width: 100%; /* Largeur pour les petits écrans */
-    margin: 0 auto;
+width: 100%; /* Largeur pour les petits écrans */
+margin: 0 auto;
 }
 
 @media (min-width: 576px) {
-    .table-wrapper-aspects {
-        width: 95%; /* Taille pour les écrans petits-moyens */
-    }
+.table-wrapper-aspects {
+width: 95%; /* Taille pour les écrans petits-moyens */
+}
 }
 
 
 @media (min-width: 950px) {
-    .table-wrapper-aspects {
-        width: 90%; /* Taille pour les écrans moyens */
-    }
+.table-wrapper-aspects {
+width: 90%; /* Taille pour les écrans moyens */
+}
 }
 
 @media (min-width: 1024px) {
-    .table-wrapper-aspects {
-        width: 53%; /* Taille pour les grands écrans */
-    }
+.table-wrapper-aspects {
+width: 53%; /* Taille pour les grands écrans */
+}
 }
 
 /* TABLE */
 table {
-    width: 100%; /* La table occupe toute la largeur de la div */
-    border-collapse: collapse;
-    margin-bottom: 20px;
+width: 100%; /* La table occupe toute la largeur de la div */
+border-collapse: collapse;
+margin-bottom: 20px;
 }
 
 th, td {
-    border: 1px solid #ddd;
-    padding: 12px;
-    text-align: center;
+border: 1px solid #ddd;
+padding: 12px;
+text-align: center;
 }
 
 td {
-    text-align: left;
+text-align: left;
 }
 
 th {
-    background-color: #6A3D90;
-    color: white;
+background-color: #6A3D90;
+color: white;
 }
 
 tr:nth-child(even) {
-    background-color: #f2f2f2;
+background-color: #f2f2f2;
 }
 
 
 /* TOUS LES BOUTONS  */
 .all-btn {
-	background:#FFF;
-	max-width: 84%;
-	margin: 0 auto;
-	border:#6A3D90 1px solid;
-	border-radius:10px;
-	padding-bottom:10px;
-	transition: transform 0.3s ease-in-out;
+background:#FFF;
+max-width: 84%;
+margin: 0 auto;
+border:#6A3D90 1px solid;
+border-radius:10px;
+padding-bottom:10px;
+transition: transform 0.3s ease-in-out;
 }
 
 .all-btn:hover {
-    transform: translateY(-5px); /* Déplace légèrement la div */
+transform: translateY(-5px); /* Déplace légèrement la div */
 }
 
 /* DIV BOUTON */
 .div-bouton {
-	width:60%;
-	margin: 0 auto;
+width:60%;
+margin: 0 auto;
 }
 /* BOUTONS */
 button {
-	font-weight: bold;
-    background-color: #6A3D90;
-    color: white;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    display: block;
-    width: 100%;
-    margin-top: 10px;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+font-weight: bold;
+background-color: #6A3D90;
+color: white;
+padding: 12px 20px;
+border: none;
+border-radius: 5px;
+cursor: pointer;
+font-size: 16px;
+display: block;
+width: 100%;
+margin-top: 10px;
+transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 button:hover {
-    background-color: #A9CE02;
-    transform: scale(1.02);
+background-color: #A9CE02;
+transform: scale(1.02);
 }
 
 button:active {
-    transform: scale(0.95);
+transform: scale(0.95);
 }
 
 
 /* BBOUTON THEME */
 .btn-themes {
-    background-color: #A9CE02; /* Jaune */
-    color: #000; /* Texte noir */
-    font-weight: bold; /* Texte en gras */
-    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
-    width: 80%; /* Largeur dynamique */
-    max-width: 300px; /* Limite maximale */
-    padding: 12px; /* Ajuste la hauteur */
-    margin: 10px auto; /* Centre horizontalement */
-    text-align: center;
-    border-radius: 5px; /* Coins arrondis */
-    font-size: 16px; /* Taille ajustée pour une meilleure visibilité */
-    cursor: pointer;
-    display: block; /* Assure le centrage dans une div */
-    text-decoration: none;
+background-color: #A9CE02; /* Jaune */
+color: #000; /* Texte noir */
+font-weight: bold; /* Texte en gras */
+transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+width: 80%; /* Largeur dynamique */
+max-width: 300px; /* Limite maximale */
+padding: 12px; /* Ajuste la hauteur */
+margin: 10px auto; /* Centre horizontalement */
+text-align: center;
+border-radius: 5px; /* Coins arrondis */
+font-size: 16px; /* Taille ajustée pour une meilleure visibilité */
+cursor: pointer;
+display: block; /* Assure le centrage dans une div */
+text-decoration: none;
 }
 
 /* Effet hover */
 .btn-themes:hover {
-    background-color: #bfd84b; /* Jaune plus clair */
-    color: #FFF; /* Texte violet */
-    transform: scale(1.02);
+background-color: #bfd84b; /* Jaune plus clair */
+color: #FFF; /* Texte violet */
+transform: scale(1.02);
 }
 
 /* Effet active */
 .btn-themes:active {
-    background-color: #E08B00; /* Orange plus foncé */
-    transform: scale(0.95);
+background-color: #E08B00; /* Orange plus foncé */
+transform: scale(0.95);
 }
 
 /* / BBOUTON THEME */
@@ -350,15 +374,15 @@ button:active {
 
 /* BOUTON RETOUR */
 .btn-retour {
-    background-color: ##6A3D90
+background-color: ##6A3D90
 ; /* Vert */
-    color: white;
+color: white;
 }
 
 .btn-retour:hover {
-    background-color: #86699f; /* Vert plus foncé */
-	color:#FFA801;
-	transform: scale(1.02);
+background-color: #86699f; /* Vert plus foncé */
+color:#FFA801;
+transform: scale(1.02);
 }
 /*  / BOUTON RETOUR */
 
@@ -367,90 +391,90 @@ button:active {
 
 /* MESSAGE D'ERREUR */
 #message {
-    margin-top: 10px; /* Espacement avec le bouton */
-    text-align: center; /* Centrer le message */
-    font-size: 16px; /* Taille de texte lisible */
+margin-top: 10px; /* Espacement avec le bouton */
+text-align: center; /* Centrer le message */
+font-size: 16px; /* Taille de texte lisible */
 }
 
 /* SPINNERs */
 #spinner {
-    text-align: center;
-    margin-top: 10px;
+text-align: center;
+margin-top: 10px;
 }
 
 /* BOUTON ENREGISTRER */
 .btn-enregistrer {
-    background-color: #FFA801; /* Jaune */
-    color: black;
+background-color: #FFA801; /* Jaune */
+color: black;
 }
 
 .btn-enregistrer:hover {
-    background-color: #f2b744; /* Jaune plus clair */
-	color:#FFF;
+background-color: #f2b744; /* Jaune plus clair */
+color:#FFF;
 }
 
 /* LONGITUDES - LATTIDUES */
 .long {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 400px;
-    margin-bottom: 20px;
-    padding: 10px;
-    border: 1px solid #6A3D90;
-    background-color: #f3f1fc;
-    border-radius: 5px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+max-width: 400px;
+margin-bottom: 20px;
+padding: 10px;
+border: 1px solid #6A3D90;
+background-color: #f3f1fc;
+border-radius: 5px;
 }
 
 .long div {
-    font-weight: bold;
-    color: #333;
-    font-size: 1.1em;
+font-weight: bold;
+color: #333;
+font-size: 1.1em;
 }
 
 .long div strong {
-    color: #6A3D90;
+color: #6A3D90;
 }
 
 /* NOM DU THE%E */
 .nom-du-theme {
-	color:#FA6A0A;
+color:#FA6A0A;
 }
 
 /* SCROLL BUTTONS */
 .scroll-buttons {
-    position: fixed;
-    right: 25px; /* Espacement par défaut pour les grands écrans */
-    bottom: 15%;
-    display: flex;
-    flex-direction: column;
-    gap: 5px; /* Espacement entre les flèches (inchangé) */
-    z-index: 1000;
+position: fixed;
+right: 25px; /* Espacement par défaut pour les grands écrans */
+bottom: 15%;
+display: flex;
+flex-direction: column;
+gap: 5px; /* Espacement entre les flèches (inchangé) */
+z-index: 1000;
 }
 
 .scroll-buttons a img {
-    width: 40px;
-    height: auto;
-    cursor: pointer;
-    transition: transform 0.2s ease;
+width: 40px;
+height: auto;
+cursor: pointer;
+transition: transform 0.2s ease;
 }
 
 .scroll-buttons a:hover img {
-    transform: scale(1.1);
+transform: scale(1.1);
 }
 
 /* Écran moyen (entre 576px et 768px) */
 @media (min-width: 576px) and (max-width: 767px) {
-    .scroll-buttons {
-        right: 10px; /* Réduction de l'espacement avec le bord droit */
-    }
+.scroll-buttons {
+right: 10px; /* Réduction de l'espacement avec le bord droit */
+}
 }
 
 /* Écran petit (moins de 576px) */
 @media (max-width: 575px) {
-    .scroll-buttons {
-        right: 5px; /* Espacement minimal pour petits écrans */
-    }
+.scroll-buttons {
+right: 5px; /* Espacement minimal pour petits écrans */
+}
 }
 
 
@@ -459,30 +483,30 @@ button:active {
 
 
 
-    </style>
+</style>
 </head>
 <body>
 <!-- Débogage - Affichage des données transmises -->
 
 <!-- AUTHENTIFICATION -->
 <div class="auth-user">
-    {% if user.is_authenticated %}
-        <div class="auth-logged-in">
-            <div style="position: relative; display: inline-block;">
-                <img src="{% static 'images/user-icons/user-icon-orange.png' %}" alt="Icône utilisateur" class="user-icon">
-                <!-- Cercle de statut -->
-                <div class="status-indicator"></div>
-                
-            </div>
-            <span class="user-name">{{ user.username }}</span>
-            <a href="{% url 'deconnexion' %}" class="logout-btn">Déconnexion</a>
-        </div>
-    {% else %}
-        <div class="auth-links">
-            <a href="{% url 'connexion' %}" class="auth-btn">Connexion</a>
-            <a href="{% url 'inscription' %}" class="auth-btn">S'inscrire</a>
-        </div>
-    {% endif %}
+{% if user.is_authenticated %}
+<div class="auth-logged-in">
+    <div style="position: relative; display: inline-block;">
+        <img src="{% static 'images/user-icons/user-icon-orange.png' %}" alt="Icône utilisateur" class="user-icon">
+        <!-- Cercle de statut -->
+        <div class="status-indicator"></div>
+        
+    </div>
+    <span class="user-name">{{ user.username }}</span>
+    <a href="{% url 'deconnexion' %}" class="logout-btn">Déconnexion</a>
+</div>
+{% else %}
+<div class="auth-links">
+    <a href="{% url 'connexion' %}" class="auth-btn">Connexion</a>
+    <a href="{% url 'inscription' %}" class="auth-btn">S'inscrire</a>
+</div>
+{% endif %}
 </div><br>
 <!-- /AUTHENTIFICATION -->
 
@@ -491,7 +515,7 @@ button:active {
 
 <!-- ROUE ASTROLOGIQUE -->
 <div class="wheel-wrapper">
-    {% include 'wheeldisplay.html' %}
+{% include 'wheeldisplay.html' %}
 </div><br><br>
 <!-- / ROUE ASTROLOGIQUE -->
 
@@ -502,12 +526,12 @@ button:active {
 <div class="container">
 
 <h2>Résultats astrologiques pour  : <span class="nom-du-theme"> 
-    {% if request.GET.name %} 
-        {{ request.GET.name }} 
-    {% else %} 
-        {{ name }} 
-    {% endif %}
-    </span>
+{% if request.GET.name %} 
+{{ request.GET.name }} 
+{% else %} 
+{{ name }} 
+{% endif %}
+</span>
 </h2>
 
 <!-- DATE -->
@@ -525,31 +549,31 @@ button:active {
 
 <br>
 
-    <h3>Coordonnées géographiques :</h3>
-    
+<h3>Coordonnées géographiques :</h3>
+
 <div class="long">
-    <div>
-    <strong>Latitude :</strong><br>
-    {{ location.latitude|floatformat:6 }}°
-    </div>
-    
-    <div>
-    <strong>Longitude :</strong><br>
-    {{ location.longitude|floatformat:6 }}°
-    </div>
+<div>
+<strong>Latitude :</strong><br>
+{{ location.latitude|floatformat:6 }}°
+</div>
+
+<div>
+<strong>Longitude :</strong><br>
+{{ location.longitude|floatformat:6 }}°
+</div>
 </div>
 
 <!-- Deuxième présentation : Avec N/S et E/O -->
 <p><strong>Coordonnées géographiques avec directions :</strong></p>
 <div class="long">
-    <div>
-    <strong>Latitude :</strong><br>
-    {{ latitude_dms }}
-    </div>
-    <div>
-    <strong>Longitude :</strong><br>
-    {{ longitude_dms }}
-    </div>
+<div>
+<strong>Latitude :</strong><br>
+{{ latitude_dms }}
+</div>
+<div>
+<strong>Longitude :</strong><br>
+{{ longitude_dms }}
+</div>
 </div>
 
 </div><br><br>
@@ -563,31 +587,38 @@ button:active {
 <div class="table-container planets">
 <div class="table-wrapper-planetes">
 <h3>Positions des planètes :</h3>
+
 <table>
-    <thead>
-        <tr>
-            <th>Planètes</th>
-            <th>Degré dans le signe</th>
-            <th>Signe</th>
-            <th>Degré DMS</th>
-        </tr>
-    </thead>
-            <tbody>
-                {% if results %}
-                    {% for planet, info in results.items %}
-                    <tr>
-                        <td>{{ planet }}</td>
-                        <td>{{ info.sign_degree|floatformat:2 }}°</td>
-                        <td>{{ info.sign }}</td>
-                        <td>{{ info.degree|floatformat:2 }}°</td>
-                    </tr>
-                    {% endfor %}
-                {% else %}
-                    <tr>
-                        <td colspan="4">Aucune donnée disponible.</td>
-                    </tr>
-                {% endif %}
-            </tbody>
+<thead>
+<tr>
+<th>Planètes</th>
+<th>Degré dans le signe</th>
+<th>Signe</th>
+<th>Degré DMS</th>
+</tr>
+</thead>
+<tbody>
+{% if results %}
+{% for planet, info in results.items %}
+<tr>
+
+<td>
+<span class="planet-symbol" style="color: {{ info.color|default:'#000000' }};">{{ info.symbol }}</span>
+{{ planet }}
+</td>
+
+
+<td>{{ info.sign_degree|floatformat:2 }}°</td>
+<td>{{ info.sign }}</td>
+<td>{{ info.degree|floatformat:2 }}°</td>
+</tr>
+{% endfor %}
+{% else %}
+<tr>
+<td colspan="4">Aucune donnée disponible.</td>
+</tr>
+{% endif %}
+</tbody>
 
 </table>
 </div>
@@ -600,34 +631,34 @@ button:active {
 <div class="container">
 <div class="table-container houses">
 <div class="table-wrapper-maisons">
-        <h3>Maisons astrologiques :</h3>
+<h3>Maisons astrologiques :</h3>
 <table>
-    <thead>
-        <tr>
-            <th>Maison</th>
-            <th>Degré du signe</th>
-            <th>Signe</th>
-            <th>Degré total</th>
-        </tr>
-    </thead>
+<thead>
+<tr>
+    <th>Maison</th>
+    <th>Degré du signe</th>
+    <th>Signe</th>
+    <th>Degré total</th>
+</tr>
+</thead>
 <tbody>
-    <!-- Débogage - Affichage des données des maisons -->
-    
+<!-- Débogage - Affichage des données des maisons -->
 
-    {% if houses %}
-        {% for house, info in houses.items %}  <!-- Changer ici : items() au lieu de items -->
-        <tr>
-            <td>{{ house }}</td>
-            <td>{{ info.sign_degree|degrees_minutes }}</td>
-            <td>{{ info.sign }}</td>
-            <td>{{ info.degree_dms }}</td>
-        </tr>
-        {% endfor %}
-    {% else %}
-        <tr>
-            <td colspan="4">Aucune donnée disponible.</td>
-        </tr>
-    {% endif %}
+
+{% if houses %}
+{% for house, info in houses.items %}  <!-- Changer ici : items() au lieu de items -->
+<tr>
+    <td>{{ house }}</td>
+    <td>{{ info.sign_degree|degrees_minutes }}</td>
+    <td>{{ info.sign }}</td>
+    <td>{{ info.degree_dms }}</td>
+</tr>
+{% endfor %}
+{% else %}
+<tr>
+    <td colspan="4">Aucune donnée disponible.</td>
+</tr>
+{% endif %}
 </tbody>
 
 </table>
@@ -642,29 +673,29 @@ button:active {
 <div class="container">
 <div class="table-container aspects">
 <div class="table-wrapper-aspects">
-        <h3>Aspects planétaires :</h3>
+<h3>Aspects planétaires :</h3>
 <table>
-    <thead>
-        <tr>
-            <th>Aspect</th>
-        </tr>
-    </thead>
-    <tbody>
-        <!-- Débogage - Affichage des données des aspects -->
-        
+<thead>
+<tr>
+    <th>Aspect</th>
+</tr>
+</thead>
+<tbody>
+<!-- Débogage - Affichage des données des aspects -->
 
-        {% if aspects_text %}
-            {% for aspect in aspects_text %}
-            <tr>
-                <td>{{ aspect }}</td>
-            </tr>
-            {% endfor %}
-        {% else %}
-            <tr>
-                <td>Aucun aspect disponible.</td>
-            </tr>
-        {% endif %}
-    </tbody>
+
+{% if aspects_text %}
+    {% for aspect in aspects_text %}
+    <tr>
+        <td>{{ aspect }}</td>
+    </tr>
+    {% endfor %}
+{% else %}
+    <tr>
+        <td>Aucun aspect disponible.</td>
+    </tr>
+{% endif %}
+</tbody>
 </table>
 
 </div>
@@ -682,14 +713,14 @@ button:active {
 
 <!-- BOUTON LISTE DES THEMES -->
 <div class="div-bouton">
-    <a href="{% url 'liste_themes' %}" class=" btn-themes">Voir mes thèmes</a>
+<a href="{% url 'liste_themes' %}" class=" btn-themes">Voir mes thèmes</a>
 </div>
 <!-- / BOUTON LISTE DES THEMES -->
 
 
 <!-- SPINNER -->
 <div id="spinner" style="display: none; text-align: center;">
-    <img src="{% static 'images/spinner.gif' %}" alt="Chargement..." style="width: 50px; height: 50px;">
+<img src="{% static 'images/spinner.gif' %}" alt="Chargement..." style="width: 50px; height: 50px;">
 </div>
 <!-- / SPINNER -->
 
@@ -699,10 +730,10 @@ button:active {
 
 <!-- BOUTON RETOUR AU FORMUALIRE -->
 <div class="div-bouton">
-        <form method="get" action="{% url 'birth_data' %}">
-            <input type="hidden" name="reset" value="true">
-            <button type="submit" class="btn-retour">Revenir au formulaire</button>
-        </form>
+<form method="get" action="{% url 'birth_data' %}">
+    <input type="hidden" name="reset" value="true">
+    <button type="submit" class="btn-retour">Revenir au formulaire</button>
+</form>
 </div>
 <!-- / BOUTON RETOUR AU FORMUALIRE -->
 
@@ -711,8 +742,8 @@ button:active {
 <div class="div-bouton">
 
 <form method="post" action="{% url 'enregistrer_naissance' %}" id="enregistrer-form">
-    {% csrf_token %}
-    <button type="submit" class="btn-enregistrer" id="enregistrer">Enregistrer</button>
+{% csrf_token %}
+<button type="submit" class="btn-enregistrer" id="enregistrer">Enregistrer</button>
 </form>
 
 </div>
@@ -728,18 +759,18 @@ button:active {
 <!-- SCROLL BUTTONS -->
 <div class="scroll-buttons">
 
-    <!-- Bouton pour remonter en haut -->
-    <a href="#" class="scroll-up">
-        <img src="/static/images/arrows/up-arrow.png" alt="Haut" />
-    </a>
-	<!-- / Bouton pour remonter en haut -->
-    
-    <!-- Bouton pour descendre en bas -->
-    <a href="#" class="scroll-down">
-        <img src="/static/images/arrows/down-arrow.png" alt="Bas" />
-    </a>
-    <!-- / Bouton pour descendre en bas -->
-    
+<!-- Bouton pour remonter en haut -->
+<a href="#" class="scroll-up">
+<img src="/static/images/arrows/up-arrow.png" alt="Haut" />
+</a>
+<!-- / Bouton pour remonter en haut -->
+
+<!-- Bouton pour descendre en bas -->
+<a href="#" class="scroll-down">
+<img src="/static/images/arrows/down-arrow.png" alt="Bas" />
+</a>
+<!-- / Bouton pour descendre en bas -->
+
 </div>
 <!-- / SCROLL BUTTONS -->
 

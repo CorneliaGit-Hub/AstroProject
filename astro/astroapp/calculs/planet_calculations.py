@@ -22,6 +22,17 @@ def calculate_single_planet_position(jd, planet_id):
     
 # Fonction pour calculer les positions des planètes
 def calculate_planet_positions(jd):
+    """
+    Calcule les positions des planètes pour un jour julien donné (JD)
+    et ajoute les symboles et couleurs.
+
+    Paramètres :
+    - jd : Jour julien (float).
+
+    Retour :
+    - results : Dictionnaire contenant les données des planètes (positions, symboles, couleurs).
+    - planet_positions : Liste des positions des planètes pour un affichage éventuel.
+    """
     planets = {
         'Soleil': swe.SUN,
         'Lune': swe.MOON,
@@ -34,21 +45,33 @@ def calculate_planet_positions(jd):
         'Neptune': swe.NEPTUNE,
         'Pluton': swe.PLUTO,
     }
+
+    # Récupérer les symboles et couleurs depuis une source centralisée
+    from astroapp.utils.planet_utils import get_planet_data  # Assure-toi que ce chemin est correct
+    planet_symbols, planet_colors = get_planet_data()
+
     results = {}
     planet_positions = []
 
     print("Débogage : Calcul des positions des planètes pour le jour julien (JD) ->", jd)
 
-
     for planet_name, planet_id in planets.items():
-        # Appel de la fonction pour calculer la position d'une planète : def calculate_single_planet_position
+        # Calculer la position de chaque planète
         planet_data, planet_degree = calculate_single_planet_position(jd, planet_id)
+
+        # Ajouter le symbole et la couleur
+        planet_data['symbol'] = planet_symbols.get(planet_name, '?')
+        planet_data['color'] = planet_colors.get(planet_name, '#000000')  # Noir par défaut si la couleur est absente
+        print(f"DEBUG - Symbole pour {planet_name} ajouté : {planet_data['symbol']}")
+        print(f"DEBUG - Couleur pour {planet_name} ajoutée : {planet_data['color']}")
+
         results[planet_name] = planet_data
         planet_positions.append((planet_name, planet_degree))
 
-
-    # Appel de la fonction pour formater les résultats avant de les renvoyer : def format_planet_positions(
+    # Retourner les résultats formatés
     return format_planet_positions(results, planet_positions)
+
+
 
 
 
