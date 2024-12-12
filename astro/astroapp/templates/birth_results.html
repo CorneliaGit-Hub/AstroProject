@@ -20,9 +20,17 @@ src: url('/static/fonts/hamburgsymbols/HamburgSymbols.ttf') format('truetype');
 
 .planet-symbol {
 font-family: 'HamburgSymbols', sans-serif;
-font-size:24px;
-font-weight: 500;
+    font-size: 1.2em;
+    margin-right: 5px;
+font-weight: ;
 }
+
+.sign-symbol {
+    font-family: "HamburgSymbols"; /* Police pour les symboles des signes */
+    font-size: 1.2em;
+    margin-right: 5px;
+}
+
 
 /*Après ENRIGISTRER */
 .registered {
@@ -269,6 +277,19 @@ table {
 width: 100%; /* La table occupe toute la largeur de la div */
 border-collapse: collapse;
 margin-bottom: 20px;
+}
+
+.col-planete {
+    width: 25%; /* Largeur pour la colonne des planètes */
+}
+.col-degre-signe {
+    width: 20%; /* Largeur pour le degré dans le signe */
+}
+.col-signe {
+    width: 30%; /* Largeur pour le signe */
+}
+.col-degre-dms {
+    width: 25%; /* Largeur pour le degré d'arc */
 }
 
 th, td {
@@ -588,28 +609,33 @@ right: 5px; /* Espacement minimal pour petits écrans */
 <div class="table-wrapper-planetes">
 <h3>Positions des planètes :</h3>
 
+<!-- TABLE -->
 <table>
+
 <thead>
 <tr>
-<th>Planètes</th>
-<th>Degré dans le signe</th>
-<th>Signe</th>
-<th>Degré DMS</th>
+<th class="col-planete">Planètes</th>
+<th class="col-degre-signe">Degré</th>
+<th class="col-signe">Signe</th>
+<th class="col-degre-dms">Degré d'arc</th>
 </tr>
 </thead>
+
 <tbody>
 {% if results %}
 {% for planet, info in results.items %}
 <tr>
 
 <td>
-<span class="planet-symbol" style="color: {{ info.color|default:'#000000' }};">{{ info.symbol }}</span>
-{{ planet }}
+    <span class="planet-symbol" style="color: {{ info.color|default:'#000000' }};">{{ info.symbol }}</span>
+    {{ planet }}
 </td>
 
-
 <td>{{ info.sign_degree|floatformat:2 }}°</td>
-<td>{{ info.sign }}</td>
+<td>
+    <span class="sign-symbol" style="color: {{ info.sign_color|default:'#000000' }};">{{ info.sign_symbol }}</span>
+    {{ info.sign }}
+</td>
 <td>{{ info.degree|floatformat:2 }}°</td>
 </tr>
 {% endfor %}
@@ -619,8 +645,9 @@ right: 5px; /* Espacement minimal pour petits écrans */
 </tr>
 {% endif %}
 </tbody>
-
 </table>
+<!-- / TABLE -->
+
 </div>
 </div>
 </div><br><br>
