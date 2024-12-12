@@ -2,13 +2,7 @@ import json
 from astroapp.calculs.aspects_calculations import calculate_angular_difference
 from astroapp.calculs.aspects_calculations import calculate_astrological_aspects
 from astroapp.utils.planet_utils import get_planet_data  
-
-
-
-def format_single_aspect(aspect_name, planet1, pos1, planet2, pos2, ecart):
-    """Formate un aspect individuel en texte lisible."""
-    return f" {aspect_name} :  {planet1} ({pos1:.2f}°) et {planet2} ({pos2:.2f}°), avec un écart de {ecart:.2f}°."
-
+from astroapp.utils.aspect_utils import get_aspect_data
 
 def prepare_theme_data_json(house_results, aspects, planet_positions):
     theme_data_json = json.dumps({
@@ -58,13 +52,6 @@ def prepare_planetary_context(selected_date, city_of_birth, country_of_birth, lo
     }
 
 
-
-
-
-
-
-
-    
     
     
 def extract_request_parameters(request):
@@ -119,41 +106,63 @@ def prepare_template_context(name, results, house_results, aspects, aspects_text
         'theme_data_json': theme_data_json
     }
 
-    
-    
-    
-# Fonction pour formater les aspects en texte lisible avec les positions et l'écart en degrés
+
+
+def format_single_aspect(aspect_name, planet1, pos1, planet2, pos2, ecart):
+    """Formate un aspect individuel en texte lisible avec symboles et couleurs."""
+    # Récupération des données des aspects
+    aspect_data = get_aspect_data()
+    aspect_info = aspect_data.get(aspect_name, {'symbol': '', 'color': 'black'})
+    aspect_symbol = aspect_info['symbol']
+    aspect_color = aspect_info['color']
+
+    # Appel à get_planet_data pour récupérer symboles et couleurs
+    planet_symbols, planet_colors = get_planet_data()
+    planet1_symbol = planet_symbols.get(planet1, '')
+    planet2_symbol = planet_symbols.get(planet2, '')
+    planet1_color = planet_colors.get(planet1, 'black')
+    planet2_color = planet_colors.get(planet2, 'black')
+
+    # Construction du texte avec style
+    return f"<span class='sign-symbol' style='color: {aspect_color};'>{aspect_symbol}</span> <strong>{aspect_name} :</strong> " \
+           f"<span class='planet-symbol' style='color: {planet1_color};'>{planet1_symbol}</span> <strong>{planet1}</strong> ({pos1:.2f}°) et " \
+           f"<span class='planet-symbol' style='color: {planet2_color};'>{planet2_symbol}</span> <strong>{planet2}</strong> ({pos2:.2f}°), " \
+           f"avec une <strong>orbe</strong> de <strong>{ecart:.2f}°</strong>."
+
+
+
 def format_aspects_text(aspects, planet_positions):
-    # Dictionnaire pour retrouver le nom de la planète à partir de la position
+    """Formate une liste d'aspects en texte lisible."""
+    # Création d'un dictionnaire position -> nom de planète
     planet_dict = {position: name for name, position in planet_positions}
-    
+
     formatted_aspects = []
     for aspect_name, pos1, pos2 in aspects:
+        # Récupération des noms des planètes et de leurs positions
         planet1 = planet_dict.get(pos1, "Inconnu")
         planet2 = planet_dict.get(pos2, "Inconnu")
-        # Appel la focntion : def calculate_angular_difference
+
+        # Calcul de l'écart angulaire
         ecart = calculate_angular_difference(pos1, pos2)
 
-        # Appel de la fonction pour formater un aspect individuel ! def format_single_aspect
+        # Formatage de chaque aspect
         formatted_aspects.append(format_single_aspect(aspect_name, planet1, pos1, planet2, pos2, ecart))
-   
+    
     return formatted_aspects
-
 
 
 def prepare_aspects_text(aspects, planet_positions):
     """Prépare le texte formaté des aspects pour l'affichage."""
     return format_aspects_text(aspects, planet_positions)
-    
-    
-    
+
+
 def generate_aspects_and_text(planet_positions):
+    """Génère les aspects et leur texte formaté."""
     # Calcul des aspects planétaires
     aspects = calculate_astrological_aspects(planet_positions)
-
 
     # Formatage du texte des aspects
     aspects_text = format_aspects_text(aspects, planet_positions)
 
-    
     return aspects, aspects_text
+

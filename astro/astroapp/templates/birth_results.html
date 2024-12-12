@@ -12,23 +12,28 @@
 <title>Résultats astrologiques</title>
 
 <style>
-/* FONT */
+/* FONT HAMBURG*/
 @font-face {
 font-family: 'HamburgSymbols';
 src: url('/static/fonts/hamburgsymbols/HamburgSymbols.ttf') format('truetype');
 }
-
 .planet-symbol {
 font-family: 'HamburgSymbols', sans-serif;
     font-size: 1.2em;
     margin-right: 5px;
-font-weight: ;
+	font-weight: normal; 
 }
-
 .sign-symbol {
     font-family: "HamburgSymbols"; /* Police pour les symboles des signes */
     font-size: 1.2em;
     margin-right: 5px;
+	font-weight: normal; 
+}
+.aspect-symbol {
+    font-family: "HamburgSymbols", sans-serif; /* Police pour les symboles des aspects */
+    font-size: 1.2em; /* Taille des symboles */
+    margin-right: 5px; /* Espacement à droite */
+    font-weight: normal; /* Optionnel : à ajuster si nécessaire */
 }
 
 
@@ -258,24 +263,28 @@ width: 100%; /* Largeur pour les petits écrans */
 margin: 0 auto;
 }
 
-@media (min-width: 576px) {
+@media (min-width: 1024px) {
 .table-wrapper-aspects {
-width: 95%; /* Taille pour les écrans petits-moyens */
+width: 50%; /* Taille pour les grands écrans */
 }
 }
-
 
 @media (min-width: 950px) {
 .table-wrapper-aspects {
-width: 90%; /* Taille pour les écrans moyens */
+width: 65%; /* Taille pour les écrans moyens */
 }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 576px) {
 .table-wrapper-aspects {
-width: 53%; /* Taille pour les grands écrans */
+width: 70%; /* Taille pour les écrans petits-moyens */
 }
 }
+
+
+
+
+
 
 /* TABLE */
 table {
@@ -651,14 +660,12 @@ right: 5px; /* Espacement minimal pour petits écrans */
 
 <td>
     <span class="planet-symbol" style="color: {{ info.color|default:'#000000' }};">{{ info.symbol }}</span>
-    {{ planet }}
-</td>
+    <strong>{{ planet }}</strong></td>
 
 <td>{{ info.sign_degree|floatformat:2 }}°</td>
 <td>
     <span class="sign-symbol" style="color: {{ info.sign_color|default:'#000000' }};">{{ info.sign_symbol }}</span>
-    {{ info.sign }}
-</td>
+    <strong>{{ info.sign }}</strong></td>
 <td>{{ info.degree|floatformat:2 }}°</td>
 </tr>
 {% endfor %}
@@ -700,13 +707,12 @@ right: 5px; /* Espacement minimal pour petits écrans */
 {% if houses %}
 {% for house, info in houses.items %}
 <tr>
-    <td>{{ house }}</td>
+    <td><strong>{{ house }}</strong></td>
     <td>{{ info.sign_degree|degrees_minutes }}</td>
     
     <td>
         <span class="sign-symbol" style="color: {{ info.sign_color|default:'#000000' }};">{{ info.sign_symbol }}</span>
-        {{ info.sign }}
-    </td>
+        <strong>{{ info.sign }}</strong></td>
     
     <td>{{ info.degree_dms }}</td>
 </tr>
@@ -736,6 +742,9 @@ right: 5px; /* Espacement minimal pour petits écrans */
 <div class="table-container aspects">
 <div class="table-wrapper-aspects">
 <h3>Aspects planétaires :</h3>
+
+
+<!-- TABLE -->
 <table>
 <thead>
 <tr>
@@ -743,13 +752,10 @@ right: 5px; /* Espacement minimal pour petits écrans */
 </tr>
 </thead>
 <tbody>
-<!-- Débogage - Affichage des données des aspects -->
-
-
 {% if aspects_text %}
     {% for aspect in aspects_text %}
     <tr>
-        <td>{{ aspect }}</td>
+        <td>{{ aspect|safe }}</td>
     </tr>
     {% endfor %}
 {% else %}
@@ -759,6 +765,8 @@ right: 5px; /* Espacement minimal pour petits écrans */
 {% endif %}
 </tbody>
 </table>
+<!-- TABLE -->
+
 
 </div>
 </div>
