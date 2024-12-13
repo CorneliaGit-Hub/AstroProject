@@ -8,14 +8,6 @@ from urllib.parse import urlencode
 import json
 import uuid
 
-from .forms import CustomUserCreationForm
-
-from .forms import BirthDataForm
-
-from django import forms
-from django.contrib.auth.forms import UserCreationForm
-from .models import CustomUser
-
 # Imports tiers
 import pytz
 import swisseph as swe
@@ -36,9 +28,22 @@ from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from django.utils.timezone import now
 from django.db.models import F  # Import pour la gestion dynamique des champs
+from django import forms
+from django.contrib.auth.forms import UserCreationForm
+from django.views.decorators.csrf import csrf_exempt
+from django.contrib import messages
+from django.core.mail import send_mail
+from django.core.signing import BadSignature, Signer
+signer = Signer()
 
 # Imports internes
 from .models import ThemeAstrologique
+from .models import CustomUser
+
+from .forms import CustomUserCreationForm
+from .forms import CustomUserCreationForm
+from .forms import BirthDataForm
+
 
 from astroapp.utils.geolocation_utils import get_birth_location_data
 from astroapp.utils.geolocation_utils import geolocate_city
@@ -146,15 +151,7 @@ def enregistrer_naissance(request):
 
 
 
-from .forms import CustomUserCreationForm
-from django.contrib import messages
 
-from django.core.mail import send_mail
-
-from django.core.signing import BadSignature, Signer
-signer = Signer()
-
-from django.views.decorators.csrf import csrf_exempt
 
 
 # CONNEXION

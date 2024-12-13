@@ -114,6 +114,9 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
+# Chemin des fichiers des éphémérides
+EPHEMERIS_PATH = os.path.join(BASE_DIR, 'env', 'ephe', 'ephe')
+
 # Dossier temporaire pour stocker les images astrologiques
 TEMP_IMAGE_DIR = os.path.join(BASE_DIR, 'astroapp', 'static', 'images', 'temps')
 
