@@ -124,10 +124,13 @@ def format_single_aspect(aspect_name, planet1, pos1, planet2, pos2, ecart):
     planet2_color = planet_colors.get(planet2, 'black')
 
     # Construction du texte avec style
-    return f"<span class='sign-symbol' style='color: {aspect_color};'>{aspect_symbol}</span> <strong>{aspect_name} :</strong> " \
-           f"<span class='planet-symbol' style='color: {planet1_color};'>{planet1_symbol}</span> <strong>{planet1}</strong> ({pos1:.2f}°) et " \
-           f"<span class='planet-symbol' style='color: {planet2_color};'>{planet2_symbol}</span> <strong>{planet2}</strong> ({pos2:.2f}°), " \
-           f"avec un <strong>écart</strong> de <strong>{ecart:.2f}°</strong>."
+    return (
+        f"<span id='aspect-symbol-{aspect_name}' class='aspect-symbol' style='color: {aspect_color};'>{aspect_symbol}</span> <strong>{aspect_name} :</strong> "
+        f"<span class='planet-symbol-aspects' style='color: {planet1_color};'>{planet1_symbol}</span> <strong>{planet1}</strong> ({pos1:.2f}°) et "
+        f"<span class='planet-symbol-aspects' style='color: {planet2_color};'>{planet2_symbol}</span> <strong>{planet2}</strong> ({pos2:.2f}°), "
+        f"avec un <strong>écart</strong> de <strong>{ecart:.2f}°</strong>."
+    )
+
 
 
 
