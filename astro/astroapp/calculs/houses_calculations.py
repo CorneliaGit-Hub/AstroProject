@@ -8,13 +8,15 @@ import swisseph as swe
 def format_house_cusp(cusp):
     """Formate les données de la cuspide d'une maison en fonction de son degré."""
     sign, sign_degree = get_zodiac_sign(cusp)
-    degrees, minutes, seconds = convert_to_dms(cusp)
-    return {
-        'degree': cusp,
+    cusp_data = {
+        'degree': cusp,  # Degré brut en décimal
         'sign': sign,
-        'sign_degree': sign_degree,
-        'degree_dms': f"{degrees}°{minutes}'{seconds}''"
+        'sign_degree': sign_degree,  # Degré dans le signe
     }
+    print("Débogage - cusp_data:", cusp_data)  # Ajoutez ceci
+    return cusp_data
+
+
     
     
     

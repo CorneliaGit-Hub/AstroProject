@@ -647,9 +647,9 @@ right: 5px; /* Espacement minimal pour petits écrans */
 <thead>
 <tr>
 <th class="col-planete">Planètes</th>
-<th class="col-degre-signe">Degré</th>
-<th class="col-signe">Signe</th>
-<th class="col-degre-dms">Degré d'arc</th>
+<th class="col-degre-signe">Degrés</th>
+<th class="col-signe">Signes</th>
+<th class="col-degre-dms">Degrés d'arc</th>
 </tr>
 </thead>
 
@@ -696,9 +696,9 @@ right: 5px; /* Espacement minimal pour petits écrans */
 <thead>
 <tr>
     <th class="col-maison">Maison</th>
-    <th class="col-degre-signe-2">Degré</th>
-    <th class="col-signe-2">Signe</th>
-    <th class="col-degre-dms-2">Degré d'arc</th>
+    <th class="col-degre-signe-2">Degrés</th>
+    <th class="col-signe-2">Signes</th>
+    <th class="col-degre-dms-2">Degrés d'arc</th>
 </tr>
 </thead>
 <tbody>
@@ -714,7 +714,9 @@ right: 5px; /* Espacement minimal pour petits écrans */
         <span class="sign-symbol" style="color: {{ info.sign_color|default:'#000000' }};">{{ info.sign_symbol }}</span>
         <strong>{{ info.sign }}</strong></td>
     
-    <td>{{ info.degree_dms }}</td>
+	<td>{{ info.degree|floatformat:2 }}°</td>
+
+
 </tr>
 {% endfor %}
 {% else %}
@@ -748,7 +750,7 @@ right: 5px; /* Espacement minimal pour petits écrans */
 <table>
 <thead>
 <tr>
-    <th>Aspect</th>
+    <th>Aspects</th>
 </tr>
 </thead>
 <tbody>
