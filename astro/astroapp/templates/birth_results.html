@@ -202,54 +202,103 @@ transform: translateY(-10px);
 margin-bottom: 20px; /* Espacement entre chaque table */
 }
 
+/* PLANETES */
 .table-wrapper-planetes {
-width: 100%;
-margin: 0 auto;
+  width: 100%;
+  margin: 0 auto;
+  font-size: 12px; /* Taille de police maximale pour les petits écrans */
 }
 
-@media (min-width: 1024px) {
-.table-wrapper-planetes {
-width: 35%;
-}
-}
-
-@media (min-width: 900px) {
-.table-wrapper-maisons {
-width: 40%; /* Largeur moyenne pour les écrans de taille intermédiaire */
-}
+@media (min-width: 480px) {
+  .table-wrapper-planetes {
+    width: 100%; /* Largeur moyenne pour les écrans de taille intermédiaire */
+    font-size: 10px; /* Taille de police légèrement réduite pour les écrans moyens */
+  }
 }
 
+/* 4 */
 @media (min-width: 768px) {
-.table-wrapper-planetes {
-width: 45%; /* Largeur moyenne pour les écrans de taille intermédiaire */
+  .table-wrapper-planetes {
+    width: 85%; /* Largeur réduite pour les grands écrans */
+    font-size: 12px; /* Taille de police plus petite pour les grands écrans */
+  }
 }
+
+/* 7 */
+@media (min-width: 900px) {
+  .table-wrapper-planetes {
+    width: 70%;
+    font-size: 13px; /* Taille de police encore plus petite pour les très grands écrans */
+  }
 }
+/* 7 */
+@media (min-width: 1024px) {
+  .table-wrapper-planetes {
+    width: 55%;
+    font-size: 14px; /* Taille de police encore plus petite pour les très grands écrans */
+  }
+}
+
+
+@media (min-width: 1285px) {
+  .table-wrapper-planetes {
+    width: 40%;
+    font-size: 14px; /* Taille de police encore plus petite pour les très grands écrans */
+  }
+}
+/* / PLANETES */
+
+
+
+
+
+
 
 /* MAISONS */
 .table-wrapper-maisons {
-width: 100%; /* Largeur pour les petits écrans */
-margin: 0 auto;
+  width: 100%;
+  margin: 0 auto;
+  font-size: 12px; /* Taille de police maximale pour les petits écrans */
 }
 
-
-@media (min-width: 1024px) {
-.table-wrapper-maisons {
-width: 40%;
-}
-}
-
-@media (min-width: 900px) {
-.table-wrapper-maisons {
-width: 45%; /* Largeur moyenne pour les écrans de taille intermédiaire */
-}
+@media (min-width: 480px) {
+  .table-wrapper-maisons {
+    width: 100%; /* Largeur moyenne pour les écrans de taille intermédiaire */
+    font-size: 10px; /* Taille de police légèrement réduite pour les écrans moyens */
+  }
 }
 
+/* 4 */
 @media (min-width: 768px) {
-.table-wrapper-maisons {
-width: 50%; /* Largeur moyenne pour les écrans de taille intermédiaire */
-}
+  .table-wrapper-maisons {
+    width: 85%; /* Largeur réduite pour les grands écrans */
+    font-size: 12px; /* Taille de police plus petite pour les grands écrans */
+  }
 }
 
+/* 7 */
+@media (min-width: 900px) {
+  .table-wrapper-maisons {
+    width: 70%;
+    font-size: 13px; /* Taille de police encore plus petite pour les très grands écrans */
+  }
+}
+/* 7 */
+@media (min-width: 1024px) {
+  .table-wrapper-maisons {
+    width: 55%;
+    font-size: 14px; /* Taille de police encore plus petite pour les très grands écrans */
+  }
+}
+
+
+@media (min-width: 1285px) {
+  .table-wrapper-maisons {
+    width: 40%;
+    font-size: 14px; /* Taille de police encore plus petite pour les très grands écrans */
+  }
+}
+/* / MAISONS */
 
 
 
@@ -259,28 +308,71 @@ width: 50%; /* Largeur moyenne pour les écrans de taille intermédiaire */
 
 /* ASPECTS */
 .table-wrapper-aspects {
-width: 100%; /* Largeur pour les petits écrans */
-margin: 0 auto;
+  width: 100%;
+  margin: 0 auto;
+  font-size: 12px; /* Taille de police maximale pour les petits écrans */
 }
 
+@media (min-width: 480px) {
+  .table-wrapper-aspects {
+    width: 100%; /* Largeur moyenne pour les écrans de taille intermédiaire */
+    font-size: 8px; /* Taille de police légèrement réduite pour les écrans moyens */
+  }
+}
+
+/* 4 */
+@media (min-width: 710px) {
+  .table-wrapper-aspects {
+    width: 100%; /* Largeur réduite pour les grands écrans */
+    font-size: 9px; /* Taille de police plus petite pour les grands écrans */
+  }
+}
+
+/* 4 */
+@media (min-width: 768px) {
+  .table-wrapper-aspects {
+    width: 90%; /* Largeur réduite pour les grands écrans */
+    font-size: 10px; /* Taille de police plus petite pour les grands écrans */
+  }
+}
+
+/* 7 */
+@media (min-width: 900px) {
+  .table-wrapper-aspects {
+    width: 80%;
+    font-size: 11px; /* Taille de police encore plus petite pour les très grands écrans */
+  }
+}
+/* 7 */
 @media (min-width: 1024px) {
-.table-wrapper-aspects {
-width: 50%; /* Taille pour les grands écrans */
-}
-}
-
-@media (min-width: 950px) {
-.table-wrapper-aspects {
-width: 65%; /* Taille pour les écrans moyens */
-}
+  .table-wrapper-aspects {
+    width: 70%;
+    font-size: 12px; /* Taille de police encore plus petite pour les très grands écrans */
+  }
 }
 
-@media (min-width: 576px) {
-.table-wrapper-aspects {
-width: 70%; /* Taille pour les écrans petits-moyens */
-}
+
+@media (min-width: 1285px) {
+  .table-wrapper-aspects {
+    width: 60%;
+    font-size: 13px; /* Taille de police encore plus petite pour les très grands écrans */
+  }
 }
 
+@media (min-width: 1400px) {
+  .table-wrapper-aspects {
+    width: 55%;
+    font-size: 14px; /* Taille de police encore plus petite pour les très grands écrans */
+  }
+}
+
+@media (min-width: 1900px) {
+  .table-wrapper-aspects {
+    width: 45%;
+    font-size: 14px; /* Taille de police encore plus petite pour les très grands écrans */
+  }
+}
+/* / ASPECTS */
 
 
 
@@ -326,7 +418,10 @@ margin-bottom: 20px;
 
 th, td {
 border: 1px solid #ddd;
-padding: 12px;
+padding-top: 12px;
+padding-bottom: 12px;
+padding-left: 5px;
+padding-right: 5px;
 text-align: center;
 }
 
