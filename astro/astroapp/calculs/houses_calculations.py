@@ -1,8 +1,11 @@
+
+import swisseph as swe
+
+import astroapp.utils.swiss_ephemeris_setup
+
 from astroapp.utils.zodiac_utils import get_zodiac_sign
 from astroapp.utils.zodiac_utils import get_zodiac_data
 from astroapp.utils.conversions_utils import convert_to_dms
-import swisseph as swe
-
 
 
 def format_house_cusp(cusp):

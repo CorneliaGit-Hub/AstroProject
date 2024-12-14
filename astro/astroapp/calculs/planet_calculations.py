@@ -1,4 +1,7 @@
 import swisseph as swe
+
+import astroapp.utils.swiss_ephemeris_setup
+
 from astroapp.utils.zodiac_utils import get_zodiac_sign
 from astroapp.utils.zodiac_utils import get_zodiac_data  # Pour les données des signes
 from astroapp.utils.planet_utils import get_planet_data  # Pour les données des planètes

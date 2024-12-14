@@ -1,4 +1,7 @@
 import swisseph as swe
+
+import astroapp.utils.swiss_ephemeris_setup
+
 from astroapp.calculs.planet_calculations import calculate_planet_positions
 
 
@@ -8,6 +11,8 @@ def calculate_julian_day(birth_datetime_utc):
     :param birth_datetime_utc: datetime en UTC
     :return: float, jour julien
     """
+    print("Chemin actuel des éphémérides :", swe.get_library_path())
+
     return swe.julday(
         birth_datetime_utc.year,
         birth_datetime_utc.month,
