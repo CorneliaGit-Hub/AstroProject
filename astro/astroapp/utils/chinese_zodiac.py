@@ -4,6 +4,13 @@ import logging
 # Initialisation du logger
 logger = logging.getLogger(__name__)
 
+# Définir le chemin absolu des éphémérides pour WSL
+ephemeris_path = "/mnt/e/CALENDAR/ephemerides/ephe"
+swe.set_ephe_path(ephemeris_path)
+
+# Débogage manuel pour vérifier le chemin
+logger.debug(f"Le chemin des éphémérides a été configuré : {ephemeris_path}")
+
 # Liste des signes chinois
 CHINESE_ZODIAC_SIGNS = [
     "Rat", "Buffle", "Tigre", "Lapin", "Dragon", "Serpent",
@@ -32,6 +39,8 @@ def get_chinese_zodiac(julian_day):
 
         # Étape 3 : Calcul du Nouvel An chinois (zéro degré Verseau)
         try:
+            # **Forcer explicitement le chemin ici**
+            swe.set_ephe_path(ephemeris_path)
             result = swe.solcross_ut(jd_start_of_year, 300.0)  # 300° = 0° Verseau
             if isinstance(result, float):  # Si un float est retourné
                 chinese_new_year_jd = result
@@ -60,6 +69,3 @@ def get_chinese_zodiac(julian_day):
     except Exception as e:
         logger.error(f"Erreur lors du calcul du signe chinois : {e}")
         return "Erreur"
-
-
-

@@ -70,6 +70,8 @@ from astroapp.utils.session_data_utils import extract_birth_data_form
 
 from astroapp.utils.validation_utils import validate_required_fields
 
+from astroapp.utils.chinese_zodiac import get_chinese_zodiac
+
 from astroapp.calculs.aspects_calculations import calculate_angular_difference
 from astroapp.calculs.aspects_calculations import add_aspect_if_present
 from astroapp.calculs.aspects_calculations import calculate_aspects
@@ -375,6 +377,8 @@ def zodiac_wheel(request):
 
 
 
+
+
 # Traite les données de naissance soumises via le formulaire birth_data_form.html, et transmet les résultats astrologiques au template `birth_results.html`.
 def birth_data(request):
     if request.user.is_authenticated:
@@ -385,28 +389,12 @@ def birth_data(request):
     # Affiche toutes les données de session pour vérifier leur présence
     for key, value in request.session.items():
         print(f"{key}: {value}")
-    """
-    Gère la soumission des données de naissance via le formulaire.
 
-    - Récupère et valide les données du formulaire `birth_data_form.html`.
-    - Calcule les positions planétaires, maisons astrologiques, et aspects.
-    - Prépare une roue astrologique visuelle et transmet les données au template `birth_results.html`.
-
-    Paramètres :
-    - request (HttpRequest) : Objet représentant la requête HTTP.
-
-    Retour :
-    - HttpResponse : Renvoie une page HTML contenant les résultats astrologiques
-      ou le formulaire avec un message d'erreur si une étape échoue.
-    """
     if request.method == 'POST':
         print(f"DEBUG - Utilisateur connecté ID (birth_data) : {request.user.id}")
 
         # Extraire les données du formulaire
         name, birthdate, birthtime, country_of_birth, city_of_birth = extract_birth_data_form(request)
-
-        # Debugging : Afficher les données reçues et celles stockées en session
-        print("Date de naissance pour l'input :", request.session.get('birthdate'))
 
         # Stocker les données en session
         stocker_donnees_session(request, {
@@ -456,6 +444,10 @@ def birth_data(request):
         # Calculer le jour julien (JD) et les positions des planètes
         jd, results, planet_positions = calculate_julian_and_positions(birth_datetime_utc)
 
+        # Calculer le signe chinois à partir du jour julien
+        chinese_sign = get_chinese_zodiac(jd)
+        logger.debug(f"Signe chinois calculé : {chinese_sign}")
+
         # Calculer les maisons astrologiques
         house_results = calculate_astrological_houses(jd, latitude, longitude)
 
@@ -477,7 +469,6 @@ def birth_data(request):
         generate_astrological_wheel(planet_positions, house_results, aspects, image_path, request.session)
         print(f"DEBUG - Appel à generate_astrological_wheel avec image_path : {image_path}")
 
-
         # Stocker le chemin de l'image dans la session
         request.session["last_generated_image"] = image_path
         print(f"DEBUG - Image générée enregistrée en session : {image_path}")
@@ -488,12 +479,34 @@ def birth_data(request):
             birth_datetime_local, birth_datetime_utc, location,
             latitude_dms, longitude_dms, theme_data_json
         )
-        
-        # Ajouter l'URL de l'image au contexte
+
+        # Ajouter des éléments au contexte
         context["image_url"] = f"/static/images/temps/{image_name}"
+        context["chinese_sign"] = chinese_sign
 
-
+        # Rendre le template avec le contexte
         return render(request, 'birth_results.html', context)
+
+    # Si la méthode n'est pas POST, afficher le formulaire avec les données initiales
+    initial_data = {
+        'name': request.session.get('name', ''),
+        'birthdate': request.session.get('birthdate', ''),
+        'birthtime': request.session.get('birthtime', ''),
+        'country_of_birth': request.session.get('country_of_birth', ''),
+        'city_of_birth': request.session.get('city_of_birth', ''),
+    }
+
+    form = BirthDataForm(initial=initial_data)
+
+    return render(request, 'birth_data_form.html', {
+        'form': form,
+        'birthdate_debug': initial_data.get('birthdate', '')
+    })
+
+
+
+
+
 
     # Affichage du formulaire pour une requête GET
     # Vérifier si des données existent dans la session
