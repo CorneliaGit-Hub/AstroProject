@@ -1,5 +1,14 @@
 import swisseph as swe
-from chinese_zodiac import get_chinese_zodiac
+import os
+
+from astroapp.utils.chinese_zodiac import get_chinese_zodiac
+
+# Définir le chemin des éphémérides
+ephemeris_path = "/mnt/e/CALENDAR/ephemerides/ephe"  # Chemin pour WSL
+swe.set_ephe_path(ephemeris_path)
+
+
+
 
 # Initialisation de quelques jours juliens pour les tests
 test_cases = [
